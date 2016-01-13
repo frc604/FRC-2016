@@ -23,7 +23,18 @@ public class Vision extends Module
             GRIPtable=NetworkTable.getTable("GRIP/myTestingReport");
             */
             //Alternately, use the Framework's NetworkData
-            add("GRIP", new NetworkData("GRIP.myLinesReport","center",0));
+            add("GRIP_Vert_len", new NetworkData("GRIP.VerticalGoal","length",0));
+            add("GRIP_Vert_ang", new NetworkData("GRIP.VerticalGoal","angle",0));
+            add("GRIP_Vert_x1", new NetworkData("GRIP.VerticalGoal","x1",0));
+            add("GRIP_Vert_x2", new NetworkData("GRIP.VerticalGoal","x2",0));
+            add("GRIP_Vert_y1", new NetworkData("GRIP.VerticalGoal","y1",0));
+            add("GRIP_Vert_y2", new NetworkData("GRIP.VerticalGoal","y2",0));
+            add("GRIP_Horiz_len", new NetworkData("GRIP.HorizontalGoal","length",0));
+            add("GRIP_Horiz_ang", new NetworkData("GRIP.HorizontalGoal","angle",0));
+            add("GRIP_Horiz_x1", new NetworkData("GRIP.HorizontalGoal","x1",0));
+            add("GRIP_Horiz_x2", new NetworkData("GRIP.HorizontalGoal","x2",0));
+            add("GRIP_Horiz_y1", new NetworkData("GRIP.HorizontalGoal","y1",0));
+            add("GRIP_Horiz_y2", new NetworkData("GRIP.HorizontalGoal","y2",0));
         }});
         this.set(new TriggerMap()
         {{

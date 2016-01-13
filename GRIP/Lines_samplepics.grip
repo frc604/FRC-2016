@@ -507,7 +507,7 @@
     <grip:Step name="Publish LinesReport">
       <grip:Input step="8" socket="0"/>
       <grip:Input step="8" socket="1">
-        <value>VerticalLines</value>
+        <value>VerticalGoal</value>
       </grip:Input>
       <grip:Input step="8" socket="2">
         <value>true</value>
