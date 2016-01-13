@@ -6,17 +6,8 @@
 
 1. Clone the repository with 
 ```bash
-    git clone git@github.com:frc604/FRC-2016 --recursive
+    git clone git@github.com:frc604/FRC-2016
 ```
-**Make sure to `git clone` with the `--recursive` option to clone the framework submodule.**
-If you forgot to do this, change into the project directory and run the following commands after `git clone`:
-```bash
-    cd FRC-2016
-    git submodule init
-    git submodule update
-```
-
-This will update the framework submodule.
    
 2. The folder structure will now look something like this:
 
@@ -30,26 +21,7 @@ In Eclipse, create a new workspace inside the first `FRC-2016` folder (the folde
     Project Package|com.\_604robotics.robot2016
     Project Type|Iterative Robot
 
-3. Delete the Robot.java file in the project directory.
- 
-*These steps were labeled optional, but they are not*
-
-4. Change into the submodule directory with
-```bash
-    cd FRC-2016/src/com/_604robotics/robotnik
-```
-It should state that the submodule is in a "detached HEAD" state.
-
-5. Create a local branch to track the remote branch with
-```bash
-    git checkout 2015
-```
-If this doesn't work, use the command below:
-```bash
-    git checkout -b 2015 origin/2015
-```
-
-6. When the submodule is updated, run `git submodule update --remote` to pull in the changes.
+3. Delete the Robot.java file in the project directory. 
 
 ## Troubleshooting
 
@@ -85,8 +57,6 @@ This can happen for one of two reasons. If deploying works with one workspace bu
 
 ## TODO:
 
-- [x] Check if "optional" steps are really optional **They are necessary**
-- [x] See if `git checkout -b 2015 origin/2015` can be replaced with `git checkout 2015` **Probably**
 - [x] Play around with the `pre_build` branch
 - [ ] Continue to update troubleshooting instructions as necessary
 - [x] See if project can be added to existing workspace instead of new one: **Project must be added to new workspace.**
