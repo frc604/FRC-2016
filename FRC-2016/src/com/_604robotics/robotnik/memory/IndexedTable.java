@@ -1,6 +1,7 @@
 package com._604robotics.robotnik.memory;
 
-import edu.wpi.first.wpilibj.networktables2.util.Set;
+import java.util.HashSet;
+import java.util.Set;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
@@ -21,7 +22,7 @@ public class IndexedTable {
     }
     
     /** The keys. */
-    private final Set keys = new Set();
+    private final Set keys = new HashSet();
     
     /** The table. */
     private final ITable table;
