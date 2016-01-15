@@ -3,6 +3,7 @@ package com._604robotics.robot2016.modules;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
+import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.data.sources.NetworkData;
 import com._604robotics.robotnik.module.Module;
@@ -35,27 +36,6 @@ public class Vision extends Module
             add("GRIP_Horiz_x2", new NetworkData("GRIP.HorizontalGoal","x2",0));
             add("GRIP_Horiz_y1", new NetworkData("GRIP.HorizontalGoal","y1",0));
             add("GRIP_Horiz_y2", new NetworkData("GRIP.HorizontalGoal","y2",0));
-        }});
-        this.set(new TriggerMap()
-        {{
-            add("Ready", new Trigger()
-            {
-                public boolean run()
-                {
-                    return ready;
-                }
-            });
-        }});
-        this.set(new ElasticController()
-        {{
-            addDefault("Monitor", new Action()
-            {
-                //Process the NetworkData here
-                public void run(ActionData data)
-                {
-                    
-                }
-            });
         }});
     }
 
