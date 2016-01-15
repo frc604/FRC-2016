@@ -1,8 +1,15 @@
 package com._604robotics.robot2016.modes;
 
 import com._604robotics.robotnik.coordinator.Coordinator;
+import com._604robotics.robotnik.coordinator.connectors.Binding;
+import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
+import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
+import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
+import com._604robotics.robotnik.prefabs.trigger.TriggerOr;
+import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
+import com._604robotics.robotnik.trigger.TriggerAccess;
 
 public class TeleopMode extends Coordinator
 {
@@ -26,8 +33,20 @@ public class TeleopMode extends Coordinator
         driver.rightStick.X.setFactor(factor);
         driver.rightStick.Y.setFactor(factor);
     }
-    protected void apply(ModuleManager modules)
+    protected void apply (ModuleManager modules)
     {
-        
+    	{
+    		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
+            		modules.getModule("Dashboard").getTrigger("Drive Off"),
+            		modules.getModule("Dashboard").getTrigger("Debugging On")})));
+    		
+    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
+            		modules.getModule("Dashboard").getTrigger("Drive On"),
+            		modules.getModule("Dashboard").getTrigger("Debugging On"),
+            		modules.getModule("Dashboard").getTrigger("Tank Drive")})));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left",  driver.leftStick.Y));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
+            
+    	}
     }
 }
