@@ -21,7 +21,7 @@ public class Vision extends Module
         
         this.set(new DataMap()
         {{
-            /*Not sure where to put this*/
+            /*Not sure where to put this
             NetworkTable GRIPtable;
             GRIPtable=NetworkTable.getTable("GRIP/myTestingReport");
             double[] Default=new double[0];

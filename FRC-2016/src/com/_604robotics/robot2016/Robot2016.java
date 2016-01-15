@@ -11,6 +11,8 @@ import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.procedure.ModeMap;
 import com._604robotics.robotnik.module.ModuleMap;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -20,8 +22,14 @@ import com._604robotics.robotnik.module.ModuleMap;
  */
 public class Robot2016 extends Robot
 {
+    NetworkTable GRIPTableV;
+    NetworkTable GRIPTableH;
+    
     public Robot2016()
     {
+        //Initialize GRIP data here??
+        GRIPTableV=NetworkTable.getTable("GRIP/VerticalGoal");
+        GRIPTableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         this.set(new ModeMap()
         {{
             setAutonomousMode(new AutonomousMode());
