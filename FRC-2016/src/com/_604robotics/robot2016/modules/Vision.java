@@ -10,6 +10,8 @@ import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 public class Vision extends Module
 {
     private boolean ready=false;
@@ -19,10 +21,13 @@ public class Vision extends Module
         
         this.set(new DataMap()
         {{
-            /*Not sure where to put this
+            /*Not sure where to put this*/
             NetworkTable GRIPtable;
             GRIPtable=NetworkTable.getTable("GRIP/myTestingReport");
-            */
+            double[] Default=new double[0];
+            //while??
+            //double[] x1_vert=GRIPtable.getNumberArray("x1", Default);
+            //Do stuff*/
             //Alternately, use the Framework's NetworkData
             add("GRIP_Vert_len", new NetworkData("GRIP.VerticalGoal","length",0));
             add("GRIP_Vert_ang", new NetworkData("GRIP.VerticalGoal","angle",0));
