@@ -18,6 +18,8 @@ public class TeleopMode extends Coordinator
     
     public TeleopMode()
     {
+        System.out.println("Initialize XBOX in Teleop");//DEBUGPRINT
+        
         double deadband=0.2;
         double factor=-1D;
         
@@ -36,7 +38,8 @@ public class TeleopMode extends Coordinator
     protected void apply (ModuleManager modules)
     {
     	{
-    		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
+    		System.out.println("Dashboard in Teleop");//DEBUGPRINT
+    	    this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
             		modules.getModule("Dashboard").getTrigger("Drive Off"),
             		modules.getModule("Dashboard").getTrigger("Debugging On")})));
     		

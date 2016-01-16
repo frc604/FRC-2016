@@ -29,6 +29,7 @@ public class Vision extends Module
             //double[] x1_vert=GRIPtable.getNumberArray("x1", Default);
             //Do stuff*/
             //Alternately, use the Framework's NetworkData
+            System.out.println("Vision.java");//DEBUGPRINT
             add("GRIP_Vert_len", new NetworkData("GRIP.VerticalGoal","length",0));
             add("GRIP_Vert_ang", new NetworkData("GRIP.VerticalGoal","angle",0));
             add("GRIP_Vert_x1", new NetworkData("GRIP.VerticalGoal","x1",0));

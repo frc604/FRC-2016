@@ -15,11 +15,12 @@ public class AutonomousMode extends Procedure
 {
     public AutonomousMode()
     {
-    	
+    	System.out.println("Autonomous mode `public AutonomousMode()`");//DEBUGPRINT
     }
     protected void apply(ModuleManager modules)
     {
     	// If 'Auton On' is on, Enable
+        System.out.println("Autonomous mode `apply`");//DEBUGPRINT
     	add("Enable", new Step(new TriggerMeasure(modules.getModule("Dashboard").getTrigger("Auton On")), new Coordinator()));
     	
     	add("Left", new Step(new TriggerMeasure(new TriggerOr(new TriggerAccess[] {

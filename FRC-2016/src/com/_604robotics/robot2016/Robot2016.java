@@ -25,13 +25,16 @@ public class Robot2016 extends Robot
     public Robot2016()
     {
         //Initialize GRIP data here??
+        System.out.println("Initialize GRIP");//DEBUGPRINT
         GRIPTableV=NetworkTable.getTable("GRIP/VerticalGoal");
         GRIPTableH=NetworkTable.getTable("GRIP/HorizontalGoal");
+        System.out.println("Initialize Modes");//DEBUGPRINT
         this.set(new ModeMap()
         {{
             setAutonomousMode(new AutonomousMode());
             setTeleopMode(new TeleopMode());
         }});
+        System.out.println("Initialize Modules");//DEBUGPRINT
         this.set(new ModuleMap()
    		{{
             add("Drive", new Drive());
@@ -40,6 +43,7 @@ public class Robot2016 extends Robot
             add("VisionProcessing", new VisionProcessing());
    			add("Gear", new Gear());
         }});
+        System.out.println("Initialize CoordnatorList");//DEBUGPRINT
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());
             add(new GearSystem());
