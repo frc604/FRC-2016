@@ -17,13 +17,6 @@ import com._604robotics.robotnik.module.ModuleMap;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot2016 extends Robot
 {
     NetworkTable GRIPTableV;
