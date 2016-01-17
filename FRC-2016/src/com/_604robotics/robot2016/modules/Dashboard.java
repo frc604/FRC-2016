@@ -26,6 +26,9 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
             add("Tank Drive", driveMode.addDefault("Tank Drive"));
             add("Servo Drive", driveMode.add("Servo Drive"));
+            add("Forwards", driveMode.add("Forwards"));
+            add("Right", driveMode.add("Right"));
+            add("Left", driveMode.add("Left"));
             
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
             add("Drive On", driveOn.add("Drive On"));
@@ -38,19 +41,6 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
             add("Full Auton", autonMode.add("Full Auton"));
             add("Drive Only", autonMode.add("Drive Only"));
-            
-            final DashboardTriggerChoice forward = new DashboardTriggerChoice("Forward");
-            add("Towards Dawn", forward.add("Towards Dawn"));
-            add("Away To Dusk", forward.add("Away To Dusk"));
-            
-            final DashboardTriggerChoice left = new DashboardTriggerChoice("Left");
-            add("Test Left", left.add("Test Left"));
-            add("Don't Test Left", left.add("Don't Test Left"));
-            
-            final DashboardTriggerChoice right = new DashboardTriggerChoice("Right");
-            add("Test Right", right.add("Test Right"));
-            add("Don't Test Right", right.add("Don't Test Right"));
-            
             
             final DashboardTriggerChoice debuggingOn = new DashboardTriggerChoice("Debugging On");
             add("Debugging Off", debuggingOn.add("Debugging Off"));
