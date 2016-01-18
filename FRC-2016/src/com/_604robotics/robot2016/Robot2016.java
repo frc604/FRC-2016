@@ -1,5 +1,7 @@
 package com._604robotics.robot2016;
 
+import java.io.IOException;
+
 import com._604robotics.robot2016.systems.DashboardSystem;
 import com._604robotics.robot2016.systems.GearSystem;
 import com._604robotics.robot2016.systems.VisionSystem;
@@ -21,10 +23,21 @@ public class Robot2016 extends Robot
 {
     NetworkTable GRIPTableV;
     NetworkTable GRIPTableH;
+    public String filename="";
     
     public Robot2016()
     {
-        //Initialize GRIP data here??
+        //Initialize GRIP Instance
+        /*
+        try
+        {
+            Runtime.getRuntime().exec(new String[]{"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", filename});
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
         System.out.println("Initialize GRIP");//DEBUGPRINT
         GRIPTableV=NetworkTable.getTable("GRIP/VerticalGoal");
         GRIPTableH=NetworkTable.getTable("GRIP/HorizontalGoal");
