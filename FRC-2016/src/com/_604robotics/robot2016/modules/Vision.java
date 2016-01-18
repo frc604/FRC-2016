@@ -6,6 +6,7 @@ import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.data.sources.NetworkData;
+import com._604robotics.robotnik.data.sources.NetworkDataArray;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
@@ -30,6 +31,7 @@ public class Vision extends Module
             //Do stuff*/
             //Alternately, use the Framework's NetworkData
             System.out.println("Vision.java");//DEBUGPRINT
+            /*
             add("GRIP_Vert_len", new NetworkData("GRIP.VerticalGoal","length",0));
             add("GRIP_Vert_ang", new NetworkData("GRIP.VerticalGoal","angle",0));
             add("GRIP_Vert_x1", new NetworkData("GRIP.VerticalGoal","x1",0));
@@ -42,6 +44,13 @@ public class Vision extends Module
             add("GRIP_Horiz_x2", new NetworkData("GRIP.HorizontalGoal","x2",0));
             add("GRIP_Horiz_y1", new NetworkData("GRIP.HorizontalGoal","y1",0));
             add("GRIP_Horiz_y2", new NetworkData("GRIP.HorizontalGoal","y2",0));
+            */
+            NetworkDataArray testing = new NetworkDataArray("test","y2",0,1);
+            int length=testing.getlength();
+            for (int i=0; i<length; i++)
+            {
+                
+            }
         }});
     }
 
