@@ -31,26 +31,24 @@ public class Vision extends Module
             //Do stuff*/
             //Alternately, use the Framework's NetworkData
             System.out.println("Vision.java");//DEBUGPRINT
-            /*
-            add("GRIP_Vert_len", new NetworkData("GRIP.VerticalGoal","length",0));
-            add("GRIP_Vert_ang", new NetworkData("GRIP.VerticalGoal","angle",0));
-            add("GRIP_Vert_x1", new NetworkData("GRIP.VerticalGoal","x1",0));
-            add("GRIP_Vert_x2", new NetworkData("GRIP.VerticalGoal","x2",0));
-            add("GRIP_Vert_y1", new NetworkData("GRIP.VerticalGoal","y1",0));
-            add("GRIP_Vert_y2", new NetworkData("GRIP.VerticalGoal","y2",0));
-            add("GRIP_Horiz_len", new NetworkData("GRIP.HorizontalGoal","length",0));
-            add("GRIP_Horiz_ang", new NetworkData("GRIP.HorizontalGoal","angle",0));
-            add("GRIP_Horiz_x1", new NetworkData("GRIP.HorizontalGoal","x1",0));
-            add("GRIP_Horiz_x2", new NetworkData("GRIP.HorizontalGoal","x2",0));
-            add("GRIP_Horiz_y1", new NetworkData("GRIP.HorizontalGoal","y1",0));
-            add("GRIP_Horiz_y2", new NetworkData("GRIP.HorizontalGoal","y2",0));
-            */
-            NetworkDataArray testing = new NetworkDataArray("test","y2",0,1);
+            add("GRIP_Vert_len", new NetworkDataArray("GRIP.VerticalGoal","length",0D,0));
+            add("GRIP_Vert_ang", new NetworkDataArray("GRIP.VerticalGoal","angle",0D,0));
+            add("GRIP_Vert_x1", new NetworkDataArray("GRIP.VerticalGoal","x1",0D,0));
+            add("GRIP_Vert_x2", new NetworkDataArray("GRIP.VerticalGoal","x2",0D,0));
+            add("GRIP_Vert_y1", new NetworkDataArray("GRIP.VerticalGoal","y1",0D,0));
+            add("GRIP_Vert_y2", new NetworkDataArray("GRIP.VerticalGoal","y2",0D,0));
+            add("GRIP_Horiz_len", new NetworkDataArray("GRIP.HorizontalGoal","length",0D,0));
+            add("GRIP_Horiz_ang", new NetworkDataArray("GRIP.HorizontalGoal","angle",0D,0));
+            add("GRIP_Horiz_x1", new NetworkDataArray("GRIP.HorizontalGoal","x1",0D,0));
+            add("GRIP_Horiz_x2", new NetworkDataArray("GRIP.HorizontalGoal","x2",0D,0));
+            add("GRIP_Horiz_y1", new NetworkDataArray("GRIP.HorizontalGoal","y1",0D,0));
+            add("GRIP_Horiz_y2", new NetworkDataArray("GRIP.HorizontalGoal","y2",0D,0));
+            /*NetworkDataArray testing = new NetworkDataArray("test","y2",0,1);
             int length=testing.getlength();
             for (int i=0; i<length; i++)
             {
                 
-            }
+            }*/
         }});
     }
 
