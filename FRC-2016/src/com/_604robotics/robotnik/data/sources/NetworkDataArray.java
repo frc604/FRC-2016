@@ -72,8 +72,20 @@ public class NetworkDataArray extends Data {
     {
         return this.table.getNumberArray(this.key, new double[0]).length;
     }
+    /**
+     * Returns the entire array
+     * @return double[] array the array
+     */
+    public double[] getwhole()
+    {
+        return this.table.getNumberArray(this.key, new double[0]);
+    }
     /* (non-Javadoc)
      * @see com._604robotics.robotnik.data.Data#run()
+     */
+    /**
+     * Returns an element from the array
+     * @return double element the element
      */
     public double run () {//Make currentArray and currentindex, make currentindex -1 for new array
         double[] returnTryToEliminate=this.table.getNumberArray(this.key, new double[0]);
