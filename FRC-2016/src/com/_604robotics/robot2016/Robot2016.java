@@ -21,17 +21,25 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Robot2016 extends Robot
 {
-    NetworkTable GRIPTableV;
-    NetworkTable GRIPTableH;
+    /*NetworkTable GRIPTableV;
+    NetworkTable GRIPTableH;*/
     public String filename="";
     
     public Robot2016()
     {
         //Initialize GRIP Instance
-        /*
-        try
+        
+        /*try
         {
-            Runtime.getRuntime().exec(new String[]{"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", filename});
+            Process GRIPProcess = Runtime.getRuntime().exec(new String[]{"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", filename});
+            Thread closeGRIP = new Thread()
+            {
+                public void run()
+                {
+                    GRIPProcess.destroy();
+                }
+            };
+            Runtime.getRuntime().addShutdownHook(closeGRIP);
         }
         catch (IOException e)
         {
@@ -39,8 +47,8 @@ public class Robot2016 extends Robot
             e.printStackTrace();
         }*/
         System.out.println("Initialize GRIP");//DEBUGPRINT
-        GRIPTableV=NetworkTable.getTable("GRIP/VerticalGoal");
-        GRIPTableH=NetworkTable.getTable("GRIP/HorizontalGoal");
+        //GRIPTableV=NetworkTable.getTable("GRIP/VerticalGoal");
+        //GRIPTableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         System.out.println("Initialize Modes");//DEBUGPRINT
         this.set(new ModeMap()
         {{

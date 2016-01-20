@@ -53,7 +53,6 @@ public class NetworkDataArray extends Data {
     public int getindex()
     {
         return this.index;
-        //return this.table.getInt(this.key, this.index);
     }
 
     /**
@@ -83,6 +82,15 @@ public class NetworkDataArray extends Data {
     /* (non-Javadoc)
      * @see com._604robotics.robotnik.data.Data#run()
      */
+    /**
+     * Sets the index and retrieves the element at that index
+     * @return double element the element
+     */
+    public double getatindex(int newindex)
+    {
+        this.setindex(newindex);
+        return this.run();
+    }
     /**
      * Returns an element from the array
      * @return double element the element
