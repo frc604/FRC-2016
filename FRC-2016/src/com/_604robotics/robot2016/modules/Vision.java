@@ -51,6 +51,16 @@ public class Vision extends Module
             }*/
             //FIGURE OUT HOW TO ACCESS DATAMAP HERE
         }});
+        this.set(new TriggerMap()
+        {{
+            add("Ready", new Trigger()//Might Rename
+            {
+                public boolean run()
+                {
+                    return ready;
+                };
+            });
+        }});
     }
 
 }
