@@ -61,6 +61,10 @@ public class Vision extends Module
                 };
             });
         }});
+        /*this.set(new ElasticController()
+        {{
+
+        }});*/
     }
 
 }
