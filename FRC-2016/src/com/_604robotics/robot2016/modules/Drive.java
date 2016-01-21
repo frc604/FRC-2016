@@ -159,9 +159,14 @@ public class Drive extends Module {
             	public void begin (ActionData data){
             		encoderLeft.reset();
             		encoderRight.reset();
+            		System.out.println("Begin");//DEBUGPRINT
             	}
                 public void run (ActionData data) {
                     drive.tankDrive(0D, 0D);
+                    System.out.println("Run");//DEBUGPRINT
+                }
+                public void end (ActionData data) {
+                    System.out.println("End");//DEBUGPRINT
                 }
             });
             
