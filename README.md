@@ -4,10 +4,7 @@
 
 *These instructions assume that you already have git and Eclipse configured.*
 
-1. Clone the repository with 
-```bash
-    git clone git@github.com:frc604/FRC-2016
-```
+1. Clone the repository with `git clone git@github.com:frc604/FRC-2016`
    
 2. The folder structure will now look something like this:
 
@@ -44,20 +41,17 @@ This can happen for one of two reasons. If deploying works with one workspace bu
 - After cloning the code, the workspace path structure does not show existing paths as packages.
    
    - This will happen if you attempt to add the project to an existing workspace. *Make sure to add the project to a new workspace.*
+   - If you are using Eclipse for C/C++ developers, packages may not show up either. This is simply cosmetic and should not affect development.
    - This could also happen if you create the workspace in the wrong place. Please make sure to create a new workspace in the right place, as specified above. *If you choose the wrong folder to create the workspace in, the resulting project will have the wrong layout.*
 
 ## Important Notes
 
 - **Do not add any code that isn't already public!** All code added before build season (January 9, 2016) must be available publicly. This is to comply with FRC rules.
 
-  - If you want to experiment with the code now, please use the `pre_build` branch to do so.
-  - **Do not merge the pre_build branch into master!** Un-merging is quite hard, and this will create a huge mess.
-
 - Please contact [Ryan](mailto:rlee287@yahoo.com) or [Sang Gi](mailto:squeakadoodle6084@gmail.com) for any other questions.
 
 ## TODO:
 
-- [x] Play around with the `pre_build` branch
 - [ ] Continue to update troubleshooting instructions as necessary
 - [x] See if project can be added to existing workspace instead of new one: **Project must be added to new workspace.**
 - [ ] Possibly add instructions as to cloning first and importing the code in another workspace?
