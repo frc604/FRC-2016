@@ -25,10 +25,8 @@ public class Dashboard extends Module {
         this.set(new TriggerMap() {{
             final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
             add("Tank Drive", driveMode.addDefault("Tank Drive"));
+            add("Nicole Drive", driveMode.add("Nicole Drive"));
             add("Servo Drive", driveMode.add("Servo Drive"));
-            add("Forwards", driveMode.add("Forwards"));
-            add("Right", driveMode.add("Right"));
-            add("Left", driveMode.add("Left"));
             
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
             add("Drive On", driveOn.add("Drive On"));
@@ -39,8 +37,8 @@ public class Dashboard extends Module {
             add("Auton Off", autonOn.add("Auton Off"));
             
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
-            add("Full Auton", autonMode.add("Full Auton"));
-            add("Drive Only", autonMode.add("Drive Only"));
+            add("Forward", driveMode.add("Forward"));
+            add("Backward", driveMode.add("Backward"));
             
             final DashboardTriggerChoice debuggingOn = new DashboardTriggerChoice("Debugging On");
             add("Debugging Off", debuggingOn.add("Debugging Off"));
@@ -53,6 +51,7 @@ public class Dashboard extends Module {
         		add("Left Drive Servo", new DashboardData("Left Drive Servo", -120D));
         		add("Right Drive Servo", new DashboardData("Right Drive Servo", -120D));
         		add("Drive Servo Power Cap", new DashboardData("Drive Servo Power Cap", 0.5D));
+        		add("Auton Mode", new DashboardData("Auton Mode", 0D));
         	}
     	}});
     }

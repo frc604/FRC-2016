@@ -165,12 +165,25 @@ public class Drive extends Module {
                 }
             });
             
+            add("Nicole Drive", new Action(new FieldMap () {{
+                define("throttle", 0D);
+                define("turn", 0D);
+            }}) {
+                public void run (ActionData data) {
+                    drive.arcadeDrive(data.get("throttle")*0.5, data.get("turn"));
+                }
+                
+                public void end (ActionData data) {
+                    drive.stopMotor();
+                }
+            });
+            
             add("Tank Drive", new Action(new FieldMap () {{
                 define("left", 0D);
                 define("right", 0D);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("left"), data.get("right"));
+                    drive.tankDrive(data.get("left")*0.5, data.get("right")*0.5);
                 }
                 
                 public void end (ActionData data) {
