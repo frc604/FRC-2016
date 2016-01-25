@@ -1,7 +1,6 @@
 package com._604robotics.robotnik.action;
 
 import com._604robotics.robotnik.action.field.FieldMap;
-import com._604robotics.robotnik.module.ModuleReference;
 
 // TODO: Auto-generated Javadoc
 /**

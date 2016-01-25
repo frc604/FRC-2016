@@ -9,7 +9,7 @@ import com._604robotics.robot2016.modules.Dashboard;
 import com._604robotics.robot2016.modules.Gear;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
-import com._604robotics.robotnik.procedure.ModeMap;
+import com._604robotics.robotnik.coordinator.ModeMap;
 import com._604robotics.robotnik.module.ModuleMap;
 
 public class Robot2016 extends Robot
