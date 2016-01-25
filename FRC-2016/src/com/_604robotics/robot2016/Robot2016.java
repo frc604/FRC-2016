@@ -17,21 +17,15 @@ import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.procedure.ModeMap;
 import com._604robotics.robotnik.module.ModuleMap;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
 public class Robot2016 extends Robot
 {
-    /*NetworkTable GRIPTableV;
-    NetworkTable GRIPTableH;*/
-    public String filename="";
     
     public Robot2016()
     {
         //Initialize GRIP Instance
-        
-        /*try
+        try
         {
-            Process GRIPProcess = Runtime.getRuntime().exec(new String[]{"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", filename});
+            Process GRIPProcess = Runtime.getRuntime().exec(new String[]{"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", "project.grip"});
             Thread closeGRIP = new Thread()
             {
                 public void run()
@@ -45,10 +39,8 @@ public class Robot2016 extends Robot
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
+        }
         System.out.println("Initialize GRIP");//DEBUGPRINT
-        //GRIPTableV=NetworkTable.getTable("GRIP/VerticalGoal");
-        //GRIPTableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         System.out.println("Initialize Modes");//DEBUGPRINT
         this.set(new ModeMap()
         {{
