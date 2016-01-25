@@ -48,7 +48,7 @@ public class NetworkDataArray extends Data {
     
     /**
      * Gets the current index.
-     * Returns a double for compatibility for other methodds
+     * Returns a double for compatibility for other methods
      * @return double index the index
      */
     public double getindex()
