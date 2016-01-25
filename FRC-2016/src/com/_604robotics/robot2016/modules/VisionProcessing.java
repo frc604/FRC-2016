@@ -15,7 +15,7 @@ public class VisionProcessing extends Module
     {
         this.set(new ElasticController()
         {{
-            addDefault("RunVL", new Action(new FieldMap()
+            addDefault("RunVision", new Action(new FieldMap()
             {{
                 define("Left_ang", 0D);
                 define("Left_x1", 0D);

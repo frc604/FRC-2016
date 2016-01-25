@@ -8,7 +8,7 @@ public class VisionSystem extends Coordinator
 {
     protected void apply(ModuleManager modules)
     {
-        this.fill(new DataWire(modules.getModule("VisionProcessing").getAction("RunVL"),"Left_ang",
+        this.fill(new DataWire(modules.getModule("VisionProcessing").getAction("RunVision"),"Left_ang",
                 modules.getModule("Vision").getData("GRIP_Vert_len")));
     }
 }
