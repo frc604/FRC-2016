@@ -111,7 +111,15 @@ public class NetworkDataArray extends Data {
      * @return double element the element
      */
     public double run () {//Make currentArray and currentindex, make currentindex -1 for new array
-        double[] returnTryToEliminate=this.table.getNumberArray(this.key, new double[0]);
-        return returnTryToEliminate[this.index];
+        double[] returnArray=this.table.getNumberArray(this.key, new double[0]);
+        if (this.index>=returnArray.length)
+        {
+            System.out.println("Attempting to access nonexistent element");
+            return defaultValue;
+        }
+        else
+        {
+            return returnArray[this.index];
+        }
     }
 }
