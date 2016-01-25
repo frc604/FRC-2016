@@ -1,11 +1,9 @@
 package com._604robotics.robotnik;
 
+import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.logging.Logger;
-import com._604robotics.robotnik.procedure.Procedure;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -28,7 +26,7 @@ public class RobotProxy {
      * @param modules the modules
      * @param coordinators the coordinators
      */
-    public static void tick (Procedure mode, ModuleManager modules, CoordinatorList coordinators) {
+    public static void tick (Coordinator mode, ModuleManager modules, CoordinatorList coordinators) {
         if (active) {
             try {
                 process(mode, modules, coordinators);
@@ -47,7 +45,7 @@ public class RobotProxy {
      * @param modules the modules
      * @param coordinators the coordinators
      */
-    private static void process (Procedure mode, ModuleManager modules, CoordinatorList coordinators) {
+    private static void process (Coordinator mode, ModuleManager modules, CoordinatorList coordinators) {
         modules.update();
 
         coordinators.update();
@@ -88,7 +86,7 @@ public class RobotProxy {
      * @param mode the mode
      * @param modules the modules
      */
-    public static void end (Procedure mode, ModuleManager modules) {
+    public static void end (Coordinator mode, ModuleManager modules) {
         if (active) {
             try {
                 modules.end();

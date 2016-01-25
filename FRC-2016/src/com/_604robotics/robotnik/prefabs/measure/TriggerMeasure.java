@@ -1,6 +1,6 @@
 package com._604robotics.robotnik.prefabs.measure;
 
-import com._604robotics.robotnik.procedure.Measure;
+import com._604robotics.robotnik.coordinator.steps.Measure;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 
 // TODO: Auto-generated Javadoc

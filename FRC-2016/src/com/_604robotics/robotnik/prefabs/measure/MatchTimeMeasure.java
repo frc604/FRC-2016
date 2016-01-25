@@ -1,6 +1,7 @@
 package com._604robotics.robotnik.prefabs.measure;
 
-import com._604robotics.robotnik.procedure.Measure;
+import com._604robotics.robotnik.coordinator.steps.Measure;
+
 import edu.wpi.first.wpilibj.DriverStation;
 
 // TODO: Auto-generated Javadoc
