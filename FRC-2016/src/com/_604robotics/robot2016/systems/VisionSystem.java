@@ -10,5 +10,7 @@ public class VisionSystem extends Coordinator
     {
         this.fill(new DataWire(modules.getModule("VisionProcessing").getAction("RunVision"),"Left_ang",
                 modules.getModule("Vision").getData("GRIP_Vert_len")));
+        this.fill(new DataWire(modules.getModule("VisionProcessing").getAction("RunVision"),"Left_ang_index",
+                modules.getModule("Vision").getData("GRIP_Vert_len")));
     }
 }

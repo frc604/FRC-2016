@@ -48,11 +48,12 @@ public class NetworkDataArray extends Data {
     
     /**
      * Gets the current index.
-     * @return int index the index
+     * Returns a double for compatibility for other methodds
+     * @return double index the index
      */
-    public int getindex()
+    public double getindex()
     {
-        return this.index;
+        return (double)this.index;
     }
 
     /**
@@ -62,6 +63,20 @@ public class NetworkDataArray extends Data {
     public void setindex(int newindex)
     {
         this.index=newindex;
+    }
+    /**
+     * Sets a new index.
+     * When a double is specified, rounds down
+     * @param newindex the new index
+     */
+    public void setindex(double newindex)
+    {
+        int testindex=(int) newindex;
+        if (newindex!=testindex)
+        {
+            System.out.println("Specified newindex, "+newindex+", is not an integer");
+        }
+        this.index=testindex;
     }
     /**
      * Returns the length of the array

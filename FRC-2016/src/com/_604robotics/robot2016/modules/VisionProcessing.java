@@ -18,6 +18,7 @@ public class VisionProcessing extends Module
             addDefault("RunVision", new Action(new FieldMap()
             {{
                 define("Left_ang", 0D);
+                define("Left_ang_index", 0D);
                 define("Left_x1", 0D);
                 define("Left_x2", 0D);
             }})
