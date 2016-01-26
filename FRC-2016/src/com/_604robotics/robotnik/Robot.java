@@ -1,13 +1,13 @@
 package com._604robotics.robotnik;
 
+import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
-import com._604robotics.robotnik.procedure.ModeMap;
+import com._604robotics.robotnik.coordinator.ModeMap;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.module.ModuleMap;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.logging.TimeSampler;
-import com._604robotics.robotnik.procedure.Procedure;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
@@ -112,7 +112,7 @@ public class Robot extends SampleRobot {
         this.loopTime.start();
         RobotProxy.start(moduleManager);
         
-        final Procedure mode = this.modeMap.getAutonomousMode();
+        final Coordinator mode = this.modeMap.getAutonomousMode();
         while (this.isEnabled() && this.isAutonomous()) {
             RobotProxy.tick(mode, moduleManager, coordinatorList);
             this.loopTime.sample();
@@ -132,7 +132,7 @@ public class Robot extends SampleRobot {
         this.loopTime.start();
         RobotProxy.start(moduleManager);
         
-        final Procedure mode = this.modeMap.getTeleopMode();
+        final Coordinator mode = this.modeMap.getTeleopMode();
         while (this.isEnabled() && this.isOperatorControl()) {
         	System.out.println("teleop tick");
             RobotProxy.tick(mode, moduleManager, coordinatorList);

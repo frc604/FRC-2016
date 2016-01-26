@@ -1,7 +1,7 @@
 package com._604robotics.robotnik.prefabs.measure;
 
+import com._604robotics.robotnik.coordinator.steps.Measure;
 import com._604robotics.robotnik.data.DataAccess;
-import com._604robotics.robotnik.procedure.Measure;
 
 // TODO: Auto-generated Javadoc
 /**
