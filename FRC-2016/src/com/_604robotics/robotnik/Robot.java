@@ -113,7 +113,14 @@ public class Robot extends SampleRobot {
         RobotProxy.start(moduleManager);
         
         final Procedure mode = this.modeMap.getAutonomousMode();
+        int count=0;
+        
         while (this.isEnabled() && this.isAutonomous()) {
+            if (count%10==0)
+            {
+                System.out.println("auton tick #"+count);
+            }
+            count++;
             RobotProxy.tick(mode, moduleManager, coordinatorList);
             this.loopTime.sample();
         }
@@ -133,8 +140,14 @@ public class Robot extends SampleRobot {
         RobotProxy.start(moduleManager);
         
         final Procedure mode = this.modeMap.getTeleopMode();
+        int count=0;
+        
         while (this.isEnabled() && this.isOperatorControl()) {
-        	System.out.println("teleop tick");
+            if (count%10==0)
+            {
+                System.out.println("teleop tick #"+count);
+            }
+            count++;
             RobotProxy.tick(mode, moduleManager, coordinatorList);
             this.loopTime.sample();
         }
