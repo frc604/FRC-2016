@@ -44,6 +44,9 @@ public class Robot extends SampleRobot {
     /** The mode map. */
     private ModeMap modeMap = new ModeMap();
     
+    /**The number of ticks before a message is printed. */
+    private int tickPeriod=50;
+    
     /**
      * Instantiates a new robot.
      */
@@ -116,7 +119,7 @@ public class Robot extends SampleRobot {
         int count=0;
         
         while (this.isEnabled() && this.isAutonomous()) {
-            if (count%10==0)
+            if (count%tickPeriod==0)
             {
                 System.out.println("auton tick #"+count);
             }
@@ -143,7 +146,7 @@ public class Robot extends SampleRobot {
         int count=0;
         
         while (this.isEnabled() && this.isOperatorControl()) {
-            if (count%10==0)
+            if (count%tickPeriod==0)
             {
                 System.out.println("teleop tick #"+count);
             }
