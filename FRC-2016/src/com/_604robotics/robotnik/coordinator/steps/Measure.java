@@ -1,4 +1,4 @@
-package com._604robotics.robotnik.procedure;
+package com._604robotics.robotnik.coordinator.steps;
 
 // TODO: Auto-generated Javadoc
 /**
