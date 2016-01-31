@@ -4,14 +4,16 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class BoolLIFOPopQueue
+public class BoolFIFOPopQueue
 {
     private Vector content;
+    public final int maxsize;
     public final double fraction;
 
-    public BoolLIFOPopQueue(int size, double fraction)
+    public BoolFIFOPopQueue(int maxsize, double fraction)
     {
-        this.content=new Vector(size);
+        this.content=new Vector(maxsize);
+        this.maxsize=maxsize;
         this.fraction=fraction;
     }
     public int size()
@@ -52,9 +54,9 @@ public class BoolLIFOPopQueue
     {
         // TODO Auto-generated method stub
         boolean[] elarray={element};
-        if (this.size()<=size())
+        if (this.size()<=this.maxsize)
         {
-            this.content.add(0, element);
+            this.content.add(0,element);
         }
         else
         {
