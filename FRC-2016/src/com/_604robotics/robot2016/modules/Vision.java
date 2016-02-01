@@ -54,7 +54,7 @@ public class Vision extends Module
                     //for now, strict array size requirements
                     if (GRIPV_x1.length!=4 || GRIPV_x2.length!=4)
                     {
-                        ready=false;
+                        readystack.add(false);
                     }
                     else
                     {
@@ -68,6 +68,7 @@ public class Vision extends Module
                         }
                         
                     }
+                    ready=readystack.passThreshold();
                 };
                 public void end(ActionData data)
                 {
