@@ -49,8 +49,26 @@ public class Vision extends Module
                 {
                     double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
-                    double[] Vx1Diff=new double[GRIPV_x1.length-1];
-                    double[] Vx2Diff=new double[GRIPV_x2.length-1];
+                    int size1 = 0;
+                    int size2 = 0;
+                    if( GRIPV_x1.length == 0 )
+                    {
+                        size1 = 0;
+                    }
+                    else
+                    {
+                        size1 = GRIPV_x1.length - 1;
+                    }
+                    if( GRIPV_x2.length == 0 )
+                    {
+                        size2 = 0;
+                    }
+                    else
+                    {
+                        size2 = GRIPV_x2.length - 1;
+                    }
+                    double[] Vx1Diff=new double[size1];
+                    double[] Vx2Diff=new double[size2];
                     //for now, strict array size requirements
                     if (GRIPV_x1.length!=4 || GRIPV_x2.length!=4)
                     {
