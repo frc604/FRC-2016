@@ -38,14 +38,11 @@ public class Robot2016 extends Robot
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println("Initialize GRIP");//DEBUGPRINT
-        System.out.println("Initialize Modes");//DEBUGPRINT
         this.set(new ModeMap()
         {{
             setAutonomousMode(new AutonomousMode());
             setTeleopMode(new TeleopMode());
         }});
-        System.out.println("Initialize Modules");//DEBUGPRINT
         this.set(new ModuleMap()
    		{{
             add("Drive", new Drive());
@@ -53,7 +50,6 @@ public class Robot2016 extends Robot
             add("Vision", new Vision());
    			add("Gear", new Gear());
         }});
-        System.out.println("Initialize CoordnatorList");//DEBUGPRINT
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());
             add(new GearSystem());

@@ -16,12 +16,11 @@ public class AutonomousMode extends Coordinator
 {
     public AutonomousMode()
     {
-    	System.out.println("Autonomous mode `public AutonomousMode()`");//DEBUGPRINT
+    	
     }
     protected void apply(ModuleManager modules)
     {
     	// If 'Auton On' is on, Enable
-        System.out.println("Autonomous mode `apply`");//DEBUGPRINT
     	{
         this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive"), new TriggerAnd(new TriggerAccess[] {
         		modules.getModule("Dashboard").getTrigger("Auton On"),
@@ -40,7 +39,48 @@ public class AutonomousMode extends Coordinator
         this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", -300));
         this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", 300));
     	}
+/*
+    	add("Enable", new Step(new TriggerMeasure(modules.getModule("Dashboard").getTrigger("Auton On")), new Coordinator()));
     	
+    	add("Left", new Step(new TriggerMeasure(new TriggerOr(new TriggerAccess[] {
+    			modules.getModule("Dashboard").getTrigger("Test Left"),
+    				new TriggerAnd(new TriggerAccess[] {
+    						modules.getModule("Drive").getTrigger("At Left Servo Target"),
+    						modules.getModule("Drive").getTrigger("At Right Servo Target")})
+    	})), new Coordinator() {
+    		protected void apply (ModuleManager modules) {
+    			this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
+    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", -120));
+    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", 0));
+    		}
+    	}));
+    	
+    	add("Forward", new Step(new TriggerMeasure(new TriggerOr(new TriggerAccess[] {
+    			modules.getModule("Dashboard").getTrigger("Towards Dawn"),
+    				new TriggerAnd(new TriggerAccess[] {
+    						modules.getModule("Drive").getTrigger("At Left Servo Target"),
+    						modules.getModule("Drive").getTrigger("At Right Servo Target")})
+    	})), new Coordinator() {
+    		protected void apply (ModuleManager modules) {
+    			this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
+    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", 120));
+    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", 120));
+    		}
+    	}));
+    	
+    	add("Right", new Step(new TriggerMeasure(new TriggerOr(new TriggerAccess[] {
+    			modules.getModule("Dashboard").getTrigger("Test Right"),
+    				new TriggerAnd(new TriggerAccess[] {
+    						modules.getModule("Drive").getTrigger("At Left Servo Target"),
+    						modules.getModule("Drive").getTrigger("At Right Servo Target")})
+    	})), new Coordinator() {
+    		protected void apply (ModuleManager modules) {
+    			this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
+    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", 0));
+    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", 120));
+    		}
+    	}));
+    	*/
     	/*
     	add("Forward", new Step(new TriggerMeasure(new TriggerOr(new TriggerAccess[] {
     			modules.getModule("Dashboard").getTrigger("Drive Only"),
