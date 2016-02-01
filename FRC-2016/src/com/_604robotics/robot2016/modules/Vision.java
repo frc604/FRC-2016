@@ -10,6 +10,7 @@ import com._604robotics.robotnik.data.sources.NetworkDataArray;*/
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
+import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
@@ -37,6 +38,7 @@ public class Vision extends Module
         }});
         this.set(new ElasticController()
         {{
+            BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
             addDefault("VisionProcess", new Action()
             {
                 public void begin(ActionData data)
@@ -45,11 +47,31 @@ public class Vision extends Module
                 }
                 public void run(ActionData data)
                 {
-                    
+                    double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
+                    double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
+                    double[] Vx1Diff=new double[GRIPV_x1.length-1];
+                    double[] Vx2Diff=new double[GRIPV_x2.length-1];
+                    //for now, strict array size requirements
+                    if (GRIPV_x1.length!=4 || GRIPV_x2.length!=4)
+                    {
+                        ready=false;
+                    }
+                    else
+                    {
+                        for(int i=0; i<Vx1Diff.length; i++)
+                        {
+                            Vx1Diff[i]=GRIPV_x1[i++]-GRIPV_x1[i];
+                        }
+                        for(int i=0; i<Vx2Diff.length; i++)
+                        {
+                            Vx2Diff[i]=GRIPV_x2[i++]-GRIPV_x2[i];
+                        }
+                        
+                    }
                 };
                 public void end(ActionData data)
                 {
-                    
+                    ready=false;
                 };
             });
         }});
