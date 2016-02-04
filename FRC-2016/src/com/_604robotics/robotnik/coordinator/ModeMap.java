@@ -1,6 +1,5 @@
-package com._604robotics.robotnik.procedure;
+package com._604robotics.robotnik.coordinator;
 
-import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
 
 // TODO: Auto-generated Javadoc
@@ -10,10 +9,10 @@ import com._604robotics.robotnik.module.ModuleManager;
 public class ModeMap {
     
     /** The autonomous mode. */
-    private Procedure autonomousMode = new Procedure();
+    private Coordinator autonomousMode = new Coordinator();
     
     /** The teleop mode. */
-    private Procedure teleopMode = new Procedure();
+    private Coordinator teleopMode = new Coordinator();
     
     /**
      * Attach.
@@ -31,15 +30,6 @@ public class ModeMap {
      * @param autonomousMode the new autonomous mode
      */
     protected void setAutonomousMode (Coordinator autonomousMode) {
-        this.setAutonomousMode(new Procedure(autonomousMode));
-    }
-    
-    /**
-     * Sets the autonomous mode.
-     *
-     * @param autonomousMode the new autonomous mode
-     */
-    protected void setAutonomousMode (Procedure autonomousMode) {
         this.autonomousMode = autonomousMode;
     }
     
@@ -49,15 +39,6 @@ public class ModeMap {
      * @param teleopMode the new teleop mode
      */
     protected void setTeleopMode (Coordinator teleopMode) {
-        this.setTeleopMode(new Procedure(teleopMode));
-    }
-    
-    /**
-     * Sets the teleop mode.
-     *
-     * @param teleopMode the new teleop mode
-     */
-    protected void setTeleopMode (Procedure teleopMode) {
         this.teleopMode = teleopMode;
     }
 
@@ -66,7 +47,7 @@ public class ModeMap {
      *
      * @return the autonomous mode
      */
-    public Procedure getAutonomousMode () {
+    public Coordinator getAutonomousMode () {
         return this.autonomousMode;
     }
 
@@ -75,7 +56,7 @@ public class ModeMap {
      *
      * @return the teleop mode
      */
-    public Procedure getTeleopMode () {
+    public Coordinator getTeleopMode () {
         return this.teleopMode;
     }
 }
