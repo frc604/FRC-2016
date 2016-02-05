@@ -52,6 +52,11 @@ public class TeleopMode extends Coordinator
             		modules.getModule("Dashboard").getTrigger("Nicole Drive")})));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "throttle", driver.leftStick.Y));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "turn",     driver.rightStick.X));
+<<<<<<< Updated upstream
+=======
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "accelerate", driver.buttons.A));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "back", driver.buttons.B));
+>>>>>>> Stashed changes
     	}
     }
 }

@@ -32,17 +32,17 @@ public class Dashboard extends Module {
             add("Drive On", driveOn.add("Drive On"));
             add("Drive Off", driveOn.add("Drive Off"));
             
-            final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton On");
-            add("Auton On", autonOn.add("Auton On"));
-            add("Auton Off", autonOn.add("Auton Off"));
-            
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
-            add("Forward", driveMode.add("Forward"));
-            add("Backward", driveMode.add("Backward"));
+            add("Auton Mode A", autonMode.add("Auton Mode A"));
+            add("Auton Mode B", autonMode.add("Auton Mode B"));
             
             final DashboardTriggerChoice debuggingOn = new DashboardTriggerChoice("Debugging On");
             add("Debugging Off", debuggingOn.add("Debugging Off"));
             add("Debugging On", debuggingOn.add("Debugging On"));
+            
+            final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton On");
+            add("Auton Off", autonOn.add("Auton Off"));
+            add("Auton On", autonOn.add("Auton On"));
             
         }});
         this.set(new DataMap() {{

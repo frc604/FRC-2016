@@ -168,9 +168,26 @@ public class Drive extends Module {
             add("Nicole Drive", new Action(new FieldMap () {{
                 define("throttle", 0D);
                 define("turn", 0D);
-            }}) {
-                public void run (ActionData data) {
+//<<<<<<< Updated upstream
+            }})
+                /*public void run (ActionData data) {
                     drive.arcadeDrive(data.get("throttle")*0.5, data.get("turn"));
+=======
+                define("accelerate", false);
+                define("back", false);
+            }*/ {
+                public void run (ActionData data) {
+                	int f = 0;
+                	if( data.is("accelerate") )
+                	{
+                		f = 1;
+                	}
+                	else if( data.is("back") )
+                	{
+                		f = -1;
+                	}
+                    drive.arcadeDrive(data.get("throttle")*0.5*f, data.get("turn"));
+//>>>>>>> Stashed changes
                 }
                 
                 public void end (ActionData data) {
