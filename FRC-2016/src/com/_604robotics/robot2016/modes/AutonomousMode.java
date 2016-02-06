@@ -21,7 +21,7 @@ import com._604robotics.robotnik.coordinator.groups.GroupManager;
 
 public class AutonomousMode extends Coordinator
 {
-//<<<<<<< Updated upstream
+
     public AutonomousMode()
     {
     	
