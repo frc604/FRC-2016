@@ -10,6 +10,8 @@ import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
+import static java.lang.Math.min;
+
 public class Vision extends Module
 {
     private boolean ready=false;
@@ -44,34 +46,16 @@ public class Vision extends Module
                 public void run(ActionData data)
                 {
                     //Process vertical report
+                    //Also try to make the code less repetitive
+                    double distThreshold=30;
+                    boolean addToReady=false;
                     double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
-                    /*int size1 = 0;
-                    int size2 = 0;
-                    if( GRIPV_x1.length == 0 )
-                    {
-                        size1 = 0;
-                    }
-                    else
-                    {
-                        size1 = GRIPV_x1.length - 1;
-                    }
-                    if( GRIPV_x2.length == 0 )
-                    {
-                        size2 = 0;
-                    }
-                    else
-                    {
-                        size2 = GRIPV_x2.length - 1;
-                    }*/
+                    
                     double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                     double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                     //for now, strict array size requirements
-                    if (GRIPV_x1.length!=4 || GRIPV_x2.length!=4)
-                    {
-                        readystack.add(false);
-                    }
-                    else
+                    if (GRIPV_x1.length==4 && GRIPV_x2.length==4)
                     {
                         for(int i=0; i<Vx1Diff.length; i++)
                         {
@@ -82,7 +66,31 @@ public class Vision extends Module
                             Vx2Diff[i]=GRIPV_x2[i++]-GRIPV_x2[i];
                         }
                         
+                        double maxVx1=0;
+                        double maxVx2=0;
+
+                        for (double element:Vx1Diff)
+                        {
+                            if (element>maxVx1)
+                            {
+                                maxVx1=element;
+                            }
+                        }
+                        for (double element:Vx1Diff)
+                        {
+                            if (element>maxVx2)
+                            {
+                                maxVx2=element;
+                            }
+                        }
+                        
+                        if (min(maxVx1,maxVx2)>distThreshold)
+                        {
+                            addToReady=true;
+                        }
                     }
+                    //Update the stack
+                    readystack.add(addToReady);
                     ready=readystack.passThreshold();
                 };
                 public void end(ActionData data)
