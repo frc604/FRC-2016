@@ -21,7 +21,7 @@ public class Robot2016 extends Robot
     public Robot2016()
     {
         //Initialize GRIP Instance
-        try
+        /*try
         {
             Process GRIPProcess = Runtime.getRuntime().exec(new String[]
                     {"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", "project.grip"});
@@ -37,6 +37,14 @@ public class Robot2016 extends Robot
         catch (IOException e)
         {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
+        try
+        {
+            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
         
