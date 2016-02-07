@@ -27,7 +27,7 @@ public class Robot2016 extends Robot
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
    			add("Gear", new Gear());
-   			//add("Shifter", new Shifter());
+   			add("Shifter", new Shifter());
         }});
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());

@@ -36,6 +36,7 @@ public class TeleopMode extends Coordinator
     protected void apply (ModuleManager modules)
     {
     	{
+    	    //Driving
     		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
             		modules.getModule("Dashboard").getTrigger("Drive Off"),
             		modules.getModule("Dashboard").getTrigger("Debugging On")})));
@@ -46,7 +47,12 @@ public class TeleopMode extends Coordinator
             		modules.getModule("Dashboard").getTrigger("Tank Drive")})));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left",  driver.leftStick.Y));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
-            
+            //Shifting
+            final TriggerToggle shift=new TriggerToggle(driver.buttons.RB, false);
+            this.bind(new Binding(
+                    modules.getModule("Shifter").getAction("Low Gear"),shift.off));
+            this.bind(new Binding(
+                    modules.getModule("Shifter").getAction("High Gear"),shift.on));
     	}
     }
 }
