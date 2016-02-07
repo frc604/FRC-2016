@@ -10,7 +10,7 @@ import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-import static java.lang.Math.min;
+import java.lang.Math;
 
 public class Vision extends Module
 {
@@ -45,16 +45,19 @@ public class Vision extends Module
                 }
                 public void run(ActionData data)
                 {
-                    //Process vertical report
+                    //Initialize and set processing constants
                     //Also try to make the code less repetitive
                     double distThreshold=35;
+                    double botThreshold=60;
                     boolean addToReady=false;
                     
+                    //Grab latest data from GRIP
                     double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
                     
+                    //Use ternary arrays to avoid attempting new double[-1]
                     double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                     double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                     //for now, strict array size requirements
@@ -69,8 +72,10 @@ public class Vision extends Module
                             Vx2Diff[i]=GRIPV_x2[i++]-GRIPV_x2[i];
                         }
                         
-                        double maxVx1=0;
-                        double maxVx2=0;
+                        double maxVx1=Double.NEGATIVE_INFINITY;
+                        double maxVx2=Double.NEGATIVE_INFINITY;
+                        double maxHy1=Double.NEGATIVE_INFINITY;
+                        double maxHy2=Double.NEGATIVE_INFINITY;
 
                         for (double element:Vx1Diff)
                         {
@@ -86,8 +91,22 @@ public class Vision extends Module
                                 maxVx2=element;
                             }
                         }
+                        for (double element:GRIPH_y1)
+                        {
+                            if (element>maxHy1)
+                            {
+                                maxHy1=element;
+                            }
+                        }
+                        for (double element:GRIPH_y2)
+                        {
+                            if (element>maxHy2)
+                            {
+                                maxHy2=element;
+                            }
+                        }
                         
-                        if (min(maxVx1,maxVx2)>distThreshold)
+                        if (Math.min(maxVx1,maxVx2)>distThreshold && Math.max(maxHy1,maxHy2)<botThreshold)
                         {
                             addToReady=true;
                         }
