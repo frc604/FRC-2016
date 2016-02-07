@@ -394,9 +394,6 @@
       <property name="path[148]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\265.jpg"/>
       <property name="path[112]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\227.jpg"/>
     </grip:MultiImageFile>
-    <grip:Camera>
-      <property name="address" value="http://10.6.4.11"/>
-    </grip:Camera>
   </sources>
   <steps>
     <grip:Step name="CV resize">
@@ -534,19 +531,19 @@
   </steps>
   <connections>
     <grip:Connection>
-      <grip:Output source="1" socket="0" previewed="true"/>
-      <grip:Input step="1" socket="0"/>
+      <grip:Output step="2" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="1"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="6" socket="0" previewed="false"/>
-      <grip:Input step="8" socket="0"/>
+      <grip:Output step="3" socket="0" previewed="true"/>
+      <grip:Input step="4" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="5" socket="0" previewed="false"/>
-      <grip:Input step="7" socket="0"/>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output source="1" socket="0" previewed="true"/>
+      <grip:Output step="0" socket="0" previewed="false"/>
       <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
@@ -555,23 +552,23 @@
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="4" socket="0" previewed="false"/>
-      <grip:Input step="6" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="4" socket="0" previewed="false"/>
       <grip:Input step="5" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output source="0" socket="0" previewed="false"/>
-      <grip:Input step="0" socket="0"/>
+      <grip:Output step="5" socket="0" previewed="false"/>
+      <grip:Input step="7" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="3" socket="0" previewed="true"/>
-      <grip:Input step="4" socket="0"/>
+      <grip:Output step="4" socket="0" previewed="false"/>
+      <grip:Input step="6" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="2" socket="0" previewed="false"/>
-      <grip:Input step="3" socket="1"/>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="6" socket="0" previewed="false"/>
+      <grip:Input step="8" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
