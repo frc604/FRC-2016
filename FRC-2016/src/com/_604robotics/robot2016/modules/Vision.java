@@ -47,15 +47,18 @@ public class Vision extends Module
                 {
                     //Process vertical report
                     //Also try to make the code less repetitive
-                    double distThreshold=30;
+                    double distThreshold=35;
                     boolean addToReady=false;
+                    
                     double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
+                    double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
+                    double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
                     
                     double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                     double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                     //for now, strict array size requirements
-                    if (GRIPV_x1.length==4 && GRIPV_x2.length==4)
+                    if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && GRIPH_y1.length==2 && GRIPH_y2.length==2)
                     {
                         for(int i=0; i<Vx1Diff.length; i++)
                         {
