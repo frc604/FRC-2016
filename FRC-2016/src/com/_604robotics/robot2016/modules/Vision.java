@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import java.lang.Math;
 
+/**
+ * The class Vision.
+ */
 public class Vision extends Module
 {
     private boolean ready=false;
@@ -19,6 +22,9 @@ public class Vision extends Module
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
 
+    /**
+     * Instantiates a new Vision module
+     */
     public Vision()
     {
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
@@ -34,6 +40,7 @@ public class Vision extends Module
                 };
             });
         }});
+        
         this.set(new ElasticController()
         {{
             BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
