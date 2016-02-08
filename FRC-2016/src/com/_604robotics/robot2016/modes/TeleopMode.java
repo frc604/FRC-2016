@@ -52,7 +52,7 @@ public class TeleopMode extends Coordinator
             this.bind(new Binding(
                     modules.getModule("Shifter").getAction("Low Gear"),shift.off));
             this.bind(new Binding(
-                    modules.getModule("Shifter").getAction("High Gear"),shift.on));
+                    modules.getModule("Shifter").getAction("High Gear"),shift.on));  
     	}
     }
 }

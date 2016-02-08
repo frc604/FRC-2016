@@ -30,6 +30,8 @@ public class DashboardSystem extends Coordinator {
     			 modules.getModule("Drive").getData("Left Drive Rate")));
          this.fill(new DataWire(DashboardOutput.asDouble(), "right rate",
         		 modules.getModule("Drive").getData("Right Drive Rate")));
+         this.fill(new DataWire(DashboardOutput.asDouble(), "high gear",
+                 modules.getModule("Shifter").getData("Shifting")));
          
     }
 }
