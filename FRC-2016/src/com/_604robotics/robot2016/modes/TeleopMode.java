@@ -37,16 +37,24 @@ public class TeleopMode extends Coordinator
     {
     	{
     		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
-            		modules.getModule("Dashboard").getTrigger("Drive Off"),
-            		modules.getModule("Dashboard").getTrigger("Debugging On")})));
+            		modules.getModule("Dashboard").getTrigger("Drive Off")})));
     		
     		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
             		modules.getModule("Dashboard").getTrigger("Drive On"),
-            		modules.getModule("Dashboard").getTrigger("Debugging On"),
             		modules.getModule("Dashboard").getTrigger("Tank Drive")})));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left",  driver.leftStick.Y));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
             
+    	}
+    	{
+    		this.bind(new Binding(modules.getModule("Drive").getAction("Nicole Drive"), new TriggerAnd(new TriggerAccess[] {
+            		modules.getModule("Dashboard").getTrigger("Drive On"),
+            		modules.getModule("Dashboard").getTrigger("Nicole Drive")})));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "throttle", driver.leftStick.Y));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "turn",     driver.rightStick.X));
+
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "accelerate", driver.buttons.A));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "back", driver.buttons.B));
     	}
     }
 }
