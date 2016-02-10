@@ -1,7 +1,8 @@
 package com._604robotics.robotnik.module;
 
-import com._604robotics.robotnik.meta.Iterator;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,7 +11,7 @@ import java.util.Hashtable;
 public class ModuleMap {
     
     /** The module table. */
-    private final Hashtable moduleTable = new Hashtable();
+    private final Map<String, Module> moduleTable = new HashMap<String, Module>();
     
     /**
      * Adds the.
@@ -29,7 +30,7 @@ public class ModuleMap {
      * @return the module
      */
     protected Module getModule (String name) {
-        return (Module) this.moduleTable.get(name);
+        return this.moduleTable.get(name);
     }
     
     /**
@@ -37,7 +38,7 @@ public class ModuleMap {
      *
      * @return the iterator
      */
-    protected Iterator iterate () {
-        return new Iterator(this.moduleTable);
+    protected Iterator<Map.Entry<String, Module>> iterate () {
+        return this.moduleTable.entrySet().iterator();
     }
 }

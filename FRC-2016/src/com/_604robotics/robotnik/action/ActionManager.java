@@ -1,16 +1,14 @@
 package com._604robotics.robotnik.action;
 
 import com._604robotics.robotnik.ActionProxy;
-import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.meta.Scorekeeper;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,7 +29,7 @@ public class ActionManager {
     private final IndexedTable statusTable;
     
     /** The action table. */
-    private final Hashtable actionTable;
+    private final Map<String, ActionReference> actionTable;
     
     /**
      * Instantiates a new action manager.
@@ -53,9 +51,9 @@ public class ActionManager {
         this.statusTable.putString("lastAction", "");
         
         final IndexedTable dataTable = table.getSubTable("data");
-        this.actionTable = Repackager.repackage(controller.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new ActionReference(module, (Action) value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key));
+        this.actionTable = Repackager.repackage(controller.iterate(), new Repackager<ActionReference, String, Action>() {
+           public ActionReference wrap (String key, Action value) {
+               return new ActionReference(module, value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key));
            }
         });
     }
@@ -67,7 +65,7 @@ public class ActionManager {
      * @return the action
      */
     public ActionReference getAction (String name) {
-        ActionReference ref = (ActionReference) this.actionTable.get(name);
+        ActionReference ref = this.actionTable.get(name);
         if (ref == null) InternalLogger.missing("ActionReference", name);
         return ref;
     }
@@ -76,18 +74,21 @@ public class ActionManager {
      * Reset.
      */
     public void reset () {
-        final Iterator i = new Iterator(this.actionTable);
-        while (i.next()) ((ActionReference) i.value).reset();
+        final Iterator<Map.Entry<String, ActionReference>> i = this.actionTable.entrySet().iterator();
+        while (i.hasNext()) i.next().getValue().reset();
     }
     
     /**
      * Update.
      */
     public void update () {
-        final Scorekeeper r = new Scorekeeper(0D);
-        final Iterator i = controller.iterate();
+        final Scorekeeper<String> r = new Scorekeeper<String>(0D);
+        final Iterator<Map.Entry<String, Action>> i = controller.iterate();
         
-        while (i.next()) r.consider(i.key, this.triggerTable.getNumber((String) i.key, 0D));
+        while (i.hasNext()) {
+        	String key = i.next().getKey();
+        	r.consider(key, this.triggerTable.getNumber(key, 0D));
+        }
         
         this.statusTable.putString("triggeredAction", r.score > 0 ? (String) r.victor : "");
     }

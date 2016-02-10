@@ -1,11 +1,10 @@
 package com._604robotics.robotnik.trigger;
 
 import com._604robotics.robotnik.TriggerProxy;
-import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
-import java.util.Hashtable;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -17,7 +16,7 @@ public class TriggerManager {
     private final String moduleName;
     
     /** The trigger table. */
-    private final Hashtable triggerTable;
+    private final Map<String, TriggerReference> triggerTable;
     
     /**
      * Instantiates a new trigger manager.
@@ -29,9 +28,9 @@ public class TriggerManager {
     public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table) {
         this.moduleName = moduleName;
         
-        this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new TriggerReference((Trigger) value, table.getSlice((String) key));
+        this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager<TriggerReference, String, Trigger>() {
+           public TriggerReference wrap (String key, Trigger value) {
+               return new TriggerReference(value, table.getSlice(key));
            }
         });
     }
@@ -52,7 +51,8 @@ public class TriggerManager {
      * Update.
      */
     public void update () {
-        final Iterator i = new Iterator(this.triggerTable);
-        while (i.next()) TriggerProxy.update(moduleName, (String) i.key, (TriggerReference) i.value);
+    	for(Map.Entry<String, TriggerReference> entry : this.triggerTable.entrySet()) {
+    		TriggerProxy.update(moduleName, entry.getKey(), entry.getValue());
+    	}
     }
 }

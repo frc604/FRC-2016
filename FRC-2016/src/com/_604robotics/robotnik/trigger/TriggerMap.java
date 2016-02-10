@@ -1,7 +1,8 @@
 package com._604robotics.robotnik.trigger;
 
-import com._604robotics.robotnik.meta.Iterator;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,7 +11,7 @@ import java.util.Hashtable;
 public class TriggerMap {
     
     /** The trigger table. */
-    private final Hashtable triggerTable = new Hashtable();
+    private final Map<String, Trigger> triggerTable = new HashMap<String, Trigger>();
     
     /**
      * Adds the.
@@ -29,7 +30,7 @@ public class TriggerMap {
      * @return the trigger
      */
     protected Trigger getTrigger (String name) {
-        return (Trigger) this.triggerTable.get(name);
+        return this.triggerTable.get(name);
     }
     
     /**
@@ -37,7 +38,7 @@ public class TriggerMap {
      *
      * @return the iterator
      */
-    protected Iterator iterate () {
-        return new Iterator(this.triggerTable);
+    protected Iterator<Map.Entry<String, Trigger>> iterate () {
+        return this.triggerTable.entrySet().iterator();
     }
 }

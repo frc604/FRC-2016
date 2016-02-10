@@ -2,7 +2,9 @@ package com._604robotics.robotnik.memory;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
-import java.util.Hashtable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -11,7 +13,7 @@ import java.util.Hashtable;
 public class TableCache {
     
     /** The Constant cache. */
-    private static final Hashtable cache = new Hashtable();
+    private static final Map<ITable, IndexedTable> cache = new HashMap<ITable, IndexedTable>();
     
     /**
      * Gets the table.

@@ -1,13 +1,10 @@
 package com._604robotics.robotnik.module;
 
-import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.Hashtable;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -16,7 +13,7 @@ import java.util.Hashtable;
 public class ModuleManager {
     
     /** The module table. */
-    private final Hashtable moduleTable;
+    private final Map<String, ModuleReference> moduleTable;
     
     /**
      * Instantiates a new module manager.
@@ -25,9 +22,9 @@ public class ModuleManager {
      * @param table the table
      */
     public ModuleManager (ModuleMap moduleMap, final IndexedTable table) {
-        this.moduleTable = Repackager.repackage(moduleMap.iterate(), new Repackager() {
-            public Object wrap (Object key, Object value) {
-                return new ModuleReference((String) key, (Module) value, table.getSubTable((String) key));
+        this.moduleTable = Repackager.repackage(moduleMap.iterate(), new Repackager<ModuleReference, String, Module>() {
+            public ModuleReference wrap (String key, Module value) {
+                return new ModuleReference(key, value, table.getSubTable(key));
             }
         });
     }
@@ -48,31 +45,35 @@ public class ModuleManager {
      * Start.
      */
     public void start () {
-        final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).start();
+    	for(ModuleReference ref : this.moduleTable.values()) {
+    		ref.start();
+    	}
     }
     
     /**
      * Update.
      */
     public void update () {
-        final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).update();
+    	for(ModuleReference ref : this.moduleTable.values()) {
+    		ref.update();
+    	}
     }
     
     /**
      * Execute.
      */
     public void execute () {
-        final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).execute();
+    	for(ModuleReference ref : this.moduleTable.values()) {
+    		ref.execute();
+    	}
     }
     
     /**
      * End.
      */
     public void end () {
-        final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).end();
+    	for(ModuleReference ref : this.moduleTable.values()) {
+    		ref.end();
+    	}
     }
 }

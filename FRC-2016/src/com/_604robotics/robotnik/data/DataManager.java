@@ -1,11 +1,11 @@
 package com._604robotics.robotnik.data;
 
 import com._604robotics.robotnik.DataProxy;
-import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
-import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -17,7 +17,7 @@ public class DataManager {
     private final String moduleName;
     
     /** The data table. */
-    private final Hashtable dataTable;
+    private final Map<String, DataReference> dataTable;
     
     /**
      * Instantiates a new data manager.
@@ -29,9 +29,9 @@ public class DataManager {
     public DataManager (String moduleName, DataMap dataMap, final IndexedTable table) {
         this.moduleName = moduleName;
         
-        this.dataTable = Repackager.repackage(dataMap.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new DataReference((Data) value, table.getSlice((String) key));
+        this.dataTable = Repackager.repackage(dataMap.iterate(), new Repackager<DataReference, String, Data>() {
+           public DataReference wrap (String key, Data value) {
+               return new DataReference(value, table.getSlice(key));
            }
         });
     }
@@ -43,7 +43,7 @@ public class DataManager {
      * @return the data
      */
     public DataReference getData (String name) {
-        final DataReference ref = (DataReference) this.dataTable.get(name);
+        final DataReference ref = this.dataTable.get(name);
         if (ref == null) InternalLogger.missing("DataReference", name);
         return ref;
     }
@@ -52,7 +52,10 @@ public class DataManager {
      * Update.
      */
     public void update () {
-        final Iterator i = new Iterator(this.dataTable);
-        while (i.next()) DataProxy.update(moduleName, (String) i.key, (DataReference) i.value);
+        final Iterator<Map.Entry<String, DataReference>> i = this.dataTable.entrySet().iterator();
+        while (i.hasNext()) {
+        	Map.Entry<String, DataReference> entry = i.next();
+        	DataProxy.update(moduleName, entry.getKey(), entry.getValue());
+        }
     }
 }

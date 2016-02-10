@@ -1,12 +1,14 @@
 package com._604robotics.robotnik.meta;
 
-import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Repackager.
  */
-public abstract class Repackager {
+public abstract class Repackager<P, K, V> {
     
     /**
      * Wrap.
@@ -15,7 +17,7 @@ public abstract class Repackager {
      * @param value the value
      * @return the object
      */
-    protected abstract Object wrap (Object key, Object value);
+    protected abstract P wrap (K key, V value);
 
     /**
      * Compute.
@@ -23,10 +25,11 @@ public abstract class Repackager {
      * @param i the i
      * @return the hashtable
      */
-    private Hashtable compute (Iterator i) {
-        final Hashtable table = new Hashtable();
-        while (i.next()) {
-            table.put(i.key, this.wrap(i.key, i.value));
+    private Map<K, P> compute (Iterator<Map.Entry<K, V>> i) {
+        final Map<K, P> table = new HashMap<K, P>();
+        while (i.hasNext()) {
+        	Map.Entry<K, V> entry = i.next();
+            table.put(entry.getKey(), this.wrap(entry.getKey(), entry.getValue()));
         }
         return table;
     }
@@ -38,7 +41,7 @@ public abstract class Repackager {
      * @param r the r
      * @return the hashtable
      */
-    public static Hashtable repackage (Iterator i, Repackager r) {
+    public static <P, K, V> Map<K, P> repackage (Iterator<Map.Entry<K, V>> i, Repackager<P, K, V> r) {
         return r.compute(i);
     }
 }

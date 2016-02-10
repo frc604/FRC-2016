@@ -4,10 +4,10 @@ package com._604robotics.robotnik.meta;
 /**
  * The Class Scorekeeper.
  */
-public class Scorekeeper {
+public class Scorekeeper<T> {
     
     /** The victor. */
-    public Object victor = null;
+    public T victor = null;
     
     /** The count. */
     public int count = 0;
@@ -33,7 +33,7 @@ public class Scorekeeper {
      * @param item the item
      * @param score the score
      */
-    public void consider (Object item, double score) {
+    public void consider (T item, double score) {
         if (this.victor == null || score > this.score) {
             this.victor = item;
             this.score = score;
