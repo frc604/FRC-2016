@@ -8,8 +8,6 @@ import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.trigger.TriggerManager;
 import com._604robotics.robotnik.trigger.TriggerReference;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class ModuleReference.
