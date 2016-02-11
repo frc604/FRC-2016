@@ -1,11 +1,11 @@
 package com._604robotics.robotnik.action;
 
 import com._604robotics.robotnik.ActionProxy;
-import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -50,11 +50,10 @@ public class ActionManager {
         this.statusTable.putString("lastAction", "");
         
         final IndexedTable dataTable = table.getSubTable("data");
-        this.actionTable = Repackager.repackage(controller.iterate(), new Repackager<ActionReference, String, Action>() {
-           public ActionReference wrap (String key, Action value) {
-               return new ActionReference(module, value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key));
-           }
-        });
+        this.actionTable = new HashMap<String, ActionReference>();
+        for(Map.Entry<String, Action> entry : controller) {
+        	this.actionTable.put(entry.getKey(), new ActionReference(module, entry.getValue(), this.triggerTable.getSlice(entry.getKey()), dataTable.getSubTable(entry.getKey())));
+        }
     }
     
     /**
@@ -81,16 +80,13 @@ public class ActionManager {
      * Update.
      */
     public void update () {
-        final Iterator<Map.Entry<String, Action>> i = controller.iterate();
-        
         double score = 0;
         String action = "";
-        while (i.hasNext()) {
-        	String key = i.next().getKey();
-        	double currScore = this.triggerTable.getNumber(action, 0D);
+        for (Map.Entry<String, Action> entry : this.controller) {
+        	double currScore = this.triggerTable.getNumber(entry.getKey(), 0D);
         	if (currScore > score) {
         		score = currScore;
-        		action = key;
+        		action = entry.getKey();
         	}
         }
         

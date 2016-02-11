@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The Class ModuleMap.
  */
-public class ModuleMap {
+public class ModuleMap implements Iterable<Map.Entry<String, Module>> {
     
     /** The module table. */
     private final Map<String, Module> moduleTable = new HashMap<String, Module>();
@@ -38,7 +38,7 @@ public class ModuleMap {
      *
      * @return the iterator
      */
-    protected Iterator<Map.Entry<String, Module>> iterate () {
+    public Iterator<Map.Entry<String, Module>> iterator () {
         return this.moduleTable.entrySet().iterator();
     }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The Class DataMap.
  */
-public class DataMap {
+public class DataMap implements Iterable<Map.Entry<String, Data>> {
     
     /** The data table. */
     private final Map<String, Data> dataTable = new HashMap<String, Data>();
@@ -38,7 +38,7 @@ public class DataMap {
      *
      * @return the iterator
      */
-    protected Iterator<Map.Entry<String, Data>> iterate () {
+    public Iterator<Map.Entry<String, Data>> iterator () {
         return this.dataTable.entrySet().iterator();
     }
 }

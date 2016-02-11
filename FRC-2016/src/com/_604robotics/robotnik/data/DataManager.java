@@ -1,9 +1,10 @@
 package com._604robotics.robotnik.data;
 
 import com._604robotics.robotnik.DataProxy;
-import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
+
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -29,11 +30,10 @@ public class DataManager {
     public DataManager (String moduleName, DataMap dataMap, final IndexedTable table) {
         this.moduleName = moduleName;
         
-        this.dataTable = Repackager.repackage(dataMap.iterate(), new Repackager<DataReference, String, Data>() {
-           public DataReference wrap (String key, Data value) {
-               return new DataReference(value, table.getSlice(key));
-           }
-        });
+        this.dataTable = new HashMap<String, DataReference>();
+        for(Map.Entry<String, Data> entry : dataMap) {
+        	this.dataTable.put(entry.getKey(), new DataReference(entry.getValue(), table.getSlice(entry.getKey())));
+        }
     }
     
     /**

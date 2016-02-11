@@ -1,9 +1,9 @@
 package com._604robotics.robotnik.module;
 
-import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
@@ -22,11 +22,10 @@ public class ModuleManager {
      * @param table the table
      */
     public ModuleManager (ModuleMap moduleMap, final IndexedTable table) {
-        this.moduleTable = Repackager.repackage(moduleMap.iterate(), new Repackager<ModuleReference, String, Module>() {
-            public ModuleReference wrap (String key, Module value) {
-                return new ModuleReference(key, value, table.getSubTable(key));
-            }
-        });
+        this.moduleTable = new HashMap<String, ModuleReference>();
+        for(Map.Entry<String, Module> entry : moduleMap) {
+        	this.moduleTable.put(entry.getKey(), new ModuleReference(entry.getKey(), entry.getValue(), table.getSubTable(entry.getKey())));
+        }
     }
     
     /**

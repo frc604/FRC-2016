@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The Class TriggerMap.
  */
-public class TriggerMap {
+public class TriggerMap implements Iterable<Map.Entry<String, Trigger>> {
     
     /** The trigger table. */
     private final Map<String, Trigger> triggerTable = new HashMap<String, Trigger>();
@@ -38,7 +38,7 @@ public class TriggerMap {
      *
      * @return the iterator
      */
-    protected Iterator<Map.Entry<String, Trigger>> iterate () {
+    public Iterator<Map.Entry<String, Trigger>> iterator () {
         return this.triggerTable.entrySet().iterator();
     }
 }

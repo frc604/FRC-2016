@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * The Class ActionController.
  */
-public abstract class ActionController {
+public abstract class ActionController implements Iterable<Map.Entry<String, Action>> {
     
     /** The action table. */
     private final Map<String, Action> actionTable = new HashMap<String, Action>();
@@ -88,7 +88,7 @@ public abstract class ActionController {
      *
      * @return the iterator
      */
-    protected Iterator<Map.Entry<String, Action>> iterate () {
+    public Iterator<Map.Entry<String, Action>> iterator () {
         return this.actionTable.entrySet().iterator();
     }
 }

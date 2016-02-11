@@ -1,9 +1,10 @@
 package com._604robotics.robotnik.trigger;
 
 import com._604robotics.robotnik.TriggerProxy;
-import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
+
+import java.util.HashMap;
 import java.util.Map;
 
 // TODO: Auto-generated Javadoc
@@ -28,11 +29,10 @@ public class TriggerManager {
     public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table) {
         this.moduleName = moduleName;
         
-        this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager<TriggerReference, String, Trigger>() {
-           public TriggerReference wrap (String key, Trigger value) {
-               return new TriggerReference(value, table.getSlice(key));
-           }
-        });
+        this.triggerTable = new HashMap<String, TriggerReference>();
+        for(Map.Entry<String, Trigger> entry : triggerMap) {
+        	this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getSlice(entry.getKey())));
+        }
     }
     
     /**
