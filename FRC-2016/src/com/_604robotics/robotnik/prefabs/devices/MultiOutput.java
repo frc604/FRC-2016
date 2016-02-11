@@ -16,7 +16,7 @@ public class MultiOutput implements PIDOutput {
      *
      * @param outputs the outputs
      */
-    public MultiOutput (PIDOutput[] outputs) {
+    public MultiOutput (PIDOutput... outputs) {
         this.outputs = outputs;
     }
     
