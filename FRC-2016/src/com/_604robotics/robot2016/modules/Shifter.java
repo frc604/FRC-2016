@@ -6,6 +6,9 @@ import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.data.Data;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
+import com._604robotics.robotnik.trigger.Trigger;
+import com._604robotics.robotnik.trigger.TriggerMap;
+import com._604robotics.robotnik.trigger.sources.DashboardTrigger;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -18,17 +21,6 @@ public class Shifter extends Module
     
     public Shifter()
     {
-        this.set(new DataMap()
-        {{
-            add("Shifting", new Data()
-            {
-                public double run()
-                {
-                    return gearHigh?1:0;
-                }
-            });
-        }});
-        
         this.set(new ElasticController()
         {{
             addDefault("Low Gear", new Action()
