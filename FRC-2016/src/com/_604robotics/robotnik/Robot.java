@@ -143,15 +143,9 @@ public class Robot extends SampleRobot {
         RobotProxy.start(moduleManager);
         
         final Coordinator mode = this.modeMap.getTeleopMode();
-<<<<<<< HEAD
-        int count=0;
-        
-||||||| parent of 4e4bc55... Ticks now print on only some iterations
-=======
 
         int count=0;
-        
->>>>>>> 4e4bc55... Ticks now print on only some iterations
+
         while (this.isEnabled() && this.isOperatorControl()) {
             if (count%tickPeriod==0)
             {
