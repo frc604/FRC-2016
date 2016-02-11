@@ -2,7 +2,6 @@ package com._604robotics.robotnik.action;
 
 import com._604robotics.robotnik.ActionProxy;
 import com._604robotics.robotnik.meta.Repackager;
-import com._604robotics.robotnik.meta.Scorekeeper;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
@@ -82,15 +81,20 @@ public class ActionManager {
      * Update.
      */
     public void update () {
-        final Scorekeeper<String> r = new Scorekeeper<String>(0D);
         final Iterator<Map.Entry<String, Action>> i = controller.iterate();
         
+        double score = 0;
+        String action = "";
         while (i.hasNext()) {
         	String key = i.next().getKey();
-        	r.consider(key, this.triggerTable.getNumber(key, 0D));
+        	double currScore = this.triggerTable.getNumber(action, 0D);
+        	if (currScore > score) {
+        		score = currScore;
+        		action = key;
+        	}
         }
         
-        this.statusTable.putString("triggeredAction", r.score > 0 ? (String) r.victor : "");
+        this.statusTable.putString("triggeredAction", action);
     }
     
     /**
