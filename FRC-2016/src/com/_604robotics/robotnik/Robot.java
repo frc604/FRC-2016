@@ -116,6 +116,7 @@ public class Robot extends SampleRobot {
         RobotProxy.start(moduleManager);
         
         final Coordinator mode = this.modeMap.getAutonomousMode();
+
         int count=0;
 
         while (this.isEnabled() && this.isAutonomous()) {

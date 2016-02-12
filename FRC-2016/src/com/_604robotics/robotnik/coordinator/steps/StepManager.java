@@ -32,20 +32,18 @@ public class StepManager {
         if (this.currentStep < this.steps.size()) {
             final Step step = (Step) this.steps.elementAt(currentStep);
 
-            if (step.complete()) {
+            if (!this.initialized) {
+				this.initialized = true;
+				step.initialize();
+
+				Logger.log(" ---- Entered step: " + this.names.elementAt(currentStep));
+            } else if (!step.complete()) {
+                step.update();
+            } else {
                 Logger.log(" ---- Completed step: " + this.names.elementAt(this.currentStep));
                 
                 this.currentStep++;
                 this.initialized = false;
-            } else {
-                if (!this.initialized) {
-                    this.initialized = true;
-                    step.initialize();
-                    
-                    Logger.log(" ---- Entered step: " + this.names.elementAt(currentStep));
-                }
-
-                step.update();
             }
         }
     }
