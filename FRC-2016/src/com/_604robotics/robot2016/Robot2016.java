@@ -13,6 +13,7 @@ import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.coordinator.ModeMap;
 import com._604robotics.robotnik.module.ModuleMap;
+import com._604robotics.robotnik.logging.Logger;
 
 import java.io.IOException;
 
@@ -40,15 +41,23 @@ public class Robot2016 extends Robot
             // TODO Auto-generated catch block
             e.printStackTrace();
         }*/
-        try
-        {
-            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        boolean startGRIP=true;
         
+        if (startGRIP)
+        {
+            Logger.log("Starting GRIP");
+            try
+            {
+                new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+                Logger.log("GRIP started successfully");
+            }
+            catch (IOException e)
+            {
+                Logger.error("Unable to Start GRIP", e);
+                //No longer necessary since Logger.error prints the stack trace
+                //e.printStackTrace();
+            }
+        }
         this.set(new ModeMap()
         {{
             setAutonomousMode(new AutonomousMode());
