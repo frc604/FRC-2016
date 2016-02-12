@@ -38,12 +38,10 @@ public class TeleopMode extends Coordinator
     	{
     	    //Driving
     		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
-            		modules.getModule("Dashboard").getTrigger("Drive Off"),
-            		modules.getModule("Dashboard").getTrigger("Debugging On")})));
+            		modules.getModule("Dashboard").getTrigger("Drive Off")})));
     		
     		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
             		modules.getModule("Dashboard").getTrigger("Drive On"),
-            		modules.getModule("Dashboard").getTrigger("Debugging On"),
             		modules.getModule("Dashboard").getTrigger("Tank Drive")})));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left",  driver.leftStick.Y));
             this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
@@ -53,6 +51,16 @@ public class TeleopMode extends Coordinator
                     modules.getModule("Shifter").getAction("Low Gear"),shift.off));
             this.bind(new Binding(
                     modules.getModule("Shifter").getAction("High Gear"),shift.on));  
+    	}
+    	{
+    		this.bind(new Binding(modules.getModule("Drive").getAction("Nicole Drive"), new TriggerAnd(new TriggerAccess[] {
+            		modules.getModule("Dashboard").getTrigger("Drive On"),
+            		modules.getModule("Dashboard").getTrigger("Nicole Drive")})));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "throttle", driver.leftStick.Y));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "turn",     driver.rightStick.X));
+
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "accelerate", driver.buttons.A));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "back", driver.buttons.B));
     	}
     }
 }
