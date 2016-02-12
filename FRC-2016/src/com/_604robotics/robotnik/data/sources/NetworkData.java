@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 /**
  * The Class NetworkData.
  */
-public class NetworkData extends Data {
+public class NetworkData implements Data {
     
     /** The table. */
     private final ITable table;

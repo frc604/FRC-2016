@@ -1,6 +1,7 @@
 package com._604robotics.robotnik.trigger;
 
 import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -16,31 +17,6 @@ public class TriggerReference implements TriggerAccess {
     
     /** The inverse. */
     private TriggerAccess inverse = null;
-    
-    /**
-     * The Class TriggerNot.
-     */
-    private class TriggerNot implements TriggerAccess {
-        
-        /** The source. */
-        private final TriggerAccess source;
-        
-        /**
-         * Instantiates a new trigger not.
-         *
-         * @param source the source
-         */
-        public TriggerNot (TriggerAccess source) {
-            this.source = source;
-        }
-        
-        /* (non-Javadoc)
-         * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-         */
-        public boolean get () {
-            return !source.get();
-        }
-    }
     
     /**
      * Instantiates a new trigger reference.
