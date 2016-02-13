@@ -44,6 +44,8 @@ public class Vision extends Module
         this.set(new ElasticController()
         {{
             BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
+            readystack.flush();//Make sure that stack starts full of false
+            
             double[] prevV_x1=new double[0];
             double[] prevV_x2=new double[0];
             double[] prevH_y1=new double[0];
