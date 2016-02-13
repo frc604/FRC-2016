@@ -2,8 +2,6 @@ package com._604robotics.robot2016.systems;
 
 import com._604robotics.robot2016.Robot2016;
 import com._604robotics.robotnik.coordinator.Coordinator;
-import com._604robotics.robotnik.coordinator.connectors.Binding;
-import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.prefabs.outputs.DashboardOutput;
 
 public class DashboardSystem extends Coordinator<Robot2016> {
