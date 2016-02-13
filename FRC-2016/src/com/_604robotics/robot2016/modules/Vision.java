@@ -37,15 +37,16 @@ public class Vision extends Module
         
         this.set(new ElasticController()
         {{
-            BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
-            
-            double[] prevV_x1=new double[0];
-            double[] prevV_x2=new double[0];
-            double[] prevH_y1=new double[0];
-            double[] prevH_y2=new double[0];
             
             addDefault("VisionProcess", new Action()
             {
+                double[] prevV_x1=new double[0];
+                double[] prevV_x2=new double[0];
+                double[] prevH_y1=new double[0];
+                double[] prevH_y2=new double[0];
+                
+                BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
+                
                 public void begin(ActionData data)
                 {
                     ready=false;
@@ -126,6 +127,11 @@ public class Vision extends Module
                         readystack.add(addToReady);
                         ready=readystack.passThreshold();
                     }
+                    //Make previous ones current
+                    prevV_x1=GRIPV_x1;
+                    prevV_x2=GRIPV_x2;
+                    prevH_y1=GRIPH_y1;
+                    prevH_y2=GRIPH_y2;
                 };
                 public void end(ActionData data)
                 {
