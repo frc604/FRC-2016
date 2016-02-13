@@ -17,7 +17,7 @@ public class DataManager {
         
         this.dataTable = Repackager.repackage(dataMap.iterate(), new Repackager() {
            public Object wrap (Object key, Object value) {
-               return new DataReference((Data) value, table.getSlice((String) key), safety);
+               return new DataReference((Data) value, table.getRow((String) key), safety);
            }
         });
     }

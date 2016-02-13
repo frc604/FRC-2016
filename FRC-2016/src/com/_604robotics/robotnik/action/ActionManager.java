@@ -36,7 +36,7 @@ public class ActionManager {
         final IndexedTable dataTable = table.getSubTable("data");
         this.actionTable = Repackager.repackage(controller.iterate(), new Repackager() {
            public Object wrap (Object key, Object value) {
-               return new ActionReference(module, (Action) value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key), safety);
+               return new ActionReference(module, (Action) value, triggerTable.getRow((String) key), dataTable.getSubTable((String) key), safety);
            }
         });
     }

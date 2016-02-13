@@ -1,11 +1,11 @@
 package com._604robotics.robotnik.trigger;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.memory.IndexedTable.Row;
 
 public class TriggerReference implements TriggerAccess {
     private final Trigger trigger;
-    private final Slice value;
+    private final Row value;
 
     private TriggerAccess inverse = null;
     
@@ -23,7 +23,7 @@ public class TriggerReference implements TriggerAccess {
         }
     }
     
-    public TriggerReference (Trigger trigger, Slice value, Safety safety) {
+    public TriggerReference (Trigger trigger, Row value, Safety safety) {
         this.trigger = trigger;
         this.value = value;
         
