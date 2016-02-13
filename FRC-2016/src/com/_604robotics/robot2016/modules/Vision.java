@@ -69,15 +69,15 @@ public class Vision extends Module
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
 
-                    if (!(GRIPV_x1==prevV_x1 && GRIPV_x2==prevV_x2
-                            && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2))
+                    if (!((GRIPV_x1==prevV_x1 && GRIPV_x2==prevV_x2
+                            && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)) && 
+                            !(prevV_x1.length==0 && prevV_x2.length==0 && 
+                            prevH_y1.length==0 && prevH_y2.length==0))
                     {
-
-
                         //Use ternary arrays to avoid attempting new double[-1]
                         double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
                         double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
-                        //for now, strict array size requirements
+                        //Ensure that only one goal is in view
                         if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && GRIPH_y1.length==2 && GRIPH_y2.length==2)
                         {
                             for(int i=0; i<Vx1Diff.length; i++)
