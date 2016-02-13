@@ -8,57 +8,34 @@ import com._604robotics.robotnik.module.ModuleMap;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.logging.TimeSampler;
+import com._604robotics.robotnik.Safety;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Robot.
- */
 public class Robot extends SampleRobot {
-    
-    /**
-     * The Interface Safety.
-     */
-    public static interface Safety {
-        
-        /** The enabled. */
-        public static boolean ENABLED  = true;
-        
-        /** The disabled. */
-        public static boolean DISABLED = false;
-    }
-    
-    /** The table. */
     private final IndexedTable table = IndexedTable.getTable("robotnik");
-    
-    /** The loop time. */
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
     
-    /** The module manager. */
     private ModuleManager moduleManager = new ModuleManager(new ModuleMap(), this.table.getSubTable("modules"));
-    
-    /** The coordinator list. */
     private CoordinatorList coordinatorList = new CoordinatorList();
-    
-    /** The mode map. */
     private ModeMap modeMap = new ModeMap();
     
-    /**The number of ticks before a message is printed. */
-    private int tickPeriod=50;
-    
     /**
-     * Instantiates a new robot.
+     * Instantiates a new robot (with exception protection enabled by default).
      */
-    public Robot () {}
+    public Robot () {
+        this(Safety.ENABLED);
+    }
     
     /**
      * Instantiates a new robot.
      *
-     * @param safetyEnabled the safety enabled
+     * @param safety Whether or not exception protection is enabled. Only
+     *               disable this if you know what you're doing! And don't run
+     *               with safety disabled in competition.
      */
-    public Robot (boolean safetyEnabled) {
-        if (!safetyEnabled) {
+    public Robot (Safety safety) {
+        if (safety.disabled()) {
             RobotProxy.disable();
             
             DataProxy.disable();
@@ -72,7 +49,7 @@ public class Robot extends SampleRobot {
     }
     
     /**
-     * Sets the.
+     * Sets the module map to use.
      *
      * @param moduleMap the module map
      */
@@ -81,7 +58,7 @@ public class Robot extends SampleRobot {
     }
     
     /**
-     * Sets the.
+     * Sets the coordinator list to use.
      *
      * @param coordinatorList the coordinator list
      */
@@ -90,7 +67,7 @@ public class Robot extends SampleRobot {
     }
     
     /**
-     * Sets the.
+     * Sets the mode map to use.
      *
      * @param modeMap the mode map
      */
@@ -117,14 +94,7 @@ public class Robot extends SampleRobot {
         
         final Coordinator mode = this.modeMap.getAutonomousMode();
 
-        int count=0;
-
         while (this.isEnabled() && this.isAutonomous()) {
-            if (count%tickPeriod==0)
-            {
-                System.out.println("auton tick #"+count);
-            }
-            count++;
             RobotProxy.tick(mode, moduleManager, coordinatorList);
             this.loopTime.sample();
         }
@@ -145,14 +115,7 @@ public class Robot extends SampleRobot {
         
         final Coordinator mode = this.modeMap.getTeleopMode();
 
-        int count=0;
-
         while (this.isEnabled() && this.isOperatorControl()) {
-            if (count%tickPeriod==0)
-            {
-                System.out.println("teleop tick #"+count);
-            }
-            count++;
             RobotProxy.tick(mode, moduleManager, coordinatorList);
             this.loopTime.sample();
         }
