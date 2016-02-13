@@ -8,6 +8,8 @@ import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
 import com._604robotics.robot2016.modules.Vision;
 import com._604robotics.robot2016.modules.Gear;
+import com._604robotics.robot2016.modules.Shifter;
+import com._604robotics.robot2016.modules.Shooter;
 import com._604robotics.robot2016.modules.Intake;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
@@ -58,23 +60,25 @@ public class Robot2016 extends Robot
                 //e.printStackTrace();
             }
         }
-        this.set(new ModeMap()
-        {{
+        
+        this.set(new ModeMap() {{
             setAutonomousMode(new AutonomousMode());
             setTeleopMode(new TeleopMode());
         }});
-        this.set(new ModuleMap()
-   		{{
+        
+        this.set(new ModuleMap() {{
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
             add("Vision", new Vision());
-   			add("Gear", new Gear());
    			add("Intake", new Intake());
+            add("Gear", new Gear());
+            add("Shifter", new Shifter());
+            add("Shooter", new Shooter());
         }});
+        
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());
             add(new GearSystem());
         }});
     }
-    
 }
