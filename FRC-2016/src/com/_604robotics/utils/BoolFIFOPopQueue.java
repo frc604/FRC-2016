@@ -50,7 +50,7 @@ public class BoolFIFOPopQueue
     
     public void flush()
     {
-        while (this.currentFraction()!=0)
+        while (this.currentFraction()!=0 || !this.isFull())
         {
             add(false);
         }
