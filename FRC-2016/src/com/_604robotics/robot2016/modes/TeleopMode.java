@@ -35,29 +35,28 @@ public class TeleopMode extends Coordinator<Robot2016> {
     protected void apply (Robot2016 robot) {
         /* Drive */
     	{
-    		this.bind(new Binding(robot.drive.getAction("Off"), new TriggerAnd(new TriggerAccess[] {
-            		robot.dashboard.getTrigger("Drive Off")})));
+    		bind(robot.drive.getAction("Off"), robot.dashboard.getTrigger("Drive Off"));
     		
-    		this.bind(new Binding(robot.drive.getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
+    		bind(robot.drive.getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
             		robot.dashboard.getTrigger("Drive On"),
-            		robot.dashboard.getTrigger("Tank Drive")})));
-            this.fill(new DataWire(robot.drive.getAction("Tank Drive"), "left",  driver.leftStick.Y));
-            this.fill(new DataWire(robot.drive.getAction("Tank Drive"), "right", driver.rightStick.Y));
+            		robot.dashboard.getTrigger("Tank Drive")}));
+            fill(robot.drive.getAction("Tank Drive"), "left",  driver.leftStick.Y);
+            fill(robot.drive.getAction("Tank Drive"), "right", driver.rightStick.Y);
 
-    		this.bind(new Binding(robot.drive.getAction("Nicole Drive"), new TriggerAnd(new TriggerAccess[] {
+    		bind(robot.drive.getAction("Nicole Drive"), new TriggerAnd(new TriggerAccess[] {
             		robot.dashboard.getTrigger("Drive On"),
-            		robot.dashboard.getTrigger("Nicole Drive")})));
-            this.fill(new DataWire(robot.drive.getAction("Nicole Drive"), "throttle",   driver.leftStick.Y));
-            this.fill(new DataWire(robot.drive.getAction("Nicole Drive"), "turn",       driver.rightStick.X));
-            this.fill(new DataWire(robot.drive.getAction("Nicole Drive"), "accelerate", driver.buttons.A));
-            this.fill(new DataWire(robot.drive.getAction("Nicole Drive"), "back",       driver.buttons.B));
+            		robot.dashboard.getTrigger("Nicole Drive")}));
+            fill(robot.drive.getAction("Nicole Drive"), "throttle",   driver.leftStick.Y);
+            fill(robot.drive.getAction("Nicole Drive"), "turn",       driver.rightStick.X);
+            fill(robot.drive.getAction("Nicole Drive"), "accelerate", driver.buttons.A);
+            fill(robot.drive.getAction("Nicole Drive"), "back",       driver.buttons.B);
     	}
     	
     	/* Shifter */
     	{
             final TriggerToggle shift=new TriggerToggle(driver.buttons.RB, false);
-            this.bind(new Binding(robot.shifter.getAction("Low Gear"),  shift.off));
-            this.bind(new Binding(robot.shifter.getAction("High Gear"), shift.on));  
+            bind(robot.shifter.getAction("Low Gear"),  shift.off);
+            bind(robot.shifter.getAction("High Gear"), shift.on); 
     	}
     }
 }

@@ -21,51 +21,51 @@ public class AutonomousMode extends Coordinator<Robot2016> {
 	protected void apply (Robot2016 robot) {
 		/* bind/wire things common to all auton modes outside the Groups */
 
-		group(new Group<>(robot.dashboard.getTrigger("Auton Mode A"), new Coordinator<Robot2016>() {
+		group(robot.dashboard.getTrigger("Auton Mode A"), new Coordinator<Robot2016>() {
 		    @Override
 			protected void apply(Robot2016 robot) {
-				step("Forward", new Step<>(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
+				step("Forward", new TriggerAnd(new TriggerAccess[] {
 		    			robot.drive.getTrigger("At Left Servo Target"),
 		    			robot.drive.getTrigger("At Right Servo Target")
-		    	})), new Coordinator<Robot2016>() {
+		    	}), new Coordinator<Robot2016>() {
 				    @Override
 		    		protected void apply (Robot2016 robot) {
-		    			this.bind(new Binding(robot.drive.getAction("Servo Drive")));
-		    			this.fill(new DataWire(robot.drive.getAction("Servo Drive"), "left clicks", 120));
-		    			this.fill(new DataWire(robot.drive.getAction("Servo Drive"), "right clicks", 120));
+		    			bind(robot.drive.getAction("Servo Drive"));
+		    			fill(robot.drive.getAction("Servo Drive"), "left clicks", 120);
+		    			fill(robot.drive.getAction("Servo Drive"), "right clicks", 120);
 		    		}
-		    	}));
+		    	});
 
-				step("Backward", new Step<>(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
+				step("Backward", new TriggerAnd(new TriggerAccess[] {
 						robot.drive.getTrigger("At Left Servo Target"),
 		    			robot.drive.getTrigger("At Right Servo Target")
-		    	})), new Coordinator<Robot2016>() {
+		    	}), new Coordinator<Robot2016>() {
 		    		protected void apply (Robot2016 robot) {
-		    			this.bind(new Binding(robot.drive.getAction("Servo Drive")));
-		    			this.fill(new DataWire(robot.drive.getAction("Servo Drive"), "left clicks", -120));
-		    			this.fill(new DataWire(robot.drive.getAction("Servo Drive"), "right clicks", -120));
+		    			bind(robot.drive.getAction("Servo Drive"));
+		    			fill(robot.drive.getAction("Servo Drive"), "left clicks", -120);
+		    			fill(robot.drive.getAction("Servo Drive"), "right clicks", -120);
 		    		}
-		    	}));
+		    	});
             }
-        }));
+        });
 
-		group(new Group<>(robot.dashboard.getTrigger("Auton Mode B"), new Coordinator<Robot2016>() {
+		group(robot.dashboard.getTrigger("Auton Mode B"), new Coordinator<Robot2016>() {
 		    @Override
 			protected void apply (Robot2016 robot) {
 				/* bind/wire things common to all steps of Mode B outside the Steps */
 
-				step("Backward", new Step<>(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
+				step("Backward", new TriggerAnd(new TriggerAccess[] {
 						robot.drive.getTrigger("At Left Servo Target"),
 		    			robot.drive.getTrigger("At Right Servo Target")
-		    	})), new Coordinator<Robot2016>() {
+		    	}), new Coordinator<Robot2016>() {
 		    		protected void apply (Robot2016 robot) {
-		    			this.bind(new Binding(robot.drive.getAction("Servo Drive")));
-		    			this.fill(new DataWire(robot.drive.getAction("Servo Drive"), "left clicks", -120));
-		    			this.fill(new DataWire(robot.drive.getAction("Servo Drive"), "right clicks", -120));
+		    			bind(robot.drive.getAction("Servo Drive"));
+		    			fill(robot.drive.getAction("Servo Drive"), "left clicks", -120);
+		    			fill(robot.drive.getAction("Servo Drive"), "right clicks", -120);
 		    		}
-		    	}));
+		    	});
             }
-		}));
+		});
 	}
     
     /*

@@ -8,16 +8,6 @@ public class Step<T extends Robot<T>> {
     private final Measure measure;
     private final Coordinator<T> coordinator;
 
-    public Step (Measure measure) {
-        this.measure = measure;
-        this.coordinator = new Coordinator<T>();
-    }
-
-    public Step (Coordinator<T> coordinator) {
-        this.measure = null;
-        this.coordinator = coordinator;
-    }
-
     public Step (Measure measure, Coordinator<T> coordinator) {
         this.measure = measure;
         this.coordinator = coordinator;

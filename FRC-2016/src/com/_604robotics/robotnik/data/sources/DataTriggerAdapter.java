@@ -7,7 +7,7 @@ import com._604robotics.robotnik.trigger.TriggerAccess;
 /**
  * The Class DataTriggerAdaptor.
  */
-public class DataTriggerAdaptor implements DataAccess {
+public class DataTriggerAdapter implements DataAccess {
     
     /** The trigger. */
     private final TriggerAccess trigger;
@@ -17,7 +17,7 @@ public class DataTriggerAdaptor implements DataAccess {
      *
      * @param trigger the trigger
      */
-    public DataTriggerAdaptor (TriggerAccess trigger) {
+    public DataTriggerAdapter (TriggerAccess trigger) {
         this.trigger = trigger;
     }
     
