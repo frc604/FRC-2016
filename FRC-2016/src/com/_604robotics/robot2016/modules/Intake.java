@@ -12,24 +12,29 @@ public class Intake extends Module{
 	public Intake (){
 		this.set(new ElasticController(){{
 			addDefault("Off", new Action(){
+                @Override
 				public void run(ActionData data){
 					motor.stopMotor();
 				}
 			});
 			
 			add("SuckIn", new Action(){
+                @Override
 				public void run(ActionData data){
 					motor.set(-1D);
 				}
+                @Override
 				public void end(ActionData data){
 					motor.stopMotor();
 				}
 			});
 			
 			add("SpitOut", new Action(){
+                @Override
 				public void run(ActionData data){
 					motor.set(1D);
 				}
+                @Override
 				public void end(ActionData data){
 					motor.stopMotor();
 				}

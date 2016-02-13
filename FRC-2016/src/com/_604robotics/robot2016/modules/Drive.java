@@ -79,24 +79,28 @@ public class Drive extends Module {
         
         this.set(new DataMap() {{
             add("Left Drive Clicks", new Data() {
+                @Override
                 public double run () {
                     return encoderLeft.get();
                 }
             });
             
             add("Right Drive Clicks", new Data() {
+                @Override
                 public double run () {
                     return encoderRight.get();
                 }
             });
             
             add("Left Drive Rate", new Data() {
+                @Override
                 public double run () {
                     return encoderLeft.getRate();
                 }
             });
             
             add("Right Drive Rate", new Data() {
+                @Override
                 public double run () {
                     return encoderRight.getRate();
                 }
@@ -108,6 +112,7 @@ public class Drive extends Module {
                 private final Timer timer = new Timer();
                 private boolean timing = false;
                 
+                @Override
                 public boolean run () {
                     if (pidLeft.isEnabled() && pidLeft.onTarget()) {
                         if (!timing) {
@@ -132,6 +137,7 @@ public class Drive extends Module {
                 private final Timer timer = new Timer();
                 private boolean timing = false;
                 
+                @Override
                 public boolean run () {
                     if (pidRight.isEnabled() && pidRight.onTarget()) {
                         if (!timing) {
@@ -156,10 +162,13 @@ public class Drive extends Module {
         
         this.set(new ElasticController() {{
             addDefault("Off", new Action() {
+                @Override
             	public void begin (ActionData data){
             		encoderLeft.reset();
             		encoderRight.reset();
             	}
+                
+                @Override
                 public void run (ActionData data) {
                     drive.tankDrive(0D, 0D);
                 }
@@ -172,6 +181,7 @@ public class Drive extends Module {
                 define("back", false);
                 }}) {
              
+                @Override
                 public void run (ActionData data) {
                 	int f = 0;
                 	if( data.is("accelerate") )
@@ -185,6 +195,7 @@ public class Drive extends Module {
                     drive.arcadeDrive(data.get("throttle")*0.5*f, data.get("turn"));
                 }
                 
+                @Override
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
@@ -194,10 +205,12 @@ public class Drive extends Module {
                 define("left", 0D);
                 define("right", 0D);
             }}) {
+                @Override
                 public void run (ActionData data) {
                     drive.tankDrive(data.get("left")*0.5, data.get("right")*0.5);
                 }
                 
+                @Override
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
@@ -211,6 +224,7 @@ public class Drive extends Module {
             	double startLeftClicks;
             	double startRightClicks;
             	
+            	@Override
                 public void begin (ActionData data) {
                 	pid_power_cap = data.get("power cap");
                 	startLeftClicks = data.data("Left Drive Clicks");
@@ -221,6 +235,7 @@ public class Drive extends Module {
                     pidRight.enable();
                 }
                 
+            	@Override
                 public void run (ActionData data){
                 	if(pidLeft.getSetpoint() != data.get("left clicks") + startLeftClicks){
                 		pidLeft.setSetpoint(data.get("left clicks") + startLeftClicks);
@@ -231,6 +246,7 @@ public class Drive extends Module {
                 	drive.tankDrive(PIDLeftOut, PIDRightOut);
                 }
                 
+            	@Override
                 public void end (ActionData data) {
                     pidLeft.reset();
                     pidRight.reset();

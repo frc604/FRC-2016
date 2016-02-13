@@ -1,16 +1,15 @@
 package com._604robotics.robotnik.coordinator;
 
 import com._604robotics.robotnik.GameMode;
-import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.module.ModuleManager;
+import com._604robotics.robotnik.Robot;
 
-public class ModeMap {
-    private Coordinator autonomousMode = new Coordinator();
-    private Coordinator teleopMode = new Coordinator();
+public class ModeManager<T extends Robot<T>> {
+    private Coordinator<T> autonomousMode = new Coordinator<T>();
+    private Coordinator<T> teleopMode = new Coordinator<T>();
     
-    public void attach (ModuleManager modules) {
-        this.autonomousMode.attach(modules);
-        this.teleopMode.attach(modules);
+    public void attach (T robot) {
+        this.autonomousMode.attach(robot);
+        this.teleopMode.attach(robot);
     }
     
     /**
@@ -18,7 +17,7 @@ public class ModeMap {
      *
      * @param autonomousMode the new autonomous mode
      */
-    protected void setAutonomousMode (Coordinator autonomousMode) {
+    public void setAutonomousMode (Coordinator autonomousMode) {
         this.autonomousMode = autonomousMode;
     }
     
@@ -27,7 +26,7 @@ public class ModeMap {
      *
      * @param teleopMode the new teleop mode
      */
-    protected void setTeleopMode (Coordinator teleopMode) {
+    public void setTeleopMode (Coordinator teleopMode) {
         this.teleopMode = teleopMode;
     }
 

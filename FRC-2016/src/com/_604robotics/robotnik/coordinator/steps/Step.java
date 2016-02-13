@@ -1,64 +1,34 @@
 package com._604robotics.robotnik.coordinator.steps;
 
+import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Step.
- */
-public class Step {
-    
-    /** The measure. */
+public class Step<T extends Robot<T>> {
     private final Measure measure;
-    
-    /** The coordinator. */
-    private final Coordinator coordinator;
+    private final Coordinator<T> coordinator;
 
-    /**
-     * Instantiates a new step.
-     *
-     * @param measure the measure
-     */
     public Step (Measure measure) {
         this.measure = measure;
-        this.coordinator = new Coordinator();
+        this.coordinator = new Coordinator<T>();
     }
 
-    /**
-     * Instantiates a new step.
-     *
-     * @param coordinator the coordinator
-     */
-    public Step (Coordinator coordinator) {
+    public Step (Coordinator<T> coordinator) {
         this.measure = null;
         this.coordinator = coordinator;
     }
 
-    /**
-     * Instantiates a new step.
-     *
-     * @param measure the measure
-     * @param coordinator the coordinator
-     */
-    public Step (Measure measure, Coordinator coordinator) {
+    public Step (Measure measure, Coordinator<T> coordinator) {
         this.measure = measure;
         this.coordinator = coordinator;
     }
     
-    /**
-     * Initialize.
-     */
     public void initialize () {
-        if (measure != null)
+        if (measure != null) {
             measure.initialize();
+        }
     }
     
-    /**
-     * Complete.
-     *
-     * @return true, if successful
-     */
     public boolean complete () {
         if (measure != null)
             return measure.complete();
@@ -66,26 +36,15 @@ public class Step {
             return false;
     }
     
-    /**
-     * Attach.
-     *
-     * @param modules the modules
-     */
-    public void attach (ModuleManager modules) {
-        coordinator.attach(modules);
+    public void attach (T robot) {
+        coordinator.attach(robot);
     }
     
-    /**
-     * Update.
-     */
     public void update () {
         coordinator.update();
     }
     
-    /**
-     * Reset.
-     */
-    public void reset () {
+    public void stop () {
         coordinator.stop();
     }
 }

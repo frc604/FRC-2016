@@ -9,6 +9,8 @@ public class TriggerReference implements TriggerAccess {
 
     private TriggerAccess inverse = null;
     
+    private final Safety safety;
+    
     private class TriggerNot implements TriggerAccess {
         private final TriggerAccess source;
         
@@ -21,9 +23,11 @@ public class TriggerReference implements TriggerAccess {
         }
     }
     
-    public TriggerReference (Trigger trigger, Slice value) {
+    public TriggerReference (Trigger trigger, Slice value, Safety safety) {
         this.trigger = trigger;
         this.value = value;
+        
+        this.safety = safety;
     }
     
     public TriggerAccess not () {
@@ -41,7 +45,7 @@ public class TriggerReference implements TriggerAccess {
         return value.getBoolean(false);
     }
     
-    public void update (Safety safety) {
+    public void update () {
         safety.wrap("updating trigger value", () -> value.putBoolean(trigger.run()));
     }
 }

@@ -25,6 +25,7 @@ public class Shifter extends Module
         {{
             addDefault("Low Gear", new Action()
             {
+                @Override
                 public void begin(ActionData data)
                 {
                     //solenoid.set(Value.kReverse);
@@ -33,6 +34,7 @@ public class Shifter extends Module
             });
             add("High Gear", new Action()
             {
+                @Override
                 public void begin(ActionData data)
                 {
                     //solenoid.set(Value.kForward);

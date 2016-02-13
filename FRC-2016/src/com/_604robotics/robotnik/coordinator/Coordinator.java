@@ -1,97 +1,54 @@
 package com._604robotics.robotnik.coordinator;
 
+import java.util.Enumeration;
+import java.util.Vector;
+
+import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.coordinator.groups.Group;
 import com._604robotics.robotnik.coordinator.groups.GroupManager;
 import com._604robotics.robotnik.coordinator.steps.Step;
 import com._604robotics.robotnik.coordinator.steps.StepManager;
-import com._604robotics.robotnik.module.ModuleManager;
-import java.util.Enumeration;
-import java.util.Vector;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Coordinator.
- */
-public class Coordinator {
-    
-    /** The trigger bindings. */
+public class Coordinator<T extends Robot<T>> {
     private final Vector triggerBindings = new Vector();
-    
-    /** The data wires. */
     private final Vector dataWires = new Vector();
-    
-    /** The groups. */
-    private final GroupManager groups = new GroupManager();
 
-    /** The steps. */
-    private final StepManager steps = new StepManager();
+    private final GroupManager<T> groups = new GroupManager();
+    private final StepManager<T> steps = new StepManager();
     
-    /**
-     * Apply.
-     *
-     * @param modules the modules
-     */
-    protected void apply (ModuleManager modules) {}
+    protected void apply (T robot) {}
     
-    /**
-     * Attach.
-     *
-     * @param modules the modules
-     */
-    public void attach (ModuleManager modules) {
+    public void attach (T robot) {
         this.triggerBindings.removeAllElements();
         this.dataWires.removeAllElements();
 
         this.groups.clear();
         this.steps.clear();
         
-        this.apply(modules);
+        this.apply(robot);
 
-        this.groups.attach(modules);
-        this.steps.attach(modules);
+        this.groups.attach(robot);
+        this.steps.attach(robot);
     }
     
-    /**
-     * Bind.
-     *
-     * @param binding the binding
-     */
     protected void bind (Binding binding) {
         this.triggerBindings.addElement(binding);
     }
     
-    /**
-     * Fill.
-     *
-     * @param dataWire the data wire
-     */
     protected void fill (DataWire dataWire) {
         this.dataWires.addElement(dataWire);
     }
     
-    /**
-     * Group.
-     *
-     * @param group the group
-     */
-    protected void group (Group group) {
+    protected void group (Group<T> group) {
         this.groups.add(group);
     }
     
-    /**
-     * Step.
-     *
-     * @param step the step
-     */
-    protected void step (String name, Step step) {
+    protected void step (String name, Step<T> step) {
         this.steps.add(name, step);
     }
     
-    /**
-     * Update.
-     */
     public void update () {
         final Enumeration wires = this.dataWires.elements();
         while (wires.hasMoreElements()) ((DataWire) wires.nextElement()).conduct();
@@ -103,9 +60,6 @@ public class Coordinator {
         this.steps.update();
     }
 
-    /**
-     * Reset.
-     */
     public void stop () {
         this.groups.stop();
         this.steps.stop();

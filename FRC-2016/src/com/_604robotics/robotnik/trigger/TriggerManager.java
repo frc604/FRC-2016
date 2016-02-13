@@ -12,12 +12,12 @@ public class TriggerManager {
     private final String moduleName;
     private final Hashtable triggerTable;
     
-    public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table) {
+    public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table, Safety safety) {
         this.moduleName = moduleName;
         
         this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager() {
            public Object wrap (Object key, Object value) {
-               return new TriggerReference((Trigger) value, table.getSlice((String) key));
+               return new TriggerReference((Trigger) value, table.getSlice((String) key), safety);
            }
         });
     }
@@ -30,10 +30,10 @@ public class TriggerManager {
         return ref;
     }
     
-    public void update (Safety safety) {
+    public void update () {
         final Iterator i = new Iterator(this.triggerTable);
         while (i.next()) {
-            ((TriggerReference) i.value).update(safety);
+            ((TriggerReference) i.value).update();
         }
     }
 }

@@ -1,53 +1,29 @@
 package com._604robotics.robotnik.coordinator.groups;
 
+import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Group.
- */
-public class Group {
-    
-    /** The trigger. */
+public class Group<T extends Robot<T>> {
     private final TriggerAccess trigger;
-    
-    /** The coordinator. */
-    private final Coordinator coordinator;
+    private final Coordinator<T> coordinator;
 
-    /**
-     * Instantiates a new group.
-     *
-     * @param trigger the trigger
-     * @param coordinator the coordinator
-     */
-    public Group (TriggerAccess trigger, Coordinator coordinator) {
+    public Group (TriggerAccess trigger, Coordinator<T> coordinator) {
         this.trigger = trigger;
         this.coordinator = coordinator;
     }
     
-    /**
-     * Attach.
-     *
-     * @param modules the modules
-     */
-    public void attach (ModuleManager modules) {
-        coordinator.attach(modules);
+    public void attach (T robot) {
+        coordinator.attach(robot);
     }
     
-    /**
-     * Update.
-     */
     public void update () {
         if (trigger.get())
             coordinator.update();
     }
 
-    /**
-     * Reset.
-     */
-    public void reset () {
+    public void stop () {
     	coordinator.stop();
     }
 }
