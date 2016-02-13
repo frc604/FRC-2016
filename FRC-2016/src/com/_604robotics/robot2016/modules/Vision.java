@@ -12,9 +12,6 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import java.lang.Math;
 
-/**
- * The class Vision.
- */
 public class Vision extends Module
 {
     private boolean ready=false;
@@ -22,9 +19,6 @@ public class Vision extends Module
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
 
-    /**
-     * Instantiates a new Vision module
-     */
     public Vision()
     {
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
