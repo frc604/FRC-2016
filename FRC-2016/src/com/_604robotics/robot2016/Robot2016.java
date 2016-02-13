@@ -7,6 +7,7 @@ import com._604robotics.robot2016.modes.TeleopMode;
 import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
 import com._604robotics.robot2016.modules.Gear;
+import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Intake;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
@@ -27,6 +28,7 @@ public class Robot2016 extends Robot
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
    			add("Gear", new Gear());
+   			add("Shifter", new Shifter());
    			add("Intake", new Intake());
         }});
         this.set(new CoordinatorList() {{

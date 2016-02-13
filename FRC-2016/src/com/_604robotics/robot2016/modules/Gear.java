@@ -61,6 +61,5 @@ public class Gear extends Module {
                 }
             });
         }});
-        SmartDashboard.putNumber("Gear Value", gear);
     }
 }
