@@ -17,7 +17,7 @@ public class TriggerManager {
         
         this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager() {
            public Object wrap (Object key, Object value) {
-               return new TriggerReference((Trigger) value, table.getSlice((String) key), safety);
+               return new TriggerReference((Trigger) value, table.getRow((String) key), safety);
            }
         });
     }

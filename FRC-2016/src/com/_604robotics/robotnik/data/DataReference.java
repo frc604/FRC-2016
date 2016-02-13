@@ -1,15 +1,15 @@
 package com._604robotics.robotnik.data;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.memory.IndexedTable.Row;
 
 public class DataReference implements DataAccess {
     private final Data data;
-    private final Slice value;
+    private final Row value;
     
     private final Safety safety;
     
-    public DataReference (Data data, Slice value, Safety safety) {
+    public DataReference (Data data, Row value, Safety safety) {
         this.data = data;
         this.value = value;
         

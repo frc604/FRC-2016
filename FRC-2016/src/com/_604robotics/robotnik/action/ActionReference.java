@@ -3,7 +3,7 @@ package com._604robotics.robotnik.action;
 import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.data.DataRecipient;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.memory.IndexedTable.Row;
 import com._604robotics.robotnik.module.ModuleReference;
 import com._604robotics.robotnik.prefabs.trigger.TriggerManual;
 import com._604robotics.robotnik.trigger.TriggerAccess;
@@ -12,7 +12,7 @@ import com._604robotics.robotnik.trigger.TriggerRecipient;
 public class ActionReference implements DataRecipient, TriggerRecipient {
     private final Action action;
 
-    private final Slice trigger;
+    private final Row trigger;
     private final IndexedTable dataTable;
 
     private final ActionData actionData;
@@ -21,7 +21,7 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
     
     private final Safety safety;
     
-    public ActionReference (ModuleReference module, Action action, Slice triggered, IndexedTable dataTable, Safety safety) {
+    public ActionReference (ModuleReference module, Action action, Row triggered, IndexedTable dataTable, Safety safety) {
         this.action = action;
         
         this.trigger = triggered;
