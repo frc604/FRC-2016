@@ -8,18 +8,13 @@ import com._604robotics.robotnik.data.Data;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class Gear extends Module {
-    
     private double multiplier = 1;
     private double gear = 1;
     private double maxGear = 6;
     
-    public Gear ()
-    {
-        this.set(new DataMap()
-        {{
+    public Gear () {
+        this.set(new DataMap() {{
             add("Current Multiplier", new Data() {
                 public double run () {
                     return Math.pow(multiplier, maxGear - gear);
@@ -39,8 +34,7 @@ public class Gear extends Module {
             });
         }});
         
-        this.set(new ElasticController()
-        {{
+        this.set(new ElasticController() {{
             addDefault("Not Shifting", new Action(new FieldMap () {{
                 define("multiplier", 1D);
             }}) {
@@ -51,13 +45,17 @@ public class Gear extends Module {
             
             add("Upshift", new Action() {
                 public void begin (ActionData data) {
-                    if(gear < maxGear) gear++;
+                    if(gear < maxGear) {
+                    	gear++;
+                    }
                 }
             });
             
             add("Downshift", new Action() {
                 public void begin (ActionData data) {
-                    if(gear > 1) gear--;
+                    if(gear > 1) {
+                    	gear--;
+                    }
                 }
             });
         }});

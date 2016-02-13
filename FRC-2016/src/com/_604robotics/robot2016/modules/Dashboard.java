@@ -1,26 +1,12 @@
 package com._604robotics.robot2016.modules;
 
-import com._604robotics.robotnik.action.Action;
-import com._604robotics.robotnik.action.ActionData;
-import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.data.sources.DashboardData;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.TriggerMap;
 import com._604robotics.robotnik.trigger.sources.DashboardTriggerChoice;
-import com._604robotics.robotnik.action.field.FieldMap;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-// TODO: Auto-generated Javadoc
-/**
- * The Class Dashboard.
- */
 public class Dashboard extends Module {
-    
-    /**
-     * Instantiates a new dashboard.
-     */
     public Dashboard () {
         this.set(new TriggerMap() {{
             final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
@@ -45,6 +31,7 @@ public class Dashboard extends Module {
             add("Auton On", autonOn.add("Auton On"));
             
         }});
+        
         this.set(new DataMap() {{
         	/* Drive servo testing */
         	{
@@ -52,6 +39,10 @@ public class Dashboard extends Module {
         		add("Right Drive Servo", new DashboardData("Right Drive Servo", -120D));
         		add("Drive Servo Power Cap", new DashboardData("Drive Servo Power Cap", 0.5D));
         		add("Auton Mode", new DashboardData("Auton Mode", 0D));
+        	}
+        	/* Shooter */
+        	{
+        		add("Shooter Target Speed", new DashboardData("Shooter Target Speed", 0));
         	}
     	}});
     }
