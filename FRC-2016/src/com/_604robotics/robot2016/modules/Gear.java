@@ -23,12 +23,14 @@ public class Gear extends Module {
             addDefault("Not Shifting", new Action(new FieldMap () {{
                 define("Multiplier", 1D);
             }}) {
+            	@Override
                 public void run (ActionData data) {
                     multiplier = data.get("Multiplier");
                 }
             });
             
             add("Upshift", new Action() {
+            	@Override
                 public void begin (ActionData data) {
                     if(gear < maxGear) {
                     	++gear;
@@ -37,6 +39,7 @@ public class Gear extends Module {
             });
             
             add("Downshift", new Action() {
+            	@Override
                 public void begin (ActionData data) {
                     if(gear > 1) {
                     	--gear;

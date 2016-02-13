@@ -3,9 +3,9 @@ package com._604robotics.robotnik.coordinator.groups;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com._604robotics.robotnik.module.ModuleManager;
+import com._604robotics.robotnik.Robot;
 
-public class GroupManager {
+public class GroupManager<T extends Robot<T>> {
     private final Vector groups = new Vector();
 
     public void clear () {
@@ -16,19 +16,19 @@ public class GroupManager {
         this.groups.addElement(group);
     }
 
-    public void attach (ModuleManager modules) {
+    public void attach (T robot) {
         final Enumeration i = this.groups.elements();
-        while (i.hasMoreElements()) ((Group) i.nextElement()).attach(modules);
+        while (i.hasMoreElements()) ((Group<T>) i.nextElement()).attach(robot);
     }
 
     public void update () {
         final Enumeration i = this.groups.elements();
-        while (i.hasMoreElements()) ((Group) i.nextElement()).update();
+        while (i.hasMoreElements()) ((Group<T>) i.nextElement()).update();
     }
 
     public void stop () {
         final Enumeration i = this.groups.elements();
-        while (i.hasMoreElements()) ((Group) i.nextElement()).reset();
+        while (i.hasMoreElements()) ((Group<T>) i.nextElement()).stop();
     }
     
     public boolean complete () {

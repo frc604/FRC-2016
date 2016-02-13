@@ -1,12 +1,12 @@
 package com._604robotics.robotnik.coordinator.steps;
 
-import com._604robotics.robotnik.logging.Logger;
-import com._604robotics.robotnik.module.ModuleManager;
-
 import java.util.Enumeration;
 import java.util.Vector;
 
-public class StepManager {
+import com._604robotics.robotnik.Robot;
+import com._604robotics.robotnik.logging.Logger;
+
+public class StepManager<T extends Robot<T>> {
     private final Vector names = new Vector();
     private final Vector steps = new Vector();
 
@@ -18,19 +18,19 @@ public class StepManager {
         steps.removeAllElements();
     }
 
-    public void add (String name, Step step) {
-        names.addElement(name);
-        steps.addElement(step);
+    public void add (String name, Step<T> step) {
+        this.names.addElement(name);
+        this.steps.addElement(step);
     }
 
-    public void attach (ModuleManager modules) {
-        final Enumeration i = steps.elements();
-        while (i.hasMoreElements()) ((Step) i.nextElement()).attach(modules);
+    public void attach (T robot) {
+        final Enumeration i = this.steps.elements();
+        while (i.hasMoreElements()) ((Step<T>) i.nextElement()).attach(robot);
     }
 
     public void update () {
         if (!complete()) {
-            final Step step = (Step) this.steps.elementAt(currentStep);
+            final Step<T> step = (Step<T>) this.steps.elementAt(currentStep);
 
             if (!initialized) {
 				initialized = true;
@@ -53,7 +53,7 @@ public class StepManager {
         this.initialized = false;
 
         final Enumeration i = this.steps.elements();
-        while (i.hasMoreElements()) ((Step) i.nextElement()).reset();
+        while (i.hasMoreElements()) ((Step<T>) i.nextElement()).stop();
     }
     
     public boolean complete () {

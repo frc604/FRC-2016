@@ -1,23 +1,24 @@
 package com._604robotics.robotnik.coordinator.steps;
 
+import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
 
-public class Step {
+public class Step<T extends Robot<T>> {
     private final Measure measure;
-    private final Coordinator coordinator;
+    private final Coordinator<T> coordinator;
 
     public Step (Measure measure) {
         this.measure = measure;
-        this.coordinator = new Coordinator();
+        this.coordinator = new Coordinator<T>();
     }
 
-    public Step (Coordinator coordinator) {
+    public Step (Coordinator<T> coordinator) {
         this.measure = null;
         this.coordinator = coordinator;
     }
 
-    public Step (Measure measure, Coordinator coordinator) {
+    public Step (Measure measure, Coordinator<T> coordinator) {
         this.measure = measure;
         this.coordinator = coordinator;
     }
@@ -40,15 +41,15 @@ public class Step {
         return true;
     }
     
-    public void attach (ModuleManager modules) {
-        coordinator.attach(modules);
+    public void attach (T robot) {
+        coordinator.attach(robot);
     }
     
     public void update () {
         coordinator.update();
     }
     
-    public void reset () {
+    public void stop () {
         coordinator.stop();
     }
 }

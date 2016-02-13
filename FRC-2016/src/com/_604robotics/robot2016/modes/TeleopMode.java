@@ -1,14 +1,19 @@
 package com._604robotics.robot2016.modes;
 
+import com._604robotics.robot2016.Robot2016;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
+<<<<<<< a8b7ebfc7d531322f393a3215fc09c8bba370045
+=======
+import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
+>>>>>>> Get rid of ModeMap, CoordinatorList, ModuleMap
 import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
 import com._604robotics.robot2016.constants.Calibration;
 
-public class TeleopMode extends Coordinator {
+public class TeleopMode extends Coordinator<Robot2016> {
     private final XboxController driver = new XboxController(0);
     private final XboxController manipulator = new XboxController(1);
     
@@ -29,33 +34,33 @@ public class TeleopMode extends Coordinator {
     }
     
     @Override
-    protected void apply (ModuleManager modules) {
+    protected void apply (Robot2016 robot) {
     	/* Driving */
     	{
     	    /* Tank Drive */
     		{	
-	    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
-	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
-	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
+	    		this.bind(new Binding(robot.drive.getAction("Tank Drive"), robot.dashboard.getTrigger("Tank Drive")));
+	            this.fill(new DataWire(robot.drive.getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
+	            this.fill(new DataWire(robot.drive.getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
     		}
     		
     		/* Geared Drive */
     		{
-        		this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), modules.getModule("Dashboard").getTrigger("Geared Drive")));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Power", driver.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Power", driver.rightStick.Y));
+        		this.bind(new Binding(robot.drive.getAction("Geared Drive"), robot.dashboard.getTrigger("Geared Drive")));
+                this.fill(new DataWire(robot.drive.getAction("Geared Drive"), "Left Power", driver.leftStick.Y));
+                this.fill(new DataWire(robot.drive.getAction("Geared Drive"), "Right Power", driver.rightStick.Y));
 
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Low Gear", driver.buttons.LT));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left High Gear", driver.buttons.LB));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Low Gear", driver.buttons.LT));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right High Gear", driver.buttons.LB));
+                this.fill(new DataWire(robot.drive.getAction("Geared Drive"), "Left Low Gear", driver.buttons.LT));
+                this.fill(new DataWire(robot.drive.getAction("Geared Drive"), "Left High Gear", driver.buttons.LB));
+                this.fill(new DataWire(robot.drive.getAction("Geared Drive"), "Right Low Gear", driver.buttons.LT));
+                this.fill(new DataWire(robot.drive.getAction("Geared Drive"), "Right High Gear", driver.buttons.LB));
         	}
         	
             /* Shifter */
     		{
                 final TriggerToggle shift = new TriggerToggle(driver.buttons.RB, false);
-                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
+                this.bind(new Binding(robot.shifter.getAction("Low Gear"), shift.off));
+                this.bind(new Binding(robot.shifter.getAction("High Gear"), shift.on));
     		}
     	}
     	
@@ -63,19 +68,19 @@ public class TeleopMode extends Coordinator {
     	{
         	/* Shooter */
         	{
-        		this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), manipulator.buttons.RT));
+        		this.bind(new Binding(robot.shooter.getAction("Shoot"), manipulator.buttons.RT));
         	}
         	
         	/* Intake */
         	{
-        		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
+        		this.fill(new DataWire(robot.intake.getAction("Run"), "Power", manipulator.leftStick.Y));
         	}
         	
         	/* Pickup */
         	{
-        		this.bind(new Binding(modules.getModule("Pickup").getAction("Down"), manipulator.buttons.A));
-        		this.bind(new Binding(modules.getModule("Pickup").getAction("Mid"), manipulator.buttons.X));
-        		this.bind(new Binding(modules.getModule("Pickup").getAction("Up"), manipulator.buttons.Y));
+        		this.bind(new Binding(robot.pickup.getAction("Down"), manipulator.buttons.A));
+        		this.bind(new Binding(robot.pickup.getAction("Mid"), manipulator.buttons.X));
+        		this.bind(new Binding(robot.pickup.getAction("Up"), manipulator.buttons.Y));
         	}
     	}
     }

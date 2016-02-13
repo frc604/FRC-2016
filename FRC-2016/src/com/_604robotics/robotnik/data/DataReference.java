@@ -7,9 +7,13 @@ public class DataReference implements DataAccess {
     private final Data data;
     private final Slice value;
     
-    public DataReference (Data data, Slice value) {
+    private final Safety safety;
+    
+    public DataReference (Data data, Slice value, Safety safety) {
         this.data = data;
         this.value = value;
+        
+        this.safety = safety;
     }
     
     /* (non-Javadoc)
@@ -19,7 +23,7 @@ public class DataReference implements DataAccess {
         return value.getNumber(0D);
     }
     
-    public void update (Safety safety) {
+    public void update () {
         safety.wrap("updating data value", () -> value.putNumber(data.run()));
     }
 }

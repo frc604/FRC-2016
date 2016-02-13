@@ -12,36 +12,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Hashtable;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ActionManager.
- */
 public class ActionManager {
-    
-    /** The module name. */
     private final String moduleName;
     
-    /** The controller. */
     private final ActionController controller;
-    
-    /** The trigger table. */
+
     private final IndexedTable triggerTable;
-    
-    /** The status table. */
     private final IndexedTable statusTable;
-    
-    /** The action table. */
+
     private final Hashtable actionTable;
-    
-    /**
-     * Instantiates a new action manager.
-     *
-     * @param module the module
-     * @param moduleName the module name
-     * @param controller the controller
-     * @param table the table
-     */
-    public ActionManager (final ModuleReference module, String moduleName, ActionController controller, final IndexedTable table) {
+
+    public ActionManager (final ModuleReference module, String moduleName, ActionController controller, final IndexedTable table, Safety safety) {
         this.moduleName = moduleName;
         
         this.controller = controller;
@@ -55,34 +36,22 @@ public class ActionManager {
         final IndexedTable dataTable = table.getSubTable("data");
         this.actionTable = Repackager.repackage(controller.iterate(), new Repackager() {
            public Object wrap (Object key, Object value) {
-               return new ActionReference(module, (Action) value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key));
+               return new ActionReference(module, (Action) value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key), safety);
            }
         });
     }
     
-    /**
-     * Gets the action.
-     *
-     * @param name the name
-     * @return the action
-     */
     public ActionReference getAction (String name) {
         ActionReference ref = (ActionReference) this.actionTable.get(name);
         if (ref == null) InternalLogger.missing("ActionReference", name);
         return ref;
     }
     
-    /**
-     * Reset.
-     */
     public void reset () {
         final Iterator i = new Iterator(this.actionTable);
         while (i.next()) ((ActionReference) i.value).reset();
     }
     
-    /**
-     * Update.
-     */
     public void update () {
         final Scorekeeper r = new Scorekeeper(0D);
         final Iterator i = controller.iterate();
@@ -92,25 +61,22 @@ public class ActionManager {
         this.statusTable.putString("triggeredAction", r.score > 0 ? (String) r.victor : "");
     }
     
-    /**
-     * Execute.
-     */
-    public void execute (Safety safety) {
+    public void execute () {
         final String triggeredAction = this.statusTable.getString("triggeredAction", "");
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         final String selectedAction = this.controller.pickAction(lastAction, triggeredAction);
         
         if (!lastAction.equals("") && !lastAction.equals(selectedAction)) {
-            getAction(lastAction).end(safety);
+            getAction(lastAction).end();
         }
 
         if (!selectedAction.equals("")) {
             final ActionReference action = this.getAction(selectedAction);
             if (lastAction.equals("") || !lastAction.equals(selectedAction)) {
-                action.begin(safety);
+                action.begin();
             }
-            action.run(safety);
+            action.end();
         }
         
         this.statusTable.putString("lastAction", selectedAction);
@@ -123,7 +89,7 @@ public class ActionManager {
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         if (!lastAction.equals("")) {
-            getAction(lastAction).end(safety);
+            getAction(lastAction).end();
         }
         
         this.statusTable.putString("lastAction", "");

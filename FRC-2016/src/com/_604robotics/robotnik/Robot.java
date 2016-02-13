@@ -1,24 +1,23 @@
 package com._604robotics.robotnik;
 
-import com._604robotics.robotnik.coordinator.CoordinatorList;
-import com._604robotics.robotnik.coordinator.ModeMap;
+import com._604robotics.robotnik.coordinator.Coordinator;
+import com._604robotics.robotnik.coordinator.ModeManager;
+import com._604robotics.robotnik.coordinator.SystemManager;
 import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.logging.TimeSampler;
 import com._604robotics.robotnik.memory.IndexedTable;
+import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.module.ModuleManager;
-import com._604robotics.robotnik.module.ModuleMap;
+import com._604robotics.robotnik.module.ModuleReference;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
-public class Robot extends SampleRobot {
-    private final IndexedTable table = IndexedTable.getTable("robotnik");
+public abstract class Robot<T extends Robot<T>> extends SampleRobot {
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
     
-    private ModuleManager modules = new ModuleManager(new ModuleMap(), this.table.getSubTable("modules"));
-    private CoordinatorList systems = new CoordinatorList();
-    private ModeMap modes = new ModeMap();
-    
-    private final Safety safety;
+    private final ModuleManager modules;
+    private final SystemManager<T> systems;
+    private final ModeManager<T> modes;
     
     /**
      * Instantiates a new robot (with exception protection enabled by default).
@@ -35,46 +34,38 @@ public class Robot extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
-        this.safety = safety;
+        modules = new ModuleManager(IndexedTable.getTable("robotnik").getSubTable("modules"), safety);
+        systems = new SystemManager<T>();
+        modes = new ModeManager<T>();
 
         if (safety.disabled()) {
             Logger.warn("Exception protection has been disabled. Make sure you know what you're doing!");
         }
     }
     
-    /**
-     * Sets the module map to use.
-     *
-     * @param moduleMap the module map
-     */
-    protected void set (ModuleMap moduleMap) {
-        this.modules = new ModuleManager(moduleMap, this.table.getSubTable("modules"));
+    protected ModuleReference addModule (String name, Module module) {
+        return modules.addModule(name, module);
     }
     
-    /**
-     * Sets the coordinator list to use.
-     *
-     * @param coordinatorList the coordinator list
-     */
-    protected void set (CoordinatorList coordinatorList) {
-        this.systems = coordinatorList;
+    protected void addSystem (Coordinator<T> system) {
+        systems.addSystem(system);
     }
     
-    /**
-     * Sets the mode map to use.
-     *
-     * @param modeMap the mode map
-     */
-    protected void set (ModeMap modeMap) {
-        this.modes = modeMap;
+    protected void setAutonomousMode (Coordinator<T> autonomousMode) {
+        modes.setAutonomousMode(autonomousMode);
+    }
+    
+    protected void setTeleopMode (Coordinator<T> autonomousMode) {
+        modes.setTeleopMode(autonomousMode);
     }
     
     /* (non-Javadoc)
      * @see edu.wpi.first.wpilibj.SampleRobot#robotInit()
      */
+    @SuppressWarnings("unchecked")
     public void robotInit () {
-        this.systems.attach(this.modules);
-        this.modes.attach(this.modules);
+        this.systems.attach((T) this);
+        this.modes.attach((T) this);
     }
     
     /* (non-Javadoc)
@@ -102,18 +93,18 @@ public class Robot extends SampleRobot {
         Logger.log(" -- " + gameMode.prettyName() + " mode begin.");
 
         if (gameMode != GameMode.DISABLED) {
-            modules.start(safety);
+            modules.start();
 
             loopTime.start();
         }
 
         while (gameMode.active()) {
-            modules.update(safety);
+            modules.update();
             systems.update();
 
             if (gameMode != GameMode.DISABLED) {
                 modes.update(gameMode);
-                modules.execute(safety);
+                modules.execute();
 
                 loopTime.sample();
             }
@@ -122,7 +113,7 @@ public class Robot extends SampleRobot {
         if (gameMode != GameMode.DISABLED) {
             loopTime.stop();
 
-            modules.stop(safety);
+            modules.stop();
             modes.stop(gameMode);
         }
 

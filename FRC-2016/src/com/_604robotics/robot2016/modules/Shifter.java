@@ -10,7 +10,9 @@ import com._604robotics.robotnik.module.Module;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Shifter extends Module {
-    private final DoubleSolenoid solenoid = new DoubleSolenoid(Ports.SHIFTER_SOLENOID_FORWARD, Ports.SHIFTER_SOLENOID_REVERSE);
+    private final DoubleSolenoid solenoid =
+            new DoubleSolenoid(Ports.SHIFTER_SOLENOID_FORWARD,
+                               Ports.SHIFTER_SOLENOID_REVERSE);
 
     public Shifter() {
         this.set(new ElasticController() {{

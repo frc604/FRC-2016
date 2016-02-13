@@ -70,7 +70,7 @@ public class Drive extends Module {
         SmartDashboard.putData("Left Drive PID", pidLeft);
         SmartDashboard.putData("Right Drive PID", pidRight);
         
-        this.set(new DataMap() {{
+        set(new DataMap() {{
             add("Left Drive Clicks", encoderLeft::get);
             add("Right Drive Clicks", encoderRight::get);
             
@@ -81,14 +81,14 @@ public class Drive extends Module {
             add("Right PID Error", pidRight::getAvgError);
         }});
         
-        this.set(new TriggerMap() {{
+        set(new TriggerMap() {{
             add("At Left Servo Target", () ->
                 pidLeft.isEnabled() && pidLeft.onTarget());
             add("At Right Servo Target", () ->
                 pidRight.isEnabled() && pidRight.onTarget());
         }});
         
-        this.set(new ElasticController() {{
+        set(new ElasticController() {{
             addDefault("Off", new Action() {
                 public void run (ActionData data) {
                     drive.tankDrive(0, 0);
@@ -100,11 +100,13 @@ public class Drive extends Module {
                 define("Right Power", 0D);
                 define("Throttle", 1D);
             }}) {
+                @Override
                 public void run (ActionData data) {
                     drive.tankDrive(data.get("Left Power") * data.get("Throttle") * 0.5,
                                     data.get("Right Power") * data.get("Throttle") * 0.5);
                 }
                 
+                @Override
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
@@ -118,6 +120,7 @@ public class Drive extends Module {
                 define("Right Low Gear", false);
                 define("Right High Gear", false);
             }}) {
+                @Override
                 public void run (ActionData data) {
                 	double leftGear = 0.75;
                 	double rightGear = 0.75;
@@ -142,6 +145,7 @@ public class Drive extends Module {
                                     data.get("Right Power") * rightGear);
                 }
                 
+                @Override
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
@@ -151,6 +155,7 @@ public class Drive extends Module {
                 define("Left Clicks", 0D);
                 define("Right Clicks", 0D);
             }}) {
+                @Override
                 public void begin (ActionData data) {
             		encoderLeft.reset();
             		encoderRight.reset();
@@ -162,6 +167,7 @@ public class Drive extends Module {
                     pidRight.enable();
                 }
                 
+            	@Override
                 public void run (ActionData data){
                 	if (pidLeft.getSetpoint() != data.get("Left Clicks")) {
                 	    pidLeft.reset();
@@ -180,6 +186,7 @@ public class Drive extends Module {
                 	}
                 }
                 
+            	@Override
                 public void end (ActionData data) {
                     pidLeft.reset();
                     pidRight.reset();
