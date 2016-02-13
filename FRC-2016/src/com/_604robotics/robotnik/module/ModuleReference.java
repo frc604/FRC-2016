@@ -5,14 +5,12 @@ import com._604robotics.robotnik.action.ActionManager;
 import com._604robotics.robotnik.action.ActionReference;
 import com._604robotics.robotnik.data.DataManager;
 import com._604robotics.robotnik.data.DataReference;
-import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.trigger.TriggerManager;
 import com._604robotics.robotnik.trigger.TriggerReference;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 public class ModuleReference {
-    private final String name;
     private final Module module;
 
     private final DataManager dataManager;
@@ -21,13 +19,12 @@ public class ModuleReference {
     
     private final Safety safety;
     
-    public ModuleReference (String name, Module module, IndexedTable table, Safety safety) {
-        this.dataManager = new DataManager(name, module.getDataMap(), table.getSubTable("data"), safety);
-        this.triggerManager = new TriggerManager(name, module.getTriggerMap(), table.getSubTable("triggers"), safety);
+    public ModuleReference (Module module, ITable table, Safety safety) {
+        this.dataManager = new DataManager(module.getDataMap(), table.getSubTable("data"), safety);
+        this.triggerManager = new TriggerManager(module.getTriggerMap(), table.getSubTable("triggers"), safety);
         
-        this.actionManager = new ActionManager(this, name, module.getActionController(), table.getSubTable("actions"), safety);
+        this.actionManager = new ActionManager(this, module.getActionController(), table.getSubTable("actions"), safety);
         
-        this.name = name;
         this.module = module;
         
         this.safety = safety;
@@ -46,7 +43,7 @@ public class ModuleReference {
     }
     
     public void start () {
-        safety.wrap("module " + name + " begin phase", module::begin);
+        safety.wrap("module begin phase", module::begin);
     }
     
     public void update () {
@@ -63,6 +60,6 @@ public class ModuleReference {
     
     public void stop () {
         this.actionManager.stop(safety);
-        safety.wrap("module " + name + " end phase", module::end);
+        safety.wrap("module end phase", module::end);
     }
 }

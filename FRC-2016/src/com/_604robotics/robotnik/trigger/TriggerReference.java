@@ -1,7 +1,7 @@
 package com._604robotics.robotnik.trigger;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.memory.IndexedTable.Row;
+import com._604robotics.robotnik.networking.Row;
 
 public class TriggerReference implements TriggerAccess {
     private final Trigger trigger;

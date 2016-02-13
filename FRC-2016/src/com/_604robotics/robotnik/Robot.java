@@ -1,16 +1,16 @@
 package com._604robotics.robotnik;
 
 import com._604robotics.robotnik.coordinator.Coordinator;
-import com._604robotics.robotnik.coordinator.SystemManager;
 import com._604robotics.robotnik.coordinator.ModeManager;
+import com._604robotics.robotnik.coordinator.SystemManager;
+import com._604robotics.robotnik.logging.Logger;
+import com._604robotics.robotnik.logging.TimeSampler;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.module.ModuleReference;
-import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.logging.Logger;
-import com._604robotics.robotnik.logging.TimeSampler;
 
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public abstract class Robot<T extends Robot<T>> extends SampleRobot {
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
@@ -34,7 +34,7 @@ public abstract class Robot<T extends Robot<T>> extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
-        modules = new ModuleManager(IndexedTable.getTable("robotnik").getSubTable("modules"), safety);
+        modules = new ModuleManager(NetworkTable.getTable("robotnik").getSubTable("modules"), safety);
         systems = new SystemManager<T>();
         modes = new ModeManager<T>();
 
@@ -64,6 +64,7 @@ public abstract class Robot<T extends Robot<T>> extends SampleRobot {
      */
     @SuppressWarnings("unchecked")
     public void robotInit () {
+        this.modules.index();
         this.systems.attach((T) this);
         this.modes.attach((T) this);
     }
