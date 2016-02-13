@@ -1,11 +1,12 @@
 package com._604robotics.robotnik.data;
 
-import com._604robotics.robotnik.DataProxy;
+import java.util.Hashtable;
+
+import com._604robotics.robotnik.Safety;
+import com._604robotics.robotnik.logging.InternalLogger;
+import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
-import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.logging.InternalLogger;
-import java.util.Hashtable;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -51,8 +52,10 @@ public class DataManager {
     /**
      * Update.
      */
-    public void update () {
+    public void update (Safety safety) {
         final Iterator i = new Iterator(this.dataTable);
-        while (i.next()) DataProxy.update(moduleName, (String) i.key, (DataReference) i.value);
+        while (i.next()) {
+            ((DataReference) i.value).update(safety);
+        }
     }
 }

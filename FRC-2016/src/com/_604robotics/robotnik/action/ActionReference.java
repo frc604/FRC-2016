@@ -1,5 +1,6 @@
 package com._604robotics.robotnik.action;
 
+import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.data.DataRecipient;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.memory.IndexedTable.Slice;
@@ -74,23 +75,23 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
     /**
      * Begin.
      */
-    public void begin () {
-        this.action.begin(this.actionData);
+    public void begin (Safety safety) {
+        safety.wrap("action begin phase", () -> action.begin(actionData));
         this.activeTrigger.set(true);
     }
     
     /**
      * Run.
      */
-    public void run () {
-        this.action.run(this.actionData);
+    public void run (Safety safety) {
+        safety.wrap("action run phase", () -> action.run(actionData));
     }
     
     /**
      * End.
      */
-    public void end () {
-        this.action.end(this.actionData);
+    public void end (Safety safety) {
+        safety.wrap("action end phase", () -> action.end(actionData));
         this.activeTrigger.set(false);
     }
     

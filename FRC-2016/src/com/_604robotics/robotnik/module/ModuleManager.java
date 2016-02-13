@@ -3,6 +3,7 @@ package com._604robotics.robotnik.module;
 import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.memory.IndexedTable;
+import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.logging.InternalLogger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,32 +48,40 @@ public class ModuleManager {
     /**
      * Start.
      */
-    public void start () {
+    public void start (Safety safety) {
         final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).start();
+        while (i.next()) {
+            ((ModuleReference) i.value).start(safety);
+        }
     }
     
     /**
      * Update.
      */
-    public void update () {
+    public void update (Safety safety) {
         final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).update();
+        while (i.next()) {
+            ((ModuleReference) i.value).update(safety);
+        }
     }
     
     /**
      * Execute.
      */
-    public void execute () {
+    public void execute (Safety safety) {
         final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).execute();
+        while (i.next()) {
+            ((ModuleReference) i.value).execute(safety);
+        }
     }
     
     /**
      * End.
      */
-    public void end () {
+    public void stop (Safety safety) {
         final Iterator i = new Iterator(this.moduleTable);
-        while (i.next()) ((ModuleReference) i.value).end();
+        while (i.next()) {
+            ((ModuleReference) i.value).stop(safety);
+        }
     }
 }
