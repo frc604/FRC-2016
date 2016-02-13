@@ -52,8 +52,6 @@ public class AutonomousMode extends Coordinator<Robot2016> {
 		group(robot.dashboard.getTrigger("Auton Mode B"), new Coordinator<Robot2016>() {
 		    @Override
 			protected void apply (Robot2016 robot) {
-				/* bind/wire things common to all steps of Mode B outside the Steps */
-
 				step("Backward", new TriggerAnd(new TriggerAccess[] {
 						robot.drive.getTrigger("At Left Servo Target"),
 		    			robot.drive.getTrigger("At Right Servo Target")
