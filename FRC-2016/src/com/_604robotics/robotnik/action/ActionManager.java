@@ -1,6 +1,6 @@
 package com._604robotics.robotnik.action;
 
-import com._604robotics.robotnik.ActionProxy;
+import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.meta.Iterator;
 import com._604robotics.robotnik.meta.Repackager;
 import com._604robotics.robotnik.meta.Scorekeeper;
@@ -95,24 +95,22 @@ public class ActionManager {
     /**
      * Execute.
      */
-    public void execute () {
+    public void execute (Safety safety) {
         final String triggeredAction = this.statusTable.getString("triggeredAction", "");
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         final String selectedAction = this.controller.pickAction(lastAction, triggeredAction);
         
         if (!lastAction.equals("") && !lastAction.equals(selectedAction)) {
-            ActionProxy.end(moduleName, lastAction, this.getAction(lastAction));
+            getAction(lastAction).end(safety);
         }
 
         if (!selectedAction.equals("")) {
             final ActionReference action = this.getAction(selectedAction);
-            
             if (lastAction.equals("") || !lastAction.equals(selectedAction)) {
-                ActionProxy.begin(moduleName, selectedAction, action);
+                action.begin(safety);
             }
-            
-            ActionProxy.run(moduleName, selectedAction, action);
+            action.end(safety);
         }
         
         this.statusTable.putString("lastAction", selectedAction);
@@ -121,11 +119,11 @@ public class ActionManager {
     /**
      * End.
      */
-    public void end () {
+    public void stop (Safety safety) {
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         if (!lastAction.equals("")) {
-            ActionProxy.end(moduleName, lastAction, this.getAction(lastAction));
+            getAction(lastAction).end(safety);
         }
         
         this.statusTable.putString("lastAction", "");

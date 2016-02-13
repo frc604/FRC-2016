@@ -88,4 +88,10 @@ public class Binding {
     public boolean isSafety () {
         return this.safety;
     }
+    
+    public void conduct () {
+        if (getTrigger().get()) {
+            getRecipient().sendTrigger(isSafety() ? 2D : 1D);
+        }
+    }
 }

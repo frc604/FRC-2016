@@ -1,24 +1,13 @@
 package com._604robotics.robotnik.coordinator;
 
+import com._604robotics.robotnik.GameMode;
+import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.module.ModuleManager;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ModeMap.
- */
 public class ModeMap {
-    
-    /** The autonomous mode. */
     private Coordinator autonomousMode = new Coordinator();
-    
-    /** The teleop mode. */
     private Coordinator teleopMode = new Coordinator();
     
-    /**
-     * Attach.
-     *
-     * @param modules the modules
-     */
     public void attach (ModuleManager modules) {
         this.autonomousMode.attach(modules);
         this.teleopMode.attach(modules);
@@ -58,5 +47,36 @@ public class ModeMap {
      */
     public Coordinator getTeleopMode () {
         return this.teleopMode;
+    }
+    
+    public Coordinator getGameMode (GameMode gameMode) {
+        switch (gameMode) {
+        case AUTONOMOUS:
+            return getAutonomousMode();
+        case TELEOP:
+            return getTeleopMode();
+        default:
+            return null;
+        }
+    }
+    
+    public void update (GameMode gameMode) {
+        switch (gameMode) {
+        case AUTONOMOUS:
+            getAutonomousMode().update();
+        case TELEOP:
+            getTeleopMode().update();
+        default:
+        }
+    }
+    
+    public void stop (GameMode gameMode) {
+        switch (gameMode) {
+        case AUTONOMOUS:
+            getAutonomousMode().stop();
+        case TELEOP:
+            getTeleopMode().stop();
+        default:
+        }
     }
 }

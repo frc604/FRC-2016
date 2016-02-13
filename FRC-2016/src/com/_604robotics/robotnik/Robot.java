@@ -15,9 +15,11 @@ public class Robot extends SampleRobot {
     private final IndexedTable table = IndexedTable.getTable("robotnik");
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
     
-    private ModuleManager moduleManager = new ModuleManager(new ModuleMap(), this.table.getSubTable("modules"));
-    private CoordinatorList coordinatorList = new CoordinatorList();
-    private ModeMap modeMap = new ModeMap();
+    private ModuleManager modules = new ModuleManager(new ModuleMap(), this.table.getSubTable("modules"));
+    private CoordinatorList systems = new CoordinatorList();
+    private ModeMap modes = new ModeMap();
+    
+    private final Safety safety;
     
     /**
      * Instantiates a new robot (with exception protection enabled by default).
@@ -34,15 +36,9 @@ public class Robot extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
+        this.safety = safety;
+
         if (safety.disabled()) {
-            RobotProxy.disable();
-            
-            DataProxy.disable();
-            TriggerProxy.disable();
-            ActionProxy.disable();
-
-            ConnectorProxy.disable();
-
             Logger.warn("Exception protection has been disabled. Make sure you know what you're doing!");
         }
     }
@@ -53,7 +49,7 @@ public class Robot extends SampleRobot {
      * @param moduleMap the module map
      */
     protected void set (ModuleMap moduleMap) {
-        this.moduleManager = new ModuleManager(moduleMap, this.table.getSubTable("modules"));
+        this.modules = new ModuleManager(moduleMap, this.table.getSubTable("modules"));
     }
     
     /**
@@ -62,7 +58,7 @@ public class Robot extends SampleRobot {
      * @param coordinatorList the coordinator list
      */
     protected void set (CoordinatorList coordinatorList) {
-        this.coordinatorList = coordinatorList;
+        this.systems = coordinatorList;
     }
     
     /**
@@ -71,68 +67,66 @@ public class Robot extends SampleRobot {
      * @param modeMap the mode map
      */
     protected void set (ModeMap modeMap) {
-        this.modeMap = modeMap;
+        this.modes = modeMap;
     }
     
     /* (non-Javadoc)
      * @see edu.wpi.first.wpilibj.SampleRobot#robotInit()
      */
     public void robotInit () {
-        this.coordinatorList.attach(this.moduleManager);
-        this.modeMap.attach(this.moduleManager);
+        this.systems.attach(this.modules);
+        this.modes.attach(this.modules);
     }
     
     /* (non-Javadoc)
      * @see edu.wpi.first.wpilibj.SampleRobot#autonomous()
      */
     public void autonomous () {
-        Logger.log(" -- Autonomous mode begin.");
-        
-        this.loopTime.start();
-        RobotProxy.start(moduleManager);
-        
-        final Coordinator mode = this.modeMap.getAutonomousMode();
-        
-        while (this.isEnabled() && this.isAutonomous()) {
-            RobotProxy.tick(mode, moduleManager, coordinatorList);
-            this.loopTime.sample();
-        }
-        
-        RobotProxy.end(mode, moduleManager);
-        this.loopTime.stop();
-
-        Logger.log(" -- Autonomous mode end.");
+        modeLoop(GameMode.AUTONOMOUS);
     }
     
     /* (non-Javadoc)
      * @see edu.wpi.first.wpilibj.SampleRobot#operatorControl()
      */
     public void operatorControl () {
-        Logger.log(" -- Teleop mode begin.");
-        this.loopTime.start();
-        RobotProxy.start(moduleManager);
-        
-        final Coordinator mode = this.modeMap.getTeleopMode();
-
-        while (this.isEnabled() && this.isOperatorControl()) {
-            RobotProxy.tick(mode, moduleManager, coordinatorList);
-            this.loopTime.sample();
-        }
-        
-        RobotProxy.end(mode, moduleManager);
-        this.loopTime.stop();
-        
-        Logger.log(" -- Teleop mode end.");
+        modeLoop(GameMode.TELEOP);
     }
     
     /* (non-Javadoc)
      * @see edu.wpi.first.wpilibj.SampleRobot#disabled()
      */
     public void disabled () {
-        Logger.log(" -- Disabled mode begin.");
-        
-        while (!this.isEnabled()) RobotProxy.update(moduleManager);
-        
-        Logger.log(" -- Disabled mode end.");
+        modeLoop(GameMode.DISABLED);
+    }
+    
+    private void modeLoop (GameMode gameMode) {
+        Logger.log(" -- " + gameMode.prettyName() + " mode begin.");
+
+        if (gameMode != GameMode.DISABLED) {
+            modules.start(safety);
+
+            loopTime.start();
+        }
+
+        while (gameMode.active()) {
+            modules.update(safety);
+            systems.update();
+
+            if (gameMode != GameMode.DISABLED) {
+                modes.update(gameMode);
+                modules.execute(safety);
+
+                loopTime.sample();
+            }
+        }
+
+        if (gameMode != GameMode.DISABLED) {
+            loopTime.stop();
+
+            modules.stop(safety);
+            modes.stop(gameMode);
+        }
+
+        Logger.log(" -- " + gameMode.prettyName() + " mode end.");
     }
 }
