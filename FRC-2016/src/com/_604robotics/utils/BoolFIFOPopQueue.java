@@ -17,13 +17,11 @@ public class BoolFIFOPopQueue
     }
     public int size()
     {
-        // TODO Auto-generated method stub
         return content.size();
     }
 
     public boolean isEmpty()
     {
-        // TODO Auto-generated method stub
         return content.isEmpty();
     }
     
@@ -34,13 +32,11 @@ public class BoolFIFOPopQueue
     
     public void remove()
     {
-        // TODO Auto-generated method stub
         content.removeLast();
     }
 
     public void add(boolean element)
     {
-        // TODO Auto-generated method stub
         if (this.size()<=this.maxsize)
         {
             content.addFirst(element);
@@ -52,7 +48,15 @@ public class BoolFIFOPopQueue
         }
     }
     
-    public boolean passThreshold()
+    public void flush()
+    {
+        while (this.currentFraction()!=0)
+        {
+            add(false);
+        }
+    }
+    
+    public double currentFraction()
     {
         int count=0;
         Iterator<Boolean> countloop=this.content.iterator();
@@ -63,12 +67,16 @@ public class BoolFIFOPopQueue
                 count++;
             }
         }
-        return (double)count/(double)size()>=this.fraction;
+        return (double)count/(double)size();
+    }
+    
+    public boolean passThreshold()
+    {
+        return this.currentFraction()>=this.fraction;
     }
     
     public Object[] toArray()
     {
-        // TODO Auto-generated method stub
         return this.content.toArray();
     }
 
