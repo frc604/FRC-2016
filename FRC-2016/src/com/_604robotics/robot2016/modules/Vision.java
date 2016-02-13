@@ -38,7 +38,6 @@ public class Vision extends Module
         this.set(new ElasticController()
         {{
             BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
-            readystack.flush();//Make sure that stack starts full of false
             
             double[] prevV_x1=new double[0];
             double[] prevV_x2=new double[0];
@@ -50,6 +49,7 @@ public class Vision extends Module
                 public void begin(ActionData data)
                 {
                     ready=false;
+                    readystack.flush();//Make sure that stack starts full of false
                 }
                 public void run(ActionData data)
                 {
@@ -66,9 +66,7 @@ public class Vision extends Module
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
 
                     if (!((GRIPV_x1==prevV_x1 && GRIPV_x2==prevV_x2
-                            && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)) && 
-                            !(prevV_x1.length==0 && prevV_x2.length==0 && 
-                            prevH_y1.length==0 && prevH_y2.length==0))
+                            && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)))
                     {
                         //Use ternary arrays to avoid attempting new double[-1]
                         double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
@@ -132,6 +130,7 @@ public class Vision extends Module
                 public void end(ActionData data)
                 {
                     ready=false;
+                    readystack.flush();//Flush at end of match
                 };
             });
         }});
