@@ -86,6 +86,6 @@ public class Step {
      * Reset.
      */
     public void reset () {
-        coordinator.reset();
+        coordinator.stop();
     }
 }

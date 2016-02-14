@@ -27,7 +27,7 @@ public class GroupManager {
         while (i.hasMoreElements()) ((Group) i.nextElement()).update();
     }
 
-    public void reset () {
+    public void stop () {
         final Enumeration i = this.groups.elements();
         while (i.hasMoreElements()) ((Group) i.nextElement()).reset();
     }

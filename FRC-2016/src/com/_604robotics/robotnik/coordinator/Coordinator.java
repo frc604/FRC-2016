@@ -1,6 +1,5 @@
 package com._604robotics.robotnik.coordinator;
 
-import com._604robotics.robotnik.ConnectorProxy;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.coordinator.groups.Group;
@@ -95,10 +94,10 @@ public class Coordinator {
      */
     public void update () {
         final Enumeration wires = this.dataWires.elements();
-        while (wires.hasMoreElements()) ConnectorProxy.pipe((DataWire) wires.nextElement());
+        while (wires.hasMoreElements()) ((DataWire) wires.nextElement()).conduct();
         
         final Enumeration bindings = this.triggerBindings.elements();
-        while (bindings.hasMoreElements()) ConnectorProxy.pipe((Binding) bindings.nextElement());
+        while (bindings.hasMoreElements()) ((Binding) bindings.nextElement()).conduct();
 
         this.groups.update();
         this.steps.update();
@@ -107,8 +106,8 @@ public class Coordinator {
     /**
      * Reset.
      */
-    public void reset () {
-        this.groups.reset();
-        this.steps.reset();
+    public void stop () {
+        this.groups.stop();
+        this.steps.stop();
     }
 }

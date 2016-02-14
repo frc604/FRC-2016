@@ -43,6 +43,7 @@ public class Dashboard extends Module {
         	/* Shooter */
         	{
         		add("Shooter Target Speed", new DashboardData("Shooter Target Speed", 0));
+        		add("Shooter Threshold", new DashboardData("Shooter Threshold", 10));
         	}
     	}});
     }

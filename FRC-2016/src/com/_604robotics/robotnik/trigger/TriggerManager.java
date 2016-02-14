@@ -1,31 +1,17 @@
 package com._604robotics.robotnik.trigger;
 
-import com._604robotics.robotnik.TriggerProxy;
-import com._604robotics.robotnik.meta.Iterator;
-import com._604robotics.robotnik.meta.Repackager;
-import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.logging.InternalLogger;
 import java.util.Hashtable;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class TriggerManager.
- */
+import com._604robotics.robotnik.Safety;
+import com._604robotics.robotnik.logging.InternalLogger;
+import com._604robotics.robotnik.memory.IndexedTable;
+import com._604robotics.robotnik.meta.Iterator;
+import com._604robotics.robotnik.meta.Repackager;
+
 public class TriggerManager {
-    
-    /** The module name. */
     private final String moduleName;
-    
-    /** The trigger table. */
     private final Hashtable triggerTable;
     
-    /**
-     * Instantiates a new trigger manager.
-     *
-     * @param moduleName the module name
-     * @param triggerMap the trigger map
-     * @param table the table
-     */
     public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table) {
         this.moduleName = moduleName;
         
@@ -36,23 +22,18 @@ public class TriggerManager {
         });
     }
     
-    /**
-     * Gets the trigger.
-     *
-     * @param name the name
-     * @return the trigger
-     */
     public TriggerReference getTrigger (String name) {
-        TriggerReference ref = (TriggerReference) this.triggerTable.get(name);
-        if (ref == null) InternalLogger.missing("TriggerReference", name);
+        final TriggerReference ref = (TriggerReference) this.triggerTable.get(name);
+        if (ref == null) {
+            InternalLogger.missing("TriggerReference", name);
+        }
         return ref;
     }
     
-    /**
-     * Update.
-     */
-    public void update () {
+    public void update (Safety safety) {
         final Iterator i = new Iterator(this.triggerTable);
-        while (i.next()) TriggerProxy.update(moduleName, (String) i.key, (TriggerReference) i.value);
+        while (i.next()) {
+            ((TriggerReference) i.value).update(safety);
+        }
     }
 }
