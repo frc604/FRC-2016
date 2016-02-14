@@ -28,9 +28,9 @@ public class GroupManager {
     	}
     }
 
-    public void reset () {
-    	for(Group group : this.groups) {
-    		group.reset();
-    	}
+    public void stop () {
+        for(Group group : this.groups) {
+            group.reset();
+        }
     }
 }

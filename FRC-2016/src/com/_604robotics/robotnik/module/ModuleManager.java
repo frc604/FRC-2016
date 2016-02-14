@@ -1,78 +1,49 @@
 package com._604robotics.robotnik.module;
 
 import com._604robotics.robotnik.memory.IndexedTable;
+import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.logging.InternalLogger;
 
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ModuleManager.
- */
 public class ModuleManager {
-    
-    /** The module table. */
     private final Map<String, ModuleReference> moduleTable;
-    
-    /**
-     * Instantiates a new module manager.
-     *
-     * @param moduleMap the module map
-     * @param table the table
-     */
+
     public ModuleManager (ModuleMap moduleMap, final IndexedTable table) {
         this.moduleTable = new HashMap<String, ModuleReference>();
         for(Map.Entry<String, Module> entry : moduleMap) {
         	this.moduleTable.put(entry.getKey(), new ModuleReference(entry.getKey(), entry.getValue(), table.getSubTable(entry.getKey())));
         }
     }
-    
-    /**
-     * Gets the module.
-     *
-     * @param name the name
-     * @return the module
-     */
+
     public ModuleReference getModule (String name) {
         ModuleReference ref = (ModuleReference) this.moduleTable.get(name);
         if (ref == null) InternalLogger.missing("ModuleReference", name);
         return ref;
     }
-    
-    /**
-     * Start.
-     */
-    public void start () {
+
+    public void start (Safety safety) {
     	for(ModuleReference ref : this.moduleTable.values()) {
-    		ref.start();
+    		ref.start(safety);
     	}
     }
-    
-    /**
-     * Update.
-     */
-    public void update () {
+
+    public void update (Safety safety) {
     	for(ModuleReference ref : this.moduleTable.values()) {
-    		ref.update();
+    		ref.update(safety);
     	}
     }
-    
-    /**
-     * Execute.
-     */
-    public void execute () {
+
+    public void execute (Safety safety) {
     	for(ModuleReference ref : this.moduleTable.values()) {
-    		ref.execute();
+    		ref.execute(safety);
     	}
     }
-    
-    /**
-     * End.
-     */
-    public void end () {
+
+    public void stop (Safety safety) {
     	for(ModuleReference ref : this.moduleTable.values()) {
-    		ref.end();
+    		ref.stop(safety);
     	}
     }
 }

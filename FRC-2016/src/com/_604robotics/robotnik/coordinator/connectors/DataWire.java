@@ -167,4 +167,10 @@ public class DataWire {
     public String getFieldName () {
         return this.fieldName;
     }
+    
+    public void conduct () {
+        if (isActive()) {
+            getRecipient().sendData(getFieldName(), getData().get());
+        }
+    }
 }

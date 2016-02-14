@@ -48,6 +48,6 @@ public class Group {
      * Reset.
      */
     public void reset () {
-    	coordinator.reset();
+    	coordinator.stop();
     }
 }

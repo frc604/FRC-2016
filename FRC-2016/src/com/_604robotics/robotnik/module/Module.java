@@ -23,7 +23,7 @@ public abstract class Module {
     /**
      * Start.
      */
-    protected void start () {}
+    protected void begin () {}
     
     /**
      * End.

@@ -49,7 +49,7 @@ public class StepManager {
         }
     }
 
-    public void reset () {
+    public void stop () {
         this.currentStep = 0;
         this.initialized = false;
 

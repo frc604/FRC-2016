@@ -1,5 +1,6 @@
 package com._604robotics.robot2016.modules;
 
+import com._604robotics.robot2016.Ports;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
@@ -19,10 +20,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class Drive.
- */
 public class Drive extends Module {
 	//19.6 to 18.6 inches per 100 ticks
 	//-490/490 is 360 degrees with both wheels driving, 115 is 90 degrees
@@ -32,33 +29,28 @@ public class Drive extends Module {
 	
 	// When decreasing angle it needs a little bit less than you'd think
 	
-    /** The drive. */
-    private final RobotDrive drive = new RobotDrive(0, 1, 2, 3);
+    private final RobotDrive drive = new RobotDrive(Ports.DRIVE_FRONT_LEFT_MOTOR, Ports.DRIVE_REAR_LEFT_MOTOR, Ports.DRIVE_FRONT_RIGHT_MOTOR, Ports.DRIVE_REAR_RIGHT_MOTOR);
+    private final Encoder encoderLeft = new Encoder(Ports.DRIVE_ENCODER_LEFT_A, Ports.DRIVE_ENCODER_LEFT_B, true, CounterBase.EncodingType.k4X);
+    private final Encoder encoderRight = new Encoder(Ports.DRIVE_ENCODER_RIGHT_A, Ports.DRIVE_ENCODER_RIGHT_B, false, CounterBase.EncodingType.k4X);
     
-    /** The encoder left. */
-    private final Encoder encoderLeft = new Encoder(0, 1, true, CounterBase.EncodingType.k4X);
+    private double pidLeftOut = 0D;
+    private double pidRightOut = 0D;
     
-    /** The encoder right. */
-    private final Encoder encoderRight = new Encoder(2, 3, false, CounterBase.EncodingType.k4X);
-    
-    private double PIDLeftOut = 0D;
-    private double PIDRightOut = 0D;
-    
-    private double pid_power_cap = 0.6;
+    private double pidPowerCap = 0.6;
     
     /** The pid left. */
     private final PIDController pidLeft = new PIDController(0.020, 0D, 0.005, encoderLeft, new PIDOutput () {
         public void pidWrite (double output) {
-        	if (output > 0) PIDLeftOut = (output > pid_power_cap) ? pid_power_cap : output;
-        	else PIDLeftOut = (output < -pid_power_cap) ? -pid_power_cap : output;
+        	if (output > 0) pidLeftOut = (output > pidPowerCap) ? pidPowerCap : output;
+        	else pidLeftOut = (output < -pidPowerCap) ? -pidPowerCap : output;
         }
     });
     
     /** The pid right. */
     private final PIDController pidRight = new PIDController(0.020, 0D, 0.005, encoderRight, new PIDOutput () {
         public void pidWrite (double output) {
-        	if (output > 0) PIDRightOut = (output > pid_power_cap) ? pid_power_cap : output;
-        	else PIDRightOut = (output < -pid_power_cap) ? -pid_power_cap : output;
+        	if (output > 0) pidRightOut = (output > pidPowerCap) ? pidPowerCap : output;
+        	else pidRightOut = (output < -pidPowerCap) ? -pidPowerCap : output;
         }
     });
     
@@ -128,6 +120,7 @@ public class Drive extends Module {
                     }
                 }
             });
+            
             add("At Right Servo Target", new Trigger() {
                 private final Timer timer = new Timer();
                 private boolean timing = false;
@@ -160,17 +153,41 @@ public class Drive extends Module {
             		encoderLeft.reset();
             		encoderRight.reset();
             	}
+            	
                 public void run (ActionData data) {
                     drive.tankDrive(0D, 0D);
+                }
+            });
+            
+            add("Nicole Drive", new Action(new FieldMap () {{
+                define("throttle", 0D);
+                define("turn", 0D);
+                define("accelerate", false);
+                define("back", false);
+            }}) {
+                public void run (ActionData data) {
+                	int direction = 0;
+                	if (data.is("accelerate")) {
+                		direction = 1;
+                	} else if (data.is("back")) {
+                		direction = -1;
+                	}
+                	
+                    drive.arcadeDrive(data.get("throttle") * 0.5 * direction, data.get("turn"));
+                }
+                
+                public void end (ActionData data) {
+                    drive.stopMotor();
                 }
             });
             
             add("Tank Drive", new Action(new FieldMap () {{
                 define("left", 0D);
                 define("right", 0D);
+                define("throttle", 1D);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("left"), data.get("right"));
+                    drive.tankDrive(data.get("left") * data.get("throttle"), data.get("right") * data.get("throttle"));
                 }
                 
                 public void end (ActionData data) {
@@ -187,7 +204,7 @@ public class Drive extends Module {
             	double startRightClicks;
             	
                 public void begin (ActionData data) {
-                	pid_power_cap = data.get("power cap");
+                	pidPowerCap = data.get("power cap");
                 	startLeftClicks = data.data("Left Drive Clicks");
                 	startRightClicks = data.data("Right Drive Clicks");
                     pidLeft.setSetpoint(data.get("left clicks") + startLeftClicks);
@@ -200,10 +217,12 @@ public class Drive extends Module {
                 	if(pidLeft.getSetpoint() != data.get("left clicks") + startLeftClicks){
                 		pidLeft.setSetpoint(data.get("left clicks") + startLeftClicks);
                 	}
+                	
                 	if(pidRight.getSetpoint() != data.get("right clicks") + startRightClicks){
                 		pidRight.setSetpoint(data.get("right clicks") + startRightClicks);
                 	}
-                	drive.tankDrive(PIDLeftOut, PIDRightOut);
+                	
+                	drive.tankDrive(pidLeftOut, pidRightOut);
                 }
                 
                 public void end (ActionData data) {
