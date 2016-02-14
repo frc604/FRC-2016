@@ -70,39 +70,15 @@ public class Vision extends Module
                             && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)))
                     {
                         //Use ternary arrays to avoid attempting new double[-1]
-                        double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
-                        double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
+                        /*double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
+                        double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];*/
                         //Ensure that only one goal is in view
-                        if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && GRIPH_y1.length==2 && GRIPH_y2.length==2)
+                        if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
+                                GRIPH_y1.length==2 && GRIPH_y2.length==2)
                         {
-                            for(int i=0; i<Vx1Diff.length; i++)
-                            {
-                                Vx1Diff[i]=GRIPV_x1[i++]-GRIPV_x1[i];
-                            }
-                            for(int i=0; i<Vx2Diff.length; i++)
-                            {
-                                Vx2Diff[i]=GRIPV_x2[i++]-GRIPV_x2[i];
-                            }
-
-                            double maxVx1=Double.NEGATIVE_INFINITY;
-                            double maxVx2=Double.NEGATIVE_INFINITY;
                             double maxHy1=Double.NEGATIVE_INFINITY;
                             double maxHy2=Double.NEGATIVE_INFINITY;
-
-                            for (double element:Vx1Diff)
-                            {
-                                if (element>maxVx1)
-                                {
-                                    maxVx1=element;
-                                }
-                            }
-                            for (double element:Vx1Diff)
-                            {
-                                if (element>maxVx2)
-                                {
-                                    maxVx2=element;
-                                }
-                            }
+                            
                             for (double element:GRIPH_y1)
                             {
                                 if (element>maxHy1)
@@ -118,12 +94,24 @@ public class Vision extends Module
                                 }
                             }
 
-                            if (Math.min(maxVx1,maxVx2)>distThreshold && Math.max(maxHy1,maxHy2)<botThreshold)
+                            /*Min distance between lines
+                             * Since the same elements are the max,
+                             * No need to calculate diffs for these
+                             */
+                            
+                            double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
+                            double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
+                            
+                            if (Math.min(x1Width, x2Width)>distThreshold)
                             {
-                                addToReady=true;
+                                if (Math.max(maxHy1,maxHy2)<botThreshold)
+                                {
+                                    addToReady=true;
+                                }
                             }
                         }
                         //Update the stack
+                        
                         readystack.add(addToReady);
                         ready=readystack.passThreshold();
                     }
