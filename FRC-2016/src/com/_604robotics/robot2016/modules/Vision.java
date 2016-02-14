@@ -60,9 +60,13 @@ public class Vision extends Module
                 public void run(ActionData data)
                 {
                     //Initialize and set processing constants
-                    //Also try to make the code less repetitive
+                    /**min distance between two goals*/
                     double distThreshold=35;
+                    /**Min height of goal, in pixels from top*/
                     double botThreshold=60;
+                    /**Center must be in certain area*/
+                    double leftMid=160-110;
+                    double rightMid=210-160;
                     boolean addToReady=false;
                     
                     isCharged=data.is("Charged");
@@ -110,12 +114,18 @@ public class Vision extends Module
                                  */
                                 double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
                                 double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
+                                double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
+                                double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
 
                                 if (Math.min(x1Width, x2Width)>distThreshold)
                                 {
                                     if (Math.max(maxHy1,maxHy2)<botThreshold)
                                     {
-                                        addToReady=true;
+                                        if (leftMid<x1Mid && x1Mid<rightMid &&
+                                                leftMid<x2Mid && x2Mid<rightMid)
+                                        {
+                                            addToReady=true;
+                                        }
                                     }
                                 }
                             }
