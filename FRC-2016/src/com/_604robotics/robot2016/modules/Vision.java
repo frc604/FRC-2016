@@ -3,6 +3,7 @@ package com._604robotics.robot2016.modules;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
+import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
@@ -38,12 +39,16 @@ public class Vision extends Module
         this.set(new ElasticController()
         {{
             
-            addDefault("VisionProcess", new Action()
+            addDefault("VisionProcess", new Action(new FieldMap(){{
+                define("Charged",false);
+            }})
             {
                 double[] prevV_x1=new double[0];
                 double[] prevV_x2=new double[0];
                 double[] prevH_y1=new double[0];
                 double[] prevH_y2=new double[0];
+                boolean wasCharged=false;
+                boolean isCharged=false;
                 
                 BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
                 
@@ -59,19 +64,18 @@ public class Vision extends Module
                     double distThreshold=35;
                     double botThreshold=60;
                     boolean addToReady=false;
+                    
+                    isCharged=data.is("Charged");
 
                     //Grab latest data from GRIP
                     double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
-
+                    //Make sure that new data has come in
                     if (!((GRIPV_x1==prevV_x1 && GRIPV_x2==prevV_x2
                             && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)))
                     {
-                        //Use ternary arrays to avoid attempting new double[-1]
-                        /*double[] Vx1Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];
-                        double[] Vx2Diff=new double[GRIPV_x1.length==0?0:GRIPV_x1.length-1];*/
                         //Ensure that only one goal is in view
                         if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
                                 GRIPH_y1.length==2 && GRIPH_y2.length==2)
@@ -93,25 +97,33 @@ public class Vision extends Module
                                     maxHy2=element;
                                 }
                             }
-
-                            /*Min distance between lines
-                             * Since the same elements are the max,
-                             * No need to calculate diffs for these
-                             */
-                            
-                            double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
-                            double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
-                            
-                            if (Math.min(x1Width, x2Width)>distThreshold)
+                            //Flush queue if just shot
+                            if (wasCharged && !(isCharged))
                             {
-                                if (Math.max(maxHy1,maxHy2)<botThreshold)
+                                readystack.flush();
+                            }
+                            else
+                            {
+                                /*Min distance between lines
+                                 * Since the same elements are the max,
+                                 * No need to calculate diffs for these
+                                 */
+                                double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
+                                double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
+
+                                if (Math.min(x1Width, x2Width)>distThreshold)
                                 {
-                                    addToReady=true;
+                                    if (Math.max(maxHy1,maxHy2)<botThreshold)
+                                    {
+                                        addToReady=true;
+                                    }
                                 }
                             }
                         }
-                        //Update the stack
-                        
+                        /*Update the stack
+                         * If the stack was just flushed, addToReady would be false
+                         * This would not introduce a true element there
+                         */
                         readystack.add(addToReady);
                         ready=readystack.passThreshold();
                     }
@@ -120,6 +132,7 @@ public class Vision extends Module
                     prevV_x2=GRIPV_x2;
                     prevH_y1=GRIPH_y1;
                     prevH_y2=GRIPH_y2;
+                    wasCharged=isCharged;
                 };
                 public void end(ActionData data)
                 {
