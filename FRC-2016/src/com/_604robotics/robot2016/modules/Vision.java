@@ -11,6 +11,8 @@ import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
+import edu.wpi.first.wpilibj.Timer;
+
 import java.lang.Math;
 
 public class Vision extends Module
@@ -50,12 +52,15 @@ public class Vision extends Module
                 boolean wasCharged=false;
                 boolean isCharged=false;
                 
+                Timer shootTimer=new Timer();
+                
                 BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
                 
                 public void begin(ActionData data)
                 {
                     ready=false;
                     readystack.flush();//Make sure that stack starts full of false
+                    shootTimer.reset();
                 }
                 public void run(ActionData data)
                 {
@@ -77,6 +82,8 @@ public class Vision extends Module
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
                     //Make sure that new data has come in
+                    if (shootTimer.get()>3)
+                    {
                     if (!((GRIPV_x1==prevV_x1 && GRIPV_x2==prevV_x2
                             && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)))
                     {
@@ -105,6 +112,7 @@ public class Vision extends Module
                             if (wasCharged && !(isCharged))
                             {
                                 readystack.flush();
+                                shootTimer.reset();
                             }
                             else
                             {
@@ -137,6 +145,7 @@ public class Vision extends Module
                         readystack.add(addToReady);
                         ready=readystack.passThreshold();
                     }
+                    }
                     //Make previous ones current
                     prevV_x1=GRIPV_x1;
                     prevV_x2=GRIPV_x2;
@@ -148,6 +157,8 @@ public class Vision extends Module
                 {
                     ready=false;
                     readystack.flush();//Flush at end of match
+                    shootTimer.reset();
+                    shootTimer.stop();
                 };
             });
         }});
