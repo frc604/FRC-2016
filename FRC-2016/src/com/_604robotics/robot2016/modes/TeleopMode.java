@@ -53,14 +53,16 @@ public class TeleopMode extends Coordinator
                     modules.getModule("Shifter").getAction("High Gear"),shift.on));  
     	}
     	{
-    		this.bind(new Binding(modules.getModule("Drive").getAction("Nicole Drive"), new TriggerAnd(new TriggerAccess[] {
+    		this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), new TriggerAnd(new TriggerAccess[] {
             		modules.getModule("Dashboard").getTrigger("Drive On"),
-            		modules.getModule("Dashboard").getTrigger("Nicole Drive")})));
-            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "throttle", driver.leftStick.Y));
-            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "turn",     driver.rightStick.X));
+            		modules.getModule("Dashboard").getTrigger("Geared Drive")})));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "left", driver.leftStick.Y));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "right", driver.rightStick.Y));
 
-            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "accelerate", driver.buttons.A));
-            this.fill(new DataWire(modules.getModule("Drive").getAction("Nicole Drive"), "back", driver.buttons.B));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Low Gear", driver.buttons.LT));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left High Gear", driver.buttons.LB));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Low Gear", driver.buttons.RT));
+            this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right High Gear", driver.buttons.RB));
     	}
     }
 }

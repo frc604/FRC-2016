@@ -83,10 +83,19 @@ public class Drive extends Module {
                     return encoderLeft.get();
                 }
             });
-            
             add("Right Drive Clicks", new Data() {
                 public double run () {
                     return encoderRight.get();
+                }
+            });
+            add("Right PID Error", new Data() {
+                public double run () {
+                    return pidRight.getAvgError();
+                }
+            });
+            add("Left PID Error", new Data() {
+                public double run () {
+                    return pidLeft.getAvgError();
                 }
             });
             
@@ -115,7 +124,15 @@ public class Drive extends Module {
                             timer.start();
                         }
                         
-                        return timer.get() >= 0.5;
+                        if(timer.get() >= 0.5)
+                        {
+                        	System.out.println("Left PID on target");
+                        	return true;
+                        }
+                        else
+                       	{
+                       		return false;
+                       	}
                     } else {
                         if (timing) {
                             timing = false;
@@ -139,7 +156,15 @@ public class Drive extends Module {
                             timer.start();
                         }
                         
-                        return timer.get() >= 0.5;
+                        if( timer.get() >= 0.5  )
+                        {
+                        	System.out.println("Right PID on target");
+                        	return true;
+                        }
+                        else
+                        {
+                        	return false;
+                        }
                     } else {
                         if (timing) {
                             timing = false;
@@ -152,6 +177,22 @@ public class Drive extends Module {
                     }
                 }
             });
+            add("Left PID On Target",
+            new Trigger()
+            {
+            	public boolean run()
+            	{
+            		return pidLeft.isEnabled()&&pidLeft.onTarget();
+            	}
+            });
+            add("Right PID On Target",
+                    new Trigger()
+                    {
+                    	public boolean run()
+                    	{
+                    		return pidRight.isEnabled()&&pidRight.onTarget();
+                    	}
+                    });
         }});
         
         this.set(new ElasticController() {{
@@ -165,24 +206,43 @@ public class Drive extends Module {
                 }
             });
             
-            add("Nicole Drive", new Action(new FieldMap () {{
-                define("throttle", 0D);
-                define("turn", 0D);
-                define("accelerate", false);
-                define("back", false);
+            add("Geared Drive", new Action(new FieldMap () {{
+                define("left", 0D);
+                define("right", 0D);
+                define("Left Low Gear", false);
+                define("Left High Gear", false);
+                define("Right Low Gear", false);
+                define("Right High Gear", false);
                 }}) {
              
                 public void run (ActionData data) {
-                	int f = 0;
-                	if( data.is("accelerate") )
+                	double Lgear = 1.0;
+                	double Rgear = 1.0;
+                	if( data.is("Left Low Gear") && data.is("Left High Gear") )
                 	{
-                		f = 1;
+                		Lgear = 1.5;
                 	}
-                	else if( data.is("back") )
+                	else if( data.is("Left Low Gear") )
                 	{
-                		f = -1;
+                		Lgear = 0.8;
                 	}
-                    drive.arcadeDrive(data.get("throttle")*0.5*f, data.get("turn"));
+                	else if( data.is("Left High Gear") )
+                	{
+                		Lgear = 1.5;
+                	}
+                	if( data.is("Right Low Gear") && data.is("Right High Gear") )
+                	{
+                		Rgear = 1.8;
+                	}
+                	else if( data.is("Right Low Gear") )
+                	{
+                		Rgear = 0.8;
+                	}
+                	else if( data.is("Right High Gear") )
+                	{
+                		Rgear = 1.2;
+                	}
+                    drive.tankDrive(data.get("left")*0.5*Lgear, data.get("right")*0.5*Rgear);
                 }
                 
                 public void end (ActionData data) {
