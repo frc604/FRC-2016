@@ -50,14 +50,20 @@ public class Robot2016 extends Robot
             Logger.log("Starting GRIP");
             try
             {
-                new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+                Process GRIPProcess=new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
                 Logger.log("GRIP started successfully");
+                Thread closeGRIP = new Thread()
+                {
+                    public void run()
+                    {
+                        GRIPProcess.destroy();
+                    }
+                };
+                Runtime.getRuntime().addShutdownHook(closeGRIP);
             }
             catch (IOException e)
             {
                 Logger.error("Unable to Start GRIP", e);
-                //No longer necessary since Logger.error prints the stack trace
-                //e.printStackTrace();
             }
         }
         
