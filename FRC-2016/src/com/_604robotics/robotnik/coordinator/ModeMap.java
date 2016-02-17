@@ -64,8 +64,10 @@ public class ModeMap {
         switch (gameMode) {
         case AUTONOMOUS:
             getAutonomousMode().update();
+            break;
         case TELEOP:
             getTeleopMode().update();
+            break;
         default:
         }
     }
@@ -74,8 +76,10 @@ public class ModeMap {
         switch (gameMode) {
         case AUTONOMOUS:
             getAutonomousMode().stop();
+            break;
         case TELEOP:
             getTeleopMode().stop();
+            break;
         default:
         }
     }
