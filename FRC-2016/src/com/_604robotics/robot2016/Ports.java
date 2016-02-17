@@ -23,5 +23,4 @@ public class Ports {
 	public static final int DRIVE_ENCODER_RIGHT_B = 7;
 	public static final int DRIVE_ENCODER_LEFT_A = 8;
 	public static final int DRIVE_ENCODER_LEFT_B = 9;
-	
 }
