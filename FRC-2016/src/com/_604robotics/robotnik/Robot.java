@@ -8,6 +8,7 @@ import com._604robotics.robotnik.module.ModuleMap;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.logging.TimeSampler;
+import com._604robotics.robotnik.Safety;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
