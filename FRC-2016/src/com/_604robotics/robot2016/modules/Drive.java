@@ -63,8 +63,8 @@ public class Drive extends Module {
         encoderRight.setPIDSourceType(PIDSourceType.kDisplacement);
         // up to here
         
-        pidLeft.setAbsoluteTolerance(20);
-        pidRight.setAbsoluteTolerance(20);
+        pidLeft.setAbsoluteTolerance(30);
+        pidRight.setAbsoluteTolerance(30);
         
         SmartDashboard.putData("Left Drive PID", pidLeft);
         SmartDashboard.putData("Right Drive PID", pidRight);
@@ -93,6 +93,19 @@ public class Drive extends Module {
                     return encoderRight.getRate();
                 }
             });
+            add("Left PID Error", new Data() {
+            	public double run() {
+            		return pidLeft.getAvgError();
+            	}
+            });
+            add("Right PID Error", new Data() {
+            	public double run() {
+            		return pidRight.getAvgError();
+            	}
+            });
+            {
+            	
+            }
         }});
         
         this.set(new TriggerMap() {{
@@ -159,21 +172,43 @@ public class Drive extends Module {
                 }
             });
             
-            add("Nicole Drive", new Action(new FieldMap () {{
-                define("throttle", 0D);
-                define("turn", 0D);
-                define("accelerate", false);
-                define("back", false);
-            }}) {
+            add("Geared Drive", new Action(new FieldMap () {{
+                define("left", 0D);
+                define("right", 0D);
+                define("Left Low Gear", false);
+                define("Left High Gear", false);
+                define("Right Low Gear", false);
+                define("Right High Gear", false);
+                }}) {
+             
                 public void run (ActionData data) {
-                	int direction = 0;
-                	if (data.is("accelerate")) {
-                		direction = 1;
-                	} else if (data.is("back")) {
-                		direction = -1;
+                	double Lgear = 1.0;
+                	double Rgear = 1.0;
+                	if( data.is("Left Low Gear") && data.is("Left High Gear") )
+                	{
+                		Lgear = 1.5;
                 	}
-                	
-                    drive.arcadeDrive(data.get("throttle") * 0.5 * direction, data.get("turn"));
+                	else if( data.is("Left Low Gear") )
+                	{
+                		Lgear = 0.8;
+                	}
+                	else if( data.is("Left High Gear") )
+                	{
+                		Lgear = 1.5;
+                	}
+                	if( data.is("Right Low Gear") && data.is("Right High Gear") )
+                	{
+                		Rgear = 1.8;
+                	}
+                	else if( data.is("Right Low Gear") )
+                	{
+                		Rgear = 0.8;
+                	}
+                	else if( data.is("Right High Gear") )
+                	{
+                		Rgear = 1.2;
+                	}
+                    drive.tankDrive(data.get("left")*0.5*Lgear, data.get("right")*0.5*Rgear);
                 }
                 
                 public void end (ActionData data) {
