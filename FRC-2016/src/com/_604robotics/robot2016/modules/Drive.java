@@ -63,8 +63,8 @@ public class Drive extends Module {
         encoderRight.setPIDSourceType(PIDSourceType.kDisplacement);
         // up to here
         
-        pidLeft.setAbsoluteTolerance(20);
-        pidRight.setAbsoluteTolerance(20);
+        pidLeft.setAbsoluteTolerance(30);
+        pidRight.setAbsoluteTolerance(30);
         
         SmartDashboard.putData("Left Drive PID", pidLeft);
         SmartDashboard.putData("Right Drive PID", pidRight);
