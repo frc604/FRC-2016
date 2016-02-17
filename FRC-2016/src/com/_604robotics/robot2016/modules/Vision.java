@@ -21,11 +21,13 @@ public class Vision extends Module
     
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
+    NetworkTable GRIPupdate;
 
     public Vision()
     {
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
+        GRIPupdate=NetworkTable.getTable("GRIP/detectChanged");
 
         this.set(new TriggerMap()
         {{
@@ -45,10 +47,11 @@ public class Vision extends Module
                 define("Charged",false);
             }})
             {
-                double[] prevV_x1=new double[0];
+                /*double[] prevV_x1=new double[0];
                 double[] prevV_x2=new double[0];
                 double[] prevH_y1=new double[0];
-                double[] prevH_y2=new double[0];
+                double[] prevH_y2=new double[0];*/
+                double[] prevUpdate=new double[0];
                 boolean wasCharged=false;
                 boolean isCharged=false;
                 
@@ -81,11 +84,11 @@ public class Vision extends Module
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
+                    double[] blobCheck=GRIPupdate.getNumberArray("size", new double[0]);
                     //Make sure that new data has come in
                     if (shootTimer.get()>3)
                     {
-                    if (!((GRIPV_x1==prevV_x1 && GRIPV_x2==prevV_x2
-                            && GRIPH_y1==prevH_y1 && GRIPH_y2==prevH_y2)))
+                    if (blobCheck!=prevUpdate)
                     {
                         //Ensure that only one goal is in view
                         if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
@@ -147,10 +150,11 @@ public class Vision extends Module
                     }
                     }
                     //Make previous ones current
-                    prevV_x1=GRIPV_x1;
+                    /*prevV_x1=GRIPV_x1;
                     prevV_x2=GRIPV_x2;
                     prevH_y1=GRIPH_y1;
-                    prevH_y2=GRIPH_y2;
+                    prevH_y2=GRIPH_y2;*/
+                    prevUpdate=blobCheck;
                     wasCharged=isCharged;
                 };
                 public void end(ActionData data)
