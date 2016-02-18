@@ -22,10 +22,10 @@ public class Flipper extends Module {
 	private final Victor  leftmotor = new Victor(Ports.FLIPPER_MOTOR_LEFT);
 	private final Encoder encoder = new Encoder (Ports.FLIPPER_ENCODER_RIGHT_A, Ports.FLIPPER_ENCODER_RIGHT_B,true, CounterBase.EncodingType.k4X);
 	
-	private double pidPowerCap = 9000;//determine later
+	private double pidPowerCap = 1;//determine later
 	private double pidOutput = 0D;
 	
-	private final PIDController pid = new PIDController(9000, 0D, 9000, encoder, new PIDOutput () {
+	private final PIDController pid = new PIDController(0.02, 0D, 0.02, encoder, new PIDOutput () {
         public void pidWrite (double output) {
         	if (output > 0) pidOutput = (output > pidPowerCap) ? pidPowerCap : output;
         	else pidOutput = (output < -pidPowerCap) ? -pidPowerCap : output;
@@ -34,10 +34,16 @@ public class Flipper extends Module {
 	
 	public Flipper(){
 		 encoder.setPIDSourceType(PIDSourceType.kRate);//not sure which type
-		 pid.setAbsoluteTolerance(9000);//determine later
+		 pid.setAbsoluteTolerance(20);//determine later
 		 
 		 this.set(new DataMap(){{
-			 //idk yet
+			 add("Flipper clicks", new Data()
+			 {
+			     public double run()
+			     {
+			         return encoder.get();
+			     }
+			 });
 		 	}
 		 });
 		 

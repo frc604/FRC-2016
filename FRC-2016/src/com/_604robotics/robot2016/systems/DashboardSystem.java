@@ -40,5 +40,11 @@ public class DashboardSystem extends Coordinator {
     		this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Target Speed", modules.getModule("Dashboard").getData("Shooter Target Speed")));
     		this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
     	}
+    	
+    	/* Intake */
+    	{
+    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Flipper clicks",
+    	            modules.getModule("Flipper").getData("Flipper clicks")));
+    	}
     }
 }
