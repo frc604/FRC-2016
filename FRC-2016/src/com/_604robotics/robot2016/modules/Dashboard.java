@@ -38,7 +38,6 @@ public class Dashboard extends Module {
         		add("Left Drive Servo", new DashboardData("Left Drive Servo", -120D));
         		add("Right Drive Servo", new DashboardData("Right Drive Servo", -120D));
         		add("Drive Servo Power Cap", new DashboardData("Drive Servo Power Cap", 0.5D));
-        		add("Auton Mode", new DashboardData("Auton Mode", 0D));
         	}
         	/* Shooter */
         	{
