@@ -20,11 +20,13 @@ public class Vision extends Module
     
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
+    NetworkTable GRIPrun;
 
     public Vision()
     {
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
+        GRIPrun=NetworkTable.getTable("GRIP");
 
         this.set(new TriggerMap()
         {{
@@ -61,6 +63,7 @@ public class Vision extends Module
                     ready=false;
                     readystack.flush();//Make sure that stack starts full of false
                     shootTimer.reset();
+                    GRIPrun.putBoolean("run", true);
                 }
                 public void run(ActionData data)
                 {
@@ -155,6 +158,7 @@ public class Vision extends Module
                     readystack.flush();//Flush at end of match
                     shootTimer.reset();
                     shootTimer.stop();
+                    GRIPrun.putBoolean("run", false);
                 };
             });
         }});
