@@ -12,7 +12,7 @@ import com._604robotics.robotnik.trigger.TriggerMap;
 import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 
 import java.lang.Math;
 
@@ -98,7 +98,7 @@ public class Vision extends Module
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
-                    double[] blobCheck=GRIPrun.getNumberArray("size", new double[0]);
+                    //boolean blobCheck=GRIPrun.getBoolean("run",false);
                     //Make sure that new data has come in
                             //Ensure that only one goal is in view
                             if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
