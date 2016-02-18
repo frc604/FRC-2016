@@ -44,6 +44,8 @@ public class DashboardSystem extends Coordinator {
         {
             this.fill(new DataWire(DashboardOutput.asBoolean(), "Vision Ready",
                     modules.getModule("Vision").getTrigger("On Target")));
+            this.fill(new DataWire(DashboardOutput.asBoolean(), "In view",
+                    modules.getModule("Vision").getTrigger("In View")));
         }
     	/* Shooter */
     	{

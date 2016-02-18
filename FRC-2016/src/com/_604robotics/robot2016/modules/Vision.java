@@ -18,6 +18,8 @@ public class Vision extends Module
 {
     private boolean ready=false;
     
+    private boolean inview=false;
+    
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
     NetworkTable GRIPrun;
@@ -36,6 +38,13 @@ public class Vision extends Module
                 {
                     return ready;
                 };
+            });
+            add("In View", new Trigger()
+            {
+                public boolean run()
+                {
+                    return inview;
+                }
             });
         }});
         
@@ -60,6 +69,7 @@ public class Vision extends Module
                 public void begin(ActionData data)
                 {
                     ready=false;
+                    inview=false;
                     readystack.flush();//Make sure that stack starts full of false
                     shootTimer.reset();
                     GRIPrun.putBoolean("run", true);
@@ -90,6 +100,8 @@ public class Vision extends Module
                         if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
                                 GRIPH_y1.length==2 && GRIPH_y2.length==2)
                         {
+                            inview=true;
+                            
                             double maxHy1=Double.NEGATIVE_INFINITY;
                             double maxHy2=Double.NEGATIVE_INFINITY;
                             
@@ -137,6 +149,10 @@ public class Vision extends Module
                                 }
                             }
                         }
+                        else
+                        {
+                            inview=false;
+                        }
                         /*Update the stack
                          * If the stack was just flushed, addToReady would be false
                          * This would not introduce a true element there
@@ -154,6 +170,7 @@ public class Vision extends Module
                 public void end(ActionData data)
                 {
                     ready=false;
+                    inview=false;
                     readystack.flush();//Flush at end of match
                     shootTimer.reset();
                     shootTimer.stop();
