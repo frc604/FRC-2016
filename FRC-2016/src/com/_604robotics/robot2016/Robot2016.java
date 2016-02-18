@@ -17,6 +17,8 @@ import com._604robotics.robotnik.coordinator.ModeMap;
 import com._604robotics.robotnik.module.ModuleMap;
 import com._604robotics.robotnik.logging.Logger;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 import java.io.IOException;
 
 public class Robot2016 extends Robot
@@ -66,6 +68,9 @@ public class Robot2016 extends Robot
                 Logger.error("Unable to Start GRIP", e);
             }
         }
+        
+        //NetworkTable disableGRIP=NetworkTable.getTable("GRIP");
+        //disableGRIP.putBoolean("run", false);
         
         this.set(new ModeMap() {{
             setAutonomousMode(new AutonomousMode());
