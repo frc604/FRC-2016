@@ -50,7 +50,6 @@ public class Vision extends Module
                 double[] prevV_x2=new double[0];
                 double[] prevH_y1=new double[0];
                 double[] prevH_y2=new double[0];*/
-                double[] prevUpdate=new double[0];
                 boolean wasCharged=false;
                 boolean isCharged=false;
                 
