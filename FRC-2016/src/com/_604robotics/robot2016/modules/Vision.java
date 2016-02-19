@@ -10,7 +10,6 @@ import com._604robotics.robotnik.trigger.TriggerMap;
 import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
 import edu.wpi.first.wpilibj.Timer;
 
 import java.lang.Math;
@@ -19,15 +18,17 @@ public class Vision extends Module
 {
     private boolean ready=false;
     
+    private boolean inview=false;
+    
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
-    NetworkTable GRIPupdate;
+    NetworkTable GRIPrun;
 
     public Vision()
     {
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
-        GRIPupdate=NetworkTable.getTable("GRIP/detectChanged");
+        GRIPrun=NetworkTable.getTable("GRIP");
 
         this.set(new TriggerMap()
         {{
@@ -37,6 +38,13 @@ public class Vision extends Module
                 {
                     return ready;
                 };
+            });
+            add("In View", new Trigger()
+            {
+                public boolean run()
+                {
+                    return inview;
+                }
             });
         }});
         
@@ -51,7 +59,6 @@ public class Vision extends Module
                 double[] prevV_x2=new double[0];
                 double[] prevH_y1=new double[0];
                 double[] prevH_y2=new double[0];*/
-                double[] prevUpdate=new double[0];
                 boolean wasCharged=false;
                 boolean isCharged=false;
                 
@@ -62,8 +69,10 @@ public class Vision extends Module
                 public void begin(ActionData data)
                 {
                     ready=false;
+                    inview=false;
                     readystack.flush();//Make sure that stack starts full of false
                     shootTimer.reset();
+                    GRIPrun.putBoolean("run", true);
                 }
                 public void run(ActionData data)
                 {
@@ -84,16 +93,15 @@ public class Vision extends Module
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
-                    double[] blobCheck=GRIPupdate.getNumberArray("size", new double[0]);
                     //Make sure that new data has come in
                     if (shootTimer.get()>3)
-                    {
-                    if (blobCheck!=prevUpdate)
                     {
                         //Ensure that only one goal is in view
                         if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
                                 GRIPH_y1.length==2 && GRIPH_y2.length==2)
                         {
+                            inview=true;
+                            
                             double maxHy1=Double.NEGATIVE_INFINITY;
                             double maxHy2=Double.NEGATIVE_INFINITY;
                             
@@ -141,6 +149,10 @@ public class Vision extends Module
                                 }
                             }
                         }
+                        else
+                        {
+                            inview=false;
+                        }
                         /*Update the stack
                          * If the stack was just flushed, addToReady would be false
                          * This would not introduce a true element there
@@ -148,21 +160,21 @@ public class Vision extends Module
                         readystack.add(addToReady);
                         ready=readystack.passThreshold();
                     }
-                    }
                     //Make previous ones current
                     /*prevV_x1=GRIPV_x1;
                     prevV_x2=GRIPV_x2;
                     prevH_y1=GRIPH_y1;
                     prevH_y2=GRIPH_y2;*/
-                    prevUpdate=blobCheck;
                     wasCharged=isCharged;
                 };
                 public void end(ActionData data)
                 {
                     ready=false;
+                    inview=false;
                     readystack.flush();//Flush at end of match
                     shootTimer.reset();
                     shootTimer.stop();
+                    GRIPrun.putBoolean("run", false);
                 };
             });
         }});

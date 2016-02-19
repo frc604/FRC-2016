@@ -11,7 +11,7 @@ public class Dashboard extends Module {
         this.set(new TriggerMap() {{
             final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
             add("Tank Drive", driveMode.addDefault("Tank Drive"));
-            add("Nicole Drive", driveMode.add("Nicole Drive"));
+            add("Geared Drive", driveMode.add("Geared Drive"));
             add("Servo Drive", driveMode.add("Servo Drive"));
             
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
@@ -38,7 +38,6 @@ public class Dashboard extends Module {
         		add("Left Drive Servo", new DashboardData("Left Drive Servo", -120D));
         		add("Right Drive Servo", new DashboardData("Right Drive Servo", -120D));
         		add("Drive Servo Power Cap", new DashboardData("Drive Servo Power Cap", 0.5D));
-        		add("Auton Mode", new DashboardData("Auton Mode", 0D));
         	}
         	/* Shooter */
         	{
