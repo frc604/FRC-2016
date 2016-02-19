@@ -11,7 +11,7 @@ public class Dashboard extends Module {
         this.set(new TriggerMap() {{
             final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
             add("Tank Drive", driveMode.addDefault("Tank Drive"));
-            add("Nicole Drive", driveMode.add("Nicole Drive"));
+            add("Geared Drive", driveMode.add("Geared Drive"));
             add("Servo Drive", driveMode.add("Servo Drive"));
             
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
