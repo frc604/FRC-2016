@@ -4,14 +4,13 @@ import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
-import com._604robotics.robotnik.data.Data;
-import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
 import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 import edu.wpi.first.wpilibj.Timer;
 
 import java.lang.Math;
@@ -19,18 +18,16 @@ import java.lang.Math;
 public class Vision extends Module
 {
     private boolean ready=false;
-    BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
-    private boolean inview=false;
     
     NetworkTable GRIPtableH;
     NetworkTable GRIPtableV;
-    NetworkTable GRIPrun;
+    NetworkTable GRIPupdate;
 
     public Vision()
     {
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
-        GRIPrun=NetworkTable.getTable("GRIP");
+        GRIPupdate=NetworkTable.getTable("GRIP/detectChanged");
 
         this.set(new TriggerMap()
         {{
@@ -40,22 +37,6 @@ public class Vision extends Module
                 {
                     return ready;
                 };
-            });
-            add("In view", new Trigger()
-            {
-                public boolean run()
-                {
-                    return inview;
-                }
-            });
-        }});
-        
-        this.set(new DataMap()
-        {{
-            add("StackFraction", new Data() {
-                public double run () {
-                    return readystack.currentFraction();
-                }
             });
         }});
         
@@ -70,14 +51,19 @@ public class Vision extends Module
                 double[] prevV_x2=new double[0];
                 double[] prevH_y1=new double[0];
                 double[] prevH_y2=new double[0];*/
+                double[] prevUpdate=new double[0];
                 boolean wasCharged=false;
                 boolean isCharged=false;
+                
+                Timer shootTimer=new Timer();
+                
+                BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
                 
                 public void begin(ActionData data)
                 {
                     ready=false;
-                    inview=false;
                     readystack.flush();//Make sure that stack starts full of false
+                    shootTimer.reset();
                 }
                 public void run(ActionData data)
                 {
@@ -98,89 +84,86 @@ public class Vision extends Module
                     double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
                     double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
                     double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
-                    double[] blobCheck=GRIPrun.getNumberArray("size", new double[0]);
+                    double[] blobCheck=GRIPupdate.getNumberArray("size", new double[0]);
                     //Make sure that new data has come in
-                            //Ensure that only one goal is in view
-                            if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
-                                    GRIPH_y1.length==2 && GRIPH_y2.length==2)
+                    if (shootTimer.get()>3)
+                    {
+                    if (blobCheck!=prevUpdate)
+                    {
+                        //Ensure that only one goal is in view
+                        if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
+                                GRIPH_y1.length==2 && GRIPH_y2.length==2)
+                        {
+                            double maxHy1=Double.NEGATIVE_INFINITY;
+                            double maxHy2=Double.NEGATIVE_INFINITY;
+                            
+                            for (double element:GRIPH_y1)
                             {
-                                double maxHy1=Double.NEGATIVE_INFINITY;
-                                double maxHy2=Double.NEGATIVE_INFINITY;
-                                inview=true;
+                                if (element>maxHy1)
+                                {
+                                    maxHy1=element;
+                                }
+                            }
+                            for (double element:GRIPH_y2)
+                            {
+                                if (element>maxHy2)
+                                {
+                                    maxHy2=element;
+                                }
+                            }
+                            //Flush queue if just shot
+                            if (wasCharged && !(isCharged))
+                            {
+                                readystack.flush();
+                                shootTimer.reset();
+                            }
+                            else
+                            {
+                                /*Min distance between lines
+                                 * Since the same elements are the max,
+                                 * No need to calculate diffs for these
+                                 */
+                                double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
+                                double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
+                                double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
+                                double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
 
-                                for (double element:GRIPH_y1)
+                                if (Math.min(x1Width, x2Width)>distThreshold)
                                 {
-                                    if (element>maxHy1)
+                                    if (Math.max(maxHy1,maxHy2)<botThreshold)
                                     {
-                                        maxHy1=element;
-                                    }
-                                }
-                                for (double element:GRIPH_y2)
-                                {
-                                    if (element>maxHy2)
-                                    {
-                                        maxHy2=element;
-                                    }
-                                }
-                                //Flush queue if just shot
-                                if (wasCharged && !(isCharged))
-                                {
-                                    readystack.flush();
-                                }
-                                else
-                                {
-                                    /*Min distance between lines
-                                     * Since the same elements are the max,
-                                     * No need to calculate diffs for these
-                                     */
-                                    double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
-                                    double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
-                                    double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
-                                    double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
-
-                                    if (Math.min(x1Width, x2Width)>distThreshold)
-                                    {
-                                        if (Math.max(maxHy1,maxHy2)<botThreshold)
+                                        if (leftMid<x1Mid && x1Mid<rightMid &&
+                                                leftMid<x2Mid && x2Mid<rightMid)
                                         {
-                                            if (leftMid<x1Mid && x1Mid<rightMid &&
-                                                    leftMid<x2Mid && x2Mid<rightMid)
-                                            {
-                                                addToReady=true;
-                                            }
+                                            addToReady=true;
                                         }
                                     }
                                 }
                             }
-                            else
-                            {
-                                inview=false;
-                            }
-                            /*Update the stack
-                             * If the stack was just flushed, addToReady would be false
-                             * This would not introduce a true element there
-                             */
-                            readystack.add(addToReady);
-                            ready=readystack.passThreshold();
-                        
-                    
+                        }
+                        /*Update the stack
+                         * If the stack was just flushed, addToReady would be false
+                         * This would not introduce a true element there
+                         */
+                        readystack.add(addToReady);
+                        ready=readystack.passThreshold();
+                    }
+                    }
                     //Make previous ones current
                     /*prevV_x1=GRIPV_x1;
                     prevV_x2=GRIPV_x2;
                     prevH_y1=GRIPH_y1;
                     prevH_y2=GRIPH_y2;*/
+                    prevUpdate=blobCheck;
                     wasCharged=isCharged;
                 };
                 public void end(ActionData data)
                 {
                     ready=false;
-                    inview=false;
                     readystack.flush();//Flush at end of match
+                    shootTimer.reset();
+                    shootTimer.stop();
                 };
-            });
-            add("Timer", new Action() {
-                public void begin (ActionData data) {
-                    readystack.flush();
-                }
             });
         }});
     }

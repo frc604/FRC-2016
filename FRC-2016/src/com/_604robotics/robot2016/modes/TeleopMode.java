@@ -74,6 +74,5 @@ public class TeleopMode extends Coordinator {
         		this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), manipulator.buttons.RT));
         	}
     	}
-        this.bind(new Binding(modules.getModule("Vision").getAction("VisionProcess")));
     }
 }
