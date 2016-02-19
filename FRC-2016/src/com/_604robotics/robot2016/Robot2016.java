@@ -6,6 +6,7 @@ import com._604robotics.robot2016.modes.AutonomousMode;
 import com._604robotics.robot2016.modes.TeleopMode;
 import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
+import com._604robotics.robot2016.modules.Flipper;
 import com._604robotics.robot2016.modules.Gear;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
@@ -25,6 +26,7 @@ public class Robot2016 extends Robot {
         this.set(new ModuleMap() {{
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
+            add("Flipper", new Flipper());
             add("Gear", new Gear());
             add("Shifter", new Shifter());
             add("Intake", new Intake());
