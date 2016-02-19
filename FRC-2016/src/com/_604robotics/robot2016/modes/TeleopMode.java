@@ -13,7 +13,7 @@ import com._604robotics.robotnik.trigger.TriggerAccess;
 
 public class TeleopMode extends Coordinator {
     private final XboxController driver = new XboxController(0);
-    private final XboxController manipulator = new XboxController(2);
+    private final XboxController manipulator = new XboxController(1);
     
     public TeleopMode () {
         double deadband = 0.2;
@@ -57,8 +57,8 @@ public class TeleopMode extends Coordinator {
 
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Low Gear", driver.buttons.LT));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left High Gear", driver.buttons.LB));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Low Gear", driver.buttons.RT));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right High Gear", driver.buttons.RB));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Low Gear", driver.buttons.LT));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right High Gear", driver.buttons.LB));
         	}
         	
             /* Shifter */

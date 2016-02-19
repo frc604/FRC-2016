@@ -182,33 +182,33 @@ public class Drive extends Module {
                 }}) {
              
                 public void run (ActionData data) {
-                	double Lgear = 1.0;
-                	double Rgear = 1.0;
+                	double Lgear = 0.5;
+                	double Rgear = 0.5;
                 	if( data.is("Left Low Gear") && data.is("Left High Gear") )
                 	{
-                		Lgear = 1.5;
+                		Lgear = 0.85;
                 	}
                 	else if( data.is("Left Low Gear") )
                 	{
-                		Lgear = 0.8;
+                		Lgear = 0.3;
                 	}
                 	else if( data.is("Left High Gear") )
                 	{
-                		Lgear = 1.5;
+                		Lgear = 0.7;
                 	}
                 	if( data.is("Right Low Gear") && data.is("Right High Gear") )
                 	{
-                		Rgear = 1.8;
+                		Rgear = 0.85;
                 	}
                 	else if( data.is("Right Low Gear") )
                 	{
-                		Rgear = 0.8;
+                		Rgear = 0.3;
                 	}
                 	else if( data.is("Right High Gear") )
                 	{
-                		Rgear = 1.2;
+                		Rgear = 0.7;
                 	}
-                    drive.tankDrive(data.get("left")*0.5*Lgear, data.get("right")*0.5*Rgear);
+                    drive.tankDrive(data.get("left")*Lgear, data.get("right")*Rgear);
                 }
                 
                 public void end (ActionData data) {
@@ -222,7 +222,7 @@ public class Drive extends Module {
                 define("throttle", 1D);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("left") * data.get("throttle"), data.get("right") * data.get("throttle"));
+                    drive.tankDrive(data.get("left") * data.get("throttle")*0.5, data.get("right") * data.get("throttle")*0.5);
                 }
                 
                 public void end (ActionData data) {
