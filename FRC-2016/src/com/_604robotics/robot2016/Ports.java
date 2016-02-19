@@ -11,9 +11,8 @@ public class Ports {
 	public static final int DRIVE_FRONT_LEFT_MOTOR = 8;
 	public static final int DRIVE_REAR_LEFT_MOTOR = 9;
 	
-	
-	public static final int SHIFTER_SOLENOID_FORWARD = 9000;//not real
-	public static final int SHIFTER_SOLENOID_REVERSE = 9000;//not real
+	public static final int SHIFTER_SOLENOID_FORWARD = 4;
+	public static final int SHIFTER_SOLENOID_REVERSE = 5;
 	
 	public static final int FLIPPER_ENCODER_RIGHT_A = 2;
 	public static final int FLIPPER_ENCODER_RIGHT_B = 3;
