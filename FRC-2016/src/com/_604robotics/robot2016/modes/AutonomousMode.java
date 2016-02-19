@@ -45,13 +45,13 @@ public class AutonomousMode extends Coordinator
 		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", 120));
 		    		}
 		    	}));
-				step("Backward", new Step(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
+				step("Turn Right", new Step(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
 						modules.getModule("Drive").getTrigger("At Left Servo Target"),
 		    			modules.getModule("Drive").getTrigger("At Right Servo Target")
 		    	})), new Coordinator() {
 		    		protected void apply (ModuleManager modules) {
 		    			this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
-		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", -120));
+		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", 120));
 		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", -120));
 		    		}
 		    	}));
@@ -70,6 +70,16 @@ public class AutonomousMode extends Coordinator
 		    			this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
 		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", -120));
 		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", -120));
+		    		}
+		    	}));
+				step("Turn Left", new Step(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
+						modules.getModule("Drive").getTrigger("At Left Servo Target"),
+		    			modules.getModule("Drive").getTrigger("At Right Servo Target")
+		    	})), new Coordinator() {
+		    		protected void apply (ModuleManager modules) {
+		    			this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
+		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "left clicks", -120));
+		    			this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "right clicks", 120));
 		    		}
 		    	}));
 		}

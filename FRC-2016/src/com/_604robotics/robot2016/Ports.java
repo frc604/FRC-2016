@@ -9,6 +9,8 @@ public class Ports {
 	public static final int INTAKE_MOTOR = 4;
 	public static final int SHOOTER_MOTOR_LEFT = 5;
 	public static final int SHOOTER_MOTOR_RIGHT = 6;
+	public static final int FLIPPER_MOTOR_RIGHT = 7;
+	public static final int FLIPPER_MOTOR_LEFT = 8;
 	
 	public static final int SHIFTER_SOLENOID_FORWARD = 0;
 	public static final int SHIFTER_SOLENOID_REVERSE = 1;
@@ -19,4 +21,6 @@ public class Ports {
 	public static final int DRIVE_ENCODER_RIGHT_B = 3;
 	public static final int SHOOTER_ENCODER_A = 4;
 	public static final int SHOOTER_ENCODER_B = 5;
+	public static final int FLIPPER_ENCODER_RIGHT_A = 6;
+	public static final int FLIPPER_ENCODER_RIGHT_B = 7;
 }
