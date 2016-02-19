@@ -1,4 +1,4 @@
-package com._604robotics.robotnik.procedure;
+package com._604robotics.robotnik.coordinator.steps;
 
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
@@ -80,5 +80,12 @@ public class Step {
      */
     public void update () {
         coordinator.update();
+    }
+    
+    /**
+     * Reset.
+     */
+    public void reset () {
+        coordinator.stop();
     }
 }

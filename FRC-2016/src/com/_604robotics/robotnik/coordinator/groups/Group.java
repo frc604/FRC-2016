@@ -1,4 +1,4 @@
-package com._604robotics.robotnik.coordinator.connectors;
+package com._604robotics.robotnik.coordinator.groups;
 
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
@@ -42,5 +42,12 @@ public class Group {
     public void update () {
         if (trigger.get())
             coordinator.update();
+    }
+
+    /**
+     * Reset.
+     */
+    public void reset () {
+    	coordinator.stop();
     }
 }
