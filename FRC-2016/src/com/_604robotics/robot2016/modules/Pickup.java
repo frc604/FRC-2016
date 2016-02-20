@@ -7,6 +7,7 @@ import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.data.Data;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
+import com._604robotics.robotnik.prefabs.actions.PIDAction;
 import com._604robotics.robotnik.prefabs.devices.MA3A10;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
@@ -45,6 +46,9 @@ public class Pickup extends Module {
                     motors.set(0);
                 }
             });
+            add("Down", new PIDAction(pid, 0));
+            add("Mid", new PIDAction(pid, 45));
+            add("Up", new PIDAction(pid, 90));
         }});
     }
 }

@@ -40,6 +40,13 @@ public class Dashboard extends Module {
         		add("Shooter Target Speed", new DashboardData("Shooter Target Speed", 0));
         		add("Shooter Threshold", new DashboardData("Shooter Threshold", 10));
         	}
+        	
+        	/* PickUp */
+        	{
+        		add("Pickup Down Angle", new DashboardData("Pickup Down Angle", 0));
+        		add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", 45));
+        		add("Pickup Up Angle", new DashboardData("Pickup Up Angle", 90));
+        	}
     	}});
     }
 }
