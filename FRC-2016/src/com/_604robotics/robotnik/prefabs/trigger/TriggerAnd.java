@@ -16,7 +16,7 @@ public class TriggerAnd implements TriggerAccess {
      *
      * @param triggers the triggers
      */
-    public TriggerAnd (TriggerAccess[] triggers) {
+    public TriggerAnd (TriggerAccess... triggers) {
         this.triggers = triggers;
     }
     

@@ -1,16 +1,17 @@
 package com._604robotics.robotnik.data;
 
-import com._604robotics.robotnik.meta.Iterator;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class DataMap.
  */
-public class DataMap {
+public class DataMap implements Iterable<Map.Entry<String, Data>> {
     
     /** The data table. */
-    private final Hashtable dataTable = new Hashtable();
+    private final Map<String, Data> dataTable = new HashMap<String, Data>();
     
     /**
      * Adds the.
@@ -29,7 +30,7 @@ public class DataMap {
      * @return the data
      */
     protected Data getData (String name) {
-        return (Data) this.dataTable.get(name);
+        return this.dataTable.get(name);
     }
     
     /**
@@ -37,7 +38,7 @@ public class DataMap {
      *
      * @return the iterator
      */
-    protected Iterator iterate () {
-        return new Iterator(this.dataTable);
+    public Iterator<Map.Entry<String, Data>> iterator () {
+        return this.dataTable.entrySet().iterator();
     }
 }

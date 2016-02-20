@@ -1,16 +1,17 @@
 package com._604robotics.robotnik.action.field;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class FieldMap.
  */
-public class FieldMap {
+public class FieldMap implements Iterable<Field> {
     
     /** The fields. */
-    private final Vector fields = new Vector();
+    private final List<Field> fields = new ArrayList<Field>();
     
     /**
      * Define.
@@ -19,7 +20,7 @@ public class FieldMap {
      * @param value the value
      */
     public void define (String name, double value) {
-        this.fields.addElement(new Field(name, value));
+        this.fields.add(new Field(name, value));
     }
     
     /**
@@ -29,15 +30,15 @@ public class FieldMap {
      * @param value the value
      */
     public void define (String name, boolean value) {
-        this.fields.addElement(new Field(name, value ? 1D : 0D));
+        this.fields.add(new Field(name, value ? 1D : 0D));
     }
     
     /**
-     * Enumerate.
+     * Iterate.
      *
-     * @return the enumeration
+     * @return the iterator
      */
-    public Enumeration enumerate () {
-        return this.fields.elements();
+    public Iterator<Field> iterator () {
+        return this.fields.iterator();
     }
 }

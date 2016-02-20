@@ -7,7 +7,6 @@ import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 import com._604robotics.robotnik.trigger.TriggerReference;
-import java.util.Enumeration;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -93,13 +92,9 @@ public class ActionData {
      * Reset.
      */
     protected void reset () {
-        final Enumeration fields = map.enumerate();
-        Field field;
-        
-        while (fields.hasMoreElements()) {
-            field = (Field) fields.nextElement();
-            this.table.putNumber(field.getName(), field.getDefaultValue());
-        }
+    	for(Field field : this.map) {
+    		this.table.putNumber(field.getName(), field.getDefaultValue());
+    	}
     }
     
     /**

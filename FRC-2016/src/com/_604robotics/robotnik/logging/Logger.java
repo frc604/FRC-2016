@@ -1,16 +1,21 @@
 package com._604robotics.robotnik.logging;
 
-import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Logger.
  */
 public class Logger {
-    
+	
+	/** The Constant logDateFormat */
+    private static final SimpleDateFormat logDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
     /**
      * Log.
      *
@@ -48,7 +53,7 @@ public class Logger {
      * @param message the message
      */
     private static void record (PrintStream std, String message) {
-        final String line = "(" + System.currentTimeMillis() + " ms) " + message;
+        final String line = "[" + logDateFormat.format(new Date()) + "] " + message;
         
         std.println(line);
         if (logFile != null) logFile.println(line);
@@ -65,28 +70,23 @@ public class Logger {
     }
     
     /** The Constant logFile. */
-    private static final PrintStream logFile;
+    private static PrintStream logFile = null;
+    
+    /** The Constant logFileDateFormat */
+    private static final SimpleDateFormat logFileDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
     
     static {
-        PrintStream result = null;
-        Exception error = null;
-        /*
-        try {
-            final FileConnection file = (FileConnection) Connector.open("file:///robotnik.log", Connector.WRITE);
-            if (!file.exists())
-                file.create();
-            
-            result = null; new PrintStream(file.openOutputStream(file.fileSize()));
-        } catch (IOException ex) {
-            error = ex;
-        }*/
-        
-        logFile = result;
-        
-        if (error != null)
-            error("Could not open log file", error);
-        else
-            log("Recording to log file \"robotnik.log\" on cRIO; session ID = "
-                    + new Random().nextInt());
+    	try {
+    		String fileName = "robotnik_" + logFileDateFormat.format(new Date()) + ".log";
+        	File file = new File(fileName);
+        	if(!file.exists() && !file.createNewFile()) {
+        		warn("Could not create log file.");
+        	}
+    		
+    		logFile = new PrintStream(new FileOutputStream(file));
+            log("Recording to log file \"" + fileName + "\" on cRIO");
+    	} catch(IOException e) {
+    		error("Could not open log file.", e);
+    	}
     }
 }

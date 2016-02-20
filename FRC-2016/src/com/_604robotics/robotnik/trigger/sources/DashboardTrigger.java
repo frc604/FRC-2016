@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The Class DashboardTrigger.
  */
-public class DashboardTrigger extends Trigger {
+public class DashboardTrigger implements Trigger {
     
     /** The key. */
     private final String key;

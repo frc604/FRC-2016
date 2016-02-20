@@ -16,7 +16,7 @@ public class TriggerOr implements TriggerAccess {
      *
      * @param triggers the triggers
      */
-    public TriggerOr (TriggerAccess[] triggers) {
+    public TriggerOr (TriggerAccess... triggers) {
         this.triggers = triggers;
     }
     

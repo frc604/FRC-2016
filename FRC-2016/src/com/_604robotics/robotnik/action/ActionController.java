@@ -1,16 +1,17 @@
 package com._604robotics.robotnik.action;
 
-import com._604robotics.robotnik.meta.Iterator;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ActionController.
  */
-public abstract class ActionController {
+public abstract class ActionController implements Iterable<Map.Entry<String, Action>> {
     
     /** The action table. */
-    private final Hashtable actionTable = new Hashtable();
+    private final Map<String, Action> actionTable = new HashMap<String, Action>();
     
     /** The default action. */
     private String defaultAction = "";
@@ -79,7 +80,7 @@ public abstract class ActionController {
      * @return the action
      */
     protected Action getAction (String name) {
-        return (Action) this.actionTable.get(name);
+        return this.actionTable.get(name);
     }
     
     /**
@@ -87,7 +88,7 @@ public abstract class ActionController {
      *
      * @return the iterator
      */
-    protected Iterator iterate () {
-        return new Iterator(this.actionTable);
+    public Iterator<Map.Entry<String, Action>> iterator () {
+        return this.actionTable.entrySet().iterator();
     }
 }

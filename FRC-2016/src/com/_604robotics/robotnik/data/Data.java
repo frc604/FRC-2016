@@ -4,12 +4,12 @@ package com._604robotics.robotnik.data;
 /**
  * The Class Data.
  */
-public abstract class Data {
+public interface Data {
     
     /**
      * Run.
      *
      * @return the double
      */
-    public abstract double run ();
+    public double run ();
 }

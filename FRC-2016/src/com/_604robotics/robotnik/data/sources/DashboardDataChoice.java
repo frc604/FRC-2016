@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The Class DashboardDataChoice.
  */
-public class DashboardDataChoice extends Data {
+public class DashboardDataChoice implements Data {
     
     /** The chooser. */
     private final SendableChooser chooser = new SendableChooser();

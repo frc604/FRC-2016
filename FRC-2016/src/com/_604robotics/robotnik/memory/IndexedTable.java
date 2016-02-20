@@ -22,7 +22,7 @@ public class IndexedTable {
     }
     
     /** The keys. */
-    private final Set keys = new HashSet();
+    private final Set<String> keys = new HashSet<String>();
     
     /** The table. */
     private final ITable table;
@@ -92,7 +92,7 @@ public class IndexedTable {
      * @return the value
      * @throws TableKeyNotDefinedException the table key not defined exception
      */
-    public Object  getValue   (String key) throws TableKeyNotDefinedException { return this.table.getValue(key); }
+    public Object  getValue   (String key, Object defaultValue) { return this.table.getValue(key, defaultValue); }
     
     /**
      * Put string.
@@ -205,7 +205,7 @@ public class IndexedTable {
          * @return the value
          * @throws TableKeyNotDefinedException the table key not defined exception
          */
-        public Object  getValue   () throws TableKeyNotDefinedException { return this.source.getValue(this.key); }
+        public Object  getValue   (Object defaultValue) { return this.source.getValue(this.key, defaultValue); }
         
         /**
          * Put string.

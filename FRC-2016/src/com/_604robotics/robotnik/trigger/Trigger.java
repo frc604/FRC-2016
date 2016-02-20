@@ -4,7 +4,7 @@ package com._604robotics.robotnik.trigger;
 /**
  * The Class Trigger.
  */
-public abstract class Trigger {
+public interface Trigger {
     
     /**
      * Run.

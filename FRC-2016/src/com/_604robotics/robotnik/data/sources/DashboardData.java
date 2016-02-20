@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The Class DashboardData.
  */
-public class DashboardData extends Data {
+public class DashboardData implements Data {
     
     /** The key. */
     private final String key;

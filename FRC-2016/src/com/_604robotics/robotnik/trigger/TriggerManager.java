@@ -1,25 +1,24 @@
 package com._604robotics.robotnik.trigger;
 
-import java.util.Hashtable;
-
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.meta.Iterator;
-import com._604robotics.robotnik.meta.Repackager;
+import com._604robotics.robotnik.logging.InternalLogger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TriggerManager {
     private final String moduleName;
-    private final Hashtable triggerTable;
+
+    private final Map<String, TriggerReference> triggerTable;
     
     public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table) {
         this.moduleName = moduleName;
         
-        this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new TriggerReference((Trigger) value, table.getSlice((String) key));
-           }
-        });
+        this.triggerTable = new HashMap<String, TriggerReference>();
+        for(Map.Entry<String, Trigger> entry : triggerMap) {
+        	this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getSlice(entry.getKey())));
+        }
     }
     
     public TriggerReference getTrigger (String name) {
@@ -31,9 +30,8 @@ public class TriggerManager {
     }
     
     public void update (Safety safety) {
-        final Iterator i = new Iterator(this.triggerTable);
-        while (i.next()) {
-            ((TriggerReference) i.value).update(safety);
-        }
+    	for(TriggerReference reference : this.triggerTable.values()) {
+		reference.update(safety);
+    	}
     }
 }
