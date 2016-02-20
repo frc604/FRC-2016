@@ -29,22 +29,22 @@ public class DashboardSystem extends Coordinator {
     	
     	/* Shifting */
     	{
-        	this.fill(new DataWire(DashboardOutput.asBoolean(), "Shifter Gear",
-        			modules.getModule("Shifter").getAction("High Gear").active()));
+        	//this.fill(new DataWire(DashboardOutput.asBoolean(), "Shifter Gear",
+        		//	modules.getModule("Shifter").getAction("High Gear").active()));
         	this.fill(new DataWire(DashboardOutput.asDouble(), "Software Gear",
         			modules.getModule("Gear").getData("Gear")));
     	}
     	
     	/* Shooter */
-    	{
+    	/*{
     		this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Target Speed", modules.getModule("Dashboard").getData("Shooter Target Speed")));
     		this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
-    	}
+    	}*/
     	
     	/* Intake */
     	{
-    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup clicks",
-    	            modules.getModule("Pickup").getData("Pickup clicks")));
+    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Clicks",
+    	            modules.getModule("Pickup").getData("Pickup Clicks")));
     	}
     }
 }

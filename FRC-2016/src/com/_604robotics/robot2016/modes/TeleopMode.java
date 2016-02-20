@@ -64,8 +64,8 @@ public class TeleopMode extends Coordinator {
             /* Shifter */
     		{
                 final TriggerToggle shift = new TriggerToggle(driver.buttons.RB, false);
-                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
+                //this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
+                //this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
     		}
     	}
     	
