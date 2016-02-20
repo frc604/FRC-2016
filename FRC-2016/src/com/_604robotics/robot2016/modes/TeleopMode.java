@@ -35,23 +35,18 @@ public class TeleopMode extends Coordinator {
     protected void apply (ModuleManager modules) {
     	/* Driving */
     	{
-    		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
-            			modules.getModule("Dashboard").getTrigger("Drive Off")})));
+    		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
     		
     	    /* Tank Drive */
     		{	
-	    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
-	            		modules.getModule("Dashboard").getTrigger("Drive On"),
-	            		modules.getModule("Dashboard").getTrigger("Tank Drive")})));
+	    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
 	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left", driver.leftStick.Y));
 	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
     		}
     		
     		/* Geared Drive */
     		{
-        		this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), new TriggerAnd(new TriggerAccess[] {
-                		modules.getModule("Dashboard").getTrigger("Drive On"),
-                		modules.getModule("Dashboard").getTrigger("Geared Drive")})));
+        		this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), modules.getModule("Dashboard").getTrigger("Geared Drive")));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "left", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "right", driver.rightStick.Y));
 
@@ -64,8 +59,8 @@ public class TeleopMode extends Coordinator {
             /* Shifter */
     		{
                 final TriggerToggle shift = new TriggerToggle(driver.buttons.RB, false);
-                //this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
-                //this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
     		}
     	}
     	
@@ -75,12 +70,14 @@ public class TeleopMode extends Coordinator {
         	{
         		this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), manipulator.buttons.RT));
         	}
-        	// Intake
+        	
+        	/* Intake */
         	{
         		this.bind(new Binding(modules.getModule("Intake").getAction("Run")));
         		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "power", manipulator.rightStick.Y));
         	}
-        	// Pickup
+        	
+        	/* Pickup */
         	{
         		this.bind(new Binding(modules.getModule("Pickup").getAction("Flip Up")));
         		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Up"), "On", manipulator.buttons.Y));

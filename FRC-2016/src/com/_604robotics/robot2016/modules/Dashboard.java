@@ -15,21 +15,16 @@ public class Dashboard extends Module {
             add("Servo Drive", driveMode.add("Servo Drive"));
             
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
-            add("Drive On", driveOn.add("Drive On"));
+            add("Drive On", driveOn.addDefault("Drive On"));
             add("Drive Off", driveOn.add("Drive Off"));
             
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
-            add("Auton Mode A", autonMode.add("Auton Mode A"));
+            add("Auton Mode A", autonMode.addDefault("Auton Mode A"));
             add("Auton Mode B", autonMode.add("Auton Mode B"));
             
-            final DashboardTriggerChoice debuggingOn = new DashboardTriggerChoice("Debugging On");
-            add("Debugging Off", debuggingOn.add("Debugging Off"));
-            add("Debugging On", debuggingOn.add("Debugging On"));
-            
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton On");
+            add("Auton On", autonOn.addDefault("Auton On"));
             add("Auton Off", autonOn.add("Auton Off"));
-            add("Auton On", autonOn.add("Auton On"));
-            
         }});
         
         this.set(new DataMap() {{
@@ -39,6 +34,7 @@ public class Dashboard extends Module {
         		add("Right Drive Servo", new DashboardData("Right Drive Servo", -120D));
         		add("Drive Servo Power Cap", new DashboardData("Drive Servo Power Cap", 0.5D));
         	}
+
         	/* Shooter */
         	{
         		add("Shooter Target Speed", new DashboardData("Shooter Target Speed", 0));
