@@ -113,7 +113,7 @@ public class Pickup extends Module {
             });
             
             add("Flip Up", new Action(new FieldMap () {{
-                define("on", false);
+                define("On", false);
             }}) {
                 public void run (ActionData data) {
                 	int allowed = 0;
@@ -135,7 +135,7 @@ public class Pickup extends Module {
             });
             
             add("Flip Down", new Action(new FieldMap () {{
-                define("on", false);
+                define("On", false);
             }}) {
                 public void run (ActionData data) {
                 	int allowed = 0;

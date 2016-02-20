@@ -83,11 +83,11 @@ public class TeleopMode extends Coordinator {
         	// Pickup
         	{
         		this.bind(new Binding(modules.getModule("Pickup").getAction("Flip Up")));
-        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Up"), "on", manipulator.buttons.Y));
+        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Up"), "On", manipulator.buttons.Y));
         		this.bind(new Binding(modules.getModule("Pickup").getAction("Flip Down")));
-        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Down"), "on", manipulator.buttons.X));
+        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Down"), "On", manipulator.buttons.X));
         		this.bind(new Binding(modules.getModule("Pickup").getAction("Find Mid")));
-        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Find Mid"), "on", manipulator.buttons.B));
+        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Find Mid"), "On", manipulator.buttons.B));
         	}
     	}
     }
