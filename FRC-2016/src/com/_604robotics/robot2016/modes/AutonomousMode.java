@@ -8,16 +8,12 @@ package com._604robotics.robot2016.modes;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
+import com._604robotics.robotnik.coordinator.groups.Group;
 import com._604robotics.robotnik.coordinator.steps.Step;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.measure.TriggerMeasure;
 import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
-import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
-import com._604robotics.robotnik.prefabs.trigger.TriggerOr;
-import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
 import com._604robotics.robotnik.trigger.TriggerAccess;
-import com._604robotics.robotnik.coordinator.groups.Group;
-import com._604robotics.robotnik.coordinator.groups.GroupManager;
 
 public class AutonomousMode extends Coordinator
 {

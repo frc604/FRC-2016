@@ -9,41 +9,18 @@ import edu.wpi.first.wpilibj.Victor;
 import com._604robotics.robotnik.action.field.FieldMap;
 
 public class Intake extends Module{
-	private final Victor motor = new Victor(Ports.INTAKE_MOTOR);//port unknown as of right now, prob need to change this
+	private final Victor motor = new Victor(Ports.INTAKE_MOTOR);
 
 	public Intake (){
-		this.set(new ElasticController(){{
-			addDefault("Off", new Action(){
-				public void run(ActionData data){
-					motor.stopMotor();
-				}
-			});
-			
-			add("SuckIn", new Action(){
-				public void run(ActionData data){
-					motor.set(-1D);
-				}
-				public void end(ActionData data){
-					motor.stopMotor();
-				}
-			});
-			
-			add("SpitOut", new Action(){
-				public void run(ActionData data){
-					motor.set(1D);
-				}
-				public void end(ActionData data){
-					motor.stopMotor();
-				}
-			});
-			
-            add("Run", new Action(new FieldMap() {{
-            	define("power", 0D);
+		this.set(new ElasticController() {{
+            addDefault("Run", new Action(new FieldMap() {{
+            	define("Power", 0D);
             }}) {
-            	public void run(ActionData data) {
-                    motor.set(data.get("power"));
+            	public void run (ActionData data) {
+                    motor.set(data.get("Power"));
                 }
-                public void end(ActionData data){
+
+                public void end (ActionData data){
                     motor.stopMotor();
                 } 
             });

@@ -5,11 +5,7 @@ import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
-import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
-import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
-import com._604robotics.robotnik.prefabs.trigger.TriggerOr;
 import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
-import com._604robotics.robotnik.trigger.TriggerAccess;
 
 public class TeleopMode extends Coordinator {
     private final XboxController driver = new XboxController(0);
@@ -30,6 +26,8 @@ public class TeleopMode extends Coordinator {
         
         driver.rightStick.X.setFactor(factor);
         driver.rightStick.Y.setFactor(factor);
+        
+        manipulator.rightStick.Y.setDeadband(deadband);
     }
     
     protected void apply (ModuleManager modules) {
@@ -71,18 +69,11 @@ public class TeleopMode extends Coordinator {
         	
         	/* Intake */
         	{
-        		this.bind(new Binding(modules.getModule("Intake").getAction("Run")));
-        		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "power", manipulator.rightStick.Y));
+        		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.rightStick.Y));
         	}
         	
         	/* Pickup */
         	{
-        		this.bind(new Binding(modules.getModule("Pickup").getAction("Flip Up")));
-        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Up"), "On", manipulator.buttons.Y));
-        		this.bind(new Binding(modules.getModule("Pickup").getAction("Flip Down")));
-        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Flip Down"), "On", manipulator.buttons.X));
-        		this.bind(new Binding(modules.getModule("Pickup").getAction("Find Mid")));
-        		this.fill(new DataWire(modules.getModule("Pickup").getAction("Find Mid"), "On", manipulator.buttons.B));
         	}
     	}
     }

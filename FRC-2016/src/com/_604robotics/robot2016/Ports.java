@@ -15,12 +15,12 @@ public class Ports {
 	public static final int SHIFTER_SOLENOID_FORWARD = 4;
 	public static final int SHIFTER_SOLENOID_REVERSE = 5;
 	
-	public static final int FLIPPER_ENCODER_RIGHT_A = 2;
-	public static final int FLIPPER_ENCODER_RIGHT_B = 3;
 	public static final int SHOOTER_ENCODER_A = 4;
 	public static final int SHOOTER_ENCODER_B = 5;
 	public static final int DRIVE_ENCODER_RIGHT_A = 6;
 	public static final int DRIVE_ENCODER_RIGHT_B = 7;
 	public static final int DRIVE_ENCODER_LEFT_A = 8;
 	public static final int DRIVE_ENCODER_LEFT_B = 9;
+
+	public static final int FLIPPER_ENCODER = 3;
 }

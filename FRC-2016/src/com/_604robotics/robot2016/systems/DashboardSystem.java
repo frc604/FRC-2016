@@ -50,10 +50,9 @@ public class DashboardSystem extends Coordinator {
     		this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
     	}
     	
-    	/* Intake */
+    	/* Pickup */
     	{
-    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Clicks",
-    	            modules.getModule("Pickup").getData("Pickup Clicks")));
+    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
     	}
     }
 }
