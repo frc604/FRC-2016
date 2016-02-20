@@ -5,6 +5,8 @@ import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
+import com._604robotics.robotnik.data.Data;
+import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 import com._604robotics.robotnik.trigger.Trigger;
@@ -22,7 +24,16 @@ public class Shooter extends Module {
     private final Timer chargeTimer = new Timer();
 
     public Shooter () {
-        this.set(new TriggerMap() {{
+        set(new DataMap() {{
+            add("Current Speed", new Data() {
+                @Override
+                public double run () {
+                    return encoder.getRate();
+                }
+            });
+        }});
+
+        set(new TriggerMap() {{
             add("Charged", new Trigger() {
                 public boolean run () {
                     return chargeTimer.get() >= 0.5;
@@ -30,7 +41,7 @@ public class Shooter extends Module {
             });
         }});
 
-        this.set(new ElasticController() {{
+        set(new ElasticController() {{
             addDefault("Off", new Action() {
                 public void run (ActionData data){
                     motors.stopMotor();
