@@ -35,8 +35,6 @@ public class TeleopMode extends Coordinator {
     protected void apply (ModuleManager modules) {
     	/* Driving */
     	{
-    		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
-    		
     	    /* Tank Drive */
     		{	
 	    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
