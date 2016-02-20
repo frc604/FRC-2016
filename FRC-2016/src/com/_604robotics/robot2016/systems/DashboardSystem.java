@@ -43,8 +43,8 @@ public class DashboardSystem extends Coordinator {
     	
     	/* Intake */
     	{
-    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Flipper clicks",
-    	            modules.getModule("Flipper").getData("Flipper clicks")));
+    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup clicks",
+    	            modules.getModule("Pickup").getData("Pickup clicks")));
     	}
     }
 }

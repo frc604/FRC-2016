@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Flipper extends Module {
+public class Pickup extends Module {
     private final RobotDrive flip = new RobotDrive(Ports.FLIPPER_MOTOR_LEFT, Ports.FLIPPER_MOTOR_RIGHT);
 	private final Encoder encoder = new Encoder (Ports.FLIPPER_ENCODER_RIGHT_A, Ports.FLIPPER_ENCODER_RIGHT_B,true, CounterBase.EncodingType.k4X);
     
@@ -39,28 +39,28 @@ public class Flipper extends Module {
         	else pidOutput = (output < -pidPowerCap) ? -pidPowerCap : output;
         }
     });
-    public Flipper () {
+    public Pickup () {
     	// if code doesnt work delete this stuff
         encoder.setPIDSourceType(PIDSourceType.kDisplacement);
         
         pid.setAbsoluteTolerance(20);
         
-        SmartDashboard.putData("Flipper PID", pid);
+        SmartDashboard.putData("Pickup PID", pid);
         
         this.set(new DataMap() {{
-            add("Flipper Clicks", new Data() {
+            add("Pickup Clicks", new Data() {
                 public double run () {
                     return encoder.get();
                 }
             });
-            add("Flipper Rate", new Data() {
+            add("Pickup Rate", new Data() {
                 public double run () {
                     return encoder.getRate();
                 }
             });
         }});
         this.set(new TriggerMap() {{
-            add("At Flipper Target", new Trigger() {
+            add("At Pickup Target", new Trigger() {
                 private final Timer timer = new Timer();
                 private boolean timing = false;
                 
@@ -190,7 +190,7 @@ public class Flipper extends Module {
             	
                 public void begin (ActionData data) {
                 	pidPowerCap = data.get("power cap");
-                	startClicks = data.data("Flipper Clicks");
+                	startClicks = data.data("Pickup Clicks");
                     pid.setSetpoint(data.get("clicks") + startClicks);
                     pid.enable();
                 }

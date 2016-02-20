@@ -7,7 +7,7 @@ import com._604robotics.robot2016.modes.TeleopMode;
 import com._604robotics.robot2016.modules.CompressorModule;
 import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
-import com._604robotics.robot2016.modules.Flipper;
+import com._604robotics.robot2016.modules.Pickup;
 import com._604robotics.robot2016.modules.Gear;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
@@ -28,7 +28,7 @@ public class Robot2016 extends Robot {
             add("CompressorModule", new CompressorModule());
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
-            add("Flipper", new Flipper());
+            add("Pickup", new Pickup());
             add("Gear", new Gear());
             add("Shifter", new Shifter());
             add("Intake", new Intake());
