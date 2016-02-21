@@ -17,28 +17,28 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
-	private final MA3A10 encoder = new MA3A10(Ports.FLIPPER_ENCODER);
+    private final MA3A10 encoder = new MA3A10(Ports.FLIPPER_ENCODER);
 
     private final Victor leftMotor = new Victor(Ports.FLIPPER_MOTOR_LEFT);
     private final Victor rightMotor = new Victor(Ports.FLIPPER_MOTOR_RIGHT);
-    
+
     private final MultiOutput motors = new MultiOutput(new PIDOutput[] { leftMotor, rightMotor });
-    
-	private final PIDController pid = new PIDController(
-	        Calibration.PICKUP_PID_P,
-	        Calibration.PICKUP_PID_I,
-	        Calibration.PICKUP_PID_D,
-	        encoder, motors);
-	
-	public Pickup () {
-	    encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
-        
+
+    private final PIDController pid = new PIDController(
+            Calibration.PICKUP_PID_P,
+            Calibration.PICKUP_PID_I,
+            Calibration.PICKUP_PID_D,
+            encoder, motors);
+
+    public Pickup () {
+        encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
+
         SmartDashboard.putData("Pickup PID", pid);
-        
+
         set(new DataMap() {{
             add("Pickup Angle", encoder::getAngle);
         }});
-        
+
         set(new ElasticController() {{
             addDefault("Off", new Action() {
                 @Override

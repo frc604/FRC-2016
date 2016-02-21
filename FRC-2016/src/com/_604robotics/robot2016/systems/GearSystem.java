@@ -6,7 +6,7 @@ import com._604robotics.robotnik.module.ModuleManager;
 
 public class GearSystem extends Coordinator {
     protected void apply (ModuleManager modules) {
-    	this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"),
+        this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"),
                 "Throttle", modules.getModule("Gear").getData("Current Multiplier")));
     }
 }

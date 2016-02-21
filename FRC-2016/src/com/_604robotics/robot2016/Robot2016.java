@@ -23,7 +23,7 @@ public class Robot2016 extends Robot {
             setAutonomousMode(new AutonomousMode());
             setTeleopMode(new TeleopMode());
         }});
-        
+
         this.set(new ModuleMap() {{
             add("Regulator", new Regulator());
             add("Drive", new Drive());
@@ -34,7 +34,7 @@ public class Robot2016 extends Robot {
             add("Intake", new Intake());
             add("Shooter", new Shooter());
         }});
-        
+
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());
             add(new GearSystem());

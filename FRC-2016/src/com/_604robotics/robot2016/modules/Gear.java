@@ -11,14 +11,14 @@ public class Gear extends Module {
     private double multiplier = 1;
     private double gear = 1;
     private double maxGear = 6;
-    
+
     public Gear () {
         this.set(new DataMap() {{
             add("Current Multiplier", () -> Math.pow(multiplier, maxGear - gear));
             add("Base Multiplier", () -> multiplier);
             add("Gear", () -> gear);
         }});
-        
+
         this.set(new ElasticController() {{
             addDefault("Not Shifting", new Action(new FieldMap () {{
                 define("Multiplier", 1D);
@@ -27,19 +27,19 @@ public class Gear extends Module {
                     multiplier = data.get("Multiplier");
                 }
             });
-            
+
             add("Upshift", new Action() {
                 public void begin (ActionData data) {
                     if(gear < maxGear) {
-                    	++gear;
+                        ++gear;
                     }
                 }
             });
-            
+
             add("Downshift", new Action() {
                 public void begin (ActionData data) {
                     if(gear > 1) {
-                    	--gear;
+                        --gear;
                     }
                 }
             });
