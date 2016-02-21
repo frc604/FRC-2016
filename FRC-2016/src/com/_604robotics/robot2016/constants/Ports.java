@@ -1,6 +1,8 @@
-package com._604robotics.robot2016;
+package com._604robotics.robot2016.constants;
 
-public class Ports {
+public final class Ports {
+    private Ports () {}
+
 	public static final int INTAKE_MOTOR = 1;
 	public static final int FLIPPER_MOTOR_RIGHT = 2;
 	public static final int FLIPPER_MOTOR_LEFT = 3;

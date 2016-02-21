@@ -1,5 +1,6 @@
 package com._604robotics.robot2016.modules;
 
+import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.data.sources.DashboardData;
 import com._604robotics.robotnik.module.Module;
@@ -28,24 +29,17 @@ public class Dashboard extends Module {
         }});
         
         this.set(new DataMap() {{
-        	/* Drive servo testing */
-        	{
-        		add("Left Drive Servo", new DashboardData("Left Drive Servo", -120D));
-        		add("Right Drive Servo", new DashboardData("Right Drive Servo", -120D));
-        		add("Drive Servo Power Cap", new DashboardData("Drive Servo Power Cap", 0.5D));
-        	}
-
         	/* Shooter */
         	{
-        		add("Shooter Target Speed", new DashboardData("Shooter Target Speed", 0));
-        		add("Shooter Threshold", new DashboardData("Shooter Threshold", 10));
+        		add("Shooter Target Speed", new DashboardData("Shooter Target Speed", Calibration.SHOOTER_TARGET_SPEED));
+        		add("Shooter Threshold", new DashboardData("Shooter Threshold", Calibration.SHOOTER_SPEED_THRESHOLD));
         	}
         	
         	/* PickUp */
         	{
-        		add("Pickup Down Angle", new DashboardData("Pickup Down Angle", 0));
-        		add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", 45));
-        		add("Pickup Up Angle", new DashboardData("Pickup Up Angle", 90));
+        		add("Pickup Down Angle", new DashboardData("Pickup Down Angle", Calibration.PICKUP_DOWN_ANGLE));
+        		add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", Calibration.PICKUP_MID_ANGLE));
+        		add("Pickup Up Angle", new DashboardData("Pickup Up Angle", Calibration.PICKUP_UP_ANGLE));
         	}
     	}});
     }

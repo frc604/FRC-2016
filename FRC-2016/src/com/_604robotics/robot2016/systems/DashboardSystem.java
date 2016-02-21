@@ -12,14 +12,6 @@ public class DashboardSystem extends Coordinator {
         {
     		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
         }
-    		
-      	/* Servo Drive Testing and Macros */
-    	{
-    		this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"),
-    				"left clicks", modules.getModule("Dashboard").getData("Left Drive Servo")));
-    		this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"),
-    				"right clicks", modules.getModule("Dashboard").getData("Right Drive Servo")));
-    	}
     	
     	/* Drive */
     	{

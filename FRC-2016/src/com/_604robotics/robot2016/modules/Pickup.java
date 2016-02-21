@@ -1,6 +1,7 @@
 package com._604robotics.robot2016.modules;
 
-import com._604robotics.robot2016.Ports;
+import com._604robotics.robot2016.constants.Calibration;
+import com._604robotics.robot2016.constants.Ports;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
@@ -29,7 +30,6 @@ public class Pickup extends Module {
 	public Pickup () {
 	    encoder.setZeroAngle(0);
         
-        pid.setAbsoluteTolerance(20);
         SmartDashboard.putData("Pickup PID", pid);
         
         set(new DataMap() {{
@@ -46,9 +46,10 @@ public class Pickup extends Module {
                     motors.set(0);
                 }
             });
-            add("Down", new PIDAction(pid, 0));
-            add("Mid", new PIDAction(pid, 45));
-            add("Up", new PIDAction(pid, 90));
+
+            add("Down", new PIDAction(pid, Calibration.PICKUP_DOWN_ANGLE));
+            add("Mid", new PIDAction(pid, Calibration.PICKUP_MID_ANGLE));
+            add("Up", new PIDAction(pid, Calibration.PICKUP_UP_ANGLE));
         }});
     }
 }

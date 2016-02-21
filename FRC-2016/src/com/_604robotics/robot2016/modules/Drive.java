@@ -1,6 +1,6 @@
 package com._604robotics.robot2016.modules;
 
-import com._604robotics.robot2016.Ports;
+import com._604robotics.robot2016.constants.Ports;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
