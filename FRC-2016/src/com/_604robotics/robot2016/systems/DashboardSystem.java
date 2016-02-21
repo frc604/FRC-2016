@@ -42,18 +42,15 @@ public class DashboardSystem extends Coordinator {
             this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
         }
         
-        /* Pickup */
-        {
-            this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
-        }
-        
-        /* PickUp */
-        {
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Down"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Down Angle")));
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Mid"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Mid Angle")));
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Up"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Up Angle")));
-        }
-        
+    	/* Pickup */
+    	{
+    	    this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
+
+    		this.fill(new DataWire(modules.getModule("Pickup").getAction("Down"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Down Angle")));
+    		this.fill(new DataWire(modules.getModule("Pickup").getAction("Mid"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Mid Angle")));
+    		this.fill(new DataWire(modules.getModule("Pickup").getAction("Up"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Up Angle")));
+    	}
+    	
         /* Vision */
         {
             this.fill(new DataWire(DashboardOutput.asBoolean(), "Vision Ready",

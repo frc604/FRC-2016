@@ -1,10 +1,9 @@
 package com._604robotics.robotnik.coordinator.groups;
 
-import com._604robotics.robotnik.coordinator.Coordinator;
-import com._604robotics.robotnik.module.ModuleManager;
-
 import java.util.Enumeration;
 import java.util.Vector;
+
+import com._604robotics.robotnik.module.ModuleManager;
 
 public class GroupManager {
     private final Vector groups = new Vector();
@@ -30,5 +29,15 @@ public class GroupManager {
     public void stop () {
         final Enumeration i = this.groups.elements();
         while (i.hasMoreElements()) ((Group) i.nextElement()).reset();
+    }
+    
+    public boolean complete () {
+        final Enumeration i = this.groups.elements();
+        while (i.hasMoreElements()) {
+            if (!((Group) i.nextElement()).complete()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

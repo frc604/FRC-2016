@@ -14,26 +14,26 @@ public class StepManager {
     private boolean initialized = false;
 
     public void clear () {
-        this.names.removeAllElements();
-        this.steps.removeAllElements();
+        names.removeAllElements();
+        steps.removeAllElements();
     }
 
     public void add (String name, Step step) {
-        this.names.addElement(name);
-        this.steps.addElement(step);
+        names.addElement(name);
+        steps.addElement(step);
     }
 
     public void attach (ModuleManager modules) {
-        final Enumeration i = this.steps.elements();
+        final Enumeration i = steps.elements();
         while (i.hasMoreElements()) ((Step) i.nextElement()).attach(modules);
     }
 
     public void update () {
-        if (this.currentStep < this.steps.size()) {
+        if (!complete()) {
             final Step step = (Step) this.steps.elementAt(currentStep);
 
-            if (!this.initialized) {
-				this.initialized = true;
+            if (!initialized) {
+				initialized = true;
 				step.initialize();
 
 				Logger.log(" ---- Entered step: " + this.names.elementAt(currentStep));
@@ -42,8 +42,8 @@ public class StepManager {
             } else {
                 Logger.log(" ---- Completed step: " + this.names.elementAt(this.currentStep));
                 
-                this.currentStep++;
-                this.initialized = false;
+                ++currentStep;
+                initialized = false;
             }
         }
     }
@@ -54,5 +54,9 @@ public class StepManager {
 
         final Enumeration i = this.steps.elements();
         while (i.hasMoreElements()) ((Step) i.nextElement()).reset();
+    }
+    
+    public boolean complete () {
+        return currentStep >= steps.size();
     }
 }
