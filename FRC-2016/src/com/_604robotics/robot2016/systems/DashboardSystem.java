@@ -57,9 +57,9 @@ public class DashboardSystem extends Coordinator {
     	
     	/* PickUp */
     	{
-    		this.fill(new DataWire(modules.getModule("PickUp").getAction("Down"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Down Angle")));
-    		this.fill(new DataWire(modules.getModule("PickUp").getAction("Mid"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Mid Angle")));
-    		this.fill(new DataWire(modules.getModule("PickUp").getAction("Up"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Up Angle")));
+    		this.fill(new DataWire(modules.getModule("Pickup").getAction("Down"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Down Angle")));
+    		this.fill(new DataWire(modules.getModule("Pickup").getAction("Mid"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Mid Angle")));
+    		this.fill(new DataWire(modules.getModule("Pickup").getAction("Up"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Up Angle")));
     	}
     }
 }

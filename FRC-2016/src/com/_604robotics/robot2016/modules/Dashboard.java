@@ -47,6 +47,7 @@ public class Dashboard extends Module {
         		add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", 45));
         		add("Pickup Up Angle", new DashboardData("Pickup Up Angle", 90));
         	}
+        	
     	}});
     }
 }

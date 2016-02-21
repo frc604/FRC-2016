@@ -12,7 +12,7 @@ public class TeleopMode extends Coordinator {
     private final XboxController manipulator = new XboxController(1);
     
     public TeleopMode () {
-        double deadband = 0.2;
+        double deadband = 0.3;
         double factor = -1;
         
         driver.leftStick.X.setDeadband(deadband);

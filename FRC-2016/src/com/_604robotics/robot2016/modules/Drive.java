@@ -222,7 +222,7 @@ public class Drive extends Module {
                 define("throttle", 1D);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("left") * data.get("throttle")*0.5, data.get("right") * data.get("throttle")*0.5);
+                    drive.tankDrive(data.get("left") * data.get("throttle"), data.get("right") * data.get("throttle"));
                 }
                 
                 public void end (ActionData data) {
