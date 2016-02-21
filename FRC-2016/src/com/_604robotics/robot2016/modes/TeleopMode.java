@@ -6,28 +6,26 @@ import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
 import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
+import com._604robotics.robot2016.constants.Calibration;
 
 public class TeleopMode extends Coordinator {
     private final XboxController driver = new XboxController(0);
     private final XboxController manipulator = new XboxController(1);
     
-    public TeleopMode () {
-        double deadband = 0.3;
-        double factor = -1;
+    public TeleopMode () {        
+        driver.leftStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
+        driver.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
         
-        driver.leftStick.X.setDeadband(deadband);
-        driver.leftStick.Y.setDeadband(deadband);
+        driver.leftStick.X.setFactor(Calibration.TELEOP_FACTOR);
+        driver.leftStick.Y.setFactor(Calibration.TELEOP_FACTOR);
         
-        driver.leftStick.X.setFactor(factor);
-        driver.leftStick.Y.setFactor(factor);
+        driver.rightStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
+        driver.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
         
-        driver.rightStick.X.setDeadband(deadband);
-        driver.rightStick.Y.setDeadband(deadband);
+        driver.rightStick.X.setFactor(Calibration.TELEOP_FACTOR);
+        driver.rightStick.Y.setFactor(Calibration.TELEOP_FACTOR);
         
-        driver.rightStick.X.setFactor(factor);
-        driver.rightStick.Y.setFactor(factor);
-        
-        manipulator.leftStick.Y.setDeadband(deadband);
+        manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
     }
     
     @Override
