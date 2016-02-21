@@ -29,7 +29,7 @@ public class TankDrivePIDOutput {
         this.drive = drive;
     }
     
-    private void update () {
+    private synchronized void update () {
         drive.tankDrive(leftPower, rightPower);
     }
 }
