@@ -20,27 +20,12 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerAlways;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 import com._604robotics.robotnik.trigger.TriggerRecipient;
 
-public class Coordinator<T extends Robot<T>> {
+public class Coordinator {
     private final Vector triggerBindings = new Vector();
     private final Vector dataWires = new Vector();
 
-    private final GroupManager<T> groups = new GroupManager();
-    private final StepManager<T> steps = new StepManager();
-    
-    protected void apply (T robot) {}
-    
-    public void attach (T robot) {
-        this.triggerBindings.removeAllElements();
-        this.dataWires.removeAllElements();
-
-        this.groups.clear();
-        this.steps.clear();
-        
-        this.apply(robot);
-
-        this.groups.attach(robot);
-        this.steps.attach(robot);
-    }
+    private final GroupManager groups = new GroupManager();
+    private final StepManager steps = new StepManager();
     
     protected void bind (TriggerRecipient recipient) {
         bind(recipient, false);
@@ -55,7 +40,7 @@ public class Coordinator<T extends Robot<T>> {
     }
     
     protected void bind (TriggerRecipient recipient, TriggerAccess trigger, boolean safety) {
-        this.triggerBindings.addElement(new Binding(recipient, trigger, safety));
+        triggerBindings.addElement(new Binding(recipient, trigger, safety));
     }
 
     protected void fill (DataRecipient recipient, String fieldName, DataAccess data) {
@@ -87,23 +72,23 @@ public class Coordinator<T extends Robot<T>> {
     }
     
     protected void fill (DataRecipient recipient, String fieldName, DataAccess data, TriggerAccess activator) {
-        this.dataWires.addElement(new DataWire(recipient, fieldName, data, activator));
+        dataWires.addElement(new DataWire(recipient, fieldName, data, activator));
     }
     
-    protected void group (TriggerAccess trigger, Coordinator<T> coordinator) {
-        this.groups.add(new Group<T>(trigger, coordinator));
+    protected void group (TriggerAccess trigger, Coordinator coordinator) {
+        groups.add(new Group(trigger, coordinator));
     }
     
-    protected void step (String name, Coordinator<T> coordinator) {
+    protected void step (String name, Coordinator coordinator) {
         step(name, (Measure) null, coordinator);
     }
     
-    protected void step (String name, TriggerAccess trigger, Coordinator<T> coordinator) {
+    protected void step (String name, TriggerAccess trigger, Coordinator coordinator) {
         step(name, new TriggerMeasure(trigger), coordinator);
     }
     
-    protected void step (String name, Measure measure, Coordinator<T> coordinator) {
-        this.steps.add(name, new Step<T>(measure, coordinator));
+    protected void step (String name, Measure measure, Coordinator coordinator) {
+        steps.add(name, new Step(measure, coordinator));
     }
     
     public void update () {

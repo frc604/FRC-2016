@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import com._604robotics.robotnik.Robot;
 
-public class GroupManager<T extends Robot<T>> {
+public class GroupManager {
     private final Vector groups = new Vector();
 
     public void clear () {
@@ -16,19 +16,14 @@ public class GroupManager<T extends Robot<T>> {
         this.groups.addElement(group);
     }
 
-    public void attach (T robot) {
-        final Enumeration i = this.groups.elements();
-        while (i.hasMoreElements()) ((Group<T>) i.nextElement()).attach(robot);
-    }
-
     public void update () {
         final Enumeration i = this.groups.elements();
-        while (i.hasMoreElements()) ((Group<T>) i.nextElement()).update();
+        while (i.hasMoreElements()) ((Group) i.nextElement()).update();
     }
 
     public void stop () {
         final Enumeration i = this.groups.elements();
-        while (i.hasMoreElements()) ((Group<T>) i.nextElement()).stop();
+        while (i.hasMoreElements()) ((Group) i.nextElement()).stop();
     }
     
     public boolean complete () {

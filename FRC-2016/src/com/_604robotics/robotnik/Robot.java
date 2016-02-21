@@ -12,12 +12,12 @@ import com._604robotics.robotnik.module.ModuleReference;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
-public abstract class Robot<T extends Robot<T>> extends SampleRobot {
+public abstract class Robot extends SampleRobot {
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
     
     private final ModuleManager modules;
-    private final SystemManager<T> systems;
-    private final ModeManager<T> modes;
+    private final SystemManager systems;
+    private final ModeManager modes;
     
     /**
      * Instantiates a new robot (with exception protection enabled by default).
@@ -35,8 +35,8 @@ public abstract class Robot<T extends Robot<T>> extends SampleRobot {
      */
     public Robot (Safety safety) {
         modules = new ModuleManager(IndexedTable.getTable("robotnik").getSubTable("modules"), safety);
-        systems = new SystemManager<T>();
-        modes = new ModeManager<T>();
+        systems = new SystemManager();
+        modes = new ModeManager();
 
         if (safety.disabled()) {
             Logger.warn("Exception protection has been disabled. Make sure you know what you're doing!");
@@ -47,25 +47,16 @@ public abstract class Robot<T extends Robot<T>> extends SampleRobot {
         return modules.addModule(name, module);
     }
     
-    protected void addSystem (Coordinator<T> system) {
+    protected void addSystem (Coordinator system) {
         systems.addSystem(system);
     }
     
-    protected void setAutonomousMode (Coordinator<T> autonomousMode) {
+    protected void setAutonomousMode (Coordinator autonomousMode) {
         modes.setAutonomousMode(autonomousMode);
     }
     
-    protected void setTeleopMode (Coordinator<T> autonomousMode) {
+    protected void setTeleopMode (Coordinator autonomousMode) {
         modes.setTeleopMode(autonomousMode);
-    }
-    
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#robotInit()
-     */
-    @SuppressWarnings("unchecked")
-    public void robotInit () {
-        this.systems.attach((T) this);
-        this.modes.attach((T) this);
     }
     
     /* (non-Javadoc)

@@ -6,7 +6,7 @@ import java.util.Vector;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.logging.Logger;
 
-public class StepManager<T extends Robot<T>> {
+public class StepManager {
     private final Vector names = new Vector();
     private final Vector steps = new Vector();
 
@@ -18,19 +18,14 @@ public class StepManager<T extends Robot<T>> {
         steps.removeAllElements();
     }
 
-    public void add (String name, Step<T> step) {
+    public void add (String name, Step step) {
         this.names.addElement(name);
         this.steps.addElement(step);
     }
 
-    public void attach (T robot) {
-        final Enumeration i = this.steps.elements();
-        while (i.hasMoreElements()) ((Step<T>) i.nextElement()).attach(robot);
-    }
-
     public void update () {
         if (!complete()) {
-            final Step<T> step = (Step<T>) this.steps.elementAt(currentStep);
+            final Step step = (Step) this.steps.elementAt(currentStep);
 
             if (!initialized) {
 				initialized = true;
@@ -53,7 +48,7 @@ public class StepManager<T extends Robot<T>> {
         this.initialized = false;
 
         final Enumeration i = this.steps.elements();
-        while (i.hasMoreElements()) ((Step<T>) i.nextElement()).stop();
+        while (i.hasMoreElements()) ((Step) i.nextElement()).stop();
     }
     
     public boolean complete () {

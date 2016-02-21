@@ -15,7 +15,7 @@ import com._604robotics.robot2016.systems.GearSystem;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.module.ModuleReference;
 
-public class Robot2016 extends Robot<Robot2016> {
+public class Robot2016 extends Robot {
     public final ModuleReference regulator = addModule("Regulator", new Regulator());
     public final ModuleReference drive = addModule("Drive", new Drive());
     public final ModuleReference dashboard = addModule("Dashboard", new Dashboard());
@@ -26,10 +26,10 @@ public class Robot2016 extends Robot<Robot2016> {
     public final ModuleReference shooter = addModule("Shooter", new Shooter());
 
     public Robot2016() {
-        addSystem(new DashboardSystem());
-        addSystem(new GearSystem());
+        addSystem(new DashboardSystem(this));
+        addSystem(new GearSystem(this));
 
-        setAutonomousMode(new AutonomousMode());
-        setTeleopMode(new TeleopMode());
+        setAutonomousMode(new AutonomousMode(this));
+        setTeleopMode(new TeleopMode(this));
     }
 }

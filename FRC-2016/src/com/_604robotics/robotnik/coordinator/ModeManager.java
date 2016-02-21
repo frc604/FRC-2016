@@ -3,14 +3,9 @@ package com._604robotics.robotnik.coordinator;
 import com._604robotics.robotnik.GameMode;
 import com._604robotics.robotnik.Robot;
 
-public class ModeManager<T extends Robot<T>> {
-    private Coordinator<T> autonomousMode = new Coordinator<T>();
-    private Coordinator<T> teleopMode = new Coordinator<T>();
-    
-    public void attach (T robot) {
-        this.autonomousMode.attach(robot);
-        this.teleopMode.attach(robot);
-    }
+public class ModeManager {
+    private Coordinator autonomousMode = new Coordinator();
+    private Coordinator teleopMode = new Coordinator();
     
     /**
      * Sets the autonomous mode.
@@ -60,26 +55,16 @@ public class ModeManager<T extends Robot<T>> {
     }
     
     public void update (GameMode gameMode) {
-        switch (gameMode) {
-        case AUTONOMOUS:
-            getAutonomousMode().update();
-            break;
-        case TELEOP:
-            getTeleopMode().update();
-            break;
-        default:
+        final Coordinator coordinator = getGameMode(gameMode);
+        if (coordinator != null) {
+            coordinator.update();
         }
     }
     
     public void stop (GameMode gameMode) {
-        switch (gameMode) {
-        case AUTONOMOUS:
-            getAutonomousMode().stop();
-            break;
-        case TELEOP:
-            getTeleopMode().stop();
-            break;
-        default:
+        final Coordinator coordinator = getGameMode(gameMode);
+        if (coordinator != null) {
+            coordinator.update();
         }
     }
 }

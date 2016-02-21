@@ -4,8 +4,8 @@ import com._604robotics.robot2016.Robot2016;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.prefabs.outputs.DashboardOutput;
 
-public class DashboardSystem extends Coordinator<Robot2016> {
-    protected void apply (Robot2016 robot) {
+public class DashboardSystem extends Coordinator {
+    public DashboardSystem (Robot2016 robot) {
         /* Disable Drive via Dashboard */
         {
     		bind(robot.drive.getAction("Off"), robot.dashboard.getTrigger("Drive Off"), true);

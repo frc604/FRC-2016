@@ -6,11 +6,11 @@ import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
 import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
 
-public class TeleopMode extends Coordinator<Robot2016> {
+public class TeleopMode extends Coordinator {
     private final XboxController driver = new XboxController(0);
     private final XboxController manipulator = new XboxController(1);
     
-    public TeleopMode () {        
+    public TeleopMode (Robot2016 robot) {        
         driver.leftStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
         driver.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
         
@@ -24,10 +24,7 @@ public class TeleopMode extends Coordinator<Robot2016> {
         driver.rightStick.Y.setFactor(Calibration.TELEOP_FACTOR);
         
         manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
-    }
-    
-    @Override
-    protected void apply (Robot2016 robot) {
+
     	/* Driving */
     	{
     	    /* Tank Drive */
