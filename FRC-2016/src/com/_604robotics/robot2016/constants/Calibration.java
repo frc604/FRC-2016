@@ -34,11 +34,11 @@ public final class Calibration {
     public static final double PICKUP_PID_D = 0.02;
 
     /* Pickup angles */
-    public static final double PICKUP_ZERO_ANGLE = 0;
+    public static final double PICKUP_ZERO_ANGLE = 105;
     public static final double PICKUP_DOWN_ANGLE = 0;
-    public static final double PICKUP_MID_ANGLE = 45;
-    public static final double PICKUP_UP_ANGLE = 90;
-
+    public static final double PICKUP_MID_ANGLE = 68;
+    public static final double PICKUP_UP_ANGLE = 120;
+    
     /* Teleop xbox constants */
     public static final double TELEOP_DEADBAND = 0.3;
     public static final double TELEOP_FACTOR = -1;
