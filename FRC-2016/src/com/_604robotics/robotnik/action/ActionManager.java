@@ -8,12 +8,21 @@ import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
+/**
+ * Manages multiple actions.
+ */
 public class ActionManager {
     private final ActionController controller;
     private final IndexedTable triggerTable;
     private final IndexedTable statusTable;
     private final Map<String, ActionReference> actionTable;
 
+    /**
+     * Creates an action manager.
+     * @param module Reference to the module this manager belongs to.
+     * @param controller Controller to control action execution.
+     * @param table Table to provide action data with.
+     */
     public ActionManager (final ModuleReference module, ActionController controller, final IndexedTable table) {
         this.controller = controller;
         
@@ -30,18 +39,29 @@ public class ActionManager {
         }
     }
 
+    /**
+     * Gets an action belonging to this manager.
+     * @param name Name of the action.
+     * @return The retrieved action.
+     */
     public ActionReference getAction (String name) {
         ActionReference ref = this.actionTable.get(name);
         if (ref == null) InternalLogger.missing("ActionReference", name);
         return ref;
     }
 
+    /**
+     * Resets all actions belonging to this manager.
+     */
     public void reset () {
         for (ActionReference ref : this.actionTable.values()) {
             ref.reset();
         }
     }
 
+    /**
+     * Updates this manager.
+     */
     public void update () {
         double score = 0;
         String action = "";
@@ -56,6 +76,10 @@ public class ActionManager {
         this.statusTable.putString("triggeredAction", action);
     }
 
+    /**
+     * Chooses and executes an action from this manager.
+     * @param safety Safety mode to operate with.
+     */
     public void execute (Safety safety) {
         final String triggeredAction = this.statusTable.getString("triggeredAction", "");
         final String lastAction = this.statusTable.getString("lastAction", "");
@@ -77,6 +101,10 @@ public class ActionManager {
         this.statusTable.putString("lastAction", selectedAction);
     }
 
+    /**
+     * Stops this manager's action execution.
+     * @param safety Safety mode to operate with.
+     */
     public void stop (Safety safety) {
         final String lastAction = this.statusTable.getString("lastAction", "");
         

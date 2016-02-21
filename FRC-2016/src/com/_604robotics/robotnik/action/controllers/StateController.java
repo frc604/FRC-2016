@@ -2,6 +2,9 @@ package com._604robotics.robotnik.action.controllers;
 
 import com._604robotics.robotnik.action.ActionController;
 
+/**
+ * A state controller, returning to the last executed action when no action is currently being triggered.
+ */
 public class StateController extends ActionController {
     /* (non-Javadoc)
      * @see com._604robotics.robotnik.action.ActionController#pickAction(java.lang.String, java.lang.String)

@@ -4,15 +4,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A map of action data fields.
+ */
 public class FieldMap implements Iterable<Field> {
     private final List<Field> fields = new ArrayList<Field>();
 
-    public void define (String name, double value) {
-        this.fields.add(new Field(name, value));
+    /**
+     * Defines a double field.
+     * @param name Name of the field.
+     * @param defaultValue Default value of the field.
+     */
+    public void define (String name, double defaultValue) {
+        this.fields.add(new Field(name, defaultValue));
     }
 
-    public void define (String name, boolean value) {
-        this.fields.add(new Field(name, value ? 1 : 0));
+    /**
+     * Defines a boolean field.
+     * @param name Name of the field.
+     * @param defaultValue Default value of the field.
+     */
+    public void define (String name, boolean defaultValue) {
+        this.fields.add(new Field(name, defaultValue ? 1 : 0));
     }
 
     @Override
