@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 public class MultiOutput implements PIDOutput {
     private final PIDOutput[] outputs;
     
-    public MultiOutput (PIDOutput[] outputs) {
+    public MultiOutput (PIDOutput... outputs) {
         this.outputs = outputs;
     }
     
