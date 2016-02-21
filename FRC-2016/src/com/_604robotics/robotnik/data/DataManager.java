@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.logging.InternalLogger;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
 
 /**
@@ -32,7 +32,7 @@ public class DataManager {
      */
     public DataReference getData (String name) {
         final DataReference ref = this.dataTable.get(name);
-        if (ref == null) InternalLogger.missing("DataReference", name);
+        if (ref == null) Logger.missing("DataReference", name);
         return ref;
     }
 

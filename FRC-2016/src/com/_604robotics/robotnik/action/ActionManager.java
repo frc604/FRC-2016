@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com._604robotics.robotnik.Safety;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
 /**
@@ -46,7 +46,7 @@ public class ActionManager {
      */
     public ActionReference getAction (String name) {
         ActionReference ref = this.actionTable.get(name);
-        if (ref == null) InternalLogger.missing("ActionReference", name);
+        if (ref == null) Logger.missing("ActionReference", name);
         return ref;
     }
 

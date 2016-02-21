@@ -3,8 +3,8 @@ package com._604robotics.robotnik.action;
 import com._604robotics.robotnik.action.field.Field;
 import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataReference;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 import com._604robotics.robotnik.trigger.TriggerReference;
 
@@ -54,7 +54,7 @@ public class ActionData {
     public boolean trigger (String name) {
         final TriggerReference trigger = module.getTrigger(name);
         if (trigger == null) {
-            InternalLogger.missing("TriggerReference", name);
+            Logger.missing("TriggerReference", name);
             return false;
         } else {
             return trigger.get();
@@ -69,7 +69,7 @@ public class ActionData {
     public double data (String name) {
         final DataReference data = module.getData(name);
         if (data == null) {
-            InternalLogger.missing("DataReference", name);
+            Logger.missing("DataReference", name);
             return 0D;
         } else {
             return data.get();
@@ -86,7 +86,7 @@ public class ActionData {
     }
 
     private double lookup (String name) {
-        if (!this.table.knowsAbout(name)) InternalLogger.missing("Field", name);
+        if (!this.table.knowsAbout(name)) Logger.missing("Field", name);
         return this.table.getNumber(name, 0D);
     }
 }

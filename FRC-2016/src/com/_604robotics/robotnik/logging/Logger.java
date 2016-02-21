@@ -7,6 +7,9 @@ import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Logs information to the console.
+ */
 public class Logger {
     private static final SimpleDateFormat LOG_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat LOG_FILE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -27,16 +30,38 @@ public class Logger {
             error("Could not open log file.", e);
         }
     }
+    
+    /**
+     * Logs a missing component.
+     * @param type Type of the component.
+     * @param name Name of the component.
+     */
+    public static void missing (String type, String name) {
+        warn("Missing " + type + " - " + name);
+    }
 
+    /**
+     * Logs information.
+     * @param message Message to log.
+     */
     public static void log (String message) {
         record(System.out, "[INFO] " + message);
     }
 
+    /**
+     * Logs a warning.
+     * @param message Message to log.
+     */
     public static void warn (String message) {
         record(System.err, "[WARN] " + message);
         trace(new Exception());
     }
 
+    /**
+     * Logs an error.
+     * @param message Message to log.
+     * @param ex Exception to log.
+     */
     public static void error (String message, Exception ex) {
         record(System.err, "[ERROR] " + message + ": (" + ex.getClass().getName() + ") " + ex.getMessage());
         trace(ex);

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.logging.InternalLogger;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
 
 public class TriggerManager {
@@ -19,7 +19,7 @@ public class TriggerManager {
     
     public TriggerReference getTrigger (String name) {
         final TriggerReference ref = this.triggerTable.get(name);
-        if (ref == null) InternalLogger.missing("TriggerReference", name);
+        if (ref == null) Logger.missing("TriggerReference", name);
         return ref;
     }
     

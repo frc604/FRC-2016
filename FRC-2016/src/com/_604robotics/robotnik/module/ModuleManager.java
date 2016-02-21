@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.logging.InternalLogger;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
 
 public class ModuleManager {
@@ -19,7 +19,7 @@ public class ModuleManager {
 
     public ModuleReference getModule (String name) {
         ModuleReference ref = this.moduleTable.get(name);
-        if (ref == null) InternalLogger.missing("ModuleReference", name);
+        if (ref == null) Logger.missing("ModuleReference", name);
         return ref;
     }
 
