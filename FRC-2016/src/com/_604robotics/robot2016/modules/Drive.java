@@ -101,8 +101,8 @@ public class Drive extends Module {
                 define("Throttle", 1D);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("Left Power") * data.get("Throttle") * 0.5,
-                                    data.get("Right Power") * data.get("Throttle") * 0.5);
+                    drive.tankDrive(data.get("Left Power") * data.get("Throttle"),
+                                    data.get("Right Power") * data.get("Throttle"));
                 }
                 
                 public void end (ActionData data) {
