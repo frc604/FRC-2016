@@ -19,7 +19,8 @@ public class Robot extends SampleRobot {
     private ModeMap modes = new ModeMap();
     
     private final Safety safety;
-    
+/*
+ */
     /**
      * Instantiates a new robot (with exception protection enabled by default).
      */
@@ -35,6 +36,8 @@ public class Robot extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
+        printBanner();
+
         this.safety = safety;
 
         if (safety.disabled()) {
@@ -127,5 +130,41 @@ public class Robot extends SampleRobot {
         }
 
         Logger.log(" -- " + gameMode.prettyName() + " mode end.");
+    }
+    
+    private void printBanner () {
+        System.out.println(
+            "\n\n\n" +
+            "                       ..            .`\n" +
+            "                   .:oyhho.        .ohhy+:\n" +
+            "                 +yhhhhhhhhoossssoohhhhhhhhy/\n" +
+            "                 ohhhhhhhhhhhhhhhhhhhhhhhhhh+\n" +
+            "      :/.        :hhhhhhhhhhhhhhhhhhhhhhhhhh-        ./-\n" +
+            "       yhy+-    /hhhhhhhhhhhhhhhhhhhhhhhhhhhy:    -+yhs\n" +
+            "       .hhhhho:shhhhhy/.``./yhhhhy/.``./yhhhhho:ohhhhy`\n" +
+            "     `.-shhhhhhhhhhhh`      .hhhh`      .hhhhhhhhhhhho-.`\n" +
+            "  /shhhhhhhhhhhhhhhhy       `hhhy       `hhhhhhhhhhhhhhhhys/\n" +
+            "   ./yhhhhhhhhhhhhhhhs-    -shhhhs-    -shhhhhhhhhhhhhhhy/`\n" +
+            "      :hhhhhhhhhhhhhhhhhyyhhhhhhhhhhyyhhhhhhhhhhhhhhhhh:\n" +
+            "     /hhhhhhhhhhhhhhhhyyhyhhhhhhhhhhyhyyhhhhhhhhhhhhhhhy:\n" +
+            "   -yhhhyysshhh+  ho`  `ho:hhhhhhhh-sh   `sh  +hhhosyyhhhs-\n" +
+            " .  ``      shhy- h+   `ho .shhhhs. sh    oh -hhh+      ``.\n" +
+            "            :hhhhoh+   `ho   `ys`   sh    ohohhhh.\n" +
+            "             +hhhhhs`  `ho    ys    sh   .shhhhh:\n" +
+            "              +hhhhhhs/:ho    ys    sh-/shhhhhh/\n" +
+            "               :yhhhhhhhhhs+/:yy:/+shhhhhhhhhy-\n" +
+            "                `+hhhhhhhhhhhhhhhhhhhhhhhhhy/\n" +
+            "                  `:shhhhhhhhyyyhhhhhhhhho-\n" +
+            "                     `:+syhhh:  /hhhyo/-\n" +
+            "                          `.-`  `..\n" +
+            "\n" +
+            "                      _           _         _ _" +
+            "                     | |         | |       (_) |" +
+            "            _ __ ___ | |__   ___ | |_ _ __  _| | __" +
+            "           | '__/ _ \\| '_ \\ / _ \\| __| '_ \\| | |/ /" +
+            "           | | | (_) | |_) | (_) | |_| | | | |   <" +
+            "           |_|  \\___/|_.__/ \\___/ \\__|_| |_|_|_|\\_\\" +
+            "\n\n"
+        );
     }
 }
