@@ -15,13 +15,13 @@ public class DashboardSystem extends Coordinator {
     	
     	/* Drive */
     	{
-	    	this.fill(new DataWire(DashboardOutput.asDouble(), "left clicks",
+	    	this.fill(new DataWire(DashboardOutput.asDouble(), "Left Drive Clicks",
 	    			modules.getModule("Drive").getData("Left Drive Clicks")));
-	    	this.fill(new DataWire(DashboardOutput.asDouble(), "right clicks",
+	    	this.fill(new DataWire(DashboardOutput.asDouble(), "Right Drive Clicks",
 	    			modules.getModule("Drive").getData("Right Drive Clicks")));
-	    	this.fill(new DataWire(DashboardOutput.asDouble(), "left rate",
+	    	this.fill(new DataWire(DashboardOutput.asDouble(), "Left Drive Rate",
 	    			modules.getModule("Drive").getData("Left Drive Rate")));
-	    	this.fill(new DataWire(DashboardOutput.asDouble(), "right rate",
+	    	this.fill(new DataWire(DashboardOutput.asDouble(), "Right Drive Rate",
 	    			modules.getModule("Drive").getData("Right Drive Rate")));
     	}
     	

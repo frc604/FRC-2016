@@ -172,43 +172,14 @@ public class Drive extends Module {
                 }
             });
             
-            add("Geared Drive", new Action(new FieldMap () {{
-                define("left", 0D);
-                define("right", 0D);
-                define("Left Low Gear", false);
-                define("Left High Gear", false);
-                define("Right Low Gear", false);
-                define("Right High Gear", false);
-                }}) {
-             
+            add("Tank Drive", new Action(new FieldMap () {{
+                define("Left Power", 0D);
+                define("Right Power", 0D);
+                define("Throttle", 1D);
+            }}) {
                 public void run (ActionData data) {
-                	double Lgear = 0.5;
-                	double Rgear = 0.5;
-                	if( data.is("Left Low Gear") && data.is("Left High Gear") )
-                	{
-                		Lgear = 0.85;
-                	}
-                	else if( data.is("Left Low Gear") )
-                	{
-                		Lgear = 0.3;
-                	}
-                	else if( data.is("Left High Gear") )
-                	{
-                		Lgear = 0.7;
-                	}
-                	if( data.is("Right Low Gear") && data.is("Right High Gear") )
-                	{
-                		Rgear = 0.85;
-                	}
-                	else if( data.is("Right Low Gear") )
-                	{
-                		Rgear = 0.3;
-                	}
-                	else if( data.is("Right High Gear") )
-                	{
-                		Rgear = 0.7;
-                	}
-                    drive.tankDrive(data.get("left")*Lgear, data.get("right")*Rgear);
+                    drive.tankDrive(data.get("Left Power") * data.get("Throttle") * 0.5,
+                                    data.get("Right Power") * data.get("Throttle")*0.5);
                 }
                 
                 public void end (ActionData data) {
@@ -216,13 +187,37 @@ public class Drive extends Module {
                 }
             });
             
-            add("Tank Drive", new Action(new FieldMap () {{
-                define("left", 0D);
-                define("right", 0D);
-                define("throttle", 1D);
+            add("Geared Drive", new Action(new FieldMap () {{
+                define("Left Power", 0D);
+                define("Right Power", 0D);
+                define("Left Low Gear", false);
+                define("Left High Gear", false);
+                define("Right Low Gear", false);
+                define("Right High Gear", false);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("left") * data.get("throttle")*0.5, data.get("right") * data.get("throttle")*0.5);
+                	double leftGear = 0.5;
+                	double rightGear = 0.5;
+
+                	if (data.is("Left Low Gear") && data.is("Left High Gear")) {
+                		leftGear = 0.85;
+                	} else if (data.is("Left Low Gear")) {
+                		leftGear = 0.3;
+                	} else if (data.is("Left High Gear")) {
+                		leftGear = 0.7;
+                	}
+
+                	if (data.is("Right Low Gear") && data.is("Right High Gear")) {
+                		rightGear = 0.85;
+                	} else if (data.is("Right Low Gear"))
+                	{
+                		rightGear = 0.3;
+                	} else if(data.is("Right High Gear")) {
+                		rightGear = 0.7;
+                	}
+
+                    drive.tankDrive(data.get("Left Power") * leftGear,
+                                    data.get("Right Power") * rightGear);
                 }
                 
                 public void end (ActionData data) {
@@ -231,30 +226,30 @@ public class Drive extends Module {
             });
             
             add("Servo Drive", new Action(new FieldMap() {{
-                define("left clicks", 0D);
-                define("right clicks", 0D);
-                define("power cap", 0.6D);
+                define("Left Clicks", 0D);
+                define("Right Clicks", 0D);
+                define("Power Cap", 0.6D);
             }}) {
             	double startLeftClicks;
             	double startRightClicks;
             	
                 public void begin (ActionData data) {
-                	pidPowerCap = data.get("power cap");
+                	pidPowerCap = data.get("Power Cap");
                 	startLeftClicks = data.data("Left Drive Clicks");
                 	startRightClicks = data.data("Right Drive Clicks");
-                    pidLeft.setSetpoint(data.get("left clicks") + startLeftClicks);
-                    pidRight.setSetpoint(data.get("right clicks") + startRightClicks);
+                    pidLeft.setSetpoint(data.get("Left Clicks") + startLeftClicks);
+                    pidRight.setSetpoint(data.get("Right Clicks") + startRightClicks);
                     pidLeft.enable();
                     pidRight.enable();
                 }
                 
                 public void run (ActionData data){
-                	if(pidLeft.getSetpoint() != data.get("left clicks") + startLeftClicks){
-                		pidLeft.setSetpoint(data.get("left clicks") + startLeftClicks);
+                	if(pidLeft.getSetpoint() != data.get("Left Clicks") + startLeftClicks){
+                		pidLeft.setSetpoint(data.get("Left Clicks") + startLeftClicks);
                 	}
                 	
-                	if(pidRight.getSetpoint() != data.get("right clicks") + startRightClicks){
-                		pidRight.setSetpoint(data.get("right clicks") + startRightClicks);
+                	if(pidRight.getSetpoint() != data.get("Right Clicks") + startRightClicks){
+                		pidRight.setSetpoint(data.get("Right Clicks") + startRightClicks);
                 	}
                 	
                 	drive.tankDrive(pidLeftOut, pidRightOut);
