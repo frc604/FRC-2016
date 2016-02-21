@@ -7,7 +7,6 @@ import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 import com._604robotics.robotnik.trigger.TriggerReference;
-import java.util.Enumeration;
 
 public class ActionData {
     private final FieldMap map;

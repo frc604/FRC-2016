@@ -8,12 +8,9 @@ import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.memory.IndexedTable;
 
 public class TriggerManager {
-    private final String moduleName;
     private final Map<String, TriggerReference> triggerTable;
     
-    public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table) {
-        this.moduleName = moduleName;
-        
+    public TriggerManager (TriggerMap triggerMap, final IndexedTable table) {
         this.triggerTable = new HashMap<String, TriggerReference>();
         for (Map.Entry<String, Trigger> entry : triggerMap) {
             this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getSlice(entry.getKey())));

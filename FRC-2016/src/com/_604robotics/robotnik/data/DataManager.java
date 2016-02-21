@@ -8,12 +8,9 @@ import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.memory.IndexedTable;
 
 public class DataManager {
-    private final String moduleName;
     private final Map<String, DataReference> dataTable;
 
-    public DataManager (String moduleName, DataMap dataMap, final IndexedTable table) {
-        this.moduleName = moduleName;
-        
+    public DataManager (DataMap dataMap, final IndexedTable table) {
         this.dataTable = new HashMap<String, DataReference>();
         for (Map.Entry<String, Data> entry : dataMap) {
             this.dataTable.put(entry.getKey(), new DataReference(entry.getValue(), table.getSlice(entry.getKey())));

@@ -9,15 +9,12 @@ import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
 public class ActionManager {
-    private final String moduleName;
     private final ActionController controller;
     private final IndexedTable triggerTable;
     private final IndexedTable statusTable;
     private final Map<String, ActionReference> actionTable;
 
-    public ActionManager (final ModuleReference module, String moduleName, ActionController controller, final IndexedTable table) {
-        this.moduleName = moduleName;
-        
+    public ActionManager (final ModuleReference module, ActionController controller, final IndexedTable table) {
         this.controller = controller;
         
         this.triggerTable = table.getSubTable("triggers");
