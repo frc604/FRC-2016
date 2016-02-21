@@ -4,7 +4,6 @@ import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
-import com._604robotics.robotnik.data.Data;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 
@@ -15,23 +14,9 @@ public class Gear extends Module {
     
     public Gear () {
         this.set(new DataMap() {{
-            add("Current Multiplier", new Data() {
-                public double run () {
-                    return Math.pow(multiplier, maxGear - gear);
-                }
-            });
-            
-            add("Base Multiplier", new Data() {
-                public double run () {
-                    return multiplier;
-                }
-            });
-            
-            add("Gear", new Data() {
-                public double run () {
-                    return gear;
-                }
-            });
+            add("Current Multiplier", () -> Math.pow(multiplier, maxGear - gear));
+            add("Base Multiplier", () -> multiplier);
+            add("Gear", () -> gear);
         }});
         
         this.set(new ElasticController() {{
@@ -46,7 +31,7 @@ public class Gear extends Module {
             add("Upshift", new Action() {
                 public void begin (ActionData data) {
                     if(gear < maxGear) {
-                    	gear++;
+                    	++gear;
                     }
                 }
             });
@@ -54,7 +39,7 @@ public class Gear extends Module {
             add("Downshift", new Action() {
                 public void begin (ActionData data) {
                     if(gear > 1) {
-                    	gear--;
+                    	--gear;
                     }
                 }
             });

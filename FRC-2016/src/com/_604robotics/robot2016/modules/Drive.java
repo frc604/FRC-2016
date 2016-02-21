@@ -6,11 +6,9 @@ import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
-import com._604robotics.robotnik.data.Data;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.TankDrivePIDOutput;
-import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
 import edu.wpi.first.wpilibj.CounterBase;
@@ -73,55 +71,21 @@ public class Drive extends Module {
         SmartDashboard.putData("Right Drive PID", pidRight);
         
         this.set(new DataMap() {{
-            add("Left Drive Clicks", new Data() {
-                public double run () {
-                    return encoderLeft.get();
-                }
-            });
+            add("Left Drive Clicks", encoderLeft::get);
+            add("Right Drive Clicks", encoderRight::get);
             
-            add("Right Drive Clicks", new Data() {
-                public double run () {
-                    return encoderRight.get();
-                }
-            });
-            
-            add("Left Drive Rate", new Data() {
-                public double run () {
-                    return encoderLeft.getRate();
-                }
-            });
-            
-            add("Right Drive Rate", new Data() {
-                public double run () {
-                    return encoderRight.getRate();
-                }
-            });
+            add("Left Drive Rate", encoderLeft::getRate);
+            add("Right Drive Rate", encoderRight::getRate);
 
-            add("Left PID Error", new Data() {
-            	public double run() {
-            		return pidLeft.getAvgError();
-            	}
-            });
-
-            add("Right PID Error", new Data() {
-            	public double run() {
-            		return pidRight.getAvgError();
-            	}
-            });
+            add("Left PID Error", pidLeft::getAvgError);
+            add("Right PID Error", pidRight::getAvgError);
         }});
         
         this.set(new TriggerMap() {{
-            add("At Left Servo Target", new Trigger() {
-                public boolean run () {
-                    return pidLeft.isEnabled() && pidLeft.onTarget();
-                }
-            });
-            
-            add("At Right Servo Target", new Trigger() {
-                public boolean run () {
-                    return pidRight.isEnabled() && pidRight.onTarget();
-                }
-            });
+            add("At Left Servo Target", () ->
+                pidLeft.isEnabled() && pidLeft.onTarget());
+            add("At Right Servo Target", () ->
+                pidRight.isEnabled() && pidRight.onTarget());
         }});
         
         this.set(new ElasticController() {{

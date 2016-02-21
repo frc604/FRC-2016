@@ -6,11 +6,9 @@ import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
-import com._604robotics.robotnik.data.Data;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
-import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -26,20 +24,11 @@ public class Shooter extends Module {
 
     public Shooter () {
         set(new DataMap() {{
-            add("Current Speed", new Data() {
-                @Override
-                public double run () {
-                    return encoder.getRate();
-                }
-            });
+            add("Current Speed", encoder::getRate);
         }});
 
         set(new TriggerMap() {{
-            add("Charged", new Trigger() {
-                public boolean run () {
-                    return chargeTimer.get() >= 0.5;
-                }
-            });
+            add("Charged", () -> chargeTimer.get() >= 0.5);
         }});
 
         set(new ElasticController() {{
