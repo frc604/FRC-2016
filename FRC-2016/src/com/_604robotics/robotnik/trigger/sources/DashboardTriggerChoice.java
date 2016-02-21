@@ -16,7 +16,7 @@ public class DashboardTriggerChoice {
     /**
      * The Class DashboardTriggerOption.
      */
-    private class DashboardTriggerOption extends Trigger {
+    private class DashboardTriggerOption implements Trigger {
         
         /* (non-Javadoc)
          * @see com._604robotics.robotnik.trigger.Trigger#run()

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 /**
  * The Class NetworkTrigger.
  */
-public class NetworkTrigger extends Trigger {
+public class NetworkTrigger implements Trigger {
     
     /** The table. */
     private final ITable table;
