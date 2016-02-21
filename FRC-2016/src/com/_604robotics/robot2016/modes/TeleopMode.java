@@ -27,7 +27,7 @@ public class TeleopMode extends Coordinator {
         driver.rightStick.X.setFactor(factor);
         driver.rightStick.Y.setFactor(factor);
         
-        manipulator.rightStick.Y.setDeadband(deadband);
+        manipulator.leftStick.Y.setDeadband(deadband);
     }
     
     protected void apply (ModuleManager modules) {
@@ -69,7 +69,7 @@ public class TeleopMode extends Coordinator {
         	
         	/* Intake */
         	{
-        		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.rightStick.Y));
+        		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
         	}
         	
         	/* Pickup */
