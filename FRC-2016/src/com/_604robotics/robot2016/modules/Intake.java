@@ -1,6 +1,6 @@
 package com._604robotics.robot2016.modules;
 
-import com._604robotics.robot2016.Ports;
+import com._604robotics.robot2016.constants.Ports;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
@@ -14,7 +14,7 @@ public class Intake extends Module{
 	public Intake (){
 		this.set(new ElasticController() {{
             addDefault("Run", new Action(new FieldMap() {{
-            	define("Power", 0D);
+            	define("Power", 0);
             }}) {
             	public void run (ActionData data) {
                     motor.set(data.get("Power"));

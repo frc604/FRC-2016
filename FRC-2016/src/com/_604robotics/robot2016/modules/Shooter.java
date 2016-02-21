@@ -1,6 +1,7 @@
 package com._604robotics.robot2016.modules;
 
-import com._604robotics.robot2016.Ports;
+import com._604robotics.robot2016.constants.Calibration;
+import com._604robotics.robot2016.constants.Ports;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
@@ -49,8 +50,8 @@ public class Shooter extends Module {
             });
 
             add("Shoot", new Action(new FieldMap () {{
-                define("Target Speed", 0);
-                define("Threshold", 10);
+                define("Target Speed", Calibration.SHOOTER_TARGET_SPEED);
+                define("Threshold", Calibration.SHOOTER_SPEED_THRESHOLD);
             }}) {
                 public void begin (ActionData data) {
                     chargeTimer.start();

@@ -30,21 +30,22 @@ public class TeleopMode extends Coordinator {
         manipulator.leftStick.Y.setDeadband(deadband);
     }
     
+    @Override
     protected void apply (ModuleManager modules) {
     	/* Driving */
     	{
     	    /* Tank Drive */
     		{	
 	    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
-	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left", driver.leftStick.Y));
-	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
+	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
+	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
     		}
     		
     		/* Geared Drive */
     		{
         		this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), modules.getModule("Dashboard").getTrigger("Geared Drive")));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "left", driver.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "right", driver.rightStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Power", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Power", driver.rightStick.Y));
 
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Low Gear", driver.buttons.LT));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left High Gear", driver.buttons.LB));
