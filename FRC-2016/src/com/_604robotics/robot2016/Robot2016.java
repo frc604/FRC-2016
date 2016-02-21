@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import com._604robotics.robot2016.modes.AutonomousMode;
 import com._604robotics.robot2016.modes.TeleopMode;
-import com._604robotics.robot2016.modules.Dashboard;
+import com._604robotics.robot2016.modules.Regulator;
 import com._604robotics.robot2016.modules.Drive;
-import com._604robotics.robot2016.modules.Flipper;
+import com._604robotics.robot2016.modules.Dashboard;
+import com._604robotics.robot2016.modules.Pickup;
 import com._604robotics.robot2016.modules.Gear;
 import com._604robotics.robot2016.modules.Intake;
 import com._604robotics.robot2016.modules.Shifter;
@@ -79,11 +80,12 @@ public class Robot2016 extends Robot
         }});
         
         this.set(new ModuleMap() {{
+            add("Regulator", new Regulator());
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
             add("Vision", new Vision());
    			add("Intake", new Intake());
-            add("Flipper", new Flipper());
+            add("Pickup", new Pickup());
             add("Gear", new Gear());
             add("Shifter", new Shifter());
             add("Shooter", new Shooter());

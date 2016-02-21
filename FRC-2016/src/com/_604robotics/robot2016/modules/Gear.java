@@ -36,10 +36,10 @@ public class Gear extends Module {
         
         this.set(new ElasticController() {{
             addDefault("Not Shifting", new Action(new FieldMap () {{
-                define("multiplier", 1D);
+                define("Multiplier", 1D);
             }}) {
                 public void run (ActionData data) {
-                    multiplier = data.get("multiplier");
+                    multiplier = data.get("Multiplier");
                 }
             });
             
