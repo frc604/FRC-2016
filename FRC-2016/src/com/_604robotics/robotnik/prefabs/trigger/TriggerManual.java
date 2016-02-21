@@ -9,9 +9,7 @@ public class TriggerManual implements TriggerAccess {
         this.triggered = defaultValue;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         return this.triggered;
     }

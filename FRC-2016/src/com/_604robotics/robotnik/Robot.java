@@ -74,31 +74,23 @@ public class Robot extends SampleRobot {
         this.modes = modeMap;
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#robotInit()
-     */
+    @Override
     public void robotInit () {
         this.systems.attach(this.modules);
         this.modes.attach(this.modules);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#autonomous()
-     */
+    @Override
     public void autonomous () {
         modeLoop(GameMode.AUTONOMOUS);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#operatorControl()
-     */
+    @Override
     public void operatorControl () {
         modeLoop(GameMode.TELEOP);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#disabled()
-     */
+    @Override
     public void disabled () {
         modeLoop(GameMode.DISABLED);
     }

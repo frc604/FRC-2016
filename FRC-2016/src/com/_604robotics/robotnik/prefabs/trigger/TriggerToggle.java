@@ -14,9 +14,7 @@ public class TriggerToggle {
             this.which = which;
         }
         
-        /* (non-Javadoc)
-         * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-         */
+        @Override
         public boolean get () {
             update();
             return state == which;

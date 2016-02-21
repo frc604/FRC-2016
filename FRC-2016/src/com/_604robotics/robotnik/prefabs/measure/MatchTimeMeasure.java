@@ -11,9 +11,7 @@ public class MatchTimeMeasure extends Measure {
         this.seconds = seconds;
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.procedure.Measure#complete()
-     */
+    @Override
     public boolean complete () {
         return DriverStation.getInstance().getMatchTime() >= seconds;
     }

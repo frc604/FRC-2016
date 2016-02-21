@@ -23,9 +23,7 @@ public class ControllerPOVButton implements TriggerAccess {
         this.directionBottom = bottomAngle;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.data.DataAccess#get()
-     */
+    @Override
     public boolean get () {
     	if(directionTop > directionBottom){
     		return joystick.getPOV(port) <= directionTop && joystick.getPOV(port) >= directionBottom;

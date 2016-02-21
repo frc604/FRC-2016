@@ -15,9 +15,7 @@ public class ControllerAxisButton implements TriggerAccess {
         this.direction = direction;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         return Math.round(this.joystick.getRawAxis(this.axis)) == this.direction;
     }

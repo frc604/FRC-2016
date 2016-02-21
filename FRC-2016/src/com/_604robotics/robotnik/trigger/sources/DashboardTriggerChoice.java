@@ -7,10 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DashboardTriggerChoice {
     private final SendableChooser chooser = new SendableChooser();
     private class DashboardTriggerOption implements Trigger {
-        
-        /* (non-Javadoc)
-         * @see com._604robotics.robotnik.trigger.Trigger#run()
-         */
+        @Override
         public boolean run () {
             return chooser.getSelected() == this;
         }

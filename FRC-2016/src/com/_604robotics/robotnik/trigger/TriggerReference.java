@@ -23,9 +23,7 @@ public class TriggerReference implements TriggerAccess {
         return inverse;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         return value.getBoolean(false);
     }

@@ -15,9 +15,7 @@ public class ControllerAxis implements DataAccess {
         this.axis = axis;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.data.DataAccess#get()
-     */
+    @Override
     public double get () {
         final double value = this.joystick.getRawAxis(this.axis) * this.factor;
         

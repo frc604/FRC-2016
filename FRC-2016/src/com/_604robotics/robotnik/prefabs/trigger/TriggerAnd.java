@@ -9,9 +9,7 @@ public class TriggerAnd implements TriggerAccess {
         this.triggers = triggers;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         boolean value = true;
         

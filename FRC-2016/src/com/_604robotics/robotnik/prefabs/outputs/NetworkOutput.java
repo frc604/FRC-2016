@@ -39,9 +39,7 @@ public class NetworkOutput {
             this.asBoolean = asBoolean;
         }
 
-        /* (non-Javadoc)
-         * @see com._604robotics.robotnik.data.DataRecipient#sendData(java.lang.String, double)
-         */
+        @Override
         public void sendData (String fieldName, double dataValue) {
             if (this.asBoolean) {
                 this.table.putBoolean(fieldName, dataValue > 0);

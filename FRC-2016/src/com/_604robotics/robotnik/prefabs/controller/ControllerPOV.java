@@ -12,9 +12,7 @@ public class ControllerPOV implements DataAccess {
         this.port = port;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.data.DataAccess#get()
-     */
+    @Override
     public double get () {
         return joystick.getPOV(port);
     }

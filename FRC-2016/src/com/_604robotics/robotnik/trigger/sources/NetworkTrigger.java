@@ -25,9 +25,7 @@ public class NetworkTrigger implements Trigger {
         this.table = workingTable;
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.Trigger#run()
-     */
+    @Override
     public boolean run () {
         return this.table.getBoolean(this.key, this.defaultValue);
     }

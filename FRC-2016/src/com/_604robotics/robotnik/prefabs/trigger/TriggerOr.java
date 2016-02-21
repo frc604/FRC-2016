@@ -9,9 +9,7 @@ public class TriggerOr implements TriggerAccess {
         this.triggers = triggers;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         for (int i = 0; i < this.triggers.length; i++) {
             if (this.triggers[i].get()) {

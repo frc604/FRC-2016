@@ -23,7 +23,7 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
      * Creates an action reference.
      * @param module Reference to the module this reference belongs to.
      * @param action Action this reference refers to.
-     * @param triggered The data slice denoting whether this action has been triggered.
+     * @param triggered The data slice to contain whether this action has been triggered.
      * @param dataTable Data table to retrieve action data from.
      */
     public ActionReference (ModuleReference module, Action action, Slice triggered, IndexedTable dataTable) {
@@ -42,9 +42,7 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
         this.actionData.reset();
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerRecipient#sendTrigger(double)
-     */
+    @Override
     public void sendTrigger (double precedence) {
         final double current = this.trigger.getNumber(0D);
         
@@ -53,9 +51,7 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
         }
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.data.DataRecipient#sendData(java.lang.String, double)
-     */
+    @Override
     public void sendData (String fieldName, double dataValue) {
         this.dataTable.putNumber(fieldName, dataValue);
     }

@@ -11,9 +11,7 @@ public class TriggerAlways implements TriggerAccess {
         return instance;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         return true;
     }

@@ -21,7 +21,7 @@ public class ActionManager {
      * Creates an action manager.
      * @param module Reference to the module this manager belongs to.
      * @param controller Controller to control action execution.
-     * @param table Table to provide action data with.
+     * @param table Table to contain action data.
      */
     public ActionManager (final ModuleReference module, ActionController controller, final IndexedTable table) {
         this.controller = controller;

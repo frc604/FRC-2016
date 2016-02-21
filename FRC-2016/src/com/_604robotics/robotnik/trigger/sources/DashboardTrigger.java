@@ -14,9 +14,7 @@ public class DashboardTrigger implements Trigger {
         SmartDashboard.putBoolean(key, defaultValue);
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.Trigger#run()
-     */
+    @Override
     public boolean run () {
         return SmartDashboard.getBoolean(this.key, this.defaultValue);
     }

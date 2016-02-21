@@ -9,9 +9,7 @@ public class TriggerNot implements TriggerAccess {
         this.trigger = trigger;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         return !this.trigger.get();
     }

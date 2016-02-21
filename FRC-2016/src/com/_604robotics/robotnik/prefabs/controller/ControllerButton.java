@@ -12,9 +12,7 @@ public class ControllerButton implements TriggerAccess {
         this.button = button;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerAccess#get()
-     */
+    @Override
     public boolean get () {
         return this.joystick.getRawButton(this.button);
     }

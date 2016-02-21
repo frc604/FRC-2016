@@ -12,17 +12,13 @@ public class TimeMeasure extends Measure {
         this.seconds = seconds;
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.procedure.Measure#initialize()
-     */
+    @Override
     public void initialize() {
         timer.reset();
         timer.start();
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.procedure.Measure#complete()
-     */
+    @Override
     public boolean complete () {
         final boolean complete = timer.get() > seconds;
         if (complete)

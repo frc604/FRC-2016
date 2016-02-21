@@ -19,16 +19,12 @@ public class DataMeasure extends Measure {
         this.target = target;
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.procedure.Measure#initialize()
-     */
+    @Override
     public void initialize () {
         initialValue = data.get();
     }
 
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.procedure.Measure#complete()
-     */
+    @Override
     public boolean complete () {
         double value = data.get();
         if ((mode & DELTA) == DELTA)

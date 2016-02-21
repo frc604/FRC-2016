@@ -17,9 +17,7 @@ public class ControllerRumble implements DataRecipient {
         this.rRumble = 0;
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.data.DataRecipient#sendData(java.lang.String, double)
-     */
+    @Override
     public void sendData (String fieldName, double dataValue) {
     	if (fieldName == "enable") this.enable = true;
     	else if (fieldName == "high rumble") this.lRumble = (float) dataValue;
