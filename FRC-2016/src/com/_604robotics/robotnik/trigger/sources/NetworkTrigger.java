@@ -5,28 +5,11 @@ import java.util.StringTokenizer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class NetworkTrigger.
- */
 public class NetworkTrigger implements Trigger {
-    
-    /** The table. */
     private final ITable table;
-    
-    /** The key. */
     private final String key;
-    
-    /** The default value. */
     private final boolean defaultValue;
-    
-    /**
-     * Instantiates a new network trigger.
-     *
-     * @param namespace the namespace
-     * @param key the key
-     * @param defaultValue the default value
-     */
+
     public NetworkTrigger (String namespace, String key, boolean defaultValue) {
         this.key = key;
         this.defaultValue = defaultValue;

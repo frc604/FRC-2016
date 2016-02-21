@@ -19,8 +19,7 @@ public class Robot extends SampleRobot {
     private ModeMap modes = new ModeMap();
     
     private final Safety safety;
-/*
- */
+
     /**
      * Instantiates a new robot (with exception protection enabled by default).
      */

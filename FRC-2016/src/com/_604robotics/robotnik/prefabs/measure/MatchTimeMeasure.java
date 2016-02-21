@@ -4,20 +4,9 @@ import com._604robotics.robotnik.coordinator.steps.Measure;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class MatchTimeMeasure.
- */
 public class MatchTimeMeasure extends Measure {
-    
-    /** The seconds. */
     private final double seconds;
 
-    /**
-     * Instantiates a new match time measure.
-     *
-     * @param seconds the seconds
-     */
     public MatchTimeMeasure (double seconds) {
         this.seconds = seconds;
     }

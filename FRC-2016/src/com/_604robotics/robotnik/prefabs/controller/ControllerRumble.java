@@ -4,29 +4,12 @@ import com._604robotics.robotnik.data.DataRecipient;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ControllerRumble.
- */
-public class ControllerRumble implements DataRecipient{
-    
-    /** The joystick. */
+public class ControllerRumble implements DataRecipient {
     private final Joystick joystick;
-    
-    /** The enable. */
     private boolean enable;
-    
-    /** The l rumble. */
     private float lRumble;
-    
-    /** The r rumble. */
     private float rRumble;
-    
-    /**
-     * Instantiates a new controller rumble.
-     *
-     * @param joystick the joystick
-     */
+
     public ControllerRumble (final Joystick joystick) {
         this.joystick = joystick;
         this.enable = false;

@@ -4,23 +4,10 @@ import com._604robotics.robotnik.coordinator.steps.Measure;
 
 import edu.wpi.first.wpilibj.Timer;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class TimeMeasure.
- */
 public class TimeMeasure extends Measure {
-    
-    /** The timer. */
     private final Timer timer = new Timer();
-    
-    /** The seconds. */
     private final double seconds;
 
-    /**
-     * Instantiates a new time measure.
-     *
-     * @param seconds the seconds
-     */
     public TimeMeasure (double seconds) {
         this.seconds = seconds;
     }

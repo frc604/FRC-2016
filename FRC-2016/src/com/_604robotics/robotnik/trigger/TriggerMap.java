@@ -15,6 +15,7 @@ public class TriggerMap implements Iterable<Map.Entry<String, Trigger>> {
         return this.triggerTable.get(name);
     }
     
+    @Override
     public Iterator<Map.Entry<String, Trigger>> iterator () {
         return this.triggerTable.entrySet().iterator();
     }

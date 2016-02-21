@@ -3,28 +3,11 @@ package com._604robotics.robotnik.prefabs.controller;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 import edu.wpi.first.wpilibj.Joystick;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ControllerAxisButton.
- */
 public class ControllerAxisButton implements TriggerAccess {
-    
-    /** The joystick. */
     private final Joystick joystick;
-    
-    /** The axis. */
     private final int axis;
-    
-    /** The direction. */
     private final int direction;
-    
-    /**
-     * Instantiates a new controller axis button.
-     *
-     * @param joystick the joystick
-     * @param axis the axis
-     * @param direction the direction
-     */
+
     public ControllerAxisButton (Joystick joystick, int axis, int direction) {
         this.joystick = joystick;
         this.axis = axis;
