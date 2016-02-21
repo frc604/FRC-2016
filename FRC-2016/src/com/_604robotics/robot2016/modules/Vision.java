@@ -50,7 +50,6 @@ public class Vision extends Module
         
         this.set(new ElasticController()
         {{
-            
             addDefault("VisionProcess", new Action(new FieldMap(){{
                 define("Charged",false);
             }})
@@ -98,23 +97,6 @@ public class Vision extends Module
                         {
                             inview=true;
                             
-                            double maxHy1=Double.NEGATIVE_INFINITY;
-                            double maxHy2=Double.NEGATIVE_INFINITY;
-                            
-                            for (double element:GRIPH_y1)
-                            {
-                                if (element>maxHy1)
-                                {
-                                    maxHy1=element;
-                                }
-                            }
-                            for (double element:GRIPH_y2)
-                            {
-                                if (element>maxHy2)
-                                {
-                                    maxHy2=element;
-                                }
-                            }
                             //Flush queue if just shot
                             if (wasCharged && !(isCharged))
                             {
@@ -131,6 +113,24 @@ public class Vision extends Module
                                 double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
                                 double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
                                 double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
+                                
+                                double maxHy1=Double.NEGATIVE_INFINITY;
+                                double maxHy2=Double.NEGATIVE_INFINITY;
+                                
+                                for (double element:GRIPH_y1)
+                                {
+                                    if (element>maxHy1)
+                                    {
+                                        maxHy1=element;
+                                    }
+                                }
+                                for (double element:GRIPH_y2)
+                                {
+                                    if (element>maxHy2)
+                                    {
+                                        maxHy2=element;
+                                    }
+                                }
 
                                 if (Math.min(x1Width, x2Width)>distThreshold)
                                 {
