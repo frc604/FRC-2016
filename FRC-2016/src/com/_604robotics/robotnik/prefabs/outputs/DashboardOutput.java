@@ -47,14 +47,16 @@ public class DashboardOutput {
     }
     
     private static class DoubleDashboardOutput implements DataRecipient {
+        @Override
         public void sendData (String fieldName, double dataValue) {
             SmartDashboard.putNumber(fieldName, dataValue);
         }
     }
 
     private static class BooleanDashboardOutput implements DataRecipient {
+        @Override
         public void sendData (String fieldName, double dataValue) {
-                SmartDashboard.putBoolean(fieldName, dataValue > 0);
+            SmartDashboard.putBoolean(fieldName, dataValue > 0);
         }
     }
 
@@ -62,11 +64,12 @@ public class DashboardOutput {
         private final String falseText;
         private final String trueText;
         
-        public FancyBooleanDashboardOutput (String falseText, String trueText) {
+        private FancyBooleanDashboardOutput (String falseText, String trueText) {
             this.falseText = falseText;
             this.trueText = trueText;
         }
 
+        @Override
         public void sendData (String fieldName, double dataValue) {
             SmartDashboard.putString(fieldName, dataValue > 0 ? this.trueText : this.falseText);
         }
