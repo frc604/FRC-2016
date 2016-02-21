@@ -1,5 +1,8 @@
 package com._604robotics.robotnik.coordinator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.coordinator.groups.Group;
@@ -7,12 +10,10 @@ import com._604robotics.robotnik.coordinator.groups.GroupManager;
 import com._604robotics.robotnik.coordinator.steps.Step;
 import com._604robotics.robotnik.coordinator.steps.StepManager;
 import com._604robotics.robotnik.module.ModuleManager;
-import java.util.Enumeration;
-import java.util.Vector;
 
 public class Coordinator {
-    private final Vector triggerBindings = new Vector();
-    private final Vector dataWires = new Vector();
+    private final List<Binding> triggerBindings = new ArrayList<Binding>();
+    private final List<DataWire> dataWires = new ArrayList<DataWire>();
     
     private final GroupManager groups = new GroupManager();
     private final StepManager steps = new StepManager();
@@ -20,8 +21,8 @@ public class Coordinator {
     protected void apply (ModuleManager modules) {}
     
     public void attach (ModuleManager modules) {
-        this.triggerBindings.removeAllElements();
-        this.dataWires.removeAllElements();
+        this.triggerBindings.clear();
+        this.dataWires.clear();
 
         this.groups.clear();
         this.steps.clear();
@@ -33,11 +34,11 @@ public class Coordinator {
     }
     
     protected void bind (Binding binding) {
-        this.triggerBindings.addElement(binding);
+        this.triggerBindings.add(binding);
     }
 
     protected void fill (DataWire dataWire) {
-        this.dataWires.addElement(dataWire);
+        this.dataWires.add(dataWire);
     }
     
     protected void group (Group group) {
@@ -49,11 +50,13 @@ public class Coordinator {
     }
     
     public void update () {
-        final Enumeration wires = this.dataWires.elements();
-        while (wires.hasMoreElements()) ((DataWire) wires.nextElement()).conduct();
+        for (DataWire wire : this.dataWires) {
+            wire.conduct();
+        }
         
-        final Enumeration bindings = this.triggerBindings.elements();
-        while (bindings.hasMoreElements()) ((Binding) bindings.nextElement()).conduct();
+        for (Binding binding : this.triggerBindings) {
+            binding.conduct();
+        }
 
         this.groups.update();
         this.steps.update();

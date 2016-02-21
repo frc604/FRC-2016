@@ -1,49 +1,50 @@
 package com._604robotics.robotnik.coordinator.steps;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.module.ModuleManager;
 
-import java.util.Enumeration;
-import java.util.Vector;
-
 public class StepManager {
-    private final Vector names = new Vector();
-    private final Vector steps = new Vector();
+    private final List<String> names = new ArrayList<String>();
+    private final List<Step> steps = new ArrayList<Step>();
 
     private int currentStep = 0;
     private boolean initialized = false;
 
     public void clear () {
-        names.removeAllElements();
-        steps.removeAllElements();
+        this.names.clear();
+        this.steps.clear();
     }
 
     public void add (String name, Step step) {
-        names.addElement(name);
-        steps.addElement(step);
+        this.names.add(name);
+        this.steps.add(step);
     }
 
     public void attach (ModuleManager modules) {
-        final Enumeration i = steps.elements();
-        while (i.hasMoreElements()) ((Step) i.nextElement()).attach(modules);
+        for (Step step : this.steps) {
+            step.attach(modules);
+        }
     }
 
     public void update () {
-        if (!complete()) {
-            final Step step = (Step) this.steps.elementAt(currentStep);
+        if (!this.complete()) {
+            final Step step = this.steps.get(currentStep);
 
-            if (!initialized) {
-				initialized = true;
+            if (!this.initialized) {
+                this.initialized = true;
 				step.initialize();
 
-				Logger.log(" ---- Entered step: " + this.names.elementAt(currentStep));
+				Logger.log(" ---- Entered step: " + this.names.get(this.currentStep));
             } else if (!step.complete()) {
                 step.update();
             } else {
-                Logger.log(" ---- Completed step: " + this.names.elementAt(this.currentStep));
+                Logger.log(" ---- Completed step: " + this.names.get(this.currentStep));
                 
-                ++currentStep;
-                initialized = false;
+                ++this.currentStep;
+                this.initialized = false;
             }
         }
     }
@@ -52,11 +53,12 @@ public class StepManager {
         this.currentStep = 0;
         this.initialized = false;
 
-        final Enumeration i = this.steps.elements();
-        while (i.hasMoreElements()) ((Step) i.nextElement()).reset();
+        for (Step step : this.steps) {
+            step.reset();
+        }
     }
     
     public boolean complete () {
-        return currentStep >= steps.size();
+        return this.currentStep >= this.steps.size();
     }
 }

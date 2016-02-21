@@ -1,7 +1,6 @@
 package com._604robotics.robotnik.coordinator;
 
 import com._604robotics.robotnik.GameMode;
-import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.module.ModuleManager;
 
 public class ModeMap {

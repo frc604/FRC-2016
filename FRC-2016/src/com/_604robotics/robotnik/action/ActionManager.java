@@ -1,46 +1,20 @@
 package com._604robotics.robotnik.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.meta.Iterator;
-import com._604robotics.robotnik.meta.Repackager;
-import com._604robotics.robotnik.meta.Scorekeeper;
 import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.Hashtable;
-
-// TODO: Auto-generated Javadoc
-/**
- * The Class ActionManager.
- */
 public class ActionManager {
-    
-    /** The module name. */
     private final String moduleName;
-    
-    /** The controller. */
     private final ActionController controller;
-    
-    /** The trigger table. */
     private final IndexedTable triggerTable;
-    
-    /** The status table. */
     private final IndexedTable statusTable;
-    
-    /** The action table. */
-    private final Hashtable actionTable;
-    
-    /**
-     * Instantiates a new action manager.
-     *
-     * @param module the module
-     * @param moduleName the module name
-     * @param controller the controller
-     * @param table the table
-     */
+    private final Map<String, ActionReference> actionTable;
+
     public ActionManager (final ModuleReference module, String moduleName, ActionController controller, final IndexedTable table) {
         this.moduleName = moduleName;
         
@@ -53,48 +27,38 @@ public class ActionManager {
         this.statusTable.putString("lastAction", "");
         
         final IndexedTable dataTable = table.getSubTable("data");
-        this.actionTable = Repackager.repackage(controller.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new ActionReference(module, (Action) value, triggerTable.getSlice((String) key), dataTable.getSubTable((String) key));
-           }
-        });
+        this.actionTable = new HashMap<String, ActionReference>();
+        for(Map.Entry<String, Action> entry : controller) {
+            this.actionTable.put(entry.getKey(), new ActionReference(module, entry.getValue(), this.triggerTable.getSlice(entry.getKey()), dataTable.getSubTable(entry.getKey())));
+        }
     }
-    
-    /**
-     * Gets the action.
-     *
-     * @param name the name
-     * @return the action
-     */
+
     public ActionReference getAction (String name) {
-        ActionReference ref = (ActionReference) this.actionTable.get(name);
+        ActionReference ref = this.actionTable.get(name);
         if (ref == null) InternalLogger.missing("ActionReference", name);
         return ref;
     }
-    
-    /**
-     * Reset.
-     */
+
     public void reset () {
-        final Iterator i = new Iterator(this.actionTable);
-        while (i.next()) ((ActionReference) i.value).reset();
+        for (ActionReference ref : this.actionTable.values()) {
+            ref.reset();
+        }
     }
-    
-    /**
-     * Update.
-     */
+
     public void update () {
-        final Scorekeeper r = new Scorekeeper(0D);
-        final Iterator i = controller.iterate();
+        double score = 0;
+        String action = "";
+        for(Map.Entry<String, Action> actionEntry : this.controller) {
+            double currScore = this.triggerTable.getNumber(actionEntry.getKey(), 0);
+            if(currScore > score) {
+                score = currScore;
+                action = actionEntry.getKey();
+            }
+        }
         
-        while (i.next()) r.consider(i.key, this.triggerTable.getNumber((String) i.key, 0D));
-        
-        this.statusTable.putString("triggeredAction", r.score > 0 ? (String) r.victor : "");
+        this.statusTable.putString("triggeredAction", action);
     }
-    
-    /**
-     * Execute.
-     */
+
     public void execute (Safety safety) {
         final String triggeredAction = this.statusTable.getString("triggeredAction", "");
         final String lastAction = this.statusTable.getString("lastAction", "");
@@ -115,10 +79,7 @@ public class ActionManager {
         
         this.statusTable.putString("lastAction", selectedAction);
     }
-    
-    /**
-     * End.
-     */
+
     public void stop (Safety safety) {
         final String lastAction = this.statusTable.getString("lastAction", "");
         
