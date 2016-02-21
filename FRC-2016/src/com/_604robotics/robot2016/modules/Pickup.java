@@ -25,7 +25,11 @@ public class Pickup extends Module {
     
     private final MultiOutput motors = new MultiOutput(new PIDOutput[] { leftMotor, rightMotor });
     
-	private final PIDController pid = new PIDController(0.02, 0D, 0.02, encoder, motors);
+	private final PIDController pid = new PIDController(
+	        Calibration.PICKUP_PID_P,
+	        Calibration.PICKUP_PID_I,
+	        Calibration.PICKUP_PID_D,
+	        encoder, motors);
 	
 	public Pickup () {
 	    encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
