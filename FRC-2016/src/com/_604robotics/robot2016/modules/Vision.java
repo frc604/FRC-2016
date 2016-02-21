@@ -7,6 +7,7 @@ import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
+import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.utils.*;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -71,14 +72,6 @@ public class Vision extends Module
                 }
                 public void run(ActionData data)
                 {
-                    //Initialize and set processing constants
-                    /**min distance between two goals*/
-                    double distThreshold=35;
-                    /**Min height of goal, in pixels from top*/
-                    double botThreshold=100;
-                    /**Center must be in certain area*/
-                    double leftMid=160-50;
-                    double rightMid=160+50;
                     boolean addToReady=false;
                     
                     isCharged=data.is("Charged");
@@ -132,12 +125,12 @@ public class Vision extends Module
                                     }
                                 }
 
-                                if (Math.min(x1Width, x2Width)>distThreshold)
+                                if (Math.min(x1Width, x2Width)>Calibration.VISION_DIST)
                                 {
-                                    if (Math.max(maxHy1,maxHy2)<botThreshold)
+                                    if (Math.max(maxHy1,maxHy2)<Calibration.VISION_BOTTOM)
                                     {
-                                        if (leftMid<x1Mid && x1Mid<rightMid &&
-                                                leftMid<x2Mid && x2Mid<rightMid)
+                                        if (Calibration.VISION_LEFTMID<x1Mid && x1Mid<Calibration.VISION_RIGHTMID &&
+                                                Calibration.VISION_LEFTMID<x2Mid && x2Mid<Calibration.VISION_RIGHTMID)
                                         {
                                             addToReady=true;
                                         }
