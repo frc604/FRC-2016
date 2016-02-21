@@ -13,7 +13,7 @@ public class DataReference implements DataAccess {
     /**
      * Creates a data reference.
      * @param data Data to refer to.
-     * @param value Slice containing the value of the data.
+     * @param value Slice to store the data value in.
      */
     public DataReference (Data data, Slice value) {
         this.data = data;

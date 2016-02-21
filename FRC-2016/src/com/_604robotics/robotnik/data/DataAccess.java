@@ -1,12 +1,12 @@
 package com._604robotics.robotnik.data;
 
 /**
- * Accesses data.
+ * Provides access to data.
  */
 public interface DataAccess {
     /**
-     * Gets the contained data.
-     * @return The contained data.
+     * Gets the current data value.
+     * @return The current data value.
      */
     public double get ();
 }

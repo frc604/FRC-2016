@@ -5,11 +5,20 @@ import java.util.StringTokenizer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 
+/**
+ * A trigger from the network.
+ */
 public class NetworkTrigger implements Trigger {
     private final ITable table;
     private final String key;
     private final boolean defaultValue;
 
+    /**
+     * Creates a network trigger.
+     * @param namespace Namespace of the trigger.
+     * @param key Key of the trigger.
+     * @param defaultValue Default value of the trigger.
+     */
     public NetworkTrigger (String namespace, String key, boolean defaultValue) {
         this.key = key;
         this.defaultValue = defaultValue;
