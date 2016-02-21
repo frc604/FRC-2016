@@ -11,6 +11,18 @@ public final class Calibration {
     public static final double SHOOTER_TARGET_SPEED = 100;
     public static final double SHOOTER_SPEED_THRESHOLD = 10;
     
+    public static final double DRIVE_LEFT_PID_P = 0.02;
+    public static final double DRIVE_LEFT_PID_I = 0;
+    public static final double DRIVE_LEFT_PID_D = 0.005;
+    public static final double DRIVE_LEFT_PID_MAX = 0.6;
+    public static final double DRIVE_LEFT_PID_TOLERANCE = 20;
+    
+    public static final double DRIVE_RIGHT_PID_P = 0.02;
+    public static final double DRIVE_RIGHT_PID_I = 0;
+    public static final double DRIVE_RIGHT_PID_D = 0.005;
+    public static final double DRIVE_RIGHT_PID_MAX = 0.6;
+    public static final double DRIVE_RIGHT_PID_TOLERANCE = 20;
+    
     public static final double PICKUP_PID_P = 0.02;
     public static final double PICKUP_PID_I = 0;
     public static final double PICKUP_PID_D = 0.02;
