@@ -30,6 +30,7 @@ public class TeleopMode extends Coordinator {
         manipulator.leftStick.Y.setDeadband(deadband);
     }
     
+    @Override
     protected void apply (ModuleManager modules) {
     	/* Driving */
     	{
