@@ -55,10 +55,6 @@ public class Vision extends Module
                 define("Charged",false);
             }})
             {
-                /*double[] prevV_x1=new double[0];
-                double[] prevV_x2=new double[0];
-                double[] prevH_y1=new double[0];
-                double[] prevH_y2=new double[0];*/
                 boolean wasCharged=false;
                 boolean isCharged=false;
                 
@@ -80,10 +76,10 @@ public class Vision extends Module
                     /**min distance between two goals*/
                     double distThreshold=35;
                     /**Min height of goal, in pixels from top*/
-                    double botThreshold=60;
+                    double botThreshold=100;
                     /**Center must be in certain area*/
-                    double leftMid=160-110;
-                    double rightMid=210-160;
+                    double leftMid=160-50;
+                    double rightMid=160+50;
                     boolean addToReady=false;
                     
                     isCharged=data.is("Charged");
@@ -161,10 +157,6 @@ public class Vision extends Module
                         ready=readystack.passThreshold();
                     }
                     //Make previous ones current
-                    /*prevV_x1=GRIPV_x1;
-                    prevV_x2=GRIPV_x2;
-                    prevH_y1=GRIPH_y1;
-                    prevH_y2=GRIPH_y2;*/
                     wasCharged=isCharged;
                 };
                 public void end(ActionData data)

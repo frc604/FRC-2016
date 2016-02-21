@@ -287,7 +287,7 @@
       <property name="path[227]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\348.jpg"/>
       <property name="path[159]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\276.jpg"/>
       <property name="path[123]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\238.jpg"/>
-      <property name="index" value="262"/>
+      <property name="index" value="353"/>
       <property name="path[119]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\234.jpg"/>
       <property name="path[374]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\527.jpg"/>
       <property name="path[270]" value="C:\Users\Ryan\Downloads\FIRSTStronghold\RealFullField\393.jpg"/>
@@ -465,7 +465,7 @@
           <double>46.68941979522184</double>
         </value>
       </grip:Input>
-      <grip:Output step="5" socket="0" previewed="false"/>
+      <grip:Output step="5" socket="0" previewed="true"/>
     </grip:Step>
     <grip:Step name="Filter Lines">
       <grip:Input step="6" socket="0"/>
@@ -478,7 +478,7 @@
           <double>135.76791808873722</double>
         </value>
       </grip:Input>
-      <grip:Output step="6" socket="0" previewed="false"/>
+      <grip:Output step="6" socket="0" previewed="true"/>
     </grip:Step>
     <grip:Step name="Publish LinesReport">
       <grip:Input step="7" socket="0"/>
@@ -528,52 +528,80 @@
         <value>true</value>
       </grip:Input>
     </grip:Step>
+    <grip:Step name="Publish LinesReport">
+      <grip:Input step="9" socket="0"/>
+      <grip:Input step="9" socket="1">
+        <value>myLinesReport</value>
+      </grip:Input>
+      <grip:Input step="9" socket="2">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="9" socket="3">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="9" socket="4">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="9" socket="5">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="9" socket="6">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="9" socket="7">
+        <value>true</value>
+      </grip:Input>
+    </grip:Step>
   </steps>
   <connections>
     <grip:Connection>
+      <grip:Output step="6" socket="0" previewed="true"/>
+      <grip:Input step="9" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="6" socket="0" previewed="true"/>
+      <grip:Input step="8" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
       <grip:Output step="2" socket="0" previewed="false"/>
       <grip:Input step="3" socket="1"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="3" socket="0" previewed="true"/>
-      <grip:Input step="4" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output source="0" socket="0" previewed="false"/>
-      <grip:Input step="0" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="false"/>
-      <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="1" socket="0" previewed="false"/>
       <grip:Input step="2" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="4" socket="0" previewed="false"/>
-      <grip:Input step="5" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="5" socket="0" previewed="false"/>
+      <grip:Output step="5" socket="0" previewed="true"/>
       <grip:Input step="7" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="4" socket="0" previewed="false"/>
-      <grip:Input step="6" socket="0"/>
+      <grip:Output step="0" socket="0" previewed="false"/>
+      <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="0" socket="0" previewed="false"/>
       <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="6" socket="0" previewed="false"/>
-      <grip:Input step="8" socket="0"/>
+      <grip:Output step="4" socket="0" previewed="false"/>
+      <grip:Input step="5" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="4" socket="0" previewed="false"/>
+      <grip:Input step="6" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="3" socket="0" previewed="true"/>
+      <grip:Input step="4" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
     <teamNumber>604</teamNumber>
-    <publishAddress>roboRIO-604-FRC.local</publishAddress>
+    <publishAddress>localhost</publishAddress>
     <deployAddress>roboRIO-604-FRC.local</deployAddress>
     <deployDir>/home/lvuser</deployDir>
     <deployUser>lvuser</deployUser>
