@@ -28,7 +28,7 @@ public class Pickup extends Module {
 	private final PIDController pid = new PIDController(0.02, 0D, 0.02, encoder, motors);
 	
 	public Pickup () {
-	    encoder.setZeroAngle(0);
+	    encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
         
         SmartDashboard.putData("Pickup PID", pid);
         

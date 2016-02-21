@@ -11,6 +11,7 @@ public final class Calibration {
     public static final double SHOOTER_TARGET_SPEED = 100;
     public static final double SHOOTER_SPEED_THRESHOLD = 10;
     
+    public static final double PICKUP_ZERO_ANGLE = 0;
     public static final double PICKUP_DOWN_ANGLE = 0;
     public static final double PICKUP_MID_ANGLE = 45;
     public static final double PICKUP_UP_ANGLE = 90;
