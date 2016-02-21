@@ -35,9 +35,7 @@ public class TeleopMode extends Coordinator {
         {
             /* Tank Drive */
             {   
-                this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), new TriggerAnd(
-                        modules.getModule("Dashboard").getTrigger("Tank Drive"),
-                        modules.getModule("Dashboard").getTrigger("Geared Drive").not())));
+                this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
 
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
@@ -45,9 +43,7 @@ public class TeleopMode extends Coordinator {
 
             /* Geared Drive */
             {
-                this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), new TriggerAnd(
-                        modules.getModule("Dashboard").getTrigger("Geared Drive"),
-                        modules.getModule("Dashboard").getTrigger("Tank Drive").not())));
+                this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), modules.getModule("Dashboard").getTrigger("Geared Drive")));
 
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Power", driver.rightStick.Y));
