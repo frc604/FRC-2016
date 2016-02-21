@@ -10,6 +10,9 @@ import com._604robotics.robotnik.module.ModuleMap;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
+/**
+ * The base of robot code.
+ */
 public class Robot extends SampleRobot {
     private final IndexedTable table = IndexedTable.getTable("robotnik");
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
