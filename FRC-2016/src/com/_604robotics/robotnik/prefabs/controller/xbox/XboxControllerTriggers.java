@@ -3,12 +3,28 @@ package com._604robotics.robotnik.prefabs.controller.xbox;
 import com._604robotics.robotnik.prefabs.controller.ControllerAxis;
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * The triggers of an Xbox controller.
+ */
 public class XboxControllerTriggers {
-    public final ControllerAxis LEFT;
-    public final ControllerAxis RIGHT;
+    /**
+     * Left.
+     */
+    public final ControllerAxis Left;
     
+    /**
+     * Right.
+     */
+    public final ControllerAxis Right;
+    
+    /**
+     * Creates Xbox controller triggers.
+     * @param joystick Xbox controller containing the triggers.
+     * @param left Left trigger ID.
+     * @param right Right trigger ID.
+     */
     public XboxControllerTriggers (Joystick joystick, int left, int right) {
-        this.LEFT = new ControllerAxis(joystick, left);
-        this.RIGHT = new ControllerAxis(joystick, right);
+        this.Left = new ControllerAxis(joystick, left);
+        this.Right = new ControllerAxis(joystick, right);
     }
 }

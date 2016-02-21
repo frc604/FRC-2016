@@ -5,10 +5,17 @@ import java.util.StringTokenizer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 
+/**
+ * A data recipient for outputting data to the network.
+ */
 public class NetworkOutput {
     private final DataRecipient doubleRecipient;
     private final DataRecipient booleanRecipient;
 
+    /**
+     * Creates a network output.
+     * @param namespace Namespace to output data to.
+     */
     public NetworkOutput (String namespace) {
         final StringTokenizer tokens = new StringTokenizer(namespace, ".");
         
@@ -22,11 +29,19 @@ public class NetworkOutput {
         this.booleanRecipient = new NetworkOutputDataRecipient(table, true);
     }
 
-    public DataRecipient asDouble (String name) {
+    /**
+     * Gets an output for double data.
+     * @return An output for double data.
+     */
+    public DataRecipient asDouble () {
         return this.doubleRecipient;
     }
 
-    public DataRecipient asBoolean (String name) {
+    /**
+     * Gets an output for boolean data.
+     * @return An output for boolean data.
+     */
+    public DataRecipient asBoolean () {
         return this.booleanRecipient;
     }
 
@@ -34,7 +49,7 @@ public class NetworkOutput {
         private final ITable table;
         private final boolean asBoolean;
 
-        public NetworkOutputDataRecipient (ITable table, boolean asBoolean) {
+        private NetworkOutputDataRecipient (ITable table, boolean asBoolean) {
             this.table = table;
             this.asBoolean = asBoolean;
         }

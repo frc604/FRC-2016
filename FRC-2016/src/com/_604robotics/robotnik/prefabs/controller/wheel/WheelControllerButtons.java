@@ -3,21 +3,79 @@ package com._604robotics.robotnik.prefabs.controller.wheel;
 import com._604robotics.robotnik.prefabs.controller.ControllerButton;
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * The buttons of a wheel controller.
+ */
 public class WheelControllerButtons {
+    /**
+     * Left Pad.
+     */
     public final ControllerButton LeftPad;
+    
+    /**
+     * Right Pad.
+     */
     public final ControllerButton RightPad;
+    
+    /**
+     * Triangle.
+     */
     public final ControllerButton Triangle;
+    
+    /**
+     * Square.
+     */
     public final ControllerButton Square;
+    
+    /**
+     * Circle.
+     */
     public final ControllerButton Circle;
+    
+    /**
+     * Cross.
+     */
     public final ControllerButton Cross;
+    
+    /**
+     * L2.
+     */
     public final ControllerButton L2;
+    
+    /**
+     * R2.
+     */
     public final ControllerButton R2;
+    
+    /**
+     * L3.
+     */
     public final ControllerButton L3;
+    
+    /**
+     * R3.
+     */
     public final ControllerButton R3;
+    
+    /**
+     * Home.
+     */
     public final ControllerButton Home;
+    
+    /**
+     * ST.
+     */
     public final ControllerButton ST;
+    
+    /**
+     * SE.
+     */
     public final ControllerButton SE;
 
+    /**
+     * Creates wheel controller buttons.
+     * @param joystick Wheel controller containing the buttons.
+     */
     public WheelControllerButtons (Joystick joystick) {
         this.LeftPad  = new ControllerButton(joystick, 5);
         this.RightPad = new ControllerButton(joystick, 6);
