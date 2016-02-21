@@ -14,7 +14,7 @@ import com._604robotics.robotnik.coordinator.steps.StepManager;
 import com._604robotics.robotnik.data.DataAccess;
 import com._604robotics.robotnik.data.DataRecipient;
 import com._604robotics.robotnik.data.sources.ConstData;
-import com._604robotics.robotnik.data.sources.DataTriggerAdapter;
+import com._604robotics.robotnik.data.sources.DataTriggerAdaptor;
 import com._604robotics.robotnik.prefabs.measure.TriggerMeasure;
 import com._604robotics.robotnik.prefabs.trigger.TriggerAlways;
 import com._604robotics.robotnik.trigger.TriggerAccess;
@@ -48,11 +48,11 @@ public class Coordinator {
     }
     
     protected void fill (DataRecipient recipient, String fieldName, TriggerAccess trigger) {
-        fill(recipient, fieldName, new DataTriggerAdapter(trigger), null);
+        fill(recipient, fieldName, new DataTriggerAdaptor(trigger), null);
     }
     
     protected void fill (DataRecipient recipient, String fieldName, TriggerAccess trigger, TriggerAccess activator) {
-        fill(recipient, fieldName, new DataTriggerAdapter(trigger), activator);
+        fill(recipient, fieldName, new DataTriggerAdaptor(trigger), activator);
     }
     
     protected void fill (DataRecipient recipient, String fieldName, double value) {

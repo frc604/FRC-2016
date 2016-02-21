@@ -3,7 +3,7 @@ package com._604robotics.robotnik.coordinator.connectors;
 import com._604robotics.robotnik.data.DataAccess;
 import com._604robotics.robotnik.data.DataRecipient;
 import com._604robotics.robotnik.data.sources.ConstData;
-import com._604robotics.robotnik.data.sources.DataTriggerAdapter;
+import com._604robotics.robotnik.data.sources.DataTriggerAdaptor;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 
 public class DataWire {
