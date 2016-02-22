@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj.Victor;
 import com._604robotics.robotnik.action.field.FieldMap;
 
 public class Intake extends Module{
-	private final Victor motor = new Victor(Ports.INTAKE_MOTOR);
+    private final Victor motor = new Victor(Ports.INTAKE_MOTOR);
 
-	public Intake (){
-		this.set(new ElasticController() {{
+    public Intake (){
+        this.set(new ElasticController() {{
             addDefault("Run", new Action(new FieldMap() {{
-            	define("Power", 0);
+                define("Power", 0);
             }}) {
-            	public void run (ActionData data) {
+                public void run (ActionData data) {
                     motor.set(data.get("Power"));
                 }
 
@@ -24,6 +24,6 @@ public class Intake extends Module{
                     motor.stopMotor();
                 } 
             });
-		}});
-	}
+        }});
+    }
 }

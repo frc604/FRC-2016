@@ -8,13 +8,11 @@ import com._604robotics.robot2016.modules.Regulator;
 import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
 import com._604robotics.robot2016.modules.Pickup;
-import com._604robotics.robot2016.modules.Gear;
 import com._604robotics.robot2016.modules.Intake;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
 import com._604robotics.robot2016.modules.Vision;
 import com._604robotics.robot2016.systems.DashboardSystem;
-import com._604robotics.robot2016.systems.GearSystem;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.coordinator.ModeMap;
@@ -78,7 +76,7 @@ public class Robot2016 extends Robot
             setAutonomousMode(new AutonomousMode());
             setTeleopMode(new TeleopMode());
         }});
-        
+
         this.set(new ModuleMap() {{
             add("Regulator", new Regulator());
             add("Drive", new Drive());
@@ -86,14 +84,12 @@ public class Robot2016 extends Robot
             add("Vision", new Vision());
    			add("Intake", new Intake());
             add("Pickup", new Pickup());
-            add("Gear", new Gear());
             add("Shifter", new Shifter());
             add("Shooter", new Shooter());
         }});
-        
+
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());
-            add(new GearSystem());
         }});
     }
 }

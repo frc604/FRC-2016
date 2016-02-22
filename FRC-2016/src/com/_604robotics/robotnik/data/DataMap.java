@@ -1,43 +1,35 @@
 package com._604robotics.robotnik.data;
 
-import com._604robotics.robotnik.meta.Iterator;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class DataMap.
+ * A map containing data.
  */
-public class DataMap {
-    
-    /** The data table. */
-    private final Hashtable dataTable = new Hashtable();
-    
+public class DataMap implements Iterable<Map.Entry<String, Data>> {
+    private final Map<String, Data> dataTable = new HashMap<String, Data>();
+
     /**
-     * Adds the.
-     *
-     * @param name the name
-     * @param data the data
+     * Adds data to the map.
+     * @param name Name of the data.
+     * @param data Data to add.
      */
     protected void add (String name, Data data) {
         this.dataTable.put(name, data);
     }
-    
+
     /**
-     * Gets the data.
-     *
-     * @param name the name
-     * @return the data
+     * Gets data from the map.
+     * @param name Name of the data.
+     * @return The retrieved data.
      */
     protected Data getData (String name) {
-        return (Data) this.dataTable.get(name);
+        return this.dataTable.get(name);
     }
-    
-    /**
-     * Iterate.
-     *
-     * @return the iterator
-     */
-    protected Iterator iterate () {
-        return new Iterator(this.dataTable);
+
+    @Override
+    public Iterator<Map.Entry<String, Data>> iterator () {
+        return this.dataTable.entrySet().iterator();
     }
 }

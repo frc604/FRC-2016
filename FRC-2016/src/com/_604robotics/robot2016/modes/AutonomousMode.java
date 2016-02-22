@@ -2,7 +2,7 @@
 	- Options for each defense
     - Manipulate gate, drawbridge, etc
 	- Options for location will be needed if we plan on shooting
-*/
+ */
 
 package com._604robotics.robot2016.modes;
 
@@ -19,9 +19,9 @@ import com._604robotics.robotnik.coordinator.groups.Group;
 import com._604robotics.robotnik.coordinator.groups.GroupManager;
 
 public class AutonomousMode extends Coordinator {
-	protected void apply (ModuleManager modules) {
-	    group(new Group(modules.getModule("Dashboard").getTrigger("Auton On"), new Coordinator() {
-	        protected void apply (ModuleManager modules) { 
+    protected void apply (ModuleManager modules) {
+        group(new Group(modules.getModule("Dashboard").getTrigger("Auton On"), new Coordinator() {
+            protected void apply (ModuleManager modules) { 
                 group(new Group(modules.getModule("Dashboard").getTrigger("Auton Mode A"), new Coordinator() {
                     protected void apply (ModuleManager modules) {
                         step("Forward", new Step(new TriggerMeasure(new TriggerAnd(new TriggerAccess[] {
@@ -75,5 +75,5 @@ public class AutonomousMode extends Coordinator {
                 }));
             }
         }));
-	}
+    }
 }

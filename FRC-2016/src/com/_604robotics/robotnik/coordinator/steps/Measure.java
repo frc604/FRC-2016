@@ -1,20 +1,17 @@
 package com._604robotics.robotnik.coordinator.steps;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Measure.
+ * Measures a quantity until it reaches a target.
  */
 public abstract class Measure {
-    
     /**
-     * Initialize.
+     * Initializes the measure.
      */
     public void initialize () {}
-    
+
     /**
-     * Complete.
-     *
-     * @return true, if successful
+     * Gets whether the measure is complete.
+     * @return Whether the measure is complete.
      */
     public abstract boolean complete ();
 }
