@@ -80,5 +80,10 @@ public class TeleopMode extends Coordinator {
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Up"), manipulator.buttons.Y));
             }
         }
+        
+        /* Vision testing */
+        {
+            this.bind(new Binding(modules.getModule("Vision").getAction("FlushReset"), manipulator.buttons.B));
+        }
     }
 }
