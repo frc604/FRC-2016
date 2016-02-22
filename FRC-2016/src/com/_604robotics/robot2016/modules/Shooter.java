@@ -12,12 +12,11 @@ import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 
 public class Shooter extends Module {
-    private final MultiOutput motors = new MultiOutput(new PIDOutput[] { new Victor(Ports.SHOOTER_MOTOR_LEFT), new Victor(Ports.SHOOTER_MOTOR_RIGHT) });
+    private final MultiOutput motors = new MultiOutput(new Victor(Ports.SHOOTER_MOTOR_LEFT), new Victor(Ports.SHOOTER_MOTOR_RIGHT));
     private final Encoder encoder = new Encoder(Ports.SHOOTER_ENCODER_A, Ports.SHOOTER_ENCODER_B);
 
     private final Timer chargeTimer = new Timer();

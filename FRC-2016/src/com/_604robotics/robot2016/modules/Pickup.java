@@ -12,17 +12,14 @@ import com._604robotics.robotnik.prefabs.devices.MA3A10;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
     private final MA3A10 encoder = new MA3A10(Ports.PICKUP_ENCODER);
-
-    private final Victor leftMotor = new Victor(Ports.PICKUP_MOTOR_LEFT);
-    private final Victor rightMotor = new Victor(Ports.PICKUP_MOTOR_RIGHT);
-
-    private final MultiOutput motors = new MultiOutput(new PIDOutput[] { leftMotor, rightMotor });
+    private final MultiOutput motors = new MultiOutput(
+            new Victor(Ports.PICKUP_MOTOR_LEFT),
+            new Victor(Ports.PICKUP_MOTOR_RIGHT));
 
     private final PIDController pid = new PIDController(
             Calibration.PICKUP_PID_P,
