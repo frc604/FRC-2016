@@ -18,8 +18,8 @@ public final class Ports {
     /* Digital Output */
     public static final int COMPRESSOR = 0;
     public static final int INTAKE_MOTOR = 1;
-    public static final int FLIPPER_MOTOR_RIGHT = 2;
-    public static final int FLIPPER_MOTOR_LEFT = 3;
+    public static final int PICKUP_MOTOR_RIGHT = 2;
+    public static final int PICKUP_MOTOR_LEFT = 3;
     public static final int SHOOTER_MOTOR_RIGHT = 4;
     public static final int SHOOTER_MOTOR_LEFT = 5;
     public static final int DRIVE_FRONT_RIGHT_MOTOR = 6;
@@ -28,7 +28,7 @@ public final class Ports {
     public static final int DRIVE_REAR_LEFT_MOTOR = 9;
     
     /* Analog Input */
-    public static final int FLIPPER_ENCODER = 0;
+    public static final int PICKUP_ENCODER = 0;
     
     /* Solenoids */
     public static final int SHIFTER_SOLENOID_FORWARD = 4;

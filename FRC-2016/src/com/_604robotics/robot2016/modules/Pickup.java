@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
-    private final MA3A10 encoder = new MA3A10(Ports.FLIPPER_ENCODER);
+    private final MA3A10 encoder = new MA3A10(Ports.PICKUP_ENCODER);
 
-    private final Victor leftMotor = new Victor(Ports.FLIPPER_MOTOR_LEFT);
-    private final Victor rightMotor = new Victor(Ports.FLIPPER_MOTOR_RIGHT);
+    private final Victor leftMotor = new Victor(Ports.PICKUP_MOTOR_LEFT);
+    private final Victor rightMotor = new Victor(Ports.PICKUP_MOTOR_RIGHT);
 
     private final MultiOutput motors = new MultiOutput(new PIDOutput[] { leftMotor, rightMotor });
 
