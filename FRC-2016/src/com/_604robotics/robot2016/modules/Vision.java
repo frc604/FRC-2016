@@ -30,6 +30,9 @@ public class Vision extends Module
         GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
         GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
         GRIPrun=NetworkTable.getTable("GRIP");
+        
+        Timer shootTimer=new Timer();
+        BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
 
         this.set(new TriggerMap()
         {{
@@ -45,10 +48,6 @@ public class Vision extends Module
             {
                 boolean wasCharged=false;
                 boolean isCharged=false;
-                
-                Timer shootTimer=new Timer();
-                
-                BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
                 
                 public void begin(ActionData data)
                 {
@@ -149,6 +148,14 @@ public class Vision extends Module
                     shootTimer.stop();
                     GRIPrun.putBoolean("run", false);
                 };
+            });
+            add("FlushReset", new Action()
+            {
+                public void begin(ActionData ddata)
+                {
+                    readystack.flush();
+                    shootTimer.reset();
+                }
             });
         }});
     }
