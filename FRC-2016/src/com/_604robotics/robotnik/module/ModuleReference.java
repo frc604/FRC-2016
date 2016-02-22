@@ -30,10 +30,10 @@ public class ModuleReference {
      * @param safety Safety mode to operate under.
      */
     public ModuleReference (String name, Module module, IndexedTable table, Safety safety) {
-        this.dataManager = new DataManager(name, module.getDataMap(), table.getSubTable("data"), safety);
-        this.triggerManager = new TriggerManager(name, module.getTriggerMap(), table.getSubTable("triggers"), safety);
+        this.dataManager = new DataManager(module.getDataMap(), table.getSubTable("data"), safety);
+        this.triggerManager = new TriggerManager(module.getTriggerMap(), table.getSubTable("triggers"), safety);
         
-        this.actionManager = new ActionManager(this, name, module.getActionController(), table.getSubTable("actions"), safety);
+        this.actionManager = new ActionManager(this, module.getActionController(), table.getSubTable("actions"), safety);
         
         this.name = name;
         this.module = module;

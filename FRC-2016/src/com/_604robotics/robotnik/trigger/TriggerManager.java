@@ -11,7 +11,6 @@ import com._604robotics.robotnik.memory.IndexedTable;
  * Manages triggers.
  */
 public class TriggerManager {
-    private final String moduleName;
     private final Map<String, TriggerReference> triggerTable;
     
     /**
@@ -21,9 +20,7 @@ public class TriggerManager {
      * @param table Table to store trigger data in.
      * @param safety Safety Safety mode to operate under.
      */
-    public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table, Safety safety) {
-        this.moduleName = moduleName;
-        
+    public TriggerManager (TriggerMap triggerMap, final IndexedTable table, Safety safety) {
         triggerTable = new HashMap<String, TriggerReference>();
         for (Map.Entry<String, Trigger> entry : triggerMap) {
             this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getRow(entry.getKey()), safety));

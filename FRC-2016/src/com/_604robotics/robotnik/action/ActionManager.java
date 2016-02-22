@@ -12,8 +12,6 @@ import com._604robotics.robotnik.module.ModuleReference;
  * Manages multiple actions.
  */
 public class ActionManager {
-    private final String moduleName;
-    
     private final ActionController controller;
 
     private final IndexedTable triggerTable;
@@ -24,13 +22,10 @@ public class ActionManager {
     /**
      * Creates an action manager.
      * @param module Reference to the module this manager belongs to.
-     * @param moduleName Name of the module this manager belongs to.
      * @param controller Controller to control action execution.
      * @param table Table to contain action data.
      */
-    public ActionManager (final ModuleReference module, String moduleName, ActionController controller, final IndexedTable table, Safety safety) {
-        this.moduleName = moduleName;
-        
+    public ActionManager (final ModuleReference module, ActionController controller, final IndexedTable table, Safety safety) {
         this.controller = controller;
         
         triggerTable = table.getSubTable("triggers");

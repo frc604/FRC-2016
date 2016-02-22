@@ -11,7 +11,6 @@ import com._604robotics.robotnik.memory.IndexedTable;
  * Manages data.
  */
 public class DataManager {
-    private final String moduleName;
     private final Map<String, DataReference> dataTable;
     
     /**
@@ -19,9 +18,7 @@ public class DataManager {
      * @param dataMap Map of data to manage.
      * @param table Table to contain the data values.
      */
-    public DataManager (String moduleName, DataMap dataMap, final IndexedTable table, Safety safety) {
-        this.moduleName = moduleName;
-
+    public DataManager (DataMap dataMap, final IndexedTable table, Safety safety) {
         dataTable = new HashMap<String, DataReference>();
         for (Map.Entry<String, Data> entry : dataMap) {
             dataTable.put(entry.getKey(), new DataReference(entry.getValue(), table.getRow(entry.getKey()), safety));

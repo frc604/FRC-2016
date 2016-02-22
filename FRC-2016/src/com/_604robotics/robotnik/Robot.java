@@ -48,18 +48,35 @@ public abstract class Robot extends SampleRobot {
         }
     }
     
+    /**
+     * Adds a module.
+     * @param name Name of the module.
+     * @param module Module to add.
+     */
     protected ModuleReference addModule (String name, Module module) {
         return modules.addModule(name, module);
     }
     
+    /**
+     * Adds a system.
+     * @param system System coordinator to add.
+     */
     protected void addSystem (Coordinator system) {
         systems.addSystem(system);
     }
     
+    /**
+     * Sets the robot's autonomous mode.
+     * @param autonomousMode Autonomous mode coordinator to set.
+     */
     protected void setAutonomousMode (Coordinator autonomousMode) {
         modes.setAutonomousMode(autonomousMode);
     }
     
+    /**
+     * Sets the robot's teleop mode.
+     * @param autonomousMode Teleop mode coordinator to set.
+     */
     protected void setTeleopMode (Coordinator autonomousMode) {
         modes.setTeleopMode(autonomousMode);
     }
