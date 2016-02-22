@@ -101,7 +101,7 @@ public class ActionManager {
             if (lastAction.equals("") || !lastAction.equals(selectedAction)) {
                 action.begin();
             }
-            action.end();
+            action.run();
         }
         
         this.statusTable.putString("lastAction", selectedAction);
