@@ -13,16 +13,16 @@ public class TeleopMode extends Coordinator {
     public TeleopMode (Robot2016 robot) {        
         driver.leftStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
         driver.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
-        
+
         driver.leftStick.X.setFactor(Calibration.TELEOP_FACTOR);
         driver.leftStick.Y.setFactor(Calibration.TELEOP_FACTOR);
-        
+
         driver.rightStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
         driver.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
-        
+
         driver.rightStick.X.setFactor(Calibration.TELEOP_FACTOR);
         driver.rightStick.Y.setFactor(Calibration.TELEOP_FACTOR);
-        
+
         manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
 
     	/* Driving */
@@ -47,7 +47,7 @@ public class TeleopMode extends Coordinator {
         	}
         	
             /* Shifter */
-    		{
+            {
                 final TriggerToggle shift = new TriggerToggle(driver.buttons.RB, false);
                 bind(robot.shifter.getAction("Low Gear"), shift.off);
                 bind(robot.shifter.getAction("High Gear"), shift.on);

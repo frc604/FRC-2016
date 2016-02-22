@@ -21,7 +21,7 @@ public class Shifter extends Module {
                     solenoid.set(Calibration.SHIFTER_LOW_GEAR);
                 }
             });
-            
+
             add("High Gear", new Action() {
                 public void begin (ActionData data) {
                     solenoid.set(Calibration.SHIFTER_HIGH_GEAR);

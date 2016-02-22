@@ -12,13 +12,16 @@ import com._604robotics.robotnik.module.ModuleReference;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
+/**
+ * The base of robot code.
+ */
 public abstract class Robot extends SampleRobot {
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
     
     private final ModuleManager modules;
     private final SystemManager systems;
     private final ModeManager modes;
-    
+
     /**
      * Instantiates a new robot (with exception protection enabled by default).
      */
@@ -34,6 +37,8 @@ public abstract class Robot extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
+        printBanner();
+
         modules = new ModuleManager(IndexedTable.getTable("robotnik").getSubTable("modules"), safety);
         systems = new SystemManager();
         modes = new ModeManager();
@@ -59,23 +64,17 @@ public abstract class Robot extends SampleRobot {
         modes.setTeleopMode(autonomousMode);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#autonomous()
-     */
+    @Override
     public void autonomous () {
         modeLoop(GameMode.AUTONOMOUS);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#operatorControl()
-     */
+    @Override
     public void operatorControl () {
         modeLoop(GameMode.TELEOP);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#disabled()
-     */
+    @Override
     public void disabled () {
         modeLoop(GameMode.DISABLED);
     }
@@ -109,5 +108,42 @@ public abstract class Robot extends SampleRobot {
         }
 
         Logger.log(" -- " + gameMode.prettyName() + " mode end.");
+    }
+    
+    private void printBanner () {
+        System.out.println(
+            "\n\n\n" +
+            "                       ..            .`\n" +
+            "                   .:oyhho.        .ohhy+:\n" +
+            "                 +yhhhhhhhhoossssoohhhhhhhhy/\n" +
+            "                 ohhhhhhhhhhhhhhhhhhhhhhhhhh+\n" +
+            "      :/.        :hhhhhhhhhhhhhhhhhhhhhhhhhh-        ./-\n" +
+            "       yhy+-    /hhhhhhhhhhhhhhhhhhhhhhhhhhhy:    -+yhs\n" +
+            "       .hhhhho:shhhhhy/.``./yhhhhy/.``./yhhhhho:ohhhhy`\n" +
+            "     `.-shhhhhhhhhhhh`      .hhhh`      .hhhhhhhhhhhho-.`\n" +
+            "  /shhhhhhhhhhhhhhhhy       `hhhy       `hhhhhhhhhhhhhhhhys/\n" +
+            "   ./yhhhhhhhhhhhhhhhs-    -shhhhs-    -shhhhhhhhhhhhhhhy/`\n" +
+            "      :hhhhhhhhhhhhhhhhhyyhhhhhhhhhhyyhhhhhhhhhhhhhhhhh:\n" +
+            "     /hhhhhhhhhhhhhhhhyyhyhhhhhhhhhhyhyyhhhhhhhhhhhhhhhy:\n" +
+            "   -yhhhyysshhh+  ho`  `ho:hhhhhhhh-sh   `sh  +hhhosyyhhhs-\n" +
+            " .  ``      shhy- h+   `ho .shhhhs. sh    oh -hhh+      ``.\n" +
+            "            :hhhhoh+   `ho   `ys`   sh    ohohhhh.\n" +
+            "             +hhhhhs`  `ho    ys    sh   .shhhhh:\n" +
+            "              +hhhhhhs/:ho    ys    sh-/shhhhhh/\n" +
+            "               :yhhhhhhhhhs+/:yy:/+shhhhhhhhhy-\n" +
+            "                `+hhhhhhhhhhhhhhhhhhhhhhhhhy/\n" +
+            "                  `:shhhhhhhhyyyhhhhhhhhho-\n" +
+            "                     `:+syhhh:  /hhhyo/-\n" +
+            "                          `.-`  `..\n" +
+            "\n" +
+            "                      _           _         _ _\n" +
+            "                     | |         | |       (_) |\n" +
+            "            _ __ ___ | |__   ___ | |_ _ __  _| | __\n" +
+            "           | '__/ _ \\| '_ \\ / _ \\| __| '_ \\| | |/ /\n" +
+            "           | | | (_) | |_) | (_) | |_| | | | |   <\n" +
+            "           |_|  \\___/|_.__/ \\___/ \\__|_| |_|_|_|\\_\\\n" +
+            "           framework\n" +
+            "\n\n"
+        );
     }
 }

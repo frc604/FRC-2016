@@ -9,6 +9,9 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerManual;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 import com._604robotics.robotnik.trigger.TriggerRecipient;
 
+/**
+ * A reference to an action.
+ */
 public class ActionReference implements DataRecipient, TriggerRecipient {
     private final Action action;
 
@@ -21,6 +24,13 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
     
     private final Safety safety;
     
+    /**
+     * Creates an action reference.
+     * @param module Reference to the module this reference belongs to.
+     * @param action Action this reference refers to.
+     * @param triggered The data slice to contain whether this action has been triggered.
+     * @param dataTable Data table to retrieve action data from.
+     */
     public ActionReference (ModuleReference module, Action action, Row triggered, IndexedTable dataTable, Safety safety) {
         this.action = action;
         
@@ -30,15 +40,16 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
         
         this.safety = safety;
     }
-    
+
+    /**
+     * Resets the action reference.
+     */
     public void reset () {
         this.trigger.putNumber(0D);
         this.actionData.reset();
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.trigger.TriggerRecipient#sendTrigger(double)
-     */
+    @Override
     public void sendTrigger (double precedence) {
         final double current = this.trigger.getNumber(0D);
         
@@ -47,27 +58,41 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
         }
     }
     
-    /* (non-Javadoc)
-     * @see com._604robotics.robotnik.data.DataRecipient#sendData(java.lang.String, double)
-     */
+    @Override
     public void sendData (String fieldName, double dataValue) {
         this.dataTable.putNumber(fieldName, dataValue);
     }
     
+    /**
+     * Begins the action.
+     * @param safety Safety mode to operate with.
+     */
     public void begin () {
         safety.wrap("action begin phase", () -> action.begin(actionData));
         this.activeTrigger.set(true);
     }
     
+    /**
+     * Runs the action.
+     * @param safety Safety mode to operate with.
+     */
     public void run () {
         safety.wrap("action run phase", () -> action.run(actionData));
     }
     
+    /**
+     * Ends the action.
+     * @param safety Safety mode to operate with.
+     */
     public void end () {
         safety.wrap("action end phase", () -> action.end(actionData));
         this.activeTrigger.set(false);
     }
-    
+
+    /**
+     * Gets a trigger fired when the reference's action is active.
+     * @return The action's trigger.
+     */
     public TriggerAccess active () {
         return (TriggerAccess) this.activeTrigger;
     }

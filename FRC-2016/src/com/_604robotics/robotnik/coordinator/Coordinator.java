@@ -1,9 +1,8 @@
 package com._604robotics.robotnik.coordinator;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
-import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.coordinator.groups.Group;
@@ -20,10 +19,13 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerAlways;
 import com._604robotics.robotnik.trigger.TriggerAccess;
 import com._604robotics.robotnik.trigger.TriggerRecipient;
 
+/**
+ * Coordinates the flow of data and bindings, and the execution of groups and steps.
+ */
 public class Coordinator {
-    private final Vector triggerBindings = new Vector();
-    private final Vector dataWires = new Vector();
-
+    private final List<Binding> triggerBindings = new ArrayList<Binding>();
+    private final List<DataWire> dataWires = new ArrayList<DataWire>();
+    
     private final GroupManager groups = new GroupManager();
     private final StepManager steps = new StepManager();
     
@@ -40,7 +42,7 @@ public class Coordinator {
     }
     
     protected void bind (TriggerRecipient recipient, TriggerAccess trigger, boolean safety) {
-        triggerBindings.addElement(new Binding(recipient, trigger, safety));
+        triggerBindings.add(new Binding(recipient, trigger, safety));
     }
 
     protected void fill (DataRecipient recipient, String fieldName, DataAccess data) {
@@ -72,7 +74,7 @@ public class Coordinator {
     }
     
     protected void fill (DataRecipient recipient, String fieldName, DataAccess data, TriggerAccess activator) {
-        dataWires.addElement(new DataWire(recipient, fieldName, data, activator));
+        dataWires.add(new DataWire(recipient, fieldName, data, activator));
     }
     
     protected void group (TriggerAccess trigger, Coordinator coordinator) {
@@ -91,23 +93,35 @@ public class Coordinator {
         steps.add(name, new Step(measure, coordinator));
     }
     
+    /**
+     * Updates the coordinator.
+     */
     public void update () {
-        final Enumeration wires = this.dataWires.elements();
-        while (wires.hasMoreElements()) ((DataWire) wires.nextElement()).conduct();
+        for (DataWire wire : this.dataWires) {
+            wire.conduct();
+        }
         
-        final Enumeration bindings = this.triggerBindings.elements();
-        while (bindings.hasMoreElements()) ((Binding) bindings.nextElement()).conduct();
+        for (Binding binding : this.triggerBindings) {
+            binding.conduct();
+        }
 
         this.groups.update();
         this.steps.update();
     }
 
+    /**
+     * Stops the coordinator's execution.
+     */
     public void stop () {
         this.groups.stop();
         this.steps.stop();
     }
     
+    /**
+     * Gets whether the coordinator has completed execution.
+     * @return Whether the coordinator is complete.
+     */
     public boolean complete () {
-        return steps.complete() && groups.complete();
+        return this.steps.complete() && this.groups.complete();
     }
 }

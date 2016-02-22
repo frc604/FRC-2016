@@ -6,13 +6,10 @@ import com._604robotics.robotnik.prefabs.outputs.DashboardOutput;
 
 public class DashboardSystem extends Coordinator {
     public DashboardSystem (Robot2016 robot) {
-        /* Disable Drive via Dashboard */
-        {
-    		bind(robot.drive.getAction("Off"), robot.dashboard.getTrigger("Drive Off"), true);
-        }
-    	
     	/* Drive */
     	{
+    		bind(robot.drive.getAction("Off"), robot.dashboard.getTrigger("Drive Off"), true);
+
 	    	fill(DashboardOutput.asDouble(), "Left Drive Clicks", robot.drive.getData("Left Drive Clicks"));
 	    	fill(DashboardOutput.asDouble(), "Right Drive Clicks", robot.drive.getData("Right Drive Clicks"));
 	    	fill(DashboardOutput.asDouble(), "Left Drive Rate", robot.drive.getData("Left Drive Rate"));
@@ -38,9 +35,9 @@ public class DashboardSystem extends Coordinator {
     	{
     	    fill(DashboardOutput.asDouble(), "Pickup Angle", robot.pickup.getData("Pickup Angle"));
 
-    		fill(robot.pickup.getAction("Down"), "Setpoint", robot.dashboard.getData("Pickup Down Angle"));
-    		fill(robot.pickup.getAction("Mid"), "Setpoint", robot.dashboard.getData("Pickup Mid Angle"));
-    		fill(robot.pickup.getAction("Up"), "Setpoint", robot.dashboard.getData("Pickup Up Angle"));
+    		//fill(robot.pickup.getAction("Down"), "Setpoint", robot.dashboard.getData("Pickup Down Angle"));
+    		//fill(robot.pickup.getAction("Mid"), "Setpoint", robot.dashboard.getData("Pickup Mid Angle"));
+    		//fill(robot.pickup.getAction("Up"), "Setpoint", robot.dashboard.getData("Pickup Up Angle"));
     	}
     }
 }

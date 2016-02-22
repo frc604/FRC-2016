@@ -1,17 +1,16 @@
 package com._604robotics.robotnik.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.meta.Iterator;
-import com._604robotics.robotnik.meta.Repackager;
-import com._604robotics.robotnik.meta.Scorekeeper;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.logging.InternalLogger;
 import com._604robotics.robotnik.module.ModuleReference;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.util.Hashtable;
-
+/**
+ * Manages multiple actions.
+ */
 public class ActionManager {
     private final String moduleName;
     
@@ -20,47 +19,78 @@ public class ActionManager {
     private final IndexedTable triggerTable;
     private final IndexedTable statusTable;
 
-    private final Hashtable actionTable;
+    private final Map<String, ActionReference> actionTable;
 
+    /**
+     * Creates an action manager.
+     * @param module Reference to the module this manager belongs to.
+     * @param moduleName Name of the module this manager belongs to.
+     * @param controller Controller to control action execution.
+     * @param table Table to contain action data.
+     */
     public ActionManager (final ModuleReference module, String moduleName, ActionController controller, final IndexedTable table, Safety safety) {
         this.moduleName = moduleName;
         
         this.controller = controller;
         
-        this.triggerTable = table.getSubTable("triggers");
+        triggerTable = table.getSubTable("triggers");
         
-        this.statusTable = table.getSubTable("status");
-        this.statusTable.putString("triggeredAction", "");
-        this.statusTable.putString("lastAction", "");
+        statusTable = table.getSubTable("status");
+        statusTable.putString("triggeredAction", "");
+        statusTable.putString("lastAction", "");
         
         final IndexedTable dataTable = table.getSubTable("data");
-        this.actionTable = Repackager.repackage(controller.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new ActionReference(module, (Action) value, triggerTable.getRow((String) key), dataTable.getSubTable((String) key), safety);
-           }
-        });
+        actionTable = new HashMap<String, ActionReference>();
+        for (Map.Entry<String, Action> entry : controller) {
+            actionTable.put(entry.getKey(), 
+                    new ActionReference(module,
+                            entry.getValue(),
+                            triggerTable.getRow(entry.getKey()),
+                            dataTable.getSubTable(entry.getKey()),
+                            safety));
+        }
     }
-    
+
+    /**
+     * Gets an action belonging to this manager.
+     * @param name Name of the action.
+     * @return The retrieved action.
+     */
     public ActionReference getAction (String name) {
-        ActionReference ref = (ActionReference) this.actionTable.get(name);
-        if (ref == null) InternalLogger.missing("ActionReference", name);
+        ActionReference ref = this.actionTable.get(name);
+        if (ref == null) Logger.missing("ActionReference", name);
         return ref;
     }
-    
+
+    /**
+     * Resets all actions belonging to this manager.
+     */
     public void reset () {
-        final Iterator i = new Iterator(this.actionTable);
-        while (i.next()) ((ActionReference) i.value).reset();
+        for (ActionReference ref : this.actionTable.values()) {
+            ref.reset();
+        }
     }
-    
+
+    /**
+     * Updates this manager.
+     */
     public void update () {
-        final Scorekeeper r = new Scorekeeper(0D);
-        final Iterator i = controller.iterate();
+        double score = 0;
+        String action = "";
+        for(Map.Entry<String, Action> actionEntry : this.controller) {
+            double currScore = this.triggerTable.getNumber(actionEntry.getKey(), 0);
+            if(currScore > score) {
+                score = currScore;
+                action = actionEntry.getKey();
+            }
+        }
         
-        while (i.next()) r.consider(i.key, this.triggerTable.getNumber((String) i.key, 0D));
-        
-        this.statusTable.putString("triggeredAction", r.score > 0 ? (String) r.victor : "");
+        this.statusTable.putString("triggeredAction", action);
     }
     
+    /**
+     * Chooses and executes an action from this manager.
+     */
     public void execute () {
         final String triggeredAction = this.statusTable.getString("triggeredAction", "");
         final String lastAction = this.statusTable.getString("lastAction", "");
@@ -81,11 +111,11 @@ public class ActionManager {
         
         this.statusTable.putString("lastAction", selectedAction);
     }
-    
+
     /**
-     * End.
+     * Stops this manager's action execution.
      */
-    public void stop (Safety safety) {
+    public void stop () {
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         if (!lastAction.equals("")) {

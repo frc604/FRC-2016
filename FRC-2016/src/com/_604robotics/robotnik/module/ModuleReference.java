@@ -9,8 +9,9 @@ import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.trigger.TriggerManager;
 import com._604robotics.robotnik.trigger.TriggerReference;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+/**
+ * A reference to a module.
+ */
 public class ModuleReference {
     private final String name;
     private final Module module;
@@ -21,6 +22,13 @@ public class ModuleReference {
     
     private final Safety safety;
     
+    /**
+     * Creates a module reference.
+     * @param name Name of the module.
+     * @param module Module to refer to.
+     * @param table Table to store module data in.
+     * @param safety Safety mode to operate under.
+     */
     public ModuleReference (String name, Module module, IndexedTable table, Safety safety) {
         this.dataManager = new DataManager(name, module.getDataMap(), table.getSubTable("data"), safety);
         this.triggerManager = new TriggerManager(name, module.getTriggerMap(), table.getSubTable("triggers"), safety);
@@ -33,22 +41,43 @@ public class ModuleReference {
         this.safety = safety;
     }
     
+    /**
+     * Gets data belonging to the module.
+     * @param name Name of the data.
+     * @return The retrieved data.
+     */
     public DataReference getData (String name) {
         return this.dataManager.getData(name);
     }
     
+    /**
+     * Gets a trigger belonging to the module.
+     * @param name Name of the trigger.
+     * @return The retrieved trigger.
+     */
     public TriggerReference getTrigger (String name) {
         return this.triggerManager.getTrigger(name);
     }
     
+    /**
+     * Gets an action belonging to the module.
+     * @param name Name of the action.
+     * @return The retrieved action.
+     */
     public ActionReference getAction (String name) {
         return this.actionManager.getAction(name);
     }
     
+    /**
+     * Starts the module.
+     */
     public void start () {
         safety.wrap("module " + name + " begin phase", module::begin);
     }
     
+    /**
+     * Updates the module.
+     */
     public void update () {
         this.dataManager.update();
         this.triggerManager.update();
@@ -56,13 +85,19 @@ public class ModuleReference {
         this.actionManager.reset();
     }
 
+    /**
+     * Executes the selected action of the module.
+     */
     public void execute () {
         this.actionManager.update();
         this.actionManager.execute();
     }
     
+    /**
+     * Stops the module.
+     */
     public void stop () {
-        this.actionManager.stop(safety);
+        this.actionManager.stop();
         safety.wrap("module " + name + " end phase", module::end);
     }
 }

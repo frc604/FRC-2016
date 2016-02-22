@@ -12,11 +12,11 @@ public class Regulator extends Module {
 
     public Regulator () {
         compressor.setClosedLoopControl(true);
-        
+
         set(new DataMap() {{
             add("Compressor Current", compressor::getCompressorCurrent);
         }});
-        
+
         set(new TriggerMap() {{
             add("Compressor Enabled", compressor::enabled);
             add("Pressure Switch", compressor::getPressureSwitchValue);

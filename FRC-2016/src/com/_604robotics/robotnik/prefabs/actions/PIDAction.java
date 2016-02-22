@@ -6,9 +6,17 @@ import com._604robotics.robotnik.action.field.FieldMap;
 
 import edu.wpi.first.wpilibj.PIDController;
 
+/**
+ * An action configuring the PID setpoint.
+ */
 public class PIDAction extends Action {
     private final PIDController pid;
     
+    /**
+     * Creates a PID action.
+     * @param pid PID controller to use.
+     * @param defaultSetpoint Default setpoint value.
+     */
     public PIDAction (PIDController pid, double defaultSetpoint) {
         super(new FieldMap() {{
             define("Setpoint", defaultSetpoint);

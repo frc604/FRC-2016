@@ -1,39 +1,52 @@
 package com._604robotics.robotnik.trigger;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.logging.InternalLogger;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.meta.Iterator;
-import com._604robotics.robotnik.meta.Repackager;
 
+/**
+ * Manages triggers.
+ */
 public class TriggerManager {
     private final String moduleName;
-    private final Hashtable triggerTable;
+    private final Map<String, TriggerReference> triggerTable;
     
+    /**
+     * Creates a trigger manager.
+     * @param moduleName Name of the module that this belongs to.
+     * @param triggerMap Map of triggers to manage.
+     * @param table Table to store trigger data in.
+     * @param safety Safety Safety mode to operate under.
+     */
     public TriggerManager (String moduleName, TriggerMap triggerMap, final IndexedTable table, Safety safety) {
         this.moduleName = moduleName;
         
-        this.triggerTable = Repackager.repackage(triggerMap.iterate(), new Repackager() {
-           public Object wrap (Object key, Object value) {
-               return new TriggerReference((Trigger) value, table.getRow((String) key), safety);
-           }
-        });
+        triggerTable = new HashMap<String, TriggerReference>();
+        for (Map.Entry<String, Trigger> entry : triggerMap) {
+            this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getRow(entry.getKey()), safety));
+        }
     }
     
+    /**
+     * Gets a reference to a trigger.
+     * @param name Name of the trigger.
+     * @return The retrieved trigger reference.
+     */
     public TriggerReference getTrigger (String name) {
-        final TriggerReference ref = (TriggerReference) this.triggerTable.get(name);
-        if (ref == null) {
-            InternalLogger.missing("TriggerReference", name);
-        }
+        final TriggerReference ref = this.triggerTable.get(name);
+        if (ref == null) Logger.missing("TriggerReference", name);
         return ref;
     }
     
+    /**
+     * Updates all triggers.
+     */
     public void update () {
-        final Iterator i = new Iterator(this.triggerTable);
-        while (i.next()) {
-            ((TriggerReference) i.value).update();
+        for (TriggerReference ref : this.triggerTable.values()) {
+            ref.update();
         }
     }
 }

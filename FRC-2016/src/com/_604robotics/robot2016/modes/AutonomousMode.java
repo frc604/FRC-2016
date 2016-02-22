@@ -2,7 +2,7 @@
 	- Options for each defense
     - Manipulate gate, drawbridge, etc
 	- Options for location will be needed if we plan on shooting
-*/
+ */
 
 package com._604robotics.robot2016.modes;
 
