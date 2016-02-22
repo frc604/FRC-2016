@@ -1,8 +1,6 @@
 package com._604robotics.robotnik.coordinator.steps;
 
-import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.Coordinator;
-import com._604robotics.robotnik.module.ModuleManager;
 
 /**
  * A step to execute.

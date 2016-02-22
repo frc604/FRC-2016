@@ -37,11 +37,11 @@ public abstract class Robot extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
-        printBanner();
+        this.printBanner();
 
-        modules = new ModuleManager(IndexedTable.getTable("robotnik").getSubTable("modules"), safety);
-        systems = new SystemManager();
-        modes = new ModeManager();
+        this.modules = new ModuleManager(IndexedTable.getTable("robotnik").getSubTable("modules"), safety);
+        this.systems = new SystemManager();
+        this.modes = new ModeManager();
 
         if (safety.disabled()) {
             Logger.warn("Exception protection has been disabled. Make sure you know what you're doing!");
@@ -54,7 +54,7 @@ public abstract class Robot extends SampleRobot {
      * @param module Module to add.
      */
     protected ModuleReference addModule (String name, Module module) {
-        return modules.addModule(name, module);
+        return this.modules.addModule(name, module);
     }
     
     /**
@@ -62,7 +62,7 @@ public abstract class Robot extends SampleRobot {
      * @param system System coordinator to add.
      */
     protected void addSystem (Coordinator system) {
-        systems.addSystem(system);
+        this.systems.addSystem(system);
     }
     
     /**
@@ -70,7 +70,7 @@ public abstract class Robot extends SampleRobot {
      * @param autonomousMode Autonomous mode coordinator to set.
      */
     protected void setAutonomousMode (Coordinator autonomousMode) {
-        modes.setAutonomousMode(autonomousMode);
+        this.modes.setAutonomousMode(autonomousMode);
     }
     
     /**
@@ -78,50 +78,50 @@ public abstract class Robot extends SampleRobot {
      * @param autonomousMode Teleop mode coordinator to set.
      */
     protected void setTeleopMode (Coordinator autonomousMode) {
-        modes.setTeleopMode(autonomousMode);
+        this.modes.setTeleopMode(autonomousMode);
     }
     
     @Override
     public void autonomous () {
-        modeLoop(GameMode.AUTONOMOUS);
+        this.modeLoop(GameMode.AUTONOMOUS);
     }
     
     @Override
     public void operatorControl () {
-        modeLoop(GameMode.TELEOP);
+        this.modeLoop(GameMode.TELEOP);
     }
     
     @Override
     public void disabled () {
-        modeLoop(GameMode.DISABLED);
+        this.modeLoop(GameMode.DISABLED);
     }
     
     private void modeLoop (GameMode gameMode) {
         Logger.log(" -- " + gameMode.prettyName() + " mode begin.");
 
         if (gameMode != GameMode.DISABLED) {
-            modules.start();
+            this.modules.start();
 
-            loopTime.start();
+            this.loopTime.start();
         }
 
         while (gameMode.active()) {
-            modules.update();
-            systems.update();
+            this.modules.update();
+            this.systems.update();
 
             if (gameMode != GameMode.DISABLED) {
-                modes.update(gameMode);
-                modules.execute();
+                this.modes.update(gameMode);
+                this.modules.execute();
 
-                loopTime.sample();
+                this.loopTime.sample();
             }
         }
 
         if (gameMode != GameMode.DISABLED) {
-            loopTime.stop();
+            this.loopTime.stop();
 
-            modules.stop();
-            modes.stop(gameMode);
+            this.modules.stop();
+            this.modes.stop(gameMode);
         }
 
         Logger.log(" -- " + gameMode.prettyName() + " mode end.");

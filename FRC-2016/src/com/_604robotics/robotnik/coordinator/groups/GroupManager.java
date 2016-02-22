@@ -3,8 +3,6 @@ package com._604robotics.robotnik.coordinator.groups;
 import java.util.ArrayList;
 import java.util.List;
 
-import com._604robotics.robotnik.Robot;
-
 /**
  * Manages groups.
  */

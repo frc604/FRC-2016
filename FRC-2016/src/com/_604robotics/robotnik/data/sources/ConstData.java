@@ -16,6 +16,10 @@ public class ConstData implements DataAccess {
         this.value = value;
     }
 
+    /**
+     * Creates constant data.
+     * @param value Constant value to contain.
+     */
     public ConstData (boolean value) {
         this.value = value ? 1D : 0D;
     }
