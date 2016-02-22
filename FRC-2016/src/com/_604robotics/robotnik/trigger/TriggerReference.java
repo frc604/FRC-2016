@@ -1,7 +1,7 @@
 package com._604robotics.robotnik.trigger;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.memory.IndexedTable.Row;
 import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
 
 /**
@@ -9,18 +9,23 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
  */
 public class TriggerReference implements TriggerAccess {
     private final Trigger trigger;
-    private final Slice value;
+    private final Row value;
 
     private TriggerAccess inverse = null;
-
+    
+    private final Safety safety;
+    
     /**
      * Creates a trigger reference.
      * @param trigger Trigger to refer to.
      * @param value Slice to store the trigger value in.
+     * @param safety Safety mode to operate under.
      */
-    public TriggerReference (Trigger trigger, Slice value) {
+    public TriggerReference (Trigger trigger, Row value, Safety safety) {
         this.trigger = trigger;
         this.value = value;
+        
+        this.safety = safety;
     }
     
     /**
@@ -42,9 +47,8 @@ public class TriggerReference implements TriggerAccess {
     
     /**
      * Updates the trigger.
-     * @param safety Safety mode to operate with.
      */
-    public void update (Safety safety) {
+    public void update () {
         safety.wrap("updating trigger value", () -> value.putBoolean(trigger.run()));
     }
 }

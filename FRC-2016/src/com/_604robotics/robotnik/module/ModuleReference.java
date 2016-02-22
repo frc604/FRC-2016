@@ -13,25 +13,32 @@ import com._604robotics.robotnik.trigger.TriggerReference;
  * A reference to a module.
  */
 public class ModuleReference {
+    private final String name;
     private final Module module;
 
     private final DataManager dataManager;
     private final TriggerManager triggerManager;
     private final ActionManager actionManager;
     
+    private final Safety safety;
+    
     /**
      * Creates a module reference.
      * @param name Name of the module.
      * @param module Module to refer to.
      * @param table Table to store module data in.
+     * @param safety Safety mode to operate under.
      */
-    public ModuleReference (String name, Module module, IndexedTable table) {
-        this.dataManager = new DataManager(module.getDataMap(), table.getSubTable("data"));
-        this.triggerManager = new TriggerManager(module.getTriggerMap(), table.getSubTable("triggers"));
+    public ModuleReference (String name, Module module, IndexedTable table, Safety safety) {
+        this.dataManager = new DataManager(module.getDataMap(), table.getSubTable("data"), safety);
+        this.triggerManager = new TriggerManager(module.getTriggerMap(), table.getSubTable("triggers"), safety);
         
-        this.actionManager = new ActionManager(this, module.getActionController(), table.getSubTable("actions"));
+        this.actionManager = new ActionManager(this, module.getActionController(), table.getSubTable("actions"), safety);
         
+        this.name = name;
         this.module = module;
+        
+        this.safety = safety;
     }
     
     /**
@@ -63,38 +70,34 @@ public class ModuleReference {
     
     /**
      * Starts the module.
-     * @param safety Safety mode to operate with.
      */
-    public void start (Safety safety) {
-        safety.wrap("module begin phase", module::begin);
+    public void start () {
+        safety.wrap("module " + name + " begin phase", module::begin);
     }
     
     /**
      * Updates the module.
-     * @param safety Safety mode to operate with.
      */
-    public void update (Safety safety) {
-        this.dataManager.update(safety);
-        this.triggerManager.update(safety);
+    public void update () {
+        this.dataManager.update();
+        this.triggerManager.update();
         
         this.actionManager.reset();
     }
 
     /**
-     * Executes the module.
-     * @param safety Safety mode to operate with.
+     * Executes the selected action of the module.
      */
-    public void execute (Safety safety) {
+    public void execute () {
         this.actionManager.update();
-        this.actionManager.execute(safety);
+        this.actionManager.execute();
     }
     
     /**
      * Stops the module.
-     * @param safety Safety mode to operate with.
      */
-    public void stop (Safety safety) {
-        this.actionManager.stop(safety);
-        safety.wrap("module end phase", module::end);
+    public void stop () {
+        this.actionManager.stop();
+        safety.wrap("module " + name + " end phase", module::end);
     }
 }

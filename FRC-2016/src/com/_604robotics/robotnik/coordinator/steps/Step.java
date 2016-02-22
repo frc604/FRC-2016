@@ -1,5 +1,6 @@
 package com._604robotics.robotnik.coordinator.steps;
 
+import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
 
@@ -9,24 +10,6 @@ import com._604robotics.robotnik.module.ModuleManager;
 public class Step {
     private final Measure measure;
     private final Coordinator coordinator;
-
-    /**
-     * Creates a step with no contents.
-     * @param measure Measure indicating completion.
-     */
-    public Step (Measure measure) {
-        this.measure = measure;
-        this.coordinator = new Coordinator();
-    }
-
-    /**
-     * Creates an unmeasured step.
-     * @param coordinator Coordinator driving the step.
-     */
-    public Step (Coordinator coordinator) {
-        this.measure = null;
-        this.coordinator = coordinator;
-    }
 
     /**
      * Creates a step.
@@ -64,14 +47,6 @@ public class Step {
     }
     
     /**
-     * Attaches the step to a set of modules.
-     * @param modules Modules to attach to.
-     */
-    public void attach (ModuleManager modules) {
-        coordinator.attach(modules);
-    }
-    
-    /**
      * Updates the step.
      */
     public void update () {
@@ -79,9 +54,9 @@ public class Step {
     }
     
     /**
-     * Resets the step.
+     * Stops the step.
      */
-    public void reset () {
+    public void stop () {
         coordinator.stop();
     }
 }

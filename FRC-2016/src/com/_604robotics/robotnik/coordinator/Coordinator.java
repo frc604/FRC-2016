@@ -7,9 +7,17 @@ import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.coordinator.groups.Group;
 import com._604robotics.robotnik.coordinator.groups.GroupManager;
+import com._604robotics.robotnik.coordinator.steps.Measure;
 import com._604robotics.robotnik.coordinator.steps.Step;
 import com._604robotics.robotnik.coordinator.steps.StepManager;
-import com._604robotics.robotnik.module.ModuleManager;
+import com._604robotics.robotnik.data.DataAccess;
+import com._604robotics.robotnik.data.DataRecipient;
+import com._604robotics.robotnik.data.sources.ConstData;
+import com._604robotics.robotnik.data.sources.DataTriggerAdaptor;
+import com._604robotics.robotnik.prefabs.measure.TriggerMeasure;
+import com._604robotics.robotnik.prefabs.trigger.TriggerAlways;
+import com._604robotics.robotnik.trigger.TriggerAccess;
+import com._604robotics.robotnik.trigger.TriggerRecipient;
 
 /**
  * Coordinates the flow of data and bindings, and the execution of groups and steps.
@@ -21,60 +29,68 @@ public class Coordinator {
     private final GroupManager groups = new GroupManager();
     private final StepManager steps = new StepManager();
     
-    /**
-     * Applies the coordinator to a set of modules.
-     * @param modules Modules to apply to.
-     */
-    protected void apply (ModuleManager modules) {}
+    protected void bind (TriggerRecipient recipient) {
+        bind(recipient, false);
+    }
     
-    /**
-     * Attaches the coordinator to a set of modules.
-     * @param modules Modules to attach to.
-     */
-    public void attach (ModuleManager modules) {
-        this.triggerBindings.clear();
-        this.dataWires.clear();
+    protected void bind (TriggerRecipient recipient, boolean safety) {
+        bind(recipient, TriggerAlways.getInstance(), safety);
+    }
+    
+    protected void bind (TriggerRecipient recipient, TriggerAccess trigger) {
+        bind(recipient, trigger, false);
+    }
+    
+    protected void bind (TriggerRecipient recipient, TriggerAccess trigger, boolean safety) {
+        triggerBindings.add(new Binding(recipient, trigger, safety));
+    }
 
-        this.groups.clear();
-        this.steps.clear();
-        
-        this.apply(modules);
-
-        this.groups.attach(modules);
-        this.steps.attach(modules);
+    protected void fill (DataRecipient recipient, String fieldName, DataAccess data) {
+        fill(recipient, fieldName, data, null);
     }
     
-    /**
-     * Adds a binding to the coordinator.
-     * @param binding Binding to add.
-     */
-    protected void bind (Binding binding) {
-        this.triggerBindings.add(binding);
+    protected void fill (DataRecipient recipient, String fieldName, TriggerAccess trigger) {
+        fill(recipient, fieldName, new DataTriggerAdaptor(trigger), null);
     }
     
-    /**
-     * Adds a data wire to the coordinator.
-     * @param dataWire Data wire to add.
-     */
-    protected void fill (DataWire dataWire) {
-        this.dataWires.add(dataWire);
+    protected void fill (DataRecipient recipient, String fieldName, TriggerAccess trigger, TriggerAccess activator) {
+        fill(recipient, fieldName, new DataTriggerAdaptor(trigger), activator);
     }
     
-    /**
-     * Adds a group to the coordinator.
-     * @param group Group to add.
-     */
-    protected void group (Group group) {
-        this.groups.add(group);
+    protected void fill (DataRecipient recipient, String fieldName, double value) {
+        fill(recipient, fieldName, value, null);
     }
     
-    /**
-     * Adds a step to the coordinator.
-     * @param name Name of the step.
-     * @param step Step to add.
-     */
-    protected void step (String name, Step step) {
-        this.steps.add(name, step);
+    protected void fill (DataRecipient recipient, String fieldName, double value, TriggerAccess activator) {
+        fill(recipient, fieldName, new ConstData(value), activator);
+    }
+    
+    protected void fill (DataRecipient recipient, String fieldName, boolean value) {
+        fill(recipient, fieldName, value, null);
+    }
+    
+    protected void fill (DataRecipient recipient, String fieldName, boolean value, TriggerAccess activator) {
+        fill(recipient, fieldName, new ConstData(value), activator);
+    }
+    
+    protected void fill (DataRecipient recipient, String fieldName, DataAccess data, TriggerAccess activator) {
+        dataWires.add(new DataWire(recipient, fieldName, data, activator));
+    }
+    
+    protected void group (TriggerAccess trigger, Coordinator coordinator) {
+        groups.add(new Group(trigger, coordinator));
+    }
+    
+    protected void step (String name, Coordinator coordinator) {
+        step(name, (Measure) null, coordinator);
+    }
+    
+    protected void step (String name, TriggerAccess trigger, Coordinator coordinator) {
+        step(name, new TriggerMeasure(trigger), coordinator);
+    }
+    
+    protected void step (String name, Measure measure, Coordinator coordinator) {
+        steps.add(name, new Step(measure, coordinator));
     }
     
     /**

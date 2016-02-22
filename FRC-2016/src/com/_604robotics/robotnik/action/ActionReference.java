@@ -3,7 +3,7 @@ package com._604robotics.robotnik.action;
 import com._604robotics.robotnik.Safety;
 import com._604robotics.robotnik.data.DataRecipient;
 import com._604robotics.robotnik.memory.IndexedTable;
-import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.memory.IndexedTable.Row;
 import com._604robotics.robotnik.module.ModuleReference;
 import com._604robotics.robotnik.prefabs.trigger.TriggerManual;
 import com._604robotics.robotnik.trigger.TriggerAccess;
@@ -14,11 +14,16 @@ import com._604robotics.robotnik.trigger.TriggerRecipient;
  */
 public class ActionReference implements DataRecipient, TriggerRecipient {
     private final Action action;
-    private final Slice trigger;
-    private final IndexedTable dataTable;
-    private final ActionData actionData;
-    private final TriggerManual activeTrigger = new TriggerManual(false);
 
+    private final Row trigger;
+    private final IndexedTable dataTable;
+
+    private final ActionData actionData;
+
+    private final TriggerManual activeTrigger = new TriggerManual(false);
+    
+    private final Safety safety;
+    
     /**
      * Creates an action reference.
      * @param module Reference to the module this reference belongs to.
@@ -26,12 +31,14 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
      * @param triggered The data slice to contain whether this action has been triggered.
      * @param dataTable Data table to retrieve action data from.
      */
-    public ActionReference (ModuleReference module, Action action, Slice triggered, IndexedTable dataTable) {
+    public ActionReference (ModuleReference module, Action action, Row triggered, IndexedTable dataTable, Safety safety) {
         this.action = action;
         
         this.trigger = triggered;
         this.dataTable = dataTable;        
         this.actionData = new ActionData(this.action.getFieldMap(), this.dataTable, module);
+        
+        this.safety = safety;
     }
 
     /**
@@ -55,29 +62,29 @@ public class ActionReference implements DataRecipient, TriggerRecipient {
     public void sendData (String fieldName, double dataValue) {
         this.dataTable.putNumber(fieldName, dataValue);
     }
-
+    
     /**
      * Begins the action.
      * @param safety Safety mode to operate with.
      */
-    public void begin (Safety safety) {
+    public void begin () {
         safety.wrap("action begin phase", () -> action.begin(actionData));
         this.activeTrigger.set(true);
     }
-
+    
     /**
      * Runs the action.
      * @param safety Safety mode to operate with.
      */
-    public void run (Safety safety) {
+    public void run () {
         safety.wrap("action run phase", () -> action.run(actionData));
     }
-
+    
     /**
      * Ends the action.
      * @param safety Safety mode to operate with.
      */
-    public void end (Safety safety) {
+    public void end () {
         safety.wrap("action end phase", () -> action.end(actionData));
         this.activeTrigger.set(false);
     }

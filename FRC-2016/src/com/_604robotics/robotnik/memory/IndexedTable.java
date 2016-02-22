@@ -4,9 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 import edu.wpi.first.wpilibj.tables.ITable;
 
+// TODO: Replace IndexedTable with a regular NetworkTable. Factor out Row.
+//       Manually index Modules, Actions, Data, Triggers (requires
+//       robotnik-inspector updates?).
+
 /**
  * An indexed table of values.
  */
+@Deprecated
 public class IndexedTable {
     /**
      * Gets a table.
@@ -16,10 +21,10 @@ public class IndexedTable {
     public static IndexedTable getTable (String key) {
         return TableCache.getTable(key);
     }
-
-    private final Set<String> keys = new HashSet<String>();
+    
+    private final Set keys = new HashSet();
     private final ITable table;
-
+    
     /**
      * Gets whether the table knows about a key.
      * @param key Key to check.
@@ -28,21 +33,16 @@ public class IndexedTable {
     public boolean knowsAbout (String key) {
         return this.keys.contains(key);
     }
-
+    
     /**
      * Gets a slice from the table.
-     * @param key Key of the slice.
+     * @param key Key of the row.
      * @return The retrieved slice.
      */
-    public Slice getSlice (String key) {
-        return new Slice(this, key);
+    public Row getRow (String key) {
+        return new Row(this, key);
     }
-
-    /**
-     * Gets a sub table of the table.
-     * @param key Key of the sub table.
-     * @return The retrieved sub table.
-     */
+    
     public IndexedTable getSubTable(String key) {
         this.addKey(key);
         return TableCache.getSubTable(this.table, key);
@@ -150,55 +150,63 @@ public class IndexedTable {
     }
 
     /**
-     * A slice of a table.
+     * A row of a table.
      */
-    public class Slice {
+    public class Row {
         private final IndexedTable source;
         private final String key;
-
-        private Slice (IndexedTable source, String key) {
+        
+        private Row (IndexedTable source, String key) {
             this.source = source;
             this.key = key;
         }
+        
+        /**
+         * Gets the row's key.
+         * @return The row's key.
+         */
+        public String getKey () {
+            return key;
+        }
 
         /**
-         * Gets the slice's string value.
-         * @param defaultValue Default value to use if the slice is empty.
-         * @return The slice's string value.
+         * Gets the row's string value.
+         * @param defaultValue Default value to use if the row is empty.
+         * @return The row's string value.
          */
         public String getString (String defaultValue) {
             return this.source.getString(this.key, defaultValue);
         }
 
         /**
-         * Gets the slice's number value.
-         * @param defaultValue Default value to use if the slice is empty.
-         * @return The slice's number value.
+         * Gets the row's number value.
+         * @param defaultValue Default value to use if the row is empty.
+         * @return The row's number value.
          */
         public double getNumber (double defaultValue) {
             return this.source.getNumber(this.key, defaultValue);
         }
 
         /**
-         * Gets the slice's boolean value.
-         * @param defaultValue Default value to use if the slice is empty.
-         * @return The slice's boolean value.
+         * Gets the row's boolean value.
+         * @param defaultValue Default value to use if the row is empty.
+         * @return The row's boolean value.
          */
         public boolean getBoolean (boolean defaultValue) {
             return this.source.getBoolean(this.key, defaultValue);
         }
 
         /**
-         * Gets the slice's raw value.
-         * @param defaultValue Default value to use if the slice is empty.
-         * @return The slice's raw value.
+         * Gets the row's raw value.
+         * @param defaultValue Default value to use if the row is empty.
+         * @return The row's raw value.
          */
         public Object getValue (Object defaultValue) {
             return this.source.getValue(this.key, defaultValue);
         }
 
         /**
-         * Puts a string in the slice.
+         * Puts a string in the row.
          * @param value Value to put.
          */
         public void putString (String value) {
@@ -206,7 +214,7 @@ public class IndexedTable {
         }
 
         /**
-         * Puts a number in the slice.
+         * Puts a number in the row.
          * @param value Value to put.
          */
         public void putNumber (double value) {
@@ -214,7 +222,7 @@ public class IndexedTable {
         }
 
         /**
-         * Puts a boolean in the slice.
+         * Puts a boolean in the row.
          * @param value Value to put.
          */
         public void putBoolean (boolean value) {
@@ -222,7 +230,7 @@ public class IndexedTable {
         }
 
         /**
-         * Puts a raw value in the slice.
+         * Puts a raw value in the row.
          * @param value Value to put.
          */
         public void putValue (Object value) {

@@ -11,18 +11,19 @@ import com._604robotics.robotnik.trigger.TriggerMap;
 public abstract class Module {
     private DataMap dataMap = new DataMap();
     private TriggerMap triggerMap = new TriggerMap();
-    private ActionController actionController = new DummyController();
 
+    private ActionController actionController = new DummyController();
+    
     /**
-     * Called when the module's life cycle begins.
+     * Called when the robot enters a control mode (autonomous, teleop).
      */
     protected void begin () {}
 
     /**
-     * Called when the module's life cycle ends.
+     * Called when the robot exits a control mode (autonomous, teleop).
      */
     protected void end () {}
-
+    
     /**
      * Sets the data map of the module.
      * @param dataMap The module's data map.
@@ -30,7 +31,7 @@ public abstract class Module {
     protected void set (DataMap dataMap) {
         this.dataMap = dataMap;
     }
-
+    
     /**
      * Sets the trigger map of the module.
      * @param dataMap The module's trigger map.
@@ -38,7 +39,7 @@ public abstract class Module {
     protected void set (TriggerMap triggerMap) {
         this.triggerMap = triggerMap;
     }
-
+    
     /**
      * Sets the action controller of the module.
      * @param dataMap The module's action controller.
@@ -46,7 +47,7 @@ public abstract class Module {
     protected void set (ActionController actionController) {
         this.actionController = actionController;
     }
-
+    
     /**
      * Gets the module's data map.
      * @return The module's data map.
@@ -54,7 +55,7 @@ public abstract class Module {
     protected DataMap getDataMap () {
         return this.dataMap;
     }
-
+    
     /**
      * Gets the module's trigger map.
      * @return The module's trigger map.

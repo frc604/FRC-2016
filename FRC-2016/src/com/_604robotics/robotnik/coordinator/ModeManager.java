@@ -1,42 +1,32 @@
 package com._604robotics.robotnik.coordinator;
 
 import com._604robotics.robotnik.GameMode;
-import com._604robotics.robotnik.module.ModuleManager;
 
 /**
- * A map containing robot modes.
+ * Manager for robot control modes.
  */
-public class ModeMap {
+public class ModeManager {
     private Coordinator autonomousMode = new Coordinator();
     private Coordinator teleopMode = new Coordinator();
     
     /**
-     * Attaches the mode map to a set of modules.
-     * @param modules Modules to attach to.
-     */
-    public void attach (ModuleManager modules) {
-        this.autonomousMode.attach(modules);
-        this.teleopMode.attach(modules);
-    }
-
-    /**
-     * Sets the map's autonomous mode.
+     * Sets the manager's autonomous mode.
      * @param autonomousMode Autonomous mode coordinator to set.
      */
-    protected void setAutonomousMode (Coordinator autonomousMode) {
+    public void setAutonomousMode (Coordinator autonomousMode) {
         this.autonomousMode = autonomousMode;
     }
 
     /**
-     * Sets the map's teleop mode.
+     * Sets the manager's teleop mode.
      * @param autonomousMode Teleop mode coordinator to set.
      */
-    protected void setTeleopMode (Coordinator teleopMode) {
+    public void setTeleopMode (Coordinator teleopMode) {
         this.teleopMode = teleopMode;
     }
 
     /**
-     * Gets the map's autonomous mode.
+     * Gets the manager's autonomous mode.
      * @return The map's autonomous mode coordinator.
      */
     public Coordinator getAutonomousMode () {
@@ -44,7 +34,7 @@ public class ModeMap {
     }
 
     /**
-     * Gets the map's teleop mode.
+     * Gets the manager's teleop mode.
      * @return The map's teleop mode coordinator.
      */
     public Coordinator getTeleopMode () {
@@ -72,14 +62,9 @@ public class ModeMap {
      * @param gameMode Game mode to update the coordinator for.
      */
     public void update (GameMode gameMode) {
-        switch (gameMode) {
-        case AUTONOMOUS:
-            getAutonomousMode().update();
-            break;
-        case TELEOP:
-            getTeleopMode().update();
-            break;
-        default:
+        final Coordinator coordinator = getGameMode(gameMode);
+        if (coordinator != null) {
+            coordinator.update();
         }
     }
     
@@ -88,14 +73,9 @@ public class ModeMap {
      * @param gameMode Game mode to stop the coordinator for.
      */
     public void stop (GameMode gameMode) {
-        switch (gameMode) {
-        case AUTONOMOUS:
-            getAutonomousMode().stop();
-            break;
-        case TELEOP:
-            getTeleopMode().stop();
-            break;
-        default:
+        final Coordinator coordinator = getGameMode(gameMode);
+        if (coordinator != null) {
+            coordinator.update();
         }
     }
 }

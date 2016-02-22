@@ -12,16 +12,16 @@ import com._604robotics.robotnik.memory.IndexedTable;
  */
 public class DataManager {
     private final Map<String, DataReference> dataTable;
-
+    
     /**
      * Creates a data manager.
      * @param dataMap Map of data to manage.
      * @param table Table to contain the data values.
      */
-    public DataManager (DataMap dataMap, final IndexedTable table) {
-        this.dataTable = new HashMap<String, DataReference>();
+    public DataManager (DataMap dataMap, final IndexedTable table, Safety safety) {
+        dataTable = new HashMap<String, DataReference>();
         for (Map.Entry<String, Data> entry : dataMap) {
-            this.dataTable.put(entry.getKey(), new DataReference(entry.getValue(), table.getSlice(entry.getKey())));
+            dataTable.put(entry.getKey(), new DataReference(entry.getValue(), table.getRow(entry.getKey()), safety));
         }
     }
 
@@ -40,9 +40,9 @@ public class DataManager {
      * Updates the data manager.
      * @param safety Safety mode to operate with.
      */
-    public void update (Safety safety) {
+    public void update () {
         for (DataReference ref : this.dataTable.values()) {
-            ref.update(safety);
+            ref.update();
         }
     }
 }

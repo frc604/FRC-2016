@@ -1,5 +1,6 @@
 package com._604robotics.robotnik.coordinator.groups;
 
+import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.trigger.TriggerAccess;
@@ -22,14 +23,6 @@ public class Group {
     }
     
     /**
-     * Attaches the group to a set of modules.
-     * @param modules Modules to attach to.
-     */
-    public void attach (ModuleManager modules) {
-        coordinator.attach(modules);
-    }
-    
-    /**
      * Updates the group.
      */
     public void update () {
@@ -39,9 +32,9 @@ public class Group {
     }
 
     /**
-     * Resets the group.
+     * Stops the group.
      */
-    public void reset () {
+    public void stop () {
     	coordinator.stop();
     }
     

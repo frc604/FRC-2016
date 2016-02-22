@@ -3,7 +3,7 @@ package com._604robotics.robotnik.coordinator.groups;
 import java.util.ArrayList;
 import java.util.List;
 
-import com._604robotics.robotnik.module.ModuleManager;
+import com._604robotics.robotnik.Robot;
 
 /**
  * Manages groups.
@@ -27,16 +27,6 @@ public class GroupManager {
     }
 
     /**
-     * Attaches the group manager to a set of modules.
-     * @param modules Modules to attach to.
-     */
-    public void attach (ModuleManager modules) {
-        for (Group group : this.groups) {
-            group.attach(modules);
-        }
-    }
-
-    /**
      * Updates all groups within the manager.
      */
     public void update () {
@@ -50,7 +40,7 @@ public class GroupManager {
      */
     public void stop () {
         for (Group group : this.groups) {
-            group.reset();
+            group.stop();
         }
     }
 

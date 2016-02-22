@@ -15,6 +15,10 @@ public class ConstData implements DataAccess {
     public ConstData (double value) {
         this.value = value;
     }
+
+    public ConstData (boolean value) {
+        this.value = value ? 1D : 0D;
+    }
     
     @Override
     public double get() {

@@ -13,8 +13,10 @@ import com._604robotics.robotnik.module.ModuleReference;
  */
 public class ActionManager {
     private final ActionController controller;
+
     private final IndexedTable triggerTable;
     private final IndexedTable statusTable;
+
     private final Map<String, ActionReference> actionTable;
 
     /**
@@ -23,19 +25,24 @@ public class ActionManager {
      * @param controller Controller to control action execution.
      * @param table Table to contain action data.
      */
-    public ActionManager (final ModuleReference module, ActionController controller, final IndexedTable table) {
+    public ActionManager (final ModuleReference module, ActionController controller, final IndexedTable table, Safety safety) {
         this.controller = controller;
         
-        this.triggerTable = table.getSubTable("triggers");
+        triggerTable = table.getSubTable("triggers");
         
-        this.statusTable = table.getSubTable("status");
-        this.statusTable.putString("triggeredAction", "");
-        this.statusTable.putString("lastAction", "");
+        statusTable = table.getSubTable("status");
+        statusTable.putString("triggeredAction", "");
+        statusTable.putString("lastAction", "");
         
         final IndexedTable dataTable = table.getSubTable("data");
-        this.actionTable = new HashMap<String, ActionReference>();
-        for(Map.Entry<String, Action> entry : controller) {
-            this.actionTable.put(entry.getKey(), new ActionReference(module, entry.getValue(), this.triggerTable.getSlice(entry.getKey()), dataTable.getSubTable(entry.getKey())));
+        actionTable = new HashMap<String, ActionReference>();
+        for (Map.Entry<String, Action> entry : controller) {
+            actionTable.put(entry.getKey(), 
+                    new ActionReference(module,
+                            entry.getValue(),
+                            triggerTable.getRow(entry.getKey()),
+                            dataTable.getSubTable(entry.getKey()),
+                            safety));
         }
     }
 
@@ -75,27 +82,26 @@ public class ActionManager {
         
         this.statusTable.putString("triggeredAction", action);
     }
-
+    
     /**
      * Chooses and executes an action from this manager.
-     * @param safety Safety mode to operate with.
      */
-    public void execute (Safety safety) {
+    public void execute () {
         final String triggeredAction = this.statusTable.getString("triggeredAction", "");
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         final String selectedAction = this.controller.pickAction(lastAction, triggeredAction);
         
         if (!lastAction.equals("") && !lastAction.equals(selectedAction)) {
-            getAction(lastAction).end(safety);
+            getAction(lastAction).end();
         }
 
         if (!selectedAction.equals("")) {
             final ActionReference action = this.getAction(selectedAction);
             if (lastAction.equals("") || !lastAction.equals(selectedAction)) {
-                action.begin(safety);
+                action.begin();
             }
-            action.run(safety);
+            action.run();
         }
         
         this.statusTable.putString("lastAction", selectedAction);
@@ -103,13 +109,12 @@ public class ActionManager {
 
     /**
      * Stops this manager's action execution.
-     * @param safety Safety mode to operate with.
      */
-    public void stop (Safety safety) {
+    public void stop () {
         final String lastAction = this.statusTable.getString("lastAction", "");
         
         if (!lastAction.equals("")) {
-            getAction(lastAction).end(safety);
+            getAction(lastAction).end();
         }
         
         this.statusTable.putString("lastAction", "");

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com._604robotics.robotnik.logging.Logger;
-import com._604robotics.robotnik.module.ModuleManager;
 
 /**
  * Manages steps.
@@ -32,16 +31,6 @@ public class StepManager {
     public void add (String name, Step step) {
         this.names.add(name);
         this.steps.add(step);
-    }
-
-    /**
-     * Attaches the step manager to a set of modules.
-     * @param modules Modules to attach to.
-     */
-    public void attach (ModuleManager modules) {
-        for (Step step : this.steps) {
-            step.attach(modules);
-        }
     }
 
     /**
@@ -75,7 +64,7 @@ public class StepManager {
         this.initialized = false;
 
         for (Step step : this.steps) {
-            step.reset();
+            step.stop();
         }
     }
     

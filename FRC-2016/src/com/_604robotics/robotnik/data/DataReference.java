@@ -1,23 +1,27 @@
 package com._604robotics.robotnik.data;
 
 import com._604robotics.robotnik.Safety;
-import com._604robotics.robotnik.memory.IndexedTable.Slice;
+import com._604robotics.robotnik.memory.IndexedTable.Row;
 
 /**
  * A reference to data.
  */
 public class DataReference implements DataAccess {
     private final Data data;
-    private final Slice value;
+    private final Row value;
+    
+    private final Safety safety;
     
     /**
      * Creates a data reference.
      * @param data Data to refer to.
      * @param value Slice to store the data value in.
      */
-    public DataReference (Data data, Slice value) {
+    public DataReference (Data data, Row value, Safety safety) {
         this.data = data;
         this.value = value;
+        
+        this.safety = safety;
     }
     
     @Override
@@ -29,7 +33,7 @@ public class DataReference implements DataAccess {
      * Updates the value of data.
      * @param safety Safety mode to operate with.
      */
-    public void update (Safety safety) {
+    public void update () {
         safety.wrap("updating data value", () -> value.putNumber(data.run()));
     }
 }

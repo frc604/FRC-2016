@@ -15,13 +15,15 @@ public class TriggerManager {
     
     /**
      * Creates a trigger manager.
+     * @param moduleName Name of the module that this belongs to.
      * @param triggerMap Map of triggers to manage.
      * @param table Table to store trigger data in.
+     * @param safety Safety Safety mode to operate under.
      */
-    public TriggerManager (TriggerMap triggerMap, final IndexedTable table) {
-        this.triggerTable = new HashMap<String, TriggerReference>();
+    public TriggerManager (TriggerMap triggerMap, final IndexedTable table, Safety safety) {
+        triggerTable = new HashMap<String, TriggerReference>();
         for (Map.Entry<String, Trigger> entry : triggerMap) {
-            this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getSlice(entry.getKey())));
+            this.triggerTable.put(entry.getKey(), new TriggerReference(entry.getValue(), table.getRow(entry.getKey()), safety));
         }
     }
     
@@ -38,11 +40,10 @@ public class TriggerManager {
     
     /**
      * Updates all triggers.
-     * @param safety Safety mode to operate with.
      */
-    public void update (Safety safety) {
+    public void update () {
         for (TriggerReference ref : this.triggerTable.values()) {
-            ref.update(safety);
+            ref.update();
         }
     }
 }
