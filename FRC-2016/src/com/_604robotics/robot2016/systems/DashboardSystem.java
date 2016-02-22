@@ -29,8 +29,6 @@ public class DashboardSystem extends Coordinator {
         {
             this.fill(new DataWire(DashboardOutput.asBoolean(), "Shifter Gear",
                     modules.getModule("Shifter").getAction("High Gear").active()));
-            this.fill(new DataWire(DashboardOutput.asDouble(), "Software Gear",
-                    modules.getModule("Gear").getData("Gear")));
         }
 
         /* Shooter */

@@ -98,11 +98,9 @@ public class Drive extends Module {
             add("Tank Drive", new Action(new FieldMap () {{
                 define("Left Power", 0D);
                 define("Right Power", 0D);
-                define("Throttle", 1D);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("Left Power") * data.get("Throttle"),
-                                    data.get("Right Power") * data.get("Throttle"));
+                    drive.tankDrive(data.get("Left Power"), data.get("Right Power"));
                 }
 
                 public void end (ActionData data) {

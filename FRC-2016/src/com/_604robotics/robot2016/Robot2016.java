@@ -1,14 +1,12 @@
 package com._604robotics.robot2016;
 
 import com._604robotics.robot2016.systems.DashboardSystem;
-import com._604robotics.robot2016.systems.GearSystem;
 import com._604robotics.robot2016.modes.AutonomousMode;
 import com._604robotics.robot2016.modes.TeleopMode;
 import com._604robotics.robot2016.modules.Regulator;
 import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
 import com._604robotics.robot2016.modules.Pickup;
-import com._604robotics.robot2016.modules.Gear;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
 import com._604robotics.robot2016.modules.Intake;
@@ -29,7 +27,6 @@ public class Robot2016 extends Robot {
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
             add("Pickup", new Pickup());
-            add("Gear", new Gear());
             add("Shifter", new Shifter());
             add("Intake", new Intake());
             add("Shooter", new Shooter());
@@ -37,7 +34,6 @@ public class Robot2016 extends Robot {
 
         this.set(new CoordinatorList() {{
             add(new DashboardSystem());
-            add(new GearSystem());
         }});
     }
 }
