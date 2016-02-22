@@ -15,22 +15,52 @@ import edu.wpi.first.wpilibj.Timer;
 
 import java.lang.Math;
 
+import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.ITableListener;
+
 public class Vision extends Module
 {
-    private boolean ready=false;
+    NetworkTable GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
+    NetworkTable GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
+    NetworkTable GRIPrun=NetworkTable.getTable("GRIP");
     
+    private class GRIPupdate implements ITableListener
+    {
+        private boolean run;
+
+        public GRIPupdate()
+        {
+            this.setRun(false);
+        }
+        
+        @Override
+        public void valueChanged(ITable source, String key, Object value,
+                boolean isNew)
+        {
+            if (source==GRIPrun)
+            {
+                this.setRun(true);
+            }
+        }
+
+        public boolean getRun()
+        {
+            return run;
+        }
+
+        public void setRun(boolean run)
+        {
+            this.run = run;
+        }
+        
+    }
+    private boolean ready=false;
     private boolean inview=false;
     
-    NetworkTable GRIPtableH;
-    NetworkTable GRIPtableV;
-    NetworkTable GRIPrun;
+    GRIPupdate runAction=new GRIPupdate();
 
     public Vision()
     {
-        GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
-        GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
-        GRIPrun=NetworkTable.getTable("GRIP");
-        
         Timer shootTimer=new Timer();
         BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
 
