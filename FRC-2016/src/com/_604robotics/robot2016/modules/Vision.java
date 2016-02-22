@@ -33,20 +33,8 @@ public class Vision extends Module
 
         this.set(new TriggerMap()
         {{
-            add("On Target", new Trigger()
-            {
-                public boolean run()
-                {
-                    return ready;
-                };
-            });
-            add("In View", new Trigger()
-            {
-                public boolean run()
-                {
-                    return inview;
-                }
-            });
+            add("On Target", () -> ready);
+            add("In View", () -> inview);
         }});
         
         this.set(new ElasticController()
