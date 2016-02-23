@@ -41,6 +41,15 @@ public class Vision extends Module
             {
                 this.setRun(true);
             }
+            try
+            {
+                Thread.sleep(10);
+                this.setRun(false);
+            }
+            catch(Exception e)
+            {
+                this.setRun(false);
+            }
         }
 
         public boolean getRun()
