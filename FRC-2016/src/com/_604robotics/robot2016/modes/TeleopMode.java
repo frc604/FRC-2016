@@ -5,6 +5,8 @@ import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
+import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
+import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
 import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
 import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.robot2016.constants.Ports;
@@ -66,7 +68,9 @@ public class TeleopMode extends Coordinator {
         {
             /* Shooter */
             {
-                this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), manipulator.buttons.RT));
+                this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), new TriggerAnd(
+                        manipulator.buttons.RT,
+                        new TriggerNot(modules.getModule("Pickup").getAction("Up").active()))));
             }
 
             /* Intake */
