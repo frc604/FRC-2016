@@ -111,29 +111,16 @@ public class Drive extends Module {
             add("Geared Drive", new Action(new FieldMap () {{
                 define("Left Power", 0);
                 define("Right Power", 0);
-                define("Left Low Gear", false);
-                define("Left High Gear", false);
-                define("Right Low Gear", false);
-                define("Right High Gear", false);
+                define("Low Gear", false);
             }}) {
                 public void run (ActionData data) {
-                    double leftGear = 0.75;
-                    double rightGear = 0.75;
+                    double leftGear = 1;
+                    double rightGear = 1;
 
-                    if (data.is("Left Low Gear") && data.is("Left High Gear")) {
-                        leftGear = 0.5;
-                    } else if (data.is("Left Low Gear")) {
-                        leftGear = 0.5;
-                    } else if (data.is("Left High Gear")) {
-                        leftGear = 1.0;
-                    }
-
-                    if (data.is("Right Low Gear") && data.is("Right High Gear")) {
-                        rightGear = 0.5;
-                    } else if (data.is("Right Low Gear")) {
-                        rightGear = 0.5;
-                    } else if(data.is("Right High Gear")) {
-                        rightGear = 1.0;
+                    if( data.is("Low Gear") )
+                    {
+                    	leftGear = 0.5;
+                    	rightGear = 0.5;
                     }
 
                     drive.tankDrive(data.get("Left Power") * leftGear,
