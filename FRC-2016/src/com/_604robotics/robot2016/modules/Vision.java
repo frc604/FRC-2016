@@ -71,6 +71,7 @@ public class Vision extends Module
     public Vision()
     {
         Timer shootTimer=new Timer();
+        GRIPrun.addTableListenerEx(runAction, NetworkTable.NOTIFY_UPDATE);
         BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
 
         this.set(new TriggerMap()
