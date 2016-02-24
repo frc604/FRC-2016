@@ -29,9 +29,9 @@ public final class Calibration {
     public static final double DRIVE_RIGHT_PID_TOLERANCE = 20;
 
     /* Pickup PID constants */
-    public static final double PICKUP_PID_P = 0.016;
+    public static final double PICKUP_PID_P = -0.016;
     public static final double PICKUP_PID_I = 0;
-    public static final double PICKUP_PID_D = 0.016;
+    public static final double PICKUP_PID_D = -0.016;
     public static final double INTAKE_PID_MAX = 0.5;//not real
 
     /* Pickup angles */
