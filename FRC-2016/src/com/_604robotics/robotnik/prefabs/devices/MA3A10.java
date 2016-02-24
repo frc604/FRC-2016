@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.PIDSourceType;
  * A MA3A10 encoder.
  */
 public class MA3A10 implements PIDSource {
+    private static final double MAX_VOLTAGE = 5;
+    
     private final AnalogInput input;
     private double zero = 0D;
     
@@ -39,7 +41,7 @@ public class MA3A10 implements PIDSource {
      * @param zeroAngle Zero angle to set.
      */
     public void setZeroAngle (double zeroAngle) {
-        this.setZero(zeroAngle / 360 * 5);
+        this.setZero(zeroAngle / 360 * MAX_VOLTAGE);
     }
     
     /**
@@ -47,7 +49,11 @@ public class MA3A10 implements PIDSource {
      * @return The raw value of the encoder.
      */
     public double getRaw () {
-        return this.input.getVoltage() - this.zero;
+        double voltage = this.input.getVoltage() - this.zero;
+        if (voltage < 0) {
+            voltage += MAX_VOLTAGE;
+        }
+        return voltage;
     }
     
     /**
@@ -55,7 +61,7 @@ public class MA3A10 implements PIDSource {
      * @return The angle of the encoder.
      */
     public double getAngle () {
-        return this.getRaw() / 5 * 360;
+        return this.getRaw() / MAX_VOLTAGE * 360;
     }
 
     @Override

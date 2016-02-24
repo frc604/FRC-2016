@@ -12,17 +12,17 @@ import com._604robotics.robotnik.prefabs.devices.MA3A10;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
-    private final MA3A10 encoder = new MA3A10(Ports.FLIPPER_ENCODER);
-
-    private final Victor leftMotor = new Victor(Ports.FLIPPER_MOTOR_LEFT);
-    private final Victor rightMotor = new Victor(Ports.FLIPPER_MOTOR_RIGHT);
-
-    private final MultiOutput motors = new MultiOutput(new PIDOutput[] { leftMotor, rightMotor });
+    private final MA3A10 encoder = new MA3A10(Ports.PICKUP_ENCODER);
+    
+    private final Victor rightVictor = new Victor(Ports.PICKUP_MOTOR_RIGHT);
+    
+    private final MultiOutput motors = new MultiOutput(
+            rightVictor,
+            new Victor(Ports.PICKUP_MOTOR_LEFT));
 
     private final PIDController pid = new PIDController(
             Calibration.PICKUP_PID_P,
@@ -32,7 +32,8 @@ public class Pickup extends Module {
 
     public Pickup () {
         encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
-
+        pid.setOutputRange(Calibration.INTAKE_PID_MIN, Calibration.INTAKE_PID_MAX);
+        rightVictor.setInverted(true);
         SmartDashboard.putData("Pickup PID", pid);
 
         set(new DataMap() {{
@@ -43,7 +44,7 @@ public class Pickup extends Module {
             addDefault("Off", new Action() {
                 @Override
                 public void run (ActionData data) {
-                    motors.set(0);
+                    motors.stopMotor();
                 }
             });
 

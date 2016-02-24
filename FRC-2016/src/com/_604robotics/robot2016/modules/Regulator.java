@@ -8,7 +8,7 @@ import com._604robotics.robotnik.trigger.TriggerMap;
 import edu.wpi.first.wpilibj.Compressor;
 
 public class Regulator extends Module {
-    private final Compressor compressor = new Compressor(Ports.COMPRESSOR_PORT);
+    private final Compressor compressor = new Compressor(Ports.COMPRESSOR);
 
     public Regulator () {
         compressor.setClosedLoopControl(true);

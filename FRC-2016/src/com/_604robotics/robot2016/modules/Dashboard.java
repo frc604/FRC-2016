@@ -41,9 +41,9 @@ public class Dashboard extends Module {
 
             /* Pickup */
             {
-                //add("Pickup Down Angle", new DashboardData("Pickup Down Angle", Calibration.PICKUP_DOWN_ANGLE));
-                //add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", Calibration.PICKUP_MID_ANGLE));
-                //add("Pickup Up Angle", new DashboardData("Pickup Up Angle", Calibration.PICKUP_UP_ANGLE));
+                add("Pickup Down Angle", new DashboardData("Pickup Down Angle", Calibration.PICKUP_DOWN_ANGLE));
+                add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", Calibration.PICKUP_MID_ANGLE));
+                add("Pickup Up Angle", new DashboardData("Pickup Up Angle", Calibration.PICKUP_UP_ANGLE));
             }
         }});
     }
