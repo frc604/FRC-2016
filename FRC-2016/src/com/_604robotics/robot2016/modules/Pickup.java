@@ -17,8 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
     private final MA3A10 encoder = new MA3A10(Ports.PICKUP_ENCODER);
+    
+    private final Victor leftVictor = new Victor(Ports.PICKUP_MOTOR_LEFT);
+    
     private final MultiOutput motors = new MultiOutput(
-            new Victor(Ports.PICKUP_MOTOR_LEFT),
+            leftVictor,
             new Victor(Ports.PICKUP_MOTOR_RIGHT));
 
     private final PIDController pid = new PIDController(
@@ -29,7 +32,8 @@ public class Pickup extends Module {
 
     public Pickup () {
         encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
-
+        pid.setOutputRange(-Calibration.INTAKE_PID_MAX, Calibration.INTAKE_PID_MAX);
+        leftVictor.setInverted(true);
         SmartDashboard.putData("Pickup PID", pid);
 
         set(new DataMap() {{
