@@ -30,6 +30,10 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice visionOn = new DashboardTriggerChoice("Vision On");
             add("Vision On", visionOn.addDefault("Vision On"));
             add("Vision Off", visionOn.add("Vision Off"));
+            
+            final DashboardTriggerChoice debugOn = new DashboardTriggerChoice("Debug On");
+            add("Debug Off", debugOn.addDefault("Debug Off"));
+            add("Debug On", debugOn.add("Debug On"));
         }});
 
         this.set(new DataMap() {{
