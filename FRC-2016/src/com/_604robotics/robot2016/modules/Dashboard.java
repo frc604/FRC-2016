@@ -26,6 +26,10 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton On");
             add("Auton On", autonOn.addDefault("Auton On"));
             add("Auton Off", autonOn.add("Auton Off"));
+            
+            final DashboardTriggerChoice debugOn = new DashboardTriggerChoice("Debug On");
+            add("Debug Off", debugOn.addDefault("Debug Off"));
+            add("Debug On", debugOn.add("Debug On"));
         }});
 
         this.set(new DataMap() {{
