@@ -41,7 +41,7 @@ public class MA3A10 implements PIDSource {
      * @param zeroAngle Zero angle to set.
      */
     public void setZeroAngle (double zeroAngle) {
-        this.setZero(zeroAngle / 360 * 5);
+        this.setZero(zeroAngle / 360 * MAX_VOLTAGE);
     }
     
     /**
