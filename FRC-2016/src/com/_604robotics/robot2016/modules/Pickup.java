@@ -44,7 +44,7 @@ public class Pickup extends Module {
             addDefault("Off", new Action() {
                 @Override
                 public void run (ActionData data) {
-                    motors.set(0);
+                    motors.stopMotor();
                 }
             });
 
