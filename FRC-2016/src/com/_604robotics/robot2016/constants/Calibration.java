@@ -10,7 +10,7 @@ public final class Calibration {
     public static final Value SHIFTER_HIGH_GEAR = Value.kForward;
 
     /* Shooter Speed Constants */
-    public static final double SHOOTER_TARGET_SPEED = 50000;
+    public static final double SHOOTER_TARGET_SPEED = 30000;
     public static final double SHOOTER_SPEED_THRESHOLD = 2000;
     public static final double SHOOTER_MINIMUM_CHARGE_TIME = 0.5;
 
