@@ -8,13 +8,10 @@ import com._604robotics.robotnik.prefabs.outputs.DashboardOutput;
 
 public class DashboardSystem extends Coordinator {
     protected void apply (ModuleManager modules) {
-        /* Disable Drive via Dashboard */
-        {
-            this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
-        }
-
         /* Drive */
         {
+            this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
+            
             this.fill(new DataWire(DashboardOutput.asDouble(), "Left Drive Clicks",
                     modules.getModule("Drive").getData("Left Drive Clicks")));
             this.fill(new DataWire(DashboardOutput.asDouble(), "Right Drive Clicks",
