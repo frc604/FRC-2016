@@ -52,6 +52,11 @@ public class Vision extends Module
             }
         }
 
+        public boolean getRun()
+        {
+            return run;
+        }
+
         public void setRun(boolean run)
         {
             this.run = run;
@@ -66,9 +71,7 @@ public class Vision extends Module
     public Vision()
     {
         Timer shootTimer=new Timer();
-        GRIPrun.addTableListenerEx(runAction, NetworkTable.NOTIFY_UPDATE);
         BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
-        BoolFIFOPopQueue chargedstack=new BoolFIFOPopQueue(50,0.5);
 
         this.set(new TriggerMap()
         {{
