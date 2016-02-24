@@ -44,10 +44,12 @@ public class Shooter extends Module {
                 define("Threshold", Calibration.SHOOTER_SPEED_THRESHOLD);
                 define("Minimum Charge Time", Calibration.SHOOTER_MINIMUM_CHARGE_TIME);
             }}) {
+                @Override
                 public void begin (ActionData data) {
                     chargeTimer.start();
                 }
 
+                @Override
                 public void run (ActionData data) {
                     minChargeTime = data.get("Minimum Charge Time");
                     
@@ -62,10 +64,23 @@ public class Shooter extends Module {
                     }
                 }
 
+                @Override
                 public void end (ActionData data) {
                     chargeTimer.stop();
                     chargeTimer.reset();
 
+                    motors.stopMotor();
+                }
+            });
+            
+            add("Spit", new Action() {
+                @Override
+                public void run (ActionData data) {
+                    motors.set(1);
+                }
+
+                @Override
+                public void end (ActionData data) {
                     motors.stopMotor();
                 }
             });
