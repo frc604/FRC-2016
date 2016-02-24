@@ -1,17 +1,18 @@
 package com._604robotics.robotnik;
 
-import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.coordinator.ModeMap;
-import com._604robotics.robotnik.module.ModuleManager;
-import com._604robotics.robotnik.module.ModuleMap;
-import com._604robotics.robotnik.memory.IndexedTable;
 import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.logging.TimeSampler;
-import com._604robotics.robotnik.Safety;
+import com._604robotics.robotnik.memory.IndexedTable;
+import com._604robotics.robotnik.module.ModuleManager;
+import com._604robotics.robotnik.module.ModuleMap;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
+/**
+ * The base of robot code.
+ */
 public class Robot extends SampleRobot {
     private final IndexedTable table = IndexedTable.getTable("robotnik");
     private final TimeSampler loopTime = new TimeSampler("Loop", 1D);
@@ -21,7 +22,7 @@ public class Robot extends SampleRobot {
     private ModeMap modes = new ModeMap();
     
     private final Safety safety;
-    
+
     /**
      * Instantiates a new robot (with exception protection enabled by default).
      */
@@ -37,6 +38,8 @@ public class Robot extends SampleRobot {
      *               with safety disabled in competition.
      */
     public Robot (Safety safety) {
+        printBanner();
+
         this.safety = safety;
 
         if (safety.disabled()) {
@@ -71,31 +74,23 @@ public class Robot extends SampleRobot {
         this.modes = modeMap;
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#robotInit()
-     */
+    @Override
     public void robotInit () {
         this.systems.attach(this.modules);
         this.modes.attach(this.modules);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#autonomous()
-     */
+    @Override
     public void autonomous () {
         modeLoop(GameMode.AUTONOMOUS);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#operatorControl()
-     */
+    @Override
     public void operatorControl () {
         modeLoop(GameMode.TELEOP);
     }
     
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.SampleRobot#disabled()
-     */
+    @Override
     public void disabled () {
         modeLoop(GameMode.DISABLED);
     }
@@ -129,5 +124,42 @@ public class Robot extends SampleRobot {
         }
 
         Logger.log(" -- " + gameMode.prettyName() + " mode end.");
+    }
+    
+    private void printBanner () {
+        System.out.println(
+            "\n\n\n" +
+            "                       ..            .`\n" +
+            "                   .:oyhho.        .ohhy+:\n" +
+            "                 +yhhhhhhhhoossssoohhhhhhhhy/\n" +
+            "                 ohhhhhhhhhhhhhhhhhhhhhhhhhh+\n" +
+            "      :/.        :hhhhhhhhhhhhhhhhhhhhhhhhhh-        ./-\n" +
+            "       yhy+-    /hhhhhhhhhhhhhhhhhhhhhhhhhhhy:    -+yhs\n" +
+            "       .hhhhho:shhhhhy/.``./yhhhhy/.``./yhhhhho:ohhhhy`\n" +
+            "     `.-shhhhhhhhhhhh`      .hhhh`      .hhhhhhhhhhhho-.`\n" +
+            "  /shhhhhhhhhhhhhhhhy       `hhhy       `hhhhhhhhhhhhhhhhys/\n" +
+            "   ./yhhhhhhhhhhhhhhhs-    -shhhhs-    -shhhhhhhhhhhhhhhy/`\n" +
+            "      :hhhhhhhhhhhhhhhhhyyhhhhhhhhhhyyhhhhhhhhhhhhhhhhh:\n" +
+            "     /hhhhhhhhhhhhhhhhyyhyhhhhhhhhhhyhyyhhhhhhhhhhhhhhhy:\n" +
+            "   -yhhhyysshhh+  ho`  `ho:hhhhhhhh-sh   `sh  +hhhosyyhhhs-\n" +
+            " .  ``      shhy- h+   `ho .shhhhs. sh    oh -hhh+      ``.\n" +
+            "            :hhhhoh+   `ho   `ys`   sh    ohohhhh.\n" +
+            "             +hhhhhs`  `ho    ys    sh   .shhhhh:\n" +
+            "              +hhhhhhs/:ho    ys    sh-/shhhhhh/\n" +
+            "               :yhhhhhhhhhs+/:yy:/+shhhhhhhhhy-\n" +
+            "                `+hhhhhhhhhhhhhhhhhhhhhhhhhy/\n" +
+            "                  `:shhhhhhhhyyyhhhhhhhhho-\n" +
+            "                     `:+syhhh:  /hhhyo/-\n" +
+            "                          `.-`  `..\n" +
+            "\n" +
+            "                      _           _         _ _\n" +
+            "                     | |         | |       (_) |\n" +
+            "            _ __ ___ | |__   ___ | |_ _ __  _| | __\n" +
+            "           | '__/ _ \\| '_ \\ / _ \\| __| '_ \\| | |/ /\n" +
+            "           | | | (_) | |_) | (_) | |_| | | | |   <\n" +
+            "           |_|  \\___/|_.__/ \\___/ \\__|_| |_|_|_|\\_\\\n" +
+            "           framework\n" +
+            "\n\n"
+        );
     }
 }

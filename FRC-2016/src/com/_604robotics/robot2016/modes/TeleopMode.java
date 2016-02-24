@@ -7,79 +7,84 @@ import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
 import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
 import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
-import com._604robotics.robotnik.prefabs.trigger.TriggerOr;
 import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
-import com._604robotics.robotnik.trigger.TriggerAccess;
+import com._604robotics.robot2016.constants.Calibration;
+import com._604robotics.robot2016.constants.Ports;
 
 public class TeleopMode extends Coordinator {
-    private final XboxController driver = new XboxController(0);
-    private final XboxController manipulator = new XboxController(2);
-    
-    public TeleopMode () {
-        double deadband = 0.2;
-        double factor = -1;
-        
-        driver.leftStick.X.setDeadband(deadband);
-        driver.leftStick.Y.setDeadband(deadband);
-        
-        driver.leftStick.X.setFactor(factor);
-        driver.leftStick.Y.setFactor(factor);
-        
-        driver.rightStick.X.setDeadband(deadband);
-        driver.rightStick.Y.setDeadband(deadband);
-        
-        driver.rightStick.X.setFactor(factor);
-        driver.rightStick.Y.setFactor(factor);
-    }
-    
-    protected void apply (ModuleManager modules) {
-    	/* Driving */
-    	{
-    		this.bind(new Binding(modules.getModule("Drive").getAction("Off"), new TriggerAnd(new TriggerAccess[] {
-            			modules.getModule("Dashboard").getTrigger("Drive Off")})));
-    		
-    	    /* Tank Drive */
-    		{	
-	    		this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), new TriggerAnd(new TriggerAccess[] {
-	            		modules.getModule("Dashboard").getTrigger("Drive On"),
-	            		modules.getModule("Dashboard").getTrigger("Tank Drive")})));
-	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "left", driver.leftStick.Y));
-	            this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "right", driver.rightStick.Y));
-    		}
-    		
-    		/* Geared Drive */
-    		{
-        		this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), new TriggerAnd(new TriggerAccess[] {
-                		modules.getModule("Dashboard").getTrigger("Drive On"),
-                		modules.getModule("Dashboard").getTrigger("Geared Drive")})));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "left", driver.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "right", driver.rightStick.Y));
+    private final XboxController driver = new XboxController(Ports.DRIVER);
+    private final XboxController manipulator = new XboxController(Ports.MANIPULATOR);
 
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Low Gear", driver.buttons.LT));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left High Gear", driver.buttons.LB));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Low Gear", driver.buttons.RT));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right High Gear", driver.buttons.RB));
-        	}
-        	
+    public TeleopMode () {        
+        driver.leftStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
+        driver.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
+
+        driver.leftStick.X.setFactor(Calibration.TELEOP_FACTOR);
+        driver.leftStick.Y.setFactor(Calibration.TELEOP_FACTOR);
+
+        driver.rightStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
+        driver.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
+
+        driver.rightStick.X.setFactor(Calibration.TELEOP_FACTOR);
+        driver.rightStick.Y.setFactor(Calibration.TELEOP_FACTOR);
+
+        manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
+    }
+
+    @Override
+    protected void apply (ModuleManager modules) {
+        /* Driving */
+        {
+            /* Tank Drive */
+            {   
+                this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
+
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
+            }
+
+            /* Geared Drive */
+            {
+                this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), modules.getModule("Dashboard").getTrigger("Geared Drive")));
+
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Power", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Power", driver.rightStick.Y));
+
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Low Gear", driver.buttons.LB));
+            }
+
             /* Shifter */
-    		{
+            {
                 final TriggerToggle shift = new TriggerToggle(driver.buttons.RB, false);
                 this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
                 this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
-    		}
-    	}
-    	
-    	/* Manipulating */
-    	{
-        	/* Shooter */
-        	{
-        		this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), manipulator.buttons.RT));
-        	}
-        	// Intake
-        	{
-        		this.bind(new Binding(modules.getModule("Intake").getAction("Run")));
-        		this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "power", manipulator.rightStick.Y));
-        	}
-    	}
+            }
+        }
+
+        /* Manipulating */
+        {
+            /* Shooter */
+            {
+                this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), new TriggerAnd(
+                        manipulator.buttons.RT,
+                        new TriggerNot(modules.getModule("Pickup").getAction("Up").active()))));
+                
+                this.bind(new Binding(modules.getModule("Shooter").getAction("Spit"), new TriggerAnd(
+                        manipulator.buttons.LT,
+                        new TriggerNot(modules.getModule("Pickup").getAction("Up").active()))));
+            }
+
+            /* Intake */
+            {
+                this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
+            }
+
+            /* Pickup */
+            {
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Down"), manipulator.buttons.A));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Mid"), manipulator.buttons.X));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Up"), manipulator.buttons.Y));
+            }
+        }
     }
 }

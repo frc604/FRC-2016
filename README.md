@@ -55,3 +55,5 @@ This can happen for one of two reasons. If deploying works with one workspace bu
 - [ ] Continue to update troubleshooting instructions as necessary
 - [x] See if project can be added to existing workspace instead of new one: **Project must be added to new workspace.**
 - [ ] Possibly add instructions as to cloning first and importing the code in another workspace?
+
+![robotnik framework](https://i.imgur.com/XeIeDPc.png)
