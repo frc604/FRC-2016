@@ -39,6 +39,7 @@ public class DashboardSystem extends Coordinator {
 
             this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Target Speed", modules.getModule("Dashboard").getData("Shooter Target Speed")));
             this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
+            this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Minimum Charge Time", modules.getModule("Dashboard").getData("Shooter Minimum Charge Time")));
         }
 
         /* Pickup */
