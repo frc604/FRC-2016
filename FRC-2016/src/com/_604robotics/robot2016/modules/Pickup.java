@@ -32,7 +32,7 @@ public class Pickup extends Module {
 
     public Pickup () {
         encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
-        pid.setOutputRange(-Calibration.INTAKE_PID_MAX, Calibration.INTAKE_PID_MAX);
+        pid.setOutputRange(Calibration.INTAKE_PID_MIN, Calibration.INTAKE_PID_MAX);
         rightVictor.setInverted(true);
         SmartDashboard.putData("Pickup PID", pid);
 

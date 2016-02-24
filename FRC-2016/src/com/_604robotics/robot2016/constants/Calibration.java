@@ -32,6 +32,7 @@ public final class Calibration {
     public static final double PICKUP_PID_P = -0.016;
     public static final double PICKUP_PID_I = 0;
     public static final double PICKUP_PID_D = -0.016;
+    public static final double INTAKE_PID_MIN = -0.5;//not real
     public static final double INTAKE_PID_MAX = 0.5;//not real
 
     /* Pickup angles */
