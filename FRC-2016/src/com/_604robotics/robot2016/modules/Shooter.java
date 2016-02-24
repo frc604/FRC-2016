@@ -75,7 +75,7 @@ public class Shooter extends Module {
             
             add("Spit", new Action() {
                 @Override
-                public void run (ActionData data) {
+                public void begin (ActionData data) {
                     motors.set(1);
                 }
 
