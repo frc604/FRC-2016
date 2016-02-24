@@ -114,17 +114,9 @@ public class Drive extends Module {
                 define("Low Gear", false);
             }}) {
                 public void run (ActionData data) {
-                    double leftGear = 1;
-                    double rightGear = 1;
-
-                    if( data.is("Low Gear") )
-                    {
-                    	leftGear = 0.5;
-                    	rightGear = 0.5;
-                    }
-
-                    drive.tankDrive(data.get("Left Power") * leftGear,
-                                    data.get("Right Power") * rightGear);
+                    double gear = data.is("Low Gear") ? 0.5 : 1;
+                    drive.tankDrive(data.get("Left Power") * gear,
+                                    data.get("Right Power") * gear);
                 }
 
                 public void end (ActionData data) {
