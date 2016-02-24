@@ -24,6 +24,7 @@ public class Shooter extends Module {
     public Shooter () {
         set(new DataMap() {{
             add("Current Speed", encoder::getRate);
+            add("Current Charge Time", chargeTimer::get);
         }});
 
         set(new TriggerMap() {{
