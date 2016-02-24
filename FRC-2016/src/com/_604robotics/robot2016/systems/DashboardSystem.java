@@ -8,13 +8,10 @@ import com._604robotics.robotnik.prefabs.outputs.DashboardOutput;
 
 public class DashboardSystem extends Coordinator {
     protected void apply (ModuleManager modules) {
-        /* Disable Drive via Dashboard */
-        {
-            this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
-        }
-
         /* Drive */
         {
+            this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
+            
             this.fill(new DataWire(DashboardOutput.asDouble(), "Left Drive Clicks",
                     modules.getModule("Drive").getData("Left Drive Clicks")));
             this.fill(new DataWire(DashboardOutput.asDouble(), "Right Drive Clicks",
@@ -34,10 +31,12 @@ public class DashboardSystem extends Coordinator {
         /* Shooter */
         {
             this.fill(new DataWire(DashboardOutput.asDouble(), "Current Shooter Speed", modules.getModule("Shooter").getData("Current Speed")));
+            this.fill(new DataWire(DashboardOutput.asDouble(), "Current Charge Time", modules.getModule("Shooter").getData("Current Charge Time")));
             this.fill(new DataWire(DashboardOutput.asBoolean(), "Shooter Charged", modules.getModule("Shooter").getTrigger("Charged")));
 
             this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Target Speed", modules.getModule("Dashboard").getData("Shooter Target Speed")));
             this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
+            this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Minimum Charge Time", modules.getModule("Dashboard").getData("Shooter Minimum Charge Time")));
         }
 
         /* Pickup */
