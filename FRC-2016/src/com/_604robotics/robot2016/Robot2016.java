@@ -1,15 +1,15 @@
 package com._604robotics.robot2016;
 
-import com._604robotics.robot2016.systems.DashboardSystem;
 import com._604robotics.robot2016.modes.AutonomousMode;
 import com._604robotics.robot2016.modes.TeleopMode;
-import com._604robotics.robot2016.modules.Regulator;
-import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Dashboard;
+import com._604robotics.robot2016.modules.Drive;
+import com._604robotics.robot2016.modules.Intake;
 import com._604robotics.robot2016.modules.Pickup;
+import com._604robotics.robot2016.modules.Regulator;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
-import com._604robotics.robot2016.modules.Intake;
+import com._604robotics.robot2016.systems.DashboardSystem;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.coordinator.ModeMap;
