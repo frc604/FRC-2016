@@ -164,6 +164,7 @@ public class Vision extends Module
                         }
                         //Make previous ones current
                         wasCharged=isCharged;
+                        runAction.setRun(false);
                     }
                 };
                 public void end(ActionData data)
