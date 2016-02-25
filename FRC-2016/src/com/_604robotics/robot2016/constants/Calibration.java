@@ -53,5 +53,6 @@ public final class Calibration {
     public static final double VISION_LEFTMID = 160-15;
     /**Right threshold for goal center*/
     public static final double VISION_RIGHTMID = 160+15;
+    public static final double VISION_TIMER = 2;
     
 }

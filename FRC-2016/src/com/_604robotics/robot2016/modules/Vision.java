@@ -82,7 +82,8 @@ public class Vision extends Module
         this.set(new ElasticController()
         {{
             addDefault("VisionProcess", new Action(new FieldMap(){{
-                define("Charged",false);
+                define("Charged", false);
+                define("Vision Timer", 0);
             }})
             {
                 boolean wasCharged=false;
@@ -98,70 +99,73 @@ public class Vision extends Module
                 }
                 public void run(ActionData data)
                 {
-                    boolean addToReady=false;
-                    
-                    isCharged=data.is("Charged");
-
-                    //Grab latest data from GRIP
-                    double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
-                    double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
-                    double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
-                    double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
-                    //Make sure that new data has come in
-                    if (shootTimer.get()>3)
+                    if (runAction.getRun())
                     {
-                        //Ensure that only one goal is in view
-                        if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
-                                GRIPH_y1.length==2 && GRIPH_y2.length==2)
-                        {
-                            inview=true;
-                            
-                            //Flush queue if just shot
-                            if (wasCharged && !(isCharged))
-                            {
-                                readystack.flush();
-                                shootTimer.reset();
-                            }
-                            else
-                            {
-                                /*Min distance between lines
-                                 * Since the same elements are the max,
-                                 * No need to calculate diffs for these
-                                 */
-                                double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
-                                double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
-                                double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
-                                double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
-                                
-                                double maxHy1=ArrayMath.ArrayMax(GRIPH_y1);
-                                double maxHy2=ArrayMath.ArrayMax(GRIPH_y2);
+                        boolean addToReady=false;
 
-                                if (Math.min(x1Width, x2Width)>Calibration.VISION_DIST)
+                        isCharged=data.is("Charged");
+
+                        //Grab latest data from GRIP
+                        double[] GRIPV_x1=GRIPtableV.getNumberArray("x1", new double[0]);
+                        double[] GRIPV_x2=GRIPtableV.getNumberArray("x2", new double[0]);
+                        double[] GRIPH_y1=GRIPtableH.getNumberArray("y1", new double[0]);
+                        double[] GRIPH_y2=GRIPtableH.getNumberArray("y2", new double[0]);
+                        //Make sure that new data has come in
+                        if (shootTimer.get()>data.get("Vision Timer"))
+                        {
+                            //Ensure that only one goal is in view
+                            if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
+                                    GRIPH_y1.length==2 && GRIPH_y2.length==2)
+                            {
+                                inview=true;
+
+                                //Flush queue if just shot
+                                if (wasCharged && !(isCharged))
                                 {
-                                    if (Math.max(maxHy1,maxHy2)<Calibration.VISION_BOTTOM)
+                                    readystack.flush();
+                                    shootTimer.reset();
+                                }
+                                else
+                                {
+                                    /*Min distance between lines
+                                     * Since the same elements are the max,
+                                     * No need to calculate diffs for these
+                                     */
+                                    double x1Width = GRIPV_x1[2]-GRIPV_x1[1];
+                                    double x2Width = GRIPV_x2[2]-GRIPV_x2[1];
+                                    double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
+                                    double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
+
+                                    double maxHy1=ArrayMath.ArrayMax(GRIPH_y1);
+                                    double maxHy2=ArrayMath.ArrayMax(GRIPH_y2);
+
+                                    if (Math.min(x1Width, x2Width)>Calibration.VISION_DIST)
                                     {
-                                        if (Calibration.VISION_LEFTMID<x1Mid && x1Mid<Calibration.VISION_RIGHTMID &&
-                                                Calibration.VISION_LEFTMID<x2Mid && x2Mid<Calibration.VISION_RIGHTMID)
+                                        if (Math.max(maxHy1,maxHy2)<Calibration.VISION_BOTTOM)
                                         {
-                                            addToReady=true;
+                                            if (Calibration.VISION_LEFTMID<x1Mid && x1Mid<Calibration.VISION_RIGHTMID &&
+                                                    Calibration.VISION_LEFTMID<x2Mid && x2Mid<Calibration.VISION_RIGHTMID)
+                                            {
+                                                addToReady=true;
+                                            }
                                         }
                                     }
                                 }
                             }
+                            else
+                            {
+                                inview=false;
+                            }
+                            /*Update the stack
+                             * If the stack was just flushed, addToReady would be false
+                             * This would not introduce a true element there
+                             */
+                            readystack.add(addToReady);
+                            ready=readystack.passThreshold();
                         }
-                        else
-                        {
-                            inview=false;
-                        }
-                        /*Update the stack
-                         * If the stack was just flushed, addToReady would be false
-                         * This would not introduce a true element there
-                         */
-                        readystack.add(addToReady);
-                        ready=readystack.passThreshold();
+                        //Make previous ones current
+                        wasCharged=isCharged;
                     }
-                    //Make previous ones current
-                    wasCharged=isCharged;
                 };
                 public void end(ActionData data)
                 {

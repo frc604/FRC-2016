@@ -50,6 +50,11 @@ public class Dashboard extends Module {
                 add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", Calibration.PICKUP_MID_ANGLE));
                 add("Pickup Up Angle", new DashboardData("Pickup Up Angle", Calibration.PICKUP_UP_ANGLE));
             }
+            
+            /* Vision */
+            {
+                add ("Vision Timer reset", new DashboardData("Vision Timer", Calibration.VISION_TIMER));
+            }
         }});
     }
 }
