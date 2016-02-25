@@ -1,19 +1,18 @@
 package com._604robotics.robot2016.modules;
 
+import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.TriggerMap;
-import com._604robotics.robot2016.constants.Calibration;
-import com._604robotics.utils.*;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import com._604robotics.utils.ArrayMath;
+import com._604robotics.utils.BoolFIFOPopQueue;
+
 import edu.wpi.first.wpilibj.Timer;
-
-import java.lang.Math;
-
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 
