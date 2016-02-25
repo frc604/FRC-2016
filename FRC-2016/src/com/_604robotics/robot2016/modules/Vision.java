@@ -5,7 +5,6 @@ import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.module.Module;
-import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
 import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.utils.*;
@@ -134,23 +133,8 @@ public class Vision extends Module
                                 double x1Mid=(GRIPV_x1[2]+GRIPV_x1[1])/2;
                                 double x2Mid=(GRIPV_x2[2]+GRIPV_x2[1])/2;
                                 
-                                double maxHy1=Double.NEGATIVE_INFINITY;
-                                double maxHy2=Double.NEGATIVE_INFINITY;
-                                
-                                for (double element:GRIPH_y1)
-                                {
-                                    if (element>maxHy1)
-                                    {
-                                        maxHy1=element;
-                                    }
-                                }
-                                for (double element:GRIPH_y2)
-                                {
-                                    if (element>maxHy2)
-                                    {
-                                        maxHy2=element;
-                                    }
-                                }
+                                double maxHy1=ArrayMath.ArrayMax(GRIPH_y1);
+                                double maxHy2=ArrayMath.ArrayMax(GRIPH_y2);
 
                                 if (Math.min(x1Width, x2Width)>Calibration.VISION_DIST)
                                 {
