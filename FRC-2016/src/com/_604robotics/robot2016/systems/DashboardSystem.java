@@ -54,6 +54,8 @@ public class DashboardSystem extends Coordinator {
                     modules.getModule("Vision").getTrigger("On Target")));
             this.fill(new DataWire(DashboardOutput.asBoolean(), "In view",
                     modules.getModule("Vision").getTrigger("In View")));
+            this.fill(new DataWire(DashboardOutput.asDouble(), "Ready Fraction",
+                    modules.getModule("Vision").getData("ChargedFraction")));
         }
     }
 }

@@ -5,9 +5,9 @@ import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
+import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.TriggerMap;
-
 import com._604robotics.utils.ArrayMath;
 import com._604robotics.utils.BoolFIFOPopQueue;
 
@@ -21,6 +21,9 @@ public class Vision extends Module
     NetworkTable GRIPtableH=NetworkTable.getTable("GRIP/HorizontalGoal");
     NetworkTable GRIPtableV=NetworkTable.getTable("GRIP/VerticalGoal");
     NetworkTable GRIPrun=NetworkTable.getTable("GRIP");
+    
+    private final BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
+    private final Timer shootTimer=new Timer();
     
     private class GRIPupdate implements ITableListener
     {
@@ -68,14 +71,17 @@ public class Vision extends Module
 
     public Vision()
     {
-        Timer shootTimer=new Timer();
         GRIPrun.addTableListenerEx(runAction, NetworkTable.NOTIFY_UPDATE);
-        BoolFIFOPopQueue readystack=new BoolFIFOPopQueue(10,0.7);
 
         this.set(new TriggerMap()
         {{
             add("On Target", () -> ready);
             add("In View", () -> inview);
+        }});
+        
+        this.set(new DataMap()
+        {{
+            add("ChargedFraction", readystack::currentFraction);
         }});
         
         this.set(new ElasticController()
