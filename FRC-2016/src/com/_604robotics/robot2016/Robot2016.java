@@ -27,24 +27,6 @@ public class Robot2016 extends Robot
     public Robot2016()
     {
         //Initialize GRIP Instance
-        /*try
-        {
-            Process GRIPProcess = Runtime.getRuntime().exec(new String[]
-                    {"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", "project.grip"});
-            Thread closeGRIP = new Thread()
-            {
-                public void run()
-                {
-                    GRIPProcess.destroy();
-                }
-            };
-            Runtime.getRuntime().addShutdownHook(closeGRIP);
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }*/
         boolean startGRIP=true;
         
         if (startGRIP)
@@ -54,14 +36,6 @@ public class Robot2016 extends Robot
             {
                 Process GRIPProcess=new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
                 Logger.log("GRIP started successfully");
-                Thread closeGRIP = new Thread()
-                {
-                    public void run()
-                    {
-                        GRIPProcess.destroy();
-                    }
-                };
-                Runtime.getRuntime().addShutdownHook(closeGRIP);
             }
             catch (IOException e)
             {
