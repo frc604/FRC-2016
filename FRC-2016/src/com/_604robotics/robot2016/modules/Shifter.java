@@ -15,12 +15,14 @@ public class Shifter extends Module {
     public Shifter() {
         this.set(new ElasticController() {{
             addDefault("Low Gear", new Action() {
+                @Override
                 public void begin (ActionData data) {
                     solenoid.set(Calibration.SHIFTER_LOW_GEAR);
                 }
             });
 
             add("High Gear", new Action() {
+                @Override
                 public void begin (ActionData data) {
                     solenoid.set(Calibration.SHIFTER_HIGH_GEAR);
                 }

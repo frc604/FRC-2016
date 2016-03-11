@@ -1,7 +1,5 @@
 package com._604robotics.robot2016;
 
-import java.io.IOException;
-
 import com._604robotics.robot2016.modes.AutonomousMode;
 import com._604robotics.robot2016.modes.TeleopMode;
 import com._604robotics.robot2016.modules.Dashboard;
@@ -20,6 +18,8 @@ import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.module.ModuleMap;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
+import java.io.IOException;
 
 public class Robot2016 extends Robot
 {
