@@ -36,13 +36,24 @@ public class PIDActionRamp extends Action {
     public void run (ActionData data) {
         final double currentSetpoint = data.get("Setpoint");
         if (pid.getSetpoint() != currentSetpoint) {
-            if(pid.getSetpoint() > currentSetpoint)
+            if(Math.abs(pid.getSetpoint()-currentSetpoint)<Calibration.INCREMENT)
             {
-            	pid.setSetpoint(pid.getSetpoint() - Calibration.INCREMENT);
+                pid.setSetpoint(currentSetpoint);
             }
-            if(pid.getSetpoint() < currentSetpoint)
+            else
             {
-            	pid.setSetpoint(pid.getSetpoint() + Calibration.INCREMENT);
+                if(pid.getSetpoint() > currentSetpoint)
+                {
+                    pid.setSetpoint(pid.getSetpoint() - Calibration.INCREMENT);
+                }
+                else if(pid.getSetpoint() < currentSetpoint)
+                {
+                    pid.setSetpoint(pid.getSetpoint() + Calibration.INCREMENT);
+                }
+                else
+                {
+                    
+                }
             }
         }
     }
