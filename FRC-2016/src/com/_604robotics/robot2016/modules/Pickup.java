@@ -6,6 +6,7 @@ import com._604robotics.robotnik.action.controllers.StateController;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.actions.PIDAction;
+import com._604robotics.robotnik.prefabs.actions.PIDActionRamp;
 import com._604robotics.robotnik.prefabs.devices.MA3A10;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
@@ -40,9 +41,9 @@ public class Pickup extends Module {
 
         
         set(new StateController() {{
-            add("Down", new PIDAction(pid, Calibration.PICKUP_DOWN_ANGLE));
-            add("Mid", new PIDAction(pid, Calibration.PICKUP_MID_ANGLE));
-            addDefault("Up", new PIDAction(pid, Calibration.PICKUP_UP_ANGLE));
+            add("Down", new PIDActionRamp(pid, Calibration.PICKUP_DOWN_ANGLE));
+            add("Mid", new PIDActionRamp(pid, Calibration.PICKUP_MID_ANGLE));
+            addDefault("Up", new PIDActionRamp(pid, Calibration.PICKUP_UP_ANGLE));
         }});
         
     }
