@@ -45,13 +45,9 @@ public final class Calibration {
     public static final double TELEOP_FACTOR = -1;
     
     /* Vision constants */
-    /**Minimum distance between goal sides*/
-    public static final double VISION_DIST = 35;
-    /**Min height of goal, in pixels from top*/
-    public static final double VISION_BOTTOM = 100;
-    /**Left threshold for goal center*/
+    public static final double VISION_DIST = 25;
+    public static final double VISION_BOTTOM = 60;
     public static final double VISION_LEFTMID = 160-15;
-    /**Right threshold for goal center*/
     public static final double VISION_RIGHTMID = 160+15;
     public static final double VISION_TIMER = 2;
     
