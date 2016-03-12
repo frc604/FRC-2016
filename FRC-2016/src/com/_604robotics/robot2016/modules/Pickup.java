@@ -38,10 +38,12 @@ public class Pickup extends Module {
             add("Pickup Angle", encoder::getAngle);
         }});
 
+        
         set(new StateController() {{
             add("Down", new PIDAction(pid, Calibration.PICKUP_DOWN_ANGLE));
             add("Mid", new PIDAction(pid, Calibration.PICKUP_MID_ANGLE));
             addDefault("Up", new PIDAction(pid, Calibration.PICKUP_UP_ANGLE));
         }});
+        
     }
 }

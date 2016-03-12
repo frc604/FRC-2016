@@ -44,4 +44,8 @@ public final class Calibration {
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;
     public static final double TELEOP_FACTOR = -1;
+    
+    // PIDActionRamp Ramp Speed
+    public static final double INCREMENT = 0.1;
+    
 }
