@@ -88,7 +88,7 @@ public class Vision extends Module
         {{
             addDefault("VisionProcess", new Action(new FieldMap(){{
                 define("Charged", false);
-                define("Vision Timer", 0);
+                define("Vision Timer", Calibration.VISION_TIMER);
             }})
             {
                 boolean wasCharged=false;
