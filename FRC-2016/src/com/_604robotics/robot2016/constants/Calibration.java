@@ -51,6 +51,6 @@ public final class Calibration {
     public static final double VISION_RIGHTMID = 160+15;
     public static final double VISION_TIMER = 2;
     
-    // PIDActionRamp Ramp Speed
+    /* PIDActionRamp Ramp Speed */
     public static final double INCREMENT = 0.1;
 }
