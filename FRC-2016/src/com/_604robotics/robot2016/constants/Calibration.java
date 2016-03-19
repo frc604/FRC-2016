@@ -45,11 +45,11 @@ public final class Calibration {
     public static final double TELEOP_FACTOR = -1;
     
     /* Vision constants */
-    public static final double VISION_DIST = 25;
-    public static final double VISION_BOTTOM = 60;
+    public static final double VISION_DIST = 22;
+    public static final double VISION_BOTTOM = 68;
     public static final double VISION_LEFTMID = 160-15;
     public static final double VISION_RIGHTMID = 160+15;
-    public static final double VISION_TIMER = 2;
+    public static final double VISION_TIMER = 1;
     
     /* PIDActionRamp Ramp Speed */
     public static final double INCREMENT = 0.1;
