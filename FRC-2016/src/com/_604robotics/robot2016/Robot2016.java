@@ -7,6 +7,7 @@ import com._604robotics.robot2016.modules.Drive;
 import com._604robotics.robot2016.modules.Intake;
 import com._604robotics.robot2016.modules.Pickup;
 import com._604robotics.robot2016.modules.Regulator;
+import com._604robotics.robot2016.modules.ResetPickup;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
 import com._604robotics.robot2016.systems.DashboardSystem;
@@ -27,6 +28,7 @@ public class Robot2016 extends Robot {
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
             add("Pickup", new Pickup());
+            add("ResetPickup", new ResetPickup());
             add("Shifter", new Shifter());
             add("Intake", new Intake());
             add("Shooter", new Shooter());
