@@ -46,14 +46,11 @@ public class PIDActionRamp extends Action {
                 {
                     pid.setSetpoint(pid.getSetpoint() - Calibration.INCREMENT);
                 }
-                else if(pid.getSetpoint() < currentSetpoint)
+                else //(pid.getSetpoint() < currentSetpoint)
                 {
                     pid.setSetpoint(pid.getSetpoint() + Calibration.INCREMENT);
                 }
-                else
-                {
-                    
-                }
+                // No need to check for equality since that is handled by 39-42
             }
         }
     }
