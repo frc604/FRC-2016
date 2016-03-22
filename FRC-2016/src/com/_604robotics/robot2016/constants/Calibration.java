@@ -47,8 +47,8 @@ public final class Calibration {
     /* Vision constants */
     public static final double VISION_DIST = 22;
     public static final double VISION_BOTTOM = 68;
-    public static final double VISION_LEFTMID = 160-15;
-    public static final double VISION_RIGHTMID = 160+15;
+    public static final double VISION_LEFTMID = 160-8;
+    public static final double VISION_RIGHTMID = 160+8;
     public static final double VISION_TIMER = 1;
     
     /* PIDActionRamp Ramp Speed */
