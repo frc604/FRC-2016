@@ -25,7 +25,7 @@ public class MA3A10 implements PIDSource {
      * Sets the zero of the encoder to its current value.
      */
     public void setZero () {
-        this.setZero(this.getRaw());
+        this.setZero(this.getVoltage());
     }
     
     /**
@@ -45,11 +45,19 @@ public class MA3A10 implements PIDSource {
     }
     
     /**
-     * Gets the raw value of the encoder.
-     * @return The raw value of the encoder.
+     * Gets the (raw, non-zeroed) voltage value of the encoder.
+     * @return The (raw, non-zeroed) voltage value of the encoder.
      */
-    public double getRaw () {
-        double voltage = this.input.getVoltage() - this.zero;
+    public double getRawVoltage () {
+        return this.input.getVoltage();
+    }
+    
+    /**
+     * Gets the (zeroed) voltage value of the encoder.
+     * @return The (zeroed) voltage value of the encoder.
+     */
+    public double getVoltage () {
+        double voltage = this.getRawVoltage() - this.zero;
         if (voltage < 0) {
             voltage += MAX_VOLTAGE;
         }
@@ -57,11 +65,19 @@ public class MA3A10 implements PIDSource {
     }
     
     /**
-     * Gets the angle of the encoder.
-     * @return The angle of the encoder.
+     * Gets the (zeroed) angle of the encoder.
+     * @return The (zeroed) angle of the encoder.
      */
     public double getAngle () {
-        return this.getRaw() / MAX_VOLTAGE * 360;
+        return this.getVoltage() / MAX_VOLTAGE * 360;
+    }
+    
+    /**
+     * Gets the (raw, non-zeroed) angle value of the encoder.
+     * @return The (raw, non-zeroed) angle of the encoder.
+     */
+    public double getRawAngle () {
+        return this.getRawVoltage() / MAX_VOLTAGE * 360;
     }
 
     @Override

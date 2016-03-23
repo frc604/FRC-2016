@@ -12,6 +12,7 @@ import com._604robotics.robotnik.prefabs.devices.MA3A10;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -49,12 +50,45 @@ public class Pickup extends Module {
         }});
 
         set(new ElasticController() {{
-            addDefault("Idle", new Action() {
+            addDefault("Manual", new Action(new FieldMap() {{
+                define("Power", 0D);
+                define("Reset Encoder", false);
+                define("Deploy Angle", Calibration.PICKUP_DEPLOY_ANGLE);
+            }}) {
+                private final Timer resetTimer = new Timer();
+                
+                @Override
+                public void begin (ActionData data) {
+                    resetTimer.start();
+                }
+
                 @Override
                 public void run (ActionData data) {
+                    if (!data.is("Reset Encoder")) {
+                        resetTimer.reset();
+                    }
+
+                    if (resetTimer.get() > Calibration.PICKUP_RESET_TIME) {
+                        // To reset, the driver manually positions the pickup at
+                        // the Deploy position and holds down the reset button.
+                        // Therefore, our zero angle should be set such that the
+                        // current pickup position would produce the correct
+                        // angle the Deploy position.
+                        encoder.setZeroAngle(encoder.getRawAngle() - data.get("Deploy Angle"));
+                    }
+
+                    // TODO: Instead of stopMotor, make this set the motor power to the current value of the "Power" field.
+                    // TODO: Hook up the "Power" field to the right manipulator joystick Y value in Teleop Mode.
                     motors.stopMotor();
                 }
+                
+                @Override
+                public void end (ActionData data) {
+                    resetTimer.stop();
+                    resetTimer.reset();
+                }
             });
+
             add("Stow", new AngleAction(pidStow, Calibration.PICKUP_STOW_ANGLE, Calibration.PICKUP_STOW_TOLERANCE));
             add("Deploy", new AngleAction(pidDeploy, Calibration.PICKUP_DEPLOY_ANGLE, Calibration.PICKUP_DEPLOY_TOLERANCE));
         }});

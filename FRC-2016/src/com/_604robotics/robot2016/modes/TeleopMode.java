@@ -29,6 +29,7 @@ public class TeleopMode extends Coordinator {
         driver.rightStick.Y.setFactor(Calibration.TELEOP_FACTOR);
 
         manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
+        manipulator.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
     }
 
     @Override
@@ -70,10 +71,11 @@ public class TeleopMode extends Coordinator {
 
             /* Pickup */
             {
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"), manipulator.buttons.X));
+                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.RB));
+
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
-                
-                this.bind(new Binding(modules.getModule("ResetPickup").getAction("ResetEncoder"), manipulator.buttons.RB));
             }
         }
     }

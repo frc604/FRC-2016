@@ -28,17 +28,18 @@ public final class Calibration {
     public static final double DRIVE_RIGHT_PID_MAX = 0.6;
     public static final double DRIVE_RIGHT_PID_TOLERANCE = 20;
 
-    /* Pickup PID Constants */
+    /* Pickup Constants */
+    public static final double PICKUP_RESET_TIME = 2;
     public static final double PICKUP_PID_MIN = -0.5;//not real
     public static final double PICKUP_PID_MAX = 0.5;//not real
     
-    /* Pickup Stow PID Constants */
+    /* Pickup Stow Constants */
     public static final double PICKUP_STOW_TOLERANCE = 5;//not yet calibrated
     public static final double PICKUP_STOW_PID_P = -0.016;
     public static final double PICKUP_STOW_PID_I = 0;
     public static final double PICKUP_STOW_PID_D = -0.016;
 
-    /* Pickup PID Constants Down */
+    /* Pickup Deploy Constants */
     public static final double PICKUP_DEPLOY_TOLERANCE = 5;//not yet calibrated
     public static final double PICKUP_DEPLOY_PID_P = -0.016;
     public static final double PICKUP_DEPLOY_PID_I = 0;
