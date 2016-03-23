@@ -73,7 +73,7 @@ public class Pickup extends Module {
                         // the Deploy position and holds down the reset button.
                         // Therefore, our zero angle should be set such that the
                         // current pickup position would produce the correct
-                        // angle the Deploy position.
+                        // angle for the Deploy position.
                         encoder.setZeroAngle(encoder.getRawAngle() - data.get("Deploy Angle"));
                     }
 
