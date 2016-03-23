@@ -29,23 +29,27 @@ public final class Calibration {
     public static final double DRIVE_RIGHT_PID_TOLERANCE = 20;
 
     /* Pickup PID Constants */
-    public static final double PICKUP_PID_P = -0.016;
-    public static final double PICKUP_PID_I = 0;
-    public static final double PICKUP_PID_D = -0.016;
-    public static final double INTAKE_PID_MIN = -0.5;//not real
-    public static final double INTAKE_PID_MAX = 0.5;//not real
+    public static final double PICKUP_PID_MIN = -0.5;//not real
+    public static final double PICKUP_PID_MAX = 0.5;//not real
+    
+    /* Pickup Stow PID Constants */
+    public static final double PICKUP_STOW_TOLERANCE = 5;//not yet calibrated
+    public static final double PICKUP_STOW_PID_P = -0.016;
+    public static final double PICKUP_STOW_PID_I = 0;
+    public static final double PICKUP_STOW_PID_D = -0.016;
+
+    /* Pickup PID Constants Down */
+    public static final double PICKUP_DEPLOY_TOLERANCE = 5;//not yet calibrated
+    public static final double PICKUP_DEPLOY_PID_P = -0.016;
+    public static final double PICKUP_DEPLOY_PID_I = 0;
+    public static final double PICKUP_DEPLOY_PID_D = -0.016;
 
     /* Pickup Angles */
-    public static final double PICKUP_ZERO_ANGLE = 100;
-    public static final double PICKUP_DOWN_ANGLE = 7;
-    public static final double PICKUP_MID_ANGLE = 56 ;
-    public static final double PICKUP_UP_ANGLE = 121;
+    public static final double PICKUP_ZERO_ANGLE = 0;
+    public static final double PICKUP_STOW_ANGLE = 7;
+    public static final double PICKUP_DEPLOY_ANGLE = 121;
     
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;
     public static final double TELEOP_FACTOR = -1;
-    
-    /* PIDActionRamp Ramp Speed */
-    public static final double INCREMENT = 0.1;
-    
 }
