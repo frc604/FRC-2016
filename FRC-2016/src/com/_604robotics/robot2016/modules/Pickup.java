@@ -79,7 +79,8 @@ public class Pickup extends Module {
 
                     // TODO: Instead of stopMotor, make this set the motor power to the current value of the "Power" field.
                     // TODO: Hook up the "Power" field to the right manipulator joystick Y value in Teleop Mode.
-                    motors.stopMotor();
+                    //motors.stopMotor();
+                    motors.set(data.get("Power"));
                 }
                 
                 @Override
