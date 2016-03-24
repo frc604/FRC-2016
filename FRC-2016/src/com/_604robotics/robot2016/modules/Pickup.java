@@ -14,18 +14,16 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
-    private final CANTalon talon = new CANTalon(0);
-
     private final PIDController pidStow = new PIDController(
             Calibration.PICKUP_STOW_PID_P,
             Calibration.PICKUP_STOW_PID_I,
             Calibration.PICKUP_STOW_PID_D,
-            talon, talon);
+            ???, ???);
     private final PIDController pidDeploy = new PIDController(
             Calibration.PICKUP_DEPLOY_PID_P,
             Calibration.PICKUP_DEPLOY_PID_I,
             Calibration.PICKUP_DEPLOY_PID_D,
-            talon, talon);
+            ???, ???);
     
     public Pickup () {
         pidStow.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
@@ -35,7 +33,7 @@ public class Pickup extends Module {
         SmartDashboard.putData("Pickup Deploy PID", pidDeploy);
         
         set(new DataMap() {{
-            add("Pickup Angle", talon::pidGet);
+            add("Pickup Angle", ???);
         }});
 
         set(new ElasticController() {{
@@ -61,7 +59,7 @@ public class Pickup extends Module {
                         // TODO: Fix for CANTalon.
                     }
 
-                    talon.set(data.get("Power"));
+                    ???.set(data.get("Power"));
                 }
                 
                 @Override
@@ -107,7 +105,7 @@ public class Pickup extends Module {
                 if (pid.isEnabled()) {
                     pid.disable();
                 }
-                talon.set(0);
+                ???.set(0);
             } else if(!pid.isEnabled()) {
                 pid.enable();
             }
