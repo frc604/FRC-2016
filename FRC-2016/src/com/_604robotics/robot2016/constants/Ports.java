@@ -28,7 +28,7 @@ public final class Ports {
     public static final int DRIVE_REAR_LEFT_MOTOR = 9;
     
     /* Analog Input */
-    public static final int PICKUP_ENCODER = 0;
+    public static final int PICKUP_ENCODER = 2;
     
     /* Solenoids */
     public static final int SHIFTER_SOLENOID_FORWARD = 4;
