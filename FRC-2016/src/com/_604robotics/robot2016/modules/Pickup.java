@@ -11,42 +11,35 @@ import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.AS5145B;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
-    private final AS5145B encoder = new AS5145B(Ports.PICKUP_ENCODER);
-    
-    private final Victor leftVictor = new Victor(Ports.PICKUP_MOTOR_LEFT);
-    private final Victor rightVictor = new Victor(Ports.PICKUP_MOTOR_RIGHT);
-    
-    private final MultiOutput motors = new MultiOutput(leftVictor, rightVictor);
+    private final CANTalon talon = new CANTalon(0);
 
     private final PIDController pidStow = new PIDController(
             Calibration.PICKUP_STOW_PID_P,
             Calibration.PICKUP_STOW_PID_I,
             Calibration.PICKUP_STOW_PID_D,
-            encoder, motors);
+            talon, talon);
     private final PIDController pidDeploy = new PIDController(
             Calibration.PICKUP_DEPLOY_PID_P,
             Calibration.PICKUP_DEPLOY_PID_I,
             Calibration.PICKUP_DEPLOY_PID_D,
-            encoder, motors);
+            talon, talon);
     
     public Pickup () {
-        encoder.setZeroAngle(Calibration.PICKUP_ZERO_ANGLE);
-        rightVictor.setInverted(true);
-
         pidStow.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
         pidDeploy.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
         
-        SmartDashboard.putData("Pickup PID Up", pidStow);
-        SmartDashboard.putData("Pickup PID Down", pidDeploy);
+        SmartDashboard.putData("Pickup Stow PID", pidStow);
+        SmartDashboard.putData("Pickup Deploy PID", pidDeploy);
         
         set(new DataMap() {{
-            add("Pickup Angle", encoder::getAngle);
+            add("Pickup Angle", talon::pidGet);
         }});
 
         set(new ElasticController() {{
@@ -69,18 +62,10 @@ public class Pickup extends Module {
                     }
 
                     if (resetTimer.get() > Calibration.PICKUP_RESET_TIME) {
-                        // To reset, the driver manually positions the pickup at
-                        // the Deploy position and holds down the reset button.
-                        // Therefore, our zero angle should be set such that the
-                        // current pickup position would produce the correct
-                        // angle for the Deploy position.
-                        encoder.setZeroAngle(encoder.getRawAngle() - data.get("Deploy Angle"));
+                        // TODO: Fix for CANTalon.
                     }
 
-                    // TODO: Instead of stopMotor, make this set the motor power to the current value of the "Power" field.
-                    // TODO: Hook up the "Power" field to the right manipulator joystick Y value in Teleop Mode.
-                    //motors.stopMotor();
-                    motors.set(data.get("Power"));
+                    talon.set(data.get("Power"));
                 }
                 
                 @Override
@@ -126,7 +111,7 @@ public class Pickup extends Module {
                 if (pid.isEnabled()) {
                     pid.disable();
                 }
-                motors.stopMotor();
+                talon.set(0);
             } else if(!pid.isEnabled()) {
                 pid.enable();
             }
