@@ -8,7 +8,7 @@ import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
-import com._604robotics.robotnik.prefabs.devices.MA3A10;
+import com._604robotics.robotnik.prefabs.devices.AS5145B;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
-    private final MA3A10 encoder = new MA3A10(Ports.PICKUP_ENCODER);
+    private final AS5145B encoder = new AS5145B(Ports.PICKUP_ENCODER);
     
     private final Victor leftVictor = new Victor(Ports.PICKUP_MOTOR_LEFT);
     private final Victor rightVictor = new Victor(Ports.PICKUP_MOTOR_RIGHT);
