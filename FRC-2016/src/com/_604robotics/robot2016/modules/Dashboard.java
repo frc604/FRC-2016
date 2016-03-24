@@ -46,9 +46,11 @@ public class Dashboard extends Module {
 
             /* Pickup */
             {
-                add("Pickup Down Angle", new DashboardData("Pickup Down Angle", Calibration.PICKUP_DOWN_ANGLE));
-                add("Pickup Mid Angle", new DashboardData("Pickup Mid Angle", Calibration.PICKUP_MID_ANGLE));
-                add("Pickup Up Angle", new DashboardData("Pickup Up Angle", Calibration.PICKUP_UP_ANGLE));
+                add("Pickup Stow Angle", new DashboardData("Pickup Stow Angle", Calibration.PICKUP_STOW_ANGLE));
+                add("Pickup Deploy Angle", new DashboardData("Pickup Deploy Angle", Calibration.PICKUP_DEPLOY_ANGLE));
+
+                add("Pickup Stow Tolerance", new DashboardData("Pickup Stow Tolerance", Calibration.PICKUP_STOW_TOLERANCE));
+                add("Pickup Deploy Tolerance", new DashboardData("Pickup Deploy Tolerance", Calibration.PICKUP_DEPLOY_TOLERANCE));
             }
             
             /* Vision */
