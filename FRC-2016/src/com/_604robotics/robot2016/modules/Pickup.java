@@ -64,7 +64,7 @@ public class Pickup extends Module {
                         encoder.setZero();
                     }
 
-                    talon.set(data.get("Power"));
+                    talon.set(data.get("Power")*Calibration.PICKUP_POWER_COEFF);
                 }
                 
                 @Override
