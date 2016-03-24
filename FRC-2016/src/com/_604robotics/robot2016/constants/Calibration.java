@@ -45,8 +45,7 @@ public final class Calibration {
     public static final double PICKUP_DEPLOY_PID_D = -0.016;
 
     /* Pickup Angles */
-    public static final double PICKUP_ZERO_ANGLE = 0;
-    public static final double PICKUP_STOW_ANGLE = 7;
+    public static final double PICKUP_STOW_ANGLE = 0;
     public static final double PICKUP_DEPLOY_ANGLE = 121;
     
     /* Teleop Xbox Controller Constants */
