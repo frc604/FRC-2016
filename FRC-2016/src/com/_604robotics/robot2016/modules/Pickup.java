@@ -1,12 +1,14 @@
 package com._604robotics.robot2016.modules;
 
 import com._604robotics.robot2016.constants.Calibration;
+import com._604robotics.robot2016.constants.Ports;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
+import com._604robotics.robotnik.prefabs.devices.ResettablePIDSource;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -14,16 +16,19 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Pickup extends Module {
+    private final CANTalon talon = new CANTalon(Ports.PICKUP_TALON_ID);
+    private final ResettablePIDSource encoder = new ResettablePIDSource(talon);
+    
     private final PIDController pidStow = new PIDController(
             Calibration.PICKUP_STOW_PID_P,
             Calibration.PICKUP_STOW_PID_I,
             Calibration.PICKUP_STOW_PID_D,
-            ???, ???);
+            encoder, talon);
     private final PIDController pidDeploy = new PIDController(
             Calibration.PICKUP_DEPLOY_PID_P,
             Calibration.PICKUP_DEPLOY_PID_I,
             Calibration.PICKUP_DEPLOY_PID_D,
-            ???, ???);
+            encoder, talon);
     
     public Pickup () {
         pidStow.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
@@ -33,7 +38,7 @@ public class Pickup extends Module {
         SmartDashboard.putData("Pickup Deploy PID", pidDeploy);
         
         set(new DataMap() {{
-            add("Pickup Angle", ???);
+            add("Pickup Angle", encoder::get);
         }});
 
         set(new ElasticController() {{
@@ -56,10 +61,10 @@ public class Pickup extends Module {
                     }
 
                     if (resetTimer.get() > Calibration.PICKUP_RESET_TIME) {
-                        // TODO: Fix for CANTalon.
+                        encoder.setZero();
                     }
 
-                    ???.set(data.get("Power"));
+                    talon.set(data.get("Power"));
                 }
                 
                 @Override
@@ -105,7 +110,7 @@ public class Pickup extends Module {
                 if (pid.isEnabled()) {
                     pid.disable();
                 }
-                ???.set(0);
+                talon.set(0);
             } else if(!pid.isEnabled()) {
                 pid.enable();
             }
