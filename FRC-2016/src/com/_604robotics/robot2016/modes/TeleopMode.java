@@ -72,15 +72,11 @@ public class TeleopMode extends Coordinator {
             /* Pickup */
             {
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"), manipulator.buttons.X));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"), manipulator.buttons.RightStick));
                 this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.RB));
 
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
-                
-                /* Reset PID */
-                
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"),manipulator.buttons.RightStick));
-                
             }
         }
     }
