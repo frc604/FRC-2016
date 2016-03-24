@@ -98,40 +98,18 @@ public class Drive extends Module {
             add("Tank Drive", new Action(new FieldMap () {{
                 define("Left Power", 0D);
                 define("Right Power", 0D);
+                define("Throttled", false);
             }}) {
                 public void run (ActionData data) {
-                    drive.tankDrive(data.get("Left Power"), data.get("Right Power"));
+                    double throttle = data.is("Throttled") ? 0.5 : 1;
+                    drive.tankDrive(data.get("Left Power") * throttle, data.get("Right Power") * throttle);
                 }
 
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
             });
-
-            add("Geared Drive", new Action(new FieldMap () {{
-                define("Left Power", 0);
-                define("Right Power", 0);
-                define("Low Gear", false);
-            }}) {
-                public void run (ActionData data) {
-                    double leftGear = 1;
-                    double rightGear = 1;
-
-                    if( data.is("Low Gear") )
-                    {
-                    	leftGear = 0.5;
-                    	rightGear = 0.5;
-                    }
-
-                    drive.tankDrive(data.get("Left Power") * leftGear,
-                                    data.get("Right Power") * rightGear);
-                }
-
-                public void end (ActionData data) {
-                    drive.stopMotor();
-                }
-            });
-
+            
             add("Servo Drive", new Action(new FieldMap() {{
                 define("Left Clicks", 0D);
                 define("Right Clicks", 0D);

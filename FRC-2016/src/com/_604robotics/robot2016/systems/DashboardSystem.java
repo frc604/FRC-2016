@@ -43,9 +43,12 @@ public class DashboardSystem extends Coordinator {
         {
             this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
 
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Down"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Down Angle")));
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Mid"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Mid Angle")));
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Up"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Up Angle")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Stow Angle")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Deploy Angle", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
+
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Stow Tolerance")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Deploy Tolerance")));
         }
     }
 }

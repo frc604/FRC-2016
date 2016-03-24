@@ -29,6 +29,7 @@ public class TeleopMode extends Coordinator {
         driver.rightStick.Y.setFactor(Calibration.TELEOP_FACTOR);
 
         manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
+        manipulator.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
     }
 
     @Override
@@ -41,23 +42,12 @@ public class TeleopMode extends Coordinator {
 
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
-            }
-
-            /* Geared Drive */
-            {
-                this.bind(new Binding(modules.getModule("Drive").getAction("Geared Drive"), modules.getModule("Dashboard").getTrigger("Geared Drive")));
-
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Left Power", driver.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Right Power", driver.rightStick.Y));
-
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Geared Drive"), "Low Gear", driver.buttons.LB));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Throttled", driver.buttons.LB));
             }
 
             /* Shifter */
             {
-                final TriggerToggle shift = new TriggerToggle(driver.buttons.RB, false);
-                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), shift.off));
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), shift.on));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), new TriggerToggle(driver.buttons.RB, false).on));
             }
         }
 
@@ -67,11 +57,11 @@ public class TeleopMode extends Coordinator {
             {
                 this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"), new TriggerAnd(
                         manipulator.buttons.RT,
-                        new TriggerNot(modules.getModule("Pickup").getAction("Up").active()))));
+                        new TriggerNot(modules.getModule("Pickup").getAction("Stow").active()))));
                 
                 this.bind(new Binding(modules.getModule("Shooter").getAction("Spit"), new TriggerAnd(
                         manipulator.buttons.LT,
-                        new TriggerNot(modules.getModule("Pickup").getAction("Up").active()))));
+                        new TriggerNot(modules.getModule("Pickup").getAction("Stow").active()))));
             }
 
             /* Intake */
@@ -81,9 +71,16 @@ public class TeleopMode extends Coordinator {
 
             /* Pickup */
             {
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Down"), manipulator.buttons.A));
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Mid"), manipulator.buttons.X));
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Up"), manipulator.buttons.Y));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"), manipulator.buttons.X));
+                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.RB));
+
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy"), manipulator.buttons.A));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
+                
+                /* Reset PID */
+                
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"),manipulator.buttons.RightStick));
+                
             }
         }
     }
