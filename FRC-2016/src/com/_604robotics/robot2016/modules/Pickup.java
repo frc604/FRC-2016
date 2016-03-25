@@ -9,6 +9,7 @@ import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.ResettablePIDSource;
+import com._604robotics.robotnik.prefabs.devices.TalonPWMEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -31,6 +32,8 @@ public class Pickup extends Module {
             encoder, talon);
     
     public Pickup () {
+    	encoder.setZero(Calibration.PICKUP_ZERO_ANGLE);
+    	
         pidStow.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
         pidDeploy.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
         
@@ -76,6 +79,8 @@ public class Pickup extends Module {
 
             add("Stow", new AngleAction(pidStow, Calibration.PICKUP_STOW_ANGLE, Calibration.PICKUP_STOW_TOLERANCE));
             add("Deploy", new AngleAction(pidDeploy, Calibration.PICKUP_DEPLOY_ANGLE, Calibration.PICKUP_DEPLOY_TOLERANCE));
+            
+            
         }});
     }
         
