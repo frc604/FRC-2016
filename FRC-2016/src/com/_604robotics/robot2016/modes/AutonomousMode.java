@@ -14,9 +14,6 @@ import com._604robotics.robotnik.coordinator.steps.Step;
 import com._604robotics.robotnik.module.ModuleManager;
 import com._604robotics.robotnik.prefabs.measure.TriggerMeasure;
 import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
-import com._604robotics.robotnik.trigger.TriggerAccess;
-import com._604robotics.robotnik.coordinator.groups.Group;
-import com._604robotics.robotnik.coordinator.groups.GroupManager;
 
 public class AutonomousMode extends Coordinator {
     protected void apply (ModuleManager modules) {
