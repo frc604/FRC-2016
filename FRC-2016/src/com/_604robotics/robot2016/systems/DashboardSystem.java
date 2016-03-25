@@ -49,6 +49,9 @@ public class DashboardSystem extends Coordinator {
 
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Stow Tolerance")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Deploy Tolerance")));
+
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "K", modules.getModule("Dashboard").getData("Pickup Deploy K")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "A", modules.getModule("Dashboard").getData("Pickup Deploy A")));
         }
     }
 }

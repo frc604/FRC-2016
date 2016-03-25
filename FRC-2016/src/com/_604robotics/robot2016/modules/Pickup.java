@@ -9,7 +9,6 @@ import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.ResettablePIDSource;
-import com._604robotics.robotnik.prefabs.devices.TalonPWMEncoder;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -80,7 +79,22 @@ public class Pickup extends Module {
             add("Stow", new AngleAction(pidStow, Calibration.PICKUP_STOW_ANGLE, Calibration.PICKUP_STOW_TOLERANCE));
             add("Deploy", new AngleAction(pidDeploy, Calibration.PICKUP_DEPLOY_ANGLE, Calibration.PICKUP_DEPLOY_TOLERANCE));
             
-            
+            add("Deploy Alt", new Action(new FieldMap() {{
+                define("K", 0);
+                define("A", 0);
+            }}) {
+                @Override
+                public void run (ActionData data) {
+                    final double position = data.data("Pickup Angle");
+                    final double angle = -((position - Calibration.PICKUP_STOW_ANGLE) / (Calibration.PICKUP_DEPLOY_ANGLE - Calibration.PICKUP_STOW_ANGLE)) * 90;
+                    talon.set(data.get("K") + data.get("A") * Math.cos(angle));
+                }
+
+                @Override
+                public void end (ActionData data) {
+                    talon.set(0);
+                }
+            });
         }});
     }
         

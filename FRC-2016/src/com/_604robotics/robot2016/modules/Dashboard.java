@@ -49,6 +49,9 @@ public class Dashboard extends Module {
 
                 add("Pickup Stow Tolerance", new DashboardData("Pickup Stow Tolerance", Calibration.PICKUP_STOW_TOLERANCE));
                 add("Pickup Deploy Tolerance", new DashboardData("Pickup Deploy Tolerance", Calibration.PICKUP_DEPLOY_TOLERANCE));
+
+                add("Pickup Deploy K", new DashboardData("Pickup Deploy K", 0.3));
+                add("Pickup Deploy A", new DashboardData("Pickup Deploy A", -0.6));
             }
         }});
     }
