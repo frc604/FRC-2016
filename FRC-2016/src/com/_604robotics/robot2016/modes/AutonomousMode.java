@@ -1,6 +1,6 @@
-/* Autonomous Mode Macros Needed:
+/* 
+    Autonomous Mode Macros Needed:
 	- Options for each defense
-    - Manipulate gate, drawbridge, etc
 	- Options for location will be needed if we plan on shooting
  */
 
@@ -19,6 +19,7 @@ public class AutonomousMode extends Coordinator {
     protected void apply (ModuleManager modules) {
         group(new Group(modules.getModule("Dashboard").getTrigger("Auton On"), new Coordinator() {
             protected void apply (ModuleManager modules) { 
+                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear")));
                 group(new Group(modules.getModule("Dashboard").getTrigger("Auton Mode A"), new Coordinator() {
                     protected void apply (ModuleManager modules) {
                         step("Forward", new Step(new TriggerMeasure(new TriggerAnd(
@@ -26,12 +27,14 @@ public class AutonomousMode extends Coordinator {
                                 modules.getModule("Drive").getTrigger("At Right Servo Target")
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
+                                
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Left Clicks", 120));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", 120));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Left Clicks", 1500));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", 1500));
                             }
                         }));
 
+                        /*
                         step("Turn Right", new Step(new TriggerMeasure(new TriggerAnd(
                                 modules.getModule("Drive").getTrigger("At Left Servo Target"),
                                 modules.getModule("Drive").getTrigger("At Right Servo Target")
@@ -42,6 +45,7 @@ public class AutonomousMode extends Coordinator {
                                 this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", -120));
                             }
                         }));
+                        */
                     }
                 }));
 

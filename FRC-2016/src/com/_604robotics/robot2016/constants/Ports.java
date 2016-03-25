@@ -8,12 +8,12 @@ public final class Ports {
     public static final int MANIPULATOR = 1;
     
     /* Digital Input */
-    public static final int SHOOTER_ENCODER_B = 4;
-    public static final int SHOOTER_ENCODER_A = 5;
-    public static final int DRIVE_ENCODER_RIGHT_A = 6;
-    public static final int DRIVE_ENCODER_RIGHT_B = 7;
-    public static final int DRIVE_ENCODER_LEFT_A = 8;
-    public static final int DRIVE_ENCODER_LEFT_B = 9;
+    public static final int SHOOTER_ENCODER_B = 5;
+    public static final int SHOOTER_ENCODER_A = 4;
+    public static final int DRIVE_ENCODER_RIGHT_A = 0;
+    public static final int DRIVE_ENCODER_RIGHT_B = 1;
+    public static final int DRIVE_ENCODER_LEFT_A = 2;
+    public static final int DRIVE_ENCODER_LEFT_B = 3;
     
     /* Digital Output */
     public static final int COMPRESSOR = 0;

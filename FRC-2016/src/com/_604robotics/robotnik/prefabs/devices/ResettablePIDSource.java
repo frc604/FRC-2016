@@ -19,22 +19,38 @@ public class ResettablePIDSource implements PIDSource {
     public double getZero () {
         return zero;
     }
-
+    
     public void setZero (double zero) {
         this.zero = zero;
     }
     
     public void setZero () {
-        setZero(source.pidGet());
+        setZero(getRaw());
+    }
+    
+    public void setZeroOffset (double offset) {
+    	setZero(getRaw() + offset);
+    }
+    
+    public void setZeroRel (double newPosition) {
+    	setZeroRel(getRaw(), newPosition);
+    }
+    
+    public void setZeroRel (double rawPosition, double newPosition) {
+    	setZero(rawPosition - newPosition);
+    }
+    
+    public double getRaw () {
+    	return source.pidGet();
     }
     
     public double get () {
-        return pidGet();
+        return getRaw() - zero;
     }
 
     @Override
     public double pidGet () {
-        return source.pidGet() - zero;
+        return get();
     }
 
     @Override

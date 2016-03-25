@@ -47,7 +47,9 @@ public class TeleopMode extends Coordinator {
 
             /* Shifter */
             {
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), new TriggerToggle(driver.buttons.RB, false).on));
+                final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
+                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), gearToggle.on));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), gearToggle.off));
             }
         }
 
@@ -67,16 +69,25 @@ public class TeleopMode extends Coordinator {
             /* Intake */
             {
                 this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", 
+                        modules.getModule("Dashboard").getData("Intake Shoot Power"), 
+                        new TriggerAnd(modules.getModule("Shooter").getTrigger("Charged"), 
+                                manipulator.buttons.RB)));
+
+                
             }
 
             /* Pickup */
+            
             {
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"), manipulator.buttons.X));
                 this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Power", manipulator.rightStick.Y));
-                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.RB));
+                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.LB));
 
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
+                
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.B));
             }
         }
         

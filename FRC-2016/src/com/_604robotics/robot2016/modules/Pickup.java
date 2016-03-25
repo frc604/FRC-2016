@@ -31,6 +31,8 @@ public class Pickup extends Module {
             encoder, talon);
     
     public Pickup () {
+    	encoder.setZero(Calibration.PICKUP_ZERO_ANGLE);
+    	
         pidStow.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
         pidDeploy.setOutputRange(Calibration.PICKUP_PID_MIN, Calibration.PICKUP_PID_MAX);
         
@@ -76,6 +78,23 @@ public class Pickup extends Module {
 
             add("Stow", new AngleAction(pidStow, Calibration.PICKUP_STOW_ANGLE, Calibration.PICKUP_STOW_TOLERANCE));
             add("Deploy", new AngleAction(pidDeploy, Calibration.PICKUP_DEPLOY_ANGLE, Calibration.PICKUP_DEPLOY_TOLERANCE));
+            
+            add("Deploy Alt", new Action(new FieldMap() {{
+                define("K", 0);
+                define("A", 0);
+            }}) {
+                @Override
+                public void run (ActionData data) {
+                    final double position = data.data("Pickup Angle");
+                    final double angle = -((position - Calibration.PICKUP_STOW_ANGLE) / (Calibration.PICKUP_DEPLOY_ANGLE - Calibration.PICKUP_STOW_ANGLE)) * 90;
+                    talon.set(data.get("K") + data.get("A") * Math.cos(angle));
+                }
+
+                @Override
+                public void end (ActionData data) {
+                    talon.set(0);
+                }
+            });
         }});
     }
         

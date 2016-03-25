@@ -12,19 +12,22 @@ public final class Calibration {
     public static final double SHOOTER_TARGET_SPEED = 30000;
     public static final double SHOOTER_SPEED_THRESHOLD = 2000;
     public static final double SHOOTER_MINIMUM_CHARGE_TIME = 0.5;
+   
+    /*Intake constants*/
+    public static final double INTAKE_SHOOT_POWER = 0.7;
 
     /* Left Drive PID Constants */
     public static final double DRIVE_LEFT_PID_P = 0.02;
     public static final double DRIVE_LEFT_PID_I = 0;
     public static final double DRIVE_LEFT_PID_D = 0.005;
-    public static final double DRIVE_LEFT_PID_MAX = 0.6;
+    public static final double DRIVE_LEFT_PID_MAX = 1.0;
     public static final double DRIVE_LEFT_PID_TOLERANCE = 20;
 
     /* Right drive PID constants */
     public static final double DRIVE_RIGHT_PID_P = 0.02;
     public static final double DRIVE_RIGHT_PID_I = 0;
     public static final double DRIVE_RIGHT_PID_D = 0.005;
-    public static final double DRIVE_RIGHT_PID_MAX = 0.6;
+    public static final double DRIVE_RIGHT_PID_MAX = 1.0;
     public static final double DRIVE_RIGHT_PID_TOLERANCE = 20;
 
     /* Pickup Constants */
@@ -43,12 +46,12 @@ public final class Calibration {
     public static final double PICKUP_DEPLOY_TOLERANCE = 0;//not yet calibrated
     public static final double PICKUP_DEPLOY_PID_P = 0.016;
     public static final double PICKUP_DEPLOY_PID_I = 0;
-    public static final double PICKUP_DEPLOY_PID_D = 0.016;
+    public static final double PICKUP_DEPLOY_PID_D = 0.1;
 
     /* Pickup Angles */
-    public static final double PICKUP_START_ANGLE = -1; // this is the angle before match starts
-    public static final double PICKUP_STOW_ANGLE = -328; // not yet calibrated
-    public static final double PICKUP_DEPLOY_ANGLE = -1400;
+    public static final double PICKUP_ZERO_ANGLE = 0; // this is the angle before match starts
+    public static final double PICKUP_STOW_ANGLE = -328; 
+    public static final double PICKUP_DEPLOY_ANGLE = -1360; 
     
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;
