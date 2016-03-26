@@ -10,10 +10,6 @@ import com._604robotics.robotnik.trigger.sources.DashboardTriggerChoice;
 public class Dashboard extends Module {
     public Dashboard () {
         this.set(new TriggerMap() {{
-            final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
-            add("Arcade Drive", driveMode.addDefault("Arcade Drive"));
-            add("Tank Drive", driveMode.add("Tank Drive"));
-
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
             add("Drive On", driveOn.addDefault("Drive On"));
             add("Drive Off", driveOn.add("Drive Off"));
@@ -25,7 +21,7 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
             add("Everything Else", autonObstacle.addDefault("Everything Else"));
             add("Lowbar", autonObstacle.add("Lowbar"));
-
+			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton On");
             add("Auton On", autonOn.addDefault("Auton On"));
             add("Auton Off", autonOn.add("Auton Off"));
