@@ -17,9 +17,9 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
 
 public class AutonomousMode extends Coordinator {
     protected void apply (ModuleManager modules) {
-        group(new Group(modules.getModule("Dashboard").getTrigger("Auton On"), new Coordinator() {
+        this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear")));
+        group(new Group(modules.getModule("Dashboard").getTrigger("Auton Obstacle"), new Coordinator() {
             protected void apply (ModuleManager modules) { 
-                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear")));
 // >>>>>>>> Auton Obstacles <<<<<<<< //
                 group(new Group(modules.getModule("Dashboard").getTrigger("Lowbar"), new Coordinator() {
                     protected void apply(ModuleManager modules) {
@@ -77,7 +77,27 @@ public class AutonomousMode extends Coordinator {
                     }
                 }));
 */
-// >>>>>>>> EO Auton Mode Options <<<<<<<< //
+                // >>>>>>>> EO Auton Mode Options <<<<<<<< //
+            }
+        }));
+        group(new Group(modules.getModule("Dashboard").getTrigger("Auton Retreat"), new Coordinator() {
+            protected void apply (ModuleManager modules) { 
+                step("Rotate", new Step(new TriggerMeasure(new TriggerAnd(
+                        modules.getModule("Drive").getTrigger("At Rotate Servo Target")
+                )), new Coordinator() {
+                    protected void apply (ModuleManager modules) {
+                        this.bind(new Binding(modules.getModule("Drive").getAction("Servo Rotate")));
+                        this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate"), "Angle", 180));
+                    }
+                }));
+                step("Forward", new Step(new TriggerMeasure(new TriggerAnd(
+                        modules.getModule("Drive").getTrigger("At Move Servo Target")
+                )), new Coordinator() {
+                    protected void apply (ModuleManager modules) {
+                        this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
+                        this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", 2200));
+                    }
+                }));
             }
         }));
     }
