@@ -7,6 +7,9 @@ public final class Ports {
     public static final int DRIVER = 0;
     public static final int MANIPULATOR = 1;
     
+    /* Analog Input */
+    public static final int HORIZONTAL_GYRO = 2;
+    
     /* Digital Input */
     public static final int SHOOTER_ENCODER_B = 5;
     public static final int SHOOTER_ENCODER_A = 4;
@@ -18,7 +21,8 @@ public final class Ports {
     /* Digital Output */
     public static final int COMPRESSOR = 0;
     public static final int INTAKE_MOTOR = 1;
-    public static final int PICKUP_TALON_ID = 2;
+    public static final int PICKUP_TALON = 2;
+    public static final int PICKUP_VICTOR = 3;
     public static final int SHOOTER_MOTOR_RIGHT = 4;
     public static final int SHOOTER_MOTOR_LEFT = 5;
     public static final int DRIVE_FRONT_RIGHT_MOTOR = 6;

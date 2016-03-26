@@ -43,12 +43,21 @@ public class DashboardSystem extends Coordinator {
         {
             this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
 
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Stow Angle")));
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Deploy Angle", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
+            
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Angle", modules.getModule("Dashboard").getData("Pickup Stow Angle")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Stow PID Tolerance")));
+            
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Deploy PID Tolerance")));
 
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Stow Tolerance")));
-            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Deploy Tolerance")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow Alt"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Stow Power")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow Alt"), "Threshold", modules.getModule("Dashboard").getData("Pickup Stow Threshold")));
+            
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Upper Power", modules.getModule("Dashboard").getData("Pickup Deploy Upper Power")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Upper Threshold", modules.getModule("Dashboard").getData("Pickup Deploy Upper Threshold")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Lower Power", modules.getModule("Dashboard").getData("Pickup Deploy Lower Power")));
+            this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Lower Threshold", modules.getModule("Dashboard").getData("Pickup Deploy Lower Threshold")));
         }
     }
 }

@@ -23,55 +23,18 @@ public class AutonomousMode extends Coordinator {
                 group(new Group(modules.getModule("Dashboard").getTrigger("Auton Mode A"), new Coordinator() {
                     protected void apply (ModuleManager modules) {
                         step("Forward", new Step(new TriggerMeasure(new TriggerAnd(
-                                modules.getModule("Drive").getTrigger("At Left Servo Target"),
-                                modules.getModule("Drive").getTrigger("At Right Servo Target")
+                                modules.getModule("Drive").getTrigger("At Move Servo Target")
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
-                                
-                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Left Clicks", 1500));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", 1500));
+                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", 2500));
                             }
                         }));
-
-                        /*
-                        step("Turn Right", new Step(new TriggerMeasure(new TriggerAnd(
-                                modules.getModule("Drive").getTrigger("At Left Servo Target"),
-                                modules.getModule("Drive").getTrigger("At Right Servo Target")
-                        )), new Coordinator() {
-                            protected void apply (ModuleManager modules) {
-                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Left Clicks", 120));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", -120));
-                            }
-                        }));
-                        */
                     }
                 }));
 
                 group(new Group(modules.getModule("Dashboard").getTrigger("Auton Mode B"), new Coordinator() {
                     protected void apply(ModuleManager modules) {
-                        step("Backward", new Step(new TriggerMeasure(new TriggerAnd(
-                                modules.getModule("Drive").getTrigger("At Left Servo Target"),
-                                modules.getModule("Drive").getTrigger("At Right Servo Target")
-                        )), new Coordinator() {
-                            protected void apply (ModuleManager modules) {
-                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Left Clicks", -120));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", -120));
-                            }
-                        }));
-
-                        step("Turn Left", new Step(new TriggerMeasure(new TriggerAnd(
-                                modules.getModule("Drive").getTrigger("At Left Servo Target"),
-                                modules.getModule("Drive").getTrigger("At Right Servo Target")
-                        )), new Coordinator() {
-                            protected void apply (ModuleManager modules) {
-                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Drive")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Left Clicks", -120));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Drive"), "Right Clicks", 120));
-                            }
-                        }));
                     }
                 }));
             }
