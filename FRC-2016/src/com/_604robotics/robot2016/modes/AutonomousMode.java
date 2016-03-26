@@ -48,9 +48,6 @@ public class AutonomousMode extends Coordinator {
                         }));
                     }
                 }));
-// >>>>>>>> EO Auton Obstacles Options <<<<<<<< //
-                
-// >>>>>>>> Auton Modes <<<<<<<< //
                 group(new Group(modules.getModule("Dashboard").getTrigger("Everything Else"), new Coordinator() {
                     protected void apply (ModuleManager modules) {
                         step("Forward", new Step(new TriggerMeasure(new TriggerAnd(
@@ -63,6 +60,9 @@ public class AutonomousMode extends Coordinator {
                         }));
                     }
                 }));
+// >>>>>>>> EO Auton Obstacles Options <<<<<<<< //
+                
+// >>>>>>>> Auton Modes <<<<<<<< //
 /*
                 group(new Group(modules.getModule("Dashboard").getTrigger("Auton: Defense Mode"), new Coordinator() {
                     protected void apply(ModuleManager modules) {
