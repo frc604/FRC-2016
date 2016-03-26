@@ -19,7 +19,7 @@ public class AutonomousMode extends Coordinator {
     protected void apply (ModuleManager modules) {
         group(new Group(modules.getModule("Dashboard").getTrigger("Auton On"), new Coordinator() {
             protected void apply (ModuleManager modules) { 
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear")));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear")));
 // >>>>>>>> Auton Obstacles <<<<<<<< //
                 group(new Group(modules.getModule("Dashboard").getTrigger("Lowbar"), new Coordinator() {
                     protected void apply(ModuleManager modules) {
