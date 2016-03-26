@@ -10,19 +10,18 @@ import com._604robotics.robotnik.trigger.sources.DashboardTriggerChoice;
 public class Dashboard extends Module {
     public Dashboard () {
         this.set(new TriggerMap() {{
-            final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
-            add("Tank Drive", driveMode.addDefault("Tank Drive"));
-            add("Geared Drive", driveMode.add("Geared Drive"));
-            add("Servo Drive", driveMode.add("Servo Drive"));
-
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
             add("Drive On", driveOn.addDefault("Drive On"));
             add("Drive Off", driveOn.add("Drive Off"));
-
+            /*
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
-            add("Auton Mode A", autonMode.addDefault("Auton Mode A"));
-            add("Auton Mode B", autonMode.add("Auton Mode B"));
-
+            add("Auton: Defense Mode", autonMode.addDefault("Auton: Defense Mode"));
+            add("Auton: Attack Mode", autonMode.add("Auton: Attack Mode"));
+            */
+            final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
+            add("Everything Else", autonObstacle.addDefault("Everything Else"));
+            add("Lowbar", autonObstacle.add("Lowbar"));
+			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton On");
             add("Auton On", autonOn.addDefault("Auton On"));
             add("Auton Off", autonOn.add("Auton Off"));
@@ -39,14 +38,25 @@ public class Dashboard extends Module {
                 add("Shooter Threshold", new DashboardData("Shooter Threshold", Calibration.SHOOTER_SPEED_THRESHOLD));
                 add("Shooter Minimum Charge Time", new DashboardData("Shooter Minimum Charge Time", Calibration.SHOOTER_MINIMUM_CHARGE_TIME));
             }
+            
+            /* Intake */
+            {
+	            add("Intake Shoot Power", new DashboardData("Intake Shoot Power", Calibration.INTAKE_SHOOT_POWER));
+            }
 
             /* Pickup */
             {
                 add("Pickup Stow Angle", new DashboardData("Pickup Stow Angle", Calibration.PICKUP_STOW_ANGLE));
+                add("Pickup Stow PID Tolerance", new DashboardData("Pickup Stow PID Tolerance", Calibration.PICKUP_STOW_PID_TOLERANCE));
+                add("Pickup Stow Power", new DashboardData("Pickup Stow Power", Calibration.PICKUP_STOW_POWER));
+                add("Pickup Stow Threshold", new DashboardData("Pickup Stow Threshold", Calibration.PICKUP_STOW_THRESHOLD));
+                
                 add("Pickup Deploy Angle", new DashboardData("Pickup Deploy Angle", Calibration.PICKUP_DEPLOY_ANGLE));
-
-                add("Pickup Stow Tolerance", new DashboardData("Pickup Stow Tolerance", Calibration.PICKUP_STOW_TOLERANCE));
-                add("Pickup Deploy Tolerance", new DashboardData("Pickup Deploy Tolerance", Calibration.PICKUP_DEPLOY_TOLERANCE));
+                add("Pickup Deploy PID Tolerance", new DashboardData("Pickup Deploy PID Tolerance", Calibration.PICKUP_DEPLOY_PID_TOLERANCE));
+                add("Pickup Deploy Upper Power", new DashboardData("Pickup Deploy Upper Power", Calibration.PICKUP_UPPER_POWER));
+                add("Pickup Deploy Upper Threshold", new DashboardData("Pickup Deploy Upper Threshold", Calibration.PICKUP_DEPLOY_UPPERTHRESHOLD));
+                add("Pickup Deploy Lower Power", new DashboardData("Pickup Deploy Lower Power", Calibration.PICKUP_LOWER_POWER));
+                add("Pickup Deploy Lower Threshold", new DashboardData("Pickup Deploy Lower Threshold", Calibration.PICKUP_DEPLOY_LOWERTHRESHOLD));
             }
         }});
     }

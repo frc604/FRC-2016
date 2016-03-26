@@ -21,6 +21,7 @@ public class Shooter extends Module {
 
     private final Timer chargeTimer = new Timer();
     private double minChargeTime = 0;
+    private boolean isShooting = false;
     
     public Shooter () {
         set(new DataMap() {{
@@ -29,7 +30,7 @@ public class Shooter extends Module {
         }});
 
         set(new TriggerMap() {{
-            add("Charged", () -> chargeTimer.get() >= minChargeTime);
+            add("Charged", () -> isShooting && (chargeTimer.get() >= minChargeTime));
         }});
 
         set(new ElasticController() {{
@@ -47,6 +48,8 @@ public class Shooter extends Module {
                 @Override
                 public void begin (ActionData data) {
                     chargeTimer.start();
+                    minChargeTime = data.get("Minimum Charge Time");
+                    isShooting=true;
                 }
 
                 @Override
@@ -68,6 +71,7 @@ public class Shooter extends Module {
                 public void end (ActionData data) {
                     chargeTimer.stop();
                     chargeTimer.reset();
+                    isShooting=false;
 
                     motors.stopMotor();
                 }

@@ -36,18 +36,32 @@ public class TeleopMode extends Coordinator {
     protected void apply (ModuleManager modules) {
         /* Driving */
         {
-            /* Tank Drive */
+            /* Drive Modes */
+            {
+            	final TriggerToggle modeToggle = new TriggerToggle(driver.buttons.LB, false);
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modeToggle.on));
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modeToggle.off));
+            }
+            
+            /* Arcade Drive */
             {   
-                this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Move Power", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Rotate Power", driver.rightStick.X));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Throttled", driver.buttons.LB));
+            }
 
+            /* Tank Drive */
+            {
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Throttled", driver.buttons.LB));
             }
-
+            
             /* Shifter */
             {
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), new TriggerToggle(driver.buttons.RB, false).on));
+                final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
+                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), gearToggle.on));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), gearToggle.off));
             }
         }
 
@@ -67,20 +81,23 @@ public class TeleopMode extends Coordinator {
             /* Intake */
             {
                 this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", 
+                        modules.getModule("Dashboard").getData("Intake Shoot Power"), 
+                        new TriggerAnd(modules.getModule("Shooter").getTrigger("Charged"), 
+                                manipulator.buttons.RB)));
+
+                
             }
 
             /* Pickup */
+            
             {
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"), manipulator.buttons.X));
-                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.RB));
+                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Power", manipulator.rightStick.Y));
+                this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.LB));
 
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy"), manipulator.buttons.A));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
-                
-                /* Reset PID */
-                
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Manual"),manipulator.buttons.RightStick));
-                
             }
         }
     }
