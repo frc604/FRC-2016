@@ -17,11 +17,11 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
             add("Drive On", driveOn.addDefault("Drive On"));
             add("Drive Off", driveOn.add("Drive Off"));
-
+            /*
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
             add("Auton: Defense Mode", autonMode.addDefault("Auton: Defense Mode"));
             add("Auton: Attack Mode", autonMode.add("Auton: Attack Mode"));
-            
+            */
             final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
             add("Everything Else", autonObstacle.addDefault("Everything Else"));
             add("Lowbar", autonObstacle.add("Lowbar"));

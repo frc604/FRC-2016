@@ -27,8 +27,9 @@ public class Drive extends Module {
     // 430 is 180 degrees with one side locked
 
     // When decreasing angle it needs a little bit less than you'd think
-	//private final AnalogGyro horizGyro = new AnalogGyro(Ports.HORIZONTAL_GYRO);
-    private final RobotDrive drive = new RobotDrive(
+	private final AnalogGyro horizGyro = new AnalogGyro(Ports.HORIZONTAL_GYRO);
+    
+	private final RobotDrive drive = new RobotDrive(
             Ports.DRIVE_FRONT_LEFT_MOTOR,
             Ports.DRIVE_REAR_LEFT_MOTOR,
             Ports.DRIVE_FRONT_RIGHT_MOTOR,
@@ -51,25 +52,25 @@ public class Drive extends Module {
             Calibration.DRIVE_MOVE_PID_D,
             encoderLeft,
             pidOutput.move);
-    /*private final PIDController pidRotate = new PIDController(
+    private final PIDController pidRotate = new PIDController(
             Calibration.DRIVE_ROTATE_PID_P,
             Calibration.DRIVE_ROTATE_PID_I,
             Calibration.DRIVE_ROTATE_PID_D,
             horizGyro,
-            pidOutput.rotate);*/
+            pidOutput.rotate);
 
     public Drive () {
         encoderLeft.setPIDSourceType(PIDSourceType.kDisplacement);
         encoderRight.setPIDSourceType(PIDSourceType.kDisplacement);
-        //horizGyro.calibrate();	
+        horizGyro.calibrate();	
         pidMove.setOutputRange(-Calibration.DRIVE_MOVE_PID_MAX, Calibration.DRIVE_MOVE_PID_MAX);
-        //pidRotate.setOutputRange(-Calibration.DRIVE_ROTATE_PID_MAX, Calibration.DRIVE_ROTATE_PID_MAX);
+        pidRotate.setOutputRange(-Calibration.DRIVE_ROTATE_PID_MAX, Calibration.DRIVE_ROTATE_PID_MAX);
 
         pidMove.setAbsoluteTolerance(Calibration.DRIVE_MOVE_PID_TOLERANCE);
-        //pidRotate.setAbsoluteTolerance(Calibration.DRIVE_ROTATE_PID_TOLERANCE);
+        pidRotate.setAbsoluteTolerance(Calibration.DRIVE_ROTATE_PID_TOLERANCE);
 
         SmartDashboard.putData("Drive Move PID", pidMove);
-        //SmartDashboard.putData("Drive Rotate PID", pidRotate);
+        SmartDashboard.putData("Drive Rotate PID", pidRotate);
 
         this.set(new DataMap() {{
             add("Left Drive Clicks", encoderLeft::get);
@@ -79,16 +80,16 @@ public class Drive extends Module {
             add("Right Drive Rate", encoderRight::getRate);
 
             add("Move PID Error", pidMove::getAvgError);
-            //add("Rotate PID Error", pidRotate::getAvgError);
+            add("Rotate PID Error", pidRotate::getAvgError);
             
-            //add("Horizonal Gyro Angle", horizGyro::getAngle);
+            add("Horizonal Gyro Angle", horizGyro::getAngle);
         }});
 
         this.set(new TriggerMap() {{
             add("At Move Servo Target", () ->
                 pidMove.isEnabled() && pidMove.onTarget());
-            //add("At Rotate Servo Target", () ->
-              //  pidRotate.isEnabled() && pidRotate.onTarget());
+            add("At Rotate Servo Target", () ->
+                pidRotate.isEnabled() && pidRotate.onTarget());
         }});
 
         this.set(new ElasticController() {{
@@ -156,7 +157,6 @@ public class Drive extends Module {
                 }
             });
             
-            /*
             add("Servo Rotate", new Action(new FieldMap() {{
                 define("Angle", 0D);
             }}) {
@@ -182,7 +182,6 @@ public class Drive extends Module {
                     pidRotate.reset();
                 }
             });
-            */
         }});
     }
 }
