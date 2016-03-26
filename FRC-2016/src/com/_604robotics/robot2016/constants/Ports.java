@@ -8,7 +8,7 @@ public final class Ports {
     public static final int MANIPULATOR = 1;
     
     /* Analog Input */
-    public static final int HORIZONTAL_GYRO = 2;
+    public static final int HORIZONTAL_GYRO = 0;
     
     /* Digital Input */
     public static final int SHOOTER_ENCODER_B = 5;
