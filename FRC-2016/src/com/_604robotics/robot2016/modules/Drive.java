@@ -11,6 +11,7 @@ import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.ArcadeDrivePIDOutput;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
