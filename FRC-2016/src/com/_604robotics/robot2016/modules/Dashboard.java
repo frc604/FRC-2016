@@ -11,8 +11,8 @@ public class Dashboard extends Module {
     public Dashboard () {
         this.set(new TriggerMap() {{
             final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
-            add("Tank Drive", driveMode.addDefault("Tank Drive"));
-            add("Servo Drive", driveMode.add("Servo Drive"));
+            add("Arcade Drive", driveMode.addDefault("Arcade Drive"));
+            add("Tank Drive", driveMode.add("Tank Drive"));
 
             final DashboardTriggerChoice driveOn = new DashboardTriggerChoice("Drive On");
             add("Drive On", driveOn.addDefault("Drive On"));
@@ -42,25 +42,24 @@ public class Dashboard extends Module {
                 add("Shooter Threshold", new DashboardData("Shooter Threshold", Calibration.SHOOTER_SPEED_THRESHOLD));
                 add("Shooter Minimum Charge Time", new DashboardData("Shooter Minimum Charge Time", Calibration.SHOOTER_MINIMUM_CHARGE_TIME));
             }
-            /*Intake*/ 
-            add("Intake Shoot Power", new DashboardData("Intake Shoot Power", Calibration.INTAKE_SHOOT_POWER));
-
+            
+            /* Intake */
+            {
+	            add("Intake Shoot Power", new DashboardData("Intake Shoot Power", Calibration.INTAKE_SHOOT_POWER));
+            }
 
             /* Pickup */
             {
-                add("Pickup Stow Angle", new DashboardData("Pickup Stow Angle", Calibration.PICKUP_STOW_ANGLE));
-                add("Pickup Deploy Angle", new DashboardData("Pickup Deploy Angle", Calibration.PICKUP_DEPLOY_ANGLE));
-
-                add("Pickup Stow Tolerance", new DashboardData("Pickup Stow Tolerance", Calibration.PICKUP_STOW_TOLERANCE));
-                add("Pickup Deploy Tolerance", new DashboardData("Pickup Deploy Tolerance", Calibration.PICKUP_DEPLOY_TOLERANCE));
-
-                add("Pickup Deploy K", new DashboardData("Pickup Deploy K", 0.3));
-                add("Pickup Deploy A", new DashboardData("Pickup Deploy A", -0.6));
+                add("Pickup Deploy PID Tolerance", new DashboardData("Pickup Deploy PID Tolerance", Calibration.PICKUP_DEPLOY_PID_TOLERANCE));
+                add("Pickup Deploy Upper Power", new DashboardData("Pickup Deploy Upper Power", Calibration.PICKUP_UPPER_POWER));
+                add("Pickup Deploy Upper Threshold", new DashboardData("Pickup Deploy Upper Threshold", Calibration.PICKUP_DEPLOY_UPPERTHRESHOLD));
+                add("Pickup Deploy Lower Power", new DashboardData("Pickup Deploy Lower Power", Calibration.PICKUP_LOWER_POWER));
+                add("Pickup Deploy Lower Threshold", new DashboardData("Pickup Deploy Lower Threshold", Calibration.PICKUP_DEPLOY_LOWERTHRESHOLD));
             }
             
             /* Vision */
             {
-                add ("Vision Timer reset", new DashboardData("Vision Timer", Calibration.VISION_TIMER));
+                add ("Vision Timer reset", new DashboardData("Vision Timer", Calibration.VISION_TIMER));                
             }
         }});
     }

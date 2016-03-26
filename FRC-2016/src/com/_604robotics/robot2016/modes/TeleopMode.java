@@ -44,6 +44,15 @@ public class TeleopMode extends Coordinator {
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Throttled", driver.buttons.LB));
             }
+            
+            /* Arcade Drive */
+            {   
+                this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modules.getModule("Dashboard").getTrigger("Arcade Drive")));
+
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Move Power", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Rotate Power", driver.rightStick.X));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Throttled", driver.buttons.LB));
+            }
 
             /* Shifter */
             {
@@ -84,7 +93,7 @@ public class TeleopMode extends Coordinator {
                 this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Power", manipulator.rightStick.Y));
                 this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Reset Encoder", manipulator.buttons.LB));
 
-                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy"), manipulator.buttons.A));
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
                 
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.B));
