@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public final class Calibration {
     private Calibration () {}
+    
+    /* Autonomous Mode Distances */
+    public static final double AUTON_FORWARD_CLICKS = -2200;
+    public static final double AUTON_BACKWARD_CLICKS = 400;
 
     /* Shifter Solenoid Constants */
     public static final Value SHIFTER_LOW_GEAR = Value.kReverse;
@@ -57,7 +61,6 @@ public final class Calibration {
 
     public static final double PICKUP_UPPER_POWER = -0.3;
     public static final double PICKUP_LOWER_POWER = -0.1;
-
 
     /* Pickup Angles */
     public static final double PICKUP_ZERO_ANGLE = 3925; // this is the angle before match starts

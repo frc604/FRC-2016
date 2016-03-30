@@ -6,6 +6,7 @@
 
 package com._604robotics.robot2016.modes;
 
+import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
@@ -43,7 +44,8 @@ public class AutonomousMode extends Coordinator {
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", -2200));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
+                                        "Clicks", Calibration.AUTON_FORWARD_CLICKS));
                             }
                         }));
                     }
@@ -55,7 +57,8 @@ public class AutonomousMode extends Coordinator {
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", 400));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
+                                        "Clicks", Calibration.AUTON_BACKWARD_CLICKS));
                             }
                         }));
                     }
