@@ -27,6 +27,14 @@ public class DashboardSystem extends Coordinator {
             this.fill(new DataWire(DashboardOutput.asBoolean("Low", "High"), "Shifter Gear",
                     modules.getModule("Shifter").getAction("High Gear").active()));
         }
+        
+        /* Drive Mode */
+        {
+        	this.fill(new DataWire(DashboardOutput.asBoolean(), "Arcade Drive",
+        			modules.getModule("Drive").getAction("Arcade Drive").active()));
+        	this.fill(new DataWire(DashboardOutput.asBoolean(), "Tank Drive",
+        			modules.getModule("Drive").getAction("Tank Drive").active()));
+        }
 
         /* Shooter */
         {

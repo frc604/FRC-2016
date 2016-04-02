@@ -59,9 +59,11 @@ public final class Calibration {
 
 
     /* Pickup Angles */
-    public static final double PICKUP_ZERO_ANGLE = 3365; // this is the angle before match starts
+    public static final double PICKUP_ZERO_ANGLE = 3925; // this is the angle before match starts
     public static final double PICKUP_STOW_ANGLE = -328;
     public static final double PICKUP_DEPLOY_ANGLE = -1300;
+    public static final double PICKUP_STOW_TARGET = -300;
+    public static final double PICKUP_DEPLOY_TARGET = -1000;
     
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;

@@ -13,6 +13,7 @@ import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.MultiOutput;
 import com._604robotics.robotnik.prefabs.devices.ResettablePIDSource;
 import com._604robotics.robotnik.prefabs.devices.TalonPWMEncoder;
+import com._604robotics.robotnik.trigger.TriggerMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -54,6 +55,11 @@ public class Pickup extends Module {
         set(new DataMap() {{
             add("Pickup Angle", encoder::get);
             add("Pickup Velocity", talon::getPulseWidthVelocity);
+        }});
+        
+        set(new TriggerMap() {{
+        	add("On Deploy Target", () -> encoder.get() < Calibration.PICKUP_DEPLOY_TARGET);
+        	add("On Stow Target", () -> encoder.get() > Calibration.PICKUP_STOW_TARGET);
         }});
 
         set(new ElasticController() {{

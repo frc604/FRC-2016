@@ -19,24 +19,65 @@ public class AutonomousMode extends Coordinator {
     protected void apply (ModuleManager modules) {
         group(new Group(modules.getModule("Dashboard").getTrigger("Auton On"), new Coordinator() {
             protected void apply (ModuleManager modules) { 
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear")));
-                group(new Group(modules.getModule("Dashboard").getTrigger("Auton Mode A"), new Coordinator() {
+                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear")));
+// >>>>>>>> Auton Obstacles <<<<<<<< //
+                group(new Group(modules.getModule("Dashboard").getTrigger("Lowbar"), new Coordinator() {
+                    protected void apply(ModuleManager modules) {
+                    	step("Rotate", new Step(new TriggerMeasure(new TriggerAnd(
+                                modules.getModule("Drive").getTrigger("At Rotate Servo Target")
+                        )), new Coordinator() {
+                            protected void apply (ModuleManager modules) {
+                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Rotate")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate"), "Angle", 180));
+                            }
+                        }));
+                    	step("Deploy", new Step(new TriggerMeasure(
+                    			modules.getModule("Pickup").getTrigger("On Deploy Target")
+                    	), new Coordinator() {
+                    		protected void apply (ModuleManager modules) {
+                    			this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy")));
+                    		}
+                    	}));
+                    	step("Backward", new Step(new TriggerMeasure(new TriggerAnd(
+                                modules.getModule("Drive").getTrigger("At Move Servo Target")
+                        )), new Coordinator() {
+                            protected void apply (ModuleManager modules) {
+                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", -2200));
+                            }
+                        }));
+                    }
+                }));
+                group(new Group(modules.getModule("Dashboard").getTrigger("Everything Else"), new Coordinator() {
                     protected void apply (ModuleManager modules) {
                         step("Forward", new Step(new TriggerMeasure(new TriggerAnd(
                                 modules.getModule("Drive").getTrigger("At Move Servo Target")
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", 2500));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", 2200));
                             }
                         }));
                     }
                 }));
-
-                group(new Group(modules.getModule("Dashboard").getTrigger("Auton Mode B"), new Coordinator() {
+// >>>>>>>> EO Auton Obstacles Options <<<<<<<< //
+                
+// >>>>>>>> Auton Modes <<<<<<<< //
+/*
+                group(new Group(modules.getModule("Dashboard").getTrigger("Auton: Defense Mode"), new Coordinator() {
                     protected void apply(ModuleManager modules) {
+                        step("Rotate", new Step(new TriggerMeasure(new TriggerAnd(
+                            modules.getModule("Drive").getTrigger("At Rotate Servo Target")
+                        )), new Coordinator() {
+                            protected void apply (ModuleManager modules) {
+                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Rotate")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate), "Angle", 180));
+                            }
+                        }));
                     }
                 }));
+*/
+// >>>>>>>> EO Auton Mode Options <<<<<<<< //
             }
         }));
     }
