@@ -57,8 +57,6 @@ public class AutonomousMode extends Coordinator {
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
-                                        "Clicks", Calibration.AUTON_BACKWARD_CLICKS));
                             }
                         }));
                     }
