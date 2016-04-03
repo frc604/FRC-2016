@@ -1,11 +1,14 @@
 package com._604robotics.robot2016.modules;
 
+import java.io.IOException;
+
 import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.robotnik.action.Action;
 import com._604robotics.robotnik.action.ActionData;
 import com._604robotics.robotnik.action.controllers.ElasticController;
 import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataMap;
+import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.TriggerMap;
 import com._604robotics.utils.ArrayMath;
@@ -71,6 +74,25 @@ public class Vision extends Module
 
     public Vision()
     {
+        //Initialize GRIP Instance
+        boolean startGRIP=true;
+        
+        if (startGRIP)
+        {
+            Logger.log("Starting GRIP");
+            try
+            {
+                Process GRIPProcess=new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+                Logger.log("GRIP started successfully");
+            }
+            catch (IOException e)
+            {
+                Logger.error("Unable to Start GRIP", e);
+            }
+        }
+
+        GRIPrun.putBoolean("run", false);
+        
         GRIPrun.addTableListenerEx(runAction, NetworkTable.NOTIFY_UPDATE);
 
         this.set(new TriggerMap()

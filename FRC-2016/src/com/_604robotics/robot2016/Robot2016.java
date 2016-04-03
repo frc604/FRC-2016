@@ -14,37 +14,13 @@ import com._604robotics.robot2016.systems.DashboardSystem;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.coordinator.ModeMap;
-import com._604robotics.robotnik.logging.Logger;
 import com._604robotics.robotnik.module.ModuleMap;
-
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
-import java.io.IOException;
 
 public class Robot2016 extends Robot
 {
     
     public Robot2016()
     {
-        //Initialize GRIP Instance
-        boolean startGRIP=true;
-        
-        if (startGRIP)
-        {
-            Logger.log("Starting GRIP");
-            try
-            {
-                Process GRIPProcess=new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
-                Logger.log("GRIP started successfully");
-            }
-            catch (IOException e)
-            {
-                Logger.error("Unable to Start GRIP", e);
-            }
-        }
-        
-        NetworkTable GRIPDisable=NetworkTable.getTable("GRIP");
-        GRIPDisable.putBoolean("run", false);
         
         this.set(new ModeMap() {{
             setAutonomousMode(new AutonomousMode());
