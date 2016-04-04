@@ -99,6 +99,15 @@ public class TeleopMode extends Coordinator {
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
             }
+            
+            /*PneumaticPickup*/
+           /*{
+            	
+            	this.bind(new Binding(modules.getModule("PneumaticPickup").getAction("Down"), manipulator.buttons.A));
+                this.bind(new Binding(modules.getModule("PneumaticPickup").getAction("Stow"), manipulator.buttons.Y));
+            	
+            }*/
+            
         }
     }
 }
