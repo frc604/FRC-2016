@@ -18,7 +18,7 @@ public class PneumaticPickup extends Module {
 		this.set(new TriggerMap(){{
 			add("Stowed", new Trigger(){
 				public boolean run(){
-					return right.get()&& left.get();
+					return right.get() && left.get();
 				}
 			});
 			
@@ -33,7 +33,7 @@ public class PneumaticPickup extends Module {
 			});
 			add("Down", new Action(){
 				public void begin (ActionData data){
-					right .set(true);
+					right.set(true);
 					left.set(true);
 				}
 			});
