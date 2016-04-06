@@ -20,6 +20,10 @@ In Eclipse, create a new workspace inside the first `FRC-2016` folder (the folde
 
 3. Delete the Robot.java file in the project directory. 
 
+## Additional Information
+- [Driver Controller Diagram](https://docs.google.com/drawings/d/10LpjVFT3TGkgpf_ftbZK2G0HnfsHISdKpVzURfAEDJA/edit?usp=sharing)
+- [Manipulator Controller Diagram](https://docs.google.com/drawings/d/1ObvfAp_S1VhPXQnw4GyVwfb4HUlG-bnxA43MxSMLP1U/edit?usp=sharing)
+
 ## Troubleshooting
 
 - When deploying code, Eclipse throws an error like "Unable to find Java compiler. Perhaps JAVA_HOME is not set to the JDK."
