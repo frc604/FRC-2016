@@ -9,6 +9,7 @@ import com._604robotics.robot2016.modules.Pickup;
 import com._604robotics.robot2016.modules.Regulator;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
+import com._604robotics.robot2016.modules.PneumaticPickup;
 import com._604robotics.robot2016.systems.DashboardSystem;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
@@ -30,6 +31,7 @@ public class Robot2016 extends Robot {
             add("Shifter", new Shifter());
             add("Intake", new Intake());
             add("Shooter", new Shooter());
+            add("PneumaticPickup", new PneumaticPickup());
         }});
 
         this.set(new CoordinatorList() {{
