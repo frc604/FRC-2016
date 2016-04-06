@@ -143,6 +143,7 @@ public class Vision extends Module
                         //Make sure that new data has come in
                         if (shootTimer.get()>data.get("Vision Timer"))
                         {
+                            GRIPrun.putBoolean("Run", true);
                             //Ensure that only one goal is in view
                             if (GRIPV_x1.length==4 && GRIPV_x2.length==4 && 
                                     GRIPH_y1.length==2 && GRIPH_y2.length==2)
@@ -154,6 +155,8 @@ public class Vision extends Module
                                 {
                                     readystack.flush();
                                     shootTimer.reset();
+                                    //Disable GRIP for now
+                                    GRIPrun.putBoolean("Run", false);
                                 }
                                 else
                                 {
