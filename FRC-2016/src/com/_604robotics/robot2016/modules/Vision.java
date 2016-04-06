@@ -108,6 +108,9 @@ public class Vision extends Module
         
         this.set(new ElasticController()
         {{
+            add("Off", new Action() {
+                
+            });
             addDefault("VisionProcess", new Action(new FieldMap(){{
                 define("Charged", false);
                 define("Vision Timer", Calibration.VISION_TIMER);
