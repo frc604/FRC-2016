@@ -98,6 +98,8 @@ public class TeleopMode extends Coordinator {
 
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.A));
                 this.bind(new Binding(modules.getModule("Pickup").getAction("Stow"), manipulator.buttons.Y));
+                
+                this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy Alt"), manipulator.buttons.B));
             }
             
             /*PneumaticPickup*/
@@ -108,6 +110,12 @@ public class TeleopMode extends Coordinator {
             	
             }*/
             
+        }
+        
+        /* Vision testing */
+        {
+            this.bind(new Binding(modules.getModule("Vision").getAction("FlushReset"),
+                    new TriggerAnd(manipulator.buttons.B, modules.getModule("Dashboard").getTrigger("Debug On"))));
         }
     }
 }

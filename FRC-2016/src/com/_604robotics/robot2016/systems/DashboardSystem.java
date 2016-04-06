@@ -11,7 +11,7 @@ public class DashboardSystem extends Coordinator {
         /* Drive */
         {
             this.bind(new Binding(modules.getModule("Drive").getAction("Off"), modules.getModule("Dashboard").getTrigger("Drive Off"), true));
-            
+
             this.fill(new DataWire(DashboardOutput.asDouble(), "Left Drive Clicks",
                     modules.getModule("Drive").getData("Left Drive Clicks")));
             this.fill(new DataWire(DashboardOutput.asDouble(), "Right Drive Clicks",
@@ -52,16 +52,27 @@ public class DashboardSystem extends Coordinator {
             this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
 
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Deploy Angle", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
-            
+
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Angle", modules.getModule("Dashboard").getData("Pickup Stow Angle")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Stow PID Tolerance")));
-            
+
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy"), "Tolerance", modules.getModule("Dashboard").getData("Pickup Deploy PID Tolerance")));
-
+        }
+        /* Vision */
+        {
+            this.fill(new DataWire(DashboardOutput.asBoolean(), "Vision Ready",
+                    modules.getModule("Vision").getTrigger("On Target")));
+            this.fill(new DataWire(DashboardOutput.asBoolean(), "In view",
+                    modules.getModule("Vision").getTrigger("In View")));
+            this.fill(new DataWire(DashboardOutput.asDouble(), "Ready Fraction",
+                    modules.getModule("Vision").getData("ChargedFraction")));
+        }
+        /* Pickup */
+        {
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow Alt"), "Setpoint", modules.getModule("Dashboard").getData("Pickup Stow Power")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Stow Alt"), "Threshold", modules.getModule("Dashboard").getData("Pickup Stow Threshold")));
-            
+
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Upper Power", modules.getModule("Dashboard").getData("Pickup Deploy Upper Power")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Upper Threshold", modules.getModule("Dashboard").getData("Pickup Deploy Upper Threshold")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Lower Power", modules.getModule("Dashboard").getData("Pickup Deploy Lower Power")));
@@ -69,3 +80,4 @@ public class DashboardSystem extends Coordinator {
         }
     }
 }
+

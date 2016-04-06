@@ -9,14 +9,19 @@ import com._604robotics.robot2016.modules.Pickup;
 import com._604robotics.robot2016.modules.Regulator;
 import com._604robotics.robot2016.modules.Shifter;
 import com._604robotics.robot2016.modules.Shooter;
+import com._604robotics.robot2016.modules.Vision;
 import com._604robotics.robot2016.systems.DashboardSystem;
 import com._604robotics.robotnik.Robot;
 import com._604robotics.robotnik.coordinator.CoordinatorList;
 import com._604robotics.robotnik.coordinator.ModeMap;
 import com._604robotics.robotnik.module.ModuleMap;
 
-public class Robot2016 extends Robot {
-    public Robot2016() {
+public class Robot2016 extends Robot
+{
+    
+    public Robot2016()
+    {
+        
         this.set(new ModeMap() {{
             setAutonomousMode(new AutonomousMode());
             setTeleopMode(new TeleopMode());
@@ -26,9 +31,10 @@ public class Robot2016 extends Robot {
             add("Regulator", new Regulator());
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
+            add("Vision", new Vision());
+   			add("Intake", new Intake());
             add("Pickup", new Pickup());
             add("Shifter", new Shifter());
-            add("Intake", new Intake());
             add("Shooter", new Shooter());
         }});
 

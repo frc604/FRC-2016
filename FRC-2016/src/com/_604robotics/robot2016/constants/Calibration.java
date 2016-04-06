@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public final class Calibration {
     private Calibration () {}
-    
+
     /* Autonomous Mode Distances */
     public static final double AUTON_FORWARD_CLICKS = -2200;
 
@@ -71,4 +71,12 @@ public final class Calibration {
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;
     public static final double TELEOP_FACTOR = -1;
+    
+    /* Vision constants */
+    public static final double VISION_DIST = 22;
+    public static final double VISION_BOTTOM = 68;
+    public static final double VISION_LEFTMID = 160-8;
+    public static final double VISION_RIGHTMID = 160+8;
+    public static final double VISION_TIMER = 1;
+    
 }

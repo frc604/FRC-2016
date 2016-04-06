@@ -21,7 +21,11 @@ public class Dashboard extends Module {
             final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
             add("Everything Else", autonObstacle.addDefault("Everything Else"));
             add("Lowbar", autonObstacle.add("Lowbar"));
-			
+
+            final DashboardTriggerChoice visionOn = new DashboardTriggerChoice("Vision On");
+            add("Vision On", visionOn.addDefault("Vision On"));
+            add("Vision Off", visionOn.add("Vision Off"));
+
             final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
             add("Auton Obstacle", autonMode.addDefault("Auton Obstacle"));
             add("Auton Retreat", autonMode.add("Auton Retreat"));
@@ -47,17 +51,16 @@ public class Dashboard extends Module {
 
             /* Pickup */
             {
-                add("Pickup Stow Angle", new DashboardData("Pickup Stow Angle", Calibration.PICKUP_STOW_ANGLE));
-                add("Pickup Stow PID Tolerance", new DashboardData("Pickup Stow PID Tolerance", Calibration.PICKUP_STOW_PID_TOLERANCE));
-                add("Pickup Stow Power", new DashboardData("Pickup Stow Power", Calibration.PICKUP_STOW_POWER));
-                add("Pickup Stow Threshold", new DashboardData("Pickup Stow Threshold", Calibration.PICKUP_STOW_THRESHOLD));
-                
-                add("Pickup Deploy Angle", new DashboardData("Pickup Deploy Angle", Calibration.PICKUP_DEPLOY_ANGLE));
                 add("Pickup Deploy PID Tolerance", new DashboardData("Pickup Deploy PID Tolerance", Calibration.PICKUP_DEPLOY_PID_TOLERANCE));
                 add("Pickup Deploy Upper Power", new DashboardData("Pickup Deploy Upper Power", Calibration.PICKUP_UPPER_POWER));
                 add("Pickup Deploy Upper Threshold", new DashboardData("Pickup Deploy Upper Threshold", Calibration.PICKUP_DEPLOY_UPPERTHRESHOLD));
                 add("Pickup Deploy Lower Power", new DashboardData("Pickup Deploy Lower Power", Calibration.PICKUP_LOWER_POWER));
                 add("Pickup Deploy Lower Threshold", new DashboardData("Pickup Deploy Lower Threshold", Calibration.PICKUP_DEPLOY_LOWERTHRESHOLD));
+            }
+            
+            /* Vision */
+            {
+                add ("Vision Timer reset", new DashboardData("Vision Timer", Calibration.VISION_TIMER));                
             }
         }});
     }
