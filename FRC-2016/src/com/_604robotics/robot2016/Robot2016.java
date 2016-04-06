@@ -31,7 +31,7 @@ public class Robot2016 extends Robot {
             add("Shifter", new Shifter());
             add("Intake", new Intake());
             add("Shooter", new Shooter());
-            add("PneumaticPickup", new PneumaticPickup());
+            //add("PneumaticPickup", new PneumaticPickup());
         }});
 
         this.set(new CoordinatorList() {{
