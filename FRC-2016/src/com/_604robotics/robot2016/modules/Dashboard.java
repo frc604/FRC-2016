@@ -20,7 +20,7 @@ public class Dashboard extends Module {
             add("Defense Mode", autonObstacle.add("Defense Mode"));
 			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton Mode");
-            add("Auton Obstacle", autonOn.addDefault("Auton Off"));
+            add("Auton On", autonOn.addDefault("Auton Off"));
             add("Auton Off", autonOn.add("Auton Off"));
             
             final DashboardTriggerChoice debugOn = new DashboardTriggerChoice("Debug On");
