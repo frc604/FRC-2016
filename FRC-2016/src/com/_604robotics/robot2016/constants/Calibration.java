@@ -6,7 +6,8 @@ public final class Calibration {
     private Calibration () {}
     
     /* Autonomous Mode Distances */
-    public static final double AUTON_FORWARD_CLICKS = -2200;
+    public static final double AUTON_FORWARD_CLICKS = 2200;
+    public static final double AUTON_BACKWARD_CLICKS = -2200;
 
     /* Shifter Solenoid Constants */
     public static final Value SHIFTER_LOW_GEAR = Value.kReverse;

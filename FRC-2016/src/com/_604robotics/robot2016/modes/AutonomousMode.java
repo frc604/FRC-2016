@@ -18,7 +18,7 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
 
 public class AutonomousMode extends Coordinator {
     protected void apply (ModuleManager modules) {
-        this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear")));
+        this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear")));
         group(new Group(modules.getModule("Dashboard").getTrigger("Auton Obstacle"), new Coordinator() {
             protected void apply (ModuleManager modules) { 
 // >>>>>>>> Auton Obstacles <<<<<<<< //
@@ -45,7 +45,7 @@ public class AutonomousMode extends Coordinator {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
                                 this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
-                                        "Clicks", Calibration.AUTON_FORWARD_CLICKS));
+                                        "Clicks", Calibration.AUTON_BACKWARD_CLICKS));
                             }
                         }));
                     }
@@ -57,6 +57,8 @@ public class AutonomousMode extends Coordinator {
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
+                                        "Clicks", Calibration.AUTON_FORWARD_CLICKS));
                             }
                         }));
                     }
@@ -64,7 +66,7 @@ public class AutonomousMode extends Coordinator {
 // >>>>>>>> EO Auton Obstacles Options <<<<<<<< //
                 
 // >>>>>>>> Auton Modes <<<<<<<< //
-/*
+
                 group(new Group(modules.getModule("Dashboard").getTrigger("Auton: Defense Mode"), new Coordinator() {
                     protected void apply(ModuleManager modules) {
                         step("Rotate", new Step(new TriggerMeasure(new TriggerAnd(
@@ -72,12 +74,12 @@ public class AutonomousMode extends Coordinator {
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
                                 this.bind(new Binding(modules.getModule("Drive").getAction("Servo Rotate")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate), "Angle", 180));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate"), "Angle", 180));
                             }
                         }));
                     }
                 }));
-*/
+
                 // >>>>>>>> EO Auton Mode Options <<<<<<<< //
             }
         }));
