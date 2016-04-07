@@ -6,8 +6,8 @@ public final class Calibration {
     private Calibration () {}
     
     /* Autonomous Mode Distances */
-    public static final double AUTON_FORWARD_CLICKS = 2200;
-    public static final double AUTON_BACKWARD_CLICKS = -2200;
+    public static final double AUTON_FORWARD_CLICKS = -2200;
+    public static final double AUTON_BACKWARD_CLICKS = 2200; // This value is here because there are parts in the code which will require the robot to do a 180.
 
     /* Shifter Solenoid Constants */
     public static final Value SHIFTER_LOW_GEAR = Value.kReverse;
