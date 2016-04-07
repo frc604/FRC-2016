@@ -14,18 +14,14 @@ public class Dashboard extends Module {
             add("Drive On", driveOn.addDefault("Drive On"));
             add("Drive Off", driveOn.add("Drive Off"));
             
-            final DashboardTriggerChoice autonOption = new DashboardTriggerChoice("Auton Mode");
-            add("Auton: Attack Mode", autonOption.addDefault("Auton: Attack Mode"));
-            add("Auton: Defense Mode", autonOption.add("Auton: Defense Mode"));
-            
             final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
-            add("Everything Else", autonObstacle.addDefault("Everything Else"));
+            add("Default", autonObstacle.addDefault("Default"));
             add("Lowbar", autonObstacle.add("Lowbar"));
+            add("Defense Mode", autonObstacle.add("Defense Mode"));
 			
-            final DashboardTriggerChoice autonMode = new DashboardTriggerChoice("Auton Mode");
-            add("Auton Obstacle", autonMode.addDefault("Auton Obstacle"));
-            add("Auton Retreat", autonMode.add("Auton Retreat"));
-            add("Auton Off", autonMode.add("Auton Off"));
+            final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton Mode");
+            add("Auton Obstacle", autonOn.addDefault("Auton Off"));
+            add("Auton Off", autonOn.add("Auton Off"));
             
             final DashboardTriggerChoice debugOn = new DashboardTriggerChoice("Debug On");
             add("Debug Off", debugOn.addDefault("Debug Off"));
