@@ -23,6 +23,8 @@ In Eclipse, create a new workspace inside the first `FRC-2016` folder (the folde
 ## Additional Information
 - [Driver Controller Diagram](https://docs.google.com/drawings/d/10LpjVFT3TGkgpf_ftbZK2G0HnfsHISdKpVzURfAEDJA/edit?usp=sharing)
 - [Manipulator Controller Diagram](https://docs.google.com/drawings/d/1ObvfAp_S1VhPXQnw4GyVwfb4HUlG-bnxA43MxSMLP1U/edit?usp=sharing)
+- [Programming Binder](https://drive.google.com/open?id=0B4lvG0cyT7OIMHp0ZFFya3ktVHc)
+- [GRIP Strategy](https://drive.google.com/open?id=0B4lvG0cyT7OISFZzRzFGUy11a28)
 
 ## Troubleshooting
 
