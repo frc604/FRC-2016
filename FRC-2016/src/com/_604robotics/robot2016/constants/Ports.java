@@ -33,8 +33,8 @@ public final class Ports {
     /* Solenoids */
     public static final int SHIFTER_SOLENOID_FORWARD = 4;
     public static final int SHIFTER_SOLENOID_REVERSE = 5;
-    public static final int PNEUMATIC_PICKUP_RIGHT_A = 1;//not real
+    public static final int PNEUMATIC_PICKUP_RIGHT_A = 0;
     public static final int PNEUMATIC_PICKUP_LEFT_A = 2;//not real
-    public static final int PNEUMATIC_PICKUP_RIGHT_B = 6;//not real
-    public static final int PNEUMATIC_PICKUP_LEFT_B = 7;//not real
+    public static final int PNEUMATIC_PICKUP_RIGHT_B = 1;
+    public static final int PNEUMATIC_PICKUP_LEFT_B = 3;//not real
 }

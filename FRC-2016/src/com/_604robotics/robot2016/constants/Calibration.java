@@ -6,8 +6,8 @@ public final class Calibration {
     private Calibration () {}
     
     /* Autonomous Mode Distances */
-    public static final double AUTON_FORWARD_CLICKS = -2200;
-    public static final double AUTON_BACKWARD_CLICKS = 2200; // This value is here because there are parts in the code which will require the robot to do a 180.
+    public static final double AUTON_FORWARD_CLICKS = 2700;
+    public static final double AUTON_BACKWARD_CLICKS = -2700; // This value is here because there are parts in the code which will require the robot to do a 180.
 
     /* Shifter Solenoid Constants */
     public static final Value SHIFTER_LOW_GEAR = Value.kReverse;
@@ -21,8 +21,8 @@ public final class Calibration {
     public static final double PICKUP_MOVE_TIME = 1;
     
     /* Shooter Speed Constants */
-    public static final double SHOOTER_TARGET_SPEED = 30000;
-    public static final double SHOOTER_SPEED_THRESHOLD = 2000;
+    public static final double SHOOTER_TARGET_SPEED = 50000;
+    public static final double SHOOTER_SPEED_THRESHOLD = 3000;
     public static final double SHOOTER_MINIMUM_CHARGE_TIME = 0.5;
    
     /*Intake constants*/
