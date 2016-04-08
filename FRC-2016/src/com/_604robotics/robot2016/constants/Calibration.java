@@ -17,6 +17,9 @@ public final class Calibration {
     public static final Value PICKUP_STOW = Value.kReverse;
     public static final Value PICKUP_DEPLOY = Value.kForward;
 
+    /* Pickup Timer Constants */
+    public static final double PICKUP_MOVE_TIME = 1;
+    
     /* Shooter Speed Constants */
     public static final double SHOOTER_TARGET_SPEED = 30000;
     public static final double SHOOTER_SPEED_THRESHOLD = 2000;
