@@ -45,6 +45,7 @@ public class AutonomousMode extends Coordinator {
                                 this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate"), "Angle", 180));
                             }
                         }));
+                    	/*
                     	step("Deploy", new Step(new TriggerMeasure(
                     			modules.getModule("Pickup").getTrigger("On Deploy Target")
                     	), new Coordinator() {
@@ -52,6 +53,7 @@ public class AutonomousMode extends Coordinator {
                     			this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy")));
                     		}
                     	}));
+                    	*/
                     	step("Backward", new Step(new TriggerMeasure(new TriggerAnd(
                                 modules.getModule("Drive").getTrigger("At Move Servo Target")
                         )), new Coordinator() {

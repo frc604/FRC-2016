@@ -16,7 +16,7 @@ public class Dashboard extends Module {
             
             final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
             add("Default", autonObstacle.addDefault("Default"));
-            add("Lowbar", autonObstacle.add("Lowbar"));
+            //add("Lowbar", autonObstacle.add("Lowbar"));
             add("Defense Mode", autonObstacle.add("Defense Mode"));
 			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton Mode");
@@ -42,7 +42,7 @@ public class Dashboard extends Module {
             }
 
             /* Pickup */
-            {
+            /*{
                 add("Pickup Stow Angle", new DashboardData("Pickup Stow Angle", Calibration.PICKUP_STOW_ANGLE));
                 add("Pickup Stow PID Tolerance", new DashboardData("Pickup Stow PID Tolerance", Calibration.PICKUP_STOW_PID_TOLERANCE));
                 add("Pickup Stow Power", new DashboardData("Pickup Stow Power", Calibration.PICKUP_STOW_POWER));
@@ -54,7 +54,7 @@ public class Dashboard extends Module {
                 add("Pickup Deploy Upper Threshold", new DashboardData("Pickup Deploy Upper Threshold", Calibration.PICKUP_DEPLOY_UPPERTHRESHOLD));
                 add("Pickup Deploy Lower Power", new DashboardData("Pickup Deploy Lower Power", Calibration.PICKUP_LOWER_POWER));
                 add("Pickup Deploy Lower Threshold", new DashboardData("Pickup Deploy Lower Threshold", Calibration.PICKUP_DEPLOY_LOWERTHRESHOLD));
-            }
+            }*/
         }});
     }
 }
