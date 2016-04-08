@@ -27,11 +27,11 @@ public class Robot2016 extends Robot {
             add("Regulator", new Regulator());
             add("Drive", new Drive());
             add("Dashboard", new Dashboard());
-            add("Pickup", new Pickup());
+            //add("Pickup", new Pickup());
             add("Shifter", new Shifter());
             add("Intake", new Intake());
             add("Shooter", new Shooter());
-            //add("PneumaticPickup", new PneumaticPickup());
+            add("PneumaticPickup", new PneumaticPickup());
         }});
 
         this.set(new CoordinatorList() {{

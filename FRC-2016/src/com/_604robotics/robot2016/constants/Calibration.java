@@ -12,6 +12,10 @@ public final class Calibration {
     /* Shifter Solenoid Constants */
     public static final Value SHIFTER_LOW_GEAR = Value.kReverse;
     public static final Value SHIFTER_HIGH_GEAR = Value.kForward;
+    
+    /* Pickup Solenoid Constants */
+    public static final Value PICKUP_STOW = Value.kReverse;
+    public static final Value PICKUP_DEPLOY = Value.kForward;
 
     /* Shooter Speed Constants */
     public static final double SHOOTER_TARGET_SPEED = 30000;
