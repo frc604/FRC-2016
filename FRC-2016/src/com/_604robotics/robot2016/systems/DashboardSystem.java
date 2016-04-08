@@ -48,7 +48,7 @@ public class DashboardSystem extends Coordinator {
         }
 
         /* Pickup */
-        {
+        /*{
             this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));
 
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Manual"), "Deploy Angle", modules.getModule("Dashboard").getData("Pickup Deploy Angle")));
@@ -66,6 +66,6 @@ public class DashboardSystem extends Coordinator {
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Upper Threshold", modules.getModule("Dashboard").getData("Pickup Deploy Upper Threshold")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Lower Power", modules.getModule("Dashboard").getData("Pickup Deploy Lower Power")));
             this.fill(new DataWire(modules.getModule("Pickup").getAction("Deploy Alt"), "Lower Threshold", modules.getModule("Dashboard").getData("Pickup Deploy Lower Threshold")));
-        }
+        }*/
     }
 }

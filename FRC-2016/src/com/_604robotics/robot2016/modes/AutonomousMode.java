@@ -45,13 +45,15 @@ public class AutonomousMode extends Coordinator {
                                 this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Rotate"), "Angle", 180));
                             }
                         }));
+                    	/*
                     	step("Deploy", new Step(new TriggerMeasure(
                     			modules.getModule("Pickup").getTrigger("On Deploy Target")
                     	), new Coordinator() {
                     		protected void apply (ModuleManager modules) {
-                    			this.bind(new Binding(modules.getModule("Pickup").getAction("Deploy")));
+                    			this.bind(new Binding(modules.getModule("PneumaticPickup").getAction("Down")));
                     		}
                     	}));
+                    	*/
                     	step("Backward", new Step(new TriggerMeasure(new TriggerAnd(
                                 modules.getModule("Drive").getTrigger("At Move Servo Target")
                         )), new Coordinator() {
