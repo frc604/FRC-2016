@@ -15,15 +15,6 @@ public class PneumaticPickup extends Module {
 	private final Solenoid left = new Solenoid(Ports.PNEUMATICPICKUP_LEFT);
 
 	public PneumaticPickup () {
-		this.set(new TriggerMap(){{
-			add("Stowed", new Trigger(){
-				public boolean run(){
-					return right.get() && left.get();
-				}
-			});
-			
-		}});
-		
 		this.set(new StateController() {{
 			addDefault("Stow", new Action() {
 				public void begin(ActionData data) {
