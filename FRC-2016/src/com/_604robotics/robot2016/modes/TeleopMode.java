@@ -76,7 +76,7 @@ public class TeleopMode extends Coordinator {
                 
                 this.bind(new Binding(modules.getModule("Shooter").getAction("Spit"),
                 		new TriggerAnd(
-                        manipulator.buttons.RT,
+                        manipulator.buttons.LT,
                         new TriggerNot(modules.getModule("PneumaticPickup").getAction("Stow").active()))));
             }
 

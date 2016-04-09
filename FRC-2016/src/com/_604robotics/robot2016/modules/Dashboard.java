@@ -18,6 +18,9 @@ public class Dashboard extends Module {
             add("Default", autonObstacle.addDefault("Default"));
             add("Lowbar", autonObstacle.add("Lowbar"));
             add("Defense Mode", autonObstacle.add("Defense Mode"));
+            add("Systems Check: Auton", autonObstacle.add("Systems Check: Auton"));
+            add("Systems Check: Pickup", autonObstacle.add("Systems Check: Pickup"));
+            add("Systems Check: Shooter", autonObstacle.add("Systems Check: Shooter"));
 			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton Mode");
             add("Auton On", autonOn.addDefault("Auton On"));

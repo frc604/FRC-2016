@@ -63,7 +63,7 @@ public class Shooter extends Module {
                     if (encoder.getRate() >= data.get("Target Speed")) {
                         motors.stopMotor();
                     } else {
-                        motors.set(-1);
+                        motors.set(1);
                     }
                 }
 
@@ -80,7 +80,7 @@ public class Shooter extends Module {
             add("Spit", new Action() {
                 @Override
                 public void begin (ActionData data) {
-                    motors.set(1);
+                    motors.set(-1);
                 }
 
                 @Override
@@ -88,6 +88,34 @@ public class Shooter extends Module {
                     motors.stopMotor();
                 }
             });
+            final Timer shootTimer = new Timer();
+			final Timer spitTimer = new Timer();
+			set(new TriggerMap() {{
+				add("Shot", () -> shootTimer.get() > 2);
+				add("Spat", () -> spitTimer.get() > 2);
+			}});
+			add("Shoot Test", new Action() {
+				public void begin(ActionData data) {
+					shootTimer.start();
+					motors.set(1);
+				}
+				public void end(ActionData data) {
+					shootTimer.stop();
+					shootTimer.reset();
+					motors.stopMotor();
+				}
+			});
+			add("Spit Test", new Action() {
+				public void begin(ActionData data) {
+					spitTimer.start();
+					motors.set(-1);
+				}
+				public void end(ActionData data) {
+					spitTimer.stop();
+					spitTimer.reset();
+					motors.stopMotor();
+				}
+			});
         }});
     }
 }
