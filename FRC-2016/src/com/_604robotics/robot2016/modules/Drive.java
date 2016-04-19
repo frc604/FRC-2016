@@ -27,6 +27,7 @@ public class Drive extends Module {
     // 430 is 180 degrees with one side locked
 
     // When decreasing angle it needs a little bit less than you'd think
+	
 	private final AnalogGyro horizGyro = new AnalogGyro(Ports.HORIZONTAL_GYRO);
     
 	private final RobotDrive drive = new RobotDrive(
@@ -52,12 +53,14 @@ public class Drive extends Module {
             Calibration.DRIVE_MOVE_PID_D,
             encoderLeft,
             pidOutput.move);
+    
     private final PIDController pidRotate = new PIDController(
             Calibration.DRIVE_ROTATE_PID_P,
             Calibration.DRIVE_ROTATE_PID_I,
             Calibration.DRIVE_ROTATE_PID_D,
             horizGyro,
             pidOutput.rotate);
+	
 
     public Drive () {
         encoderLeft.setPIDSourceType(PIDSourceType.kDisplacement);

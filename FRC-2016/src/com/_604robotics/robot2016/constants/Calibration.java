@@ -28,14 +28,15 @@ public final class Calibration {
     /*Intake constants*/
     public static final double INTAKE_SHOOT_POWER = 0.7;
 
-    /* Left Drive PID Constants */
+    /* Drive Movement Constants */
     public static final double DRIVE_MOVE_PID_P = 0.02;
     public static final double DRIVE_MOVE_PID_I = 0;
     public static final double DRIVE_MOVE_PID_D = 0.005;
     public static final double DRIVE_MOVE_PID_MAX = 1.0;
     public static final double DRIVE_MOVE_PID_TOLERANCE = 20;
 
-    /* Right Drive PID Constants */
+    /* Drive Rotation Constants */
+    // NONE OF THESE ARE REAL
     public static final double DRIVE_ROTATE_PID_P = 0.02;
     public static final double DRIVE_ROTATE_PID_I = 0;
     public static final double DRIVE_ROTATE_PID_D = 0.005;
