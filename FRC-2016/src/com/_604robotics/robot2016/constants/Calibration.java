@@ -43,38 +43,27 @@ public final class Calibration {
     public static final double DRIVE_ROTATE_PID_MAX = 1.0;
     public static final double DRIVE_ROTATE_PID_TOLERANCE = 20;
     
-/* 
-    public static final double PICKUP_RESET_TIME = 2;
-    public static final double PICKUP_PID_MIN = -0.5;//not real
-    public static final double PICKUP_PID_MAX = 0.5;//not real
-    public static final double PICKUP_POWER_COEFF = 0.6;
+    /* MANTIS Constants */
+    public static final double MANTIS_RESET_TIME = 2;
+    public static final double MANTIS_PID_MIN = -0.5;//not real
+    public static final double MANTIS_PID_MAX = 0.5;//not real
     
-    public static final double PICKUP_STOW_PID_P = 0.001;
-    public static final double PICKUP_STOW_PID_I = 0;
-    public static final double PICKUP_STOW_PID_D = 0.002;
-    public static final double PICKUP_STOW_PID_MAX = 1.0;
-    public static final double PICKUP_STOW_PID_TOLERANCE = 0;
-    public static final double PICKUP_STOW_THRESHOLD = -480;
-    public static final double PICKUP_STOW_POWER = 0.7;
-    
-    public static final double PICKUP_DEPLOY_PID_P = 0.016;
-    public static final double PICKUP_DEPLOY_PID_I = 0;
-    public static final double PICKUP_DEPLOY_PID_D = 0.016;
-    public static final double PICKUP_DEPLOY_PID_MAX = 1.0;
-    public static final double PICKUP_DEPLOY_PID_TOLERANCE = 0;
-    public static final double PICKUP_DEPLOY_UPPERTHRESHOLD = -400;
-    public static final double PICKUP_DEPLOY_LOWERTHRESHOLD = -945;//calibrate
+    /* MANTIS Stow Constants */
+    public static final double MANTIS_STOW_TOLERANCE = 5;//not yet calibrated
+    public static final double MANTIS_STOW_PID_P = -0.016;
+    public static final double MANTIS_STOW_PID_I = 0;
+    public static final double MANTIS_STOW_PID_D = -0.016;
 
-    public static final double PICKUP_UPPER_POWER = -0.3;
-    public static final double PICKUP_LOWER_POWER = -0.1;
+    /* MANTIS Deploy Constants */
+    public static final double MANTIS_DEPLOY_TOLERANCE = 5;//not yet calibrated
+    public static final double MANTIS_DEPLOY_PID_P = -0.016;
+    public static final double MANTIS_DEPLOY_PID_I = 0;
+    public static final double MANTIS_DEPLOY_PID_D = -0.016;
 
-    Pickup Angles
-    public static final double PICKUP_ZERO_ANGLE = 3925; // this is the angle before match starts
-    public static final double PICKUP_STOW_ANGLE = -328;
-    public static final double PICKUP_DEPLOY_ANGLE = -1300;
-    public static final double PICKUP_STOW_TARGET = -300;
-    public static final double PICKUP_DEPLOY_TARGET = -1000;
-    */
+    /* MANTIS Angles */
+    public static final double MANTIS_ZERO_ANGLE = 0;
+    public static final double MANTIS_STOW_ANGLE = 7;
+    public static final double MANTIS_DEPLOY_ANGLE = 121;
     
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;
