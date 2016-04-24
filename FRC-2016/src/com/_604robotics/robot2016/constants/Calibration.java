@@ -17,6 +17,11 @@ public final class Calibration {
     public static final Value PICKUP_STOW = Value.kReverse;
     public static final Value PICKUP_DEPLOY = Value.kForward;
 
+    /* Clamp Solenoid Constants */
+    public static final int CLAMP_MOVE_TIME = 0; //not real
+    public static final boolean CLAMP_STOW = false;
+    public static final boolean CLAMP_DEPLOY = true;
+    
     /* Pickup Timer Constants */
     public static final double PICKUP_MOVE_TIME = 1;
     
