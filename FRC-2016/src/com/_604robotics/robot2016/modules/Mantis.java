@@ -13,35 +13,35 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Clamp extends Module {
+public class Mantis extends Module {
 	private final Solenoid solenoid = new Solenoid(Ports.CLAMP);
 	
-	public Clamp () {	
+	public Mantis () {	
 		this.set(new StateController() {{
-			final Timer stowTimer = new Timer();
-			final Timer downTimer = new Timer();
+			final Timer closeTimer = new Timer();
+			final Timer openTimer = new Timer();
 			set(new TriggerMap() {{
-				add("Clamp Closed", () -> stowTimer.get() > Calibration.CLAMP_MOVE_TIME);
-				add("Clamp Opened", () -> downTimer.get() > Calibration.CLAMP_MOVE_TIME);
+				add("Clamp Closed", () -> closeTimer.get() > Calibration.CLAMP_MOVE_TIME);
+				add("Clamp Opened", () -> openTimer.get() > Calibration.CLAMP_MOVE_TIME);
 			}});
 			addDefault("Close", new Action() {
 				public void begin(ActionData data) {
-					stowTimer.start();
+					closeTimer.start();
 					solenoid.set(Calibration.CLAMP_STOW);
 				}
 				public void end(ActionData data) {
-					stowTimer.stop();
-					stowTimer.reset();
+					closeTimer.stop();
+					closeTimer.reset();
 				}
 			});
 			add("Open", new Action(){
 				public void begin (ActionData data){
-					downTimer.start();
+					openTimer.start();
 					solenoid.set(Calibration.CLAMP_DEPLOY);
 				}
 				public void end(ActionData data) {
-					downTimer.stop();
-					downTimer.reset();
+					openTimer.stop();
+					openTimer.reset();
 				}
 			});
 		}});

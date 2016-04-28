@@ -67,7 +67,8 @@ public class TeleopMode extends Coordinator {
 
         /* Manipulating */ 
         {
-            /* Shooter */
+        	/*
+            // Shooter 
             {
                 this.bind(new Binding(modules.getModule("Shooter").getAction("Shoot"),
                 		new TriggerAnd(
@@ -79,7 +80,14 @@ public class TeleopMode extends Coordinator {
                         manipulator.buttons.LT,
                         new TriggerNot(modules.getModule("PneumaticPickup").getAction("Stow").active()))));
             }
+            */
 
+        	/* Mantis */
+        	{
+        		this.bind(new Binding(modules.getModule("Mantis").getAction("Close"), manipulator.buttons.LT));
+                this.bind(new Binding(modules.getModule("Mantis").getAction("Open"), manipulator.buttons.RT));
+        	}
+        	
             /* Intake */
             {
                 this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
@@ -89,15 +97,6 @@ public class TeleopMode extends Coordinator {
                                 manipulator.buttons.RB)));
 
                 
-            }
-
-            /* Mantis */
-            {
-                this.bind(new Binding(modules.getModule("Mantis").getAction("Manual"), manipulator.buttons.X));
-                this.fill(new DataWire(modules.getModule("Mantis").getAction("Manual"), "Reset Encoder", manipulator.buttons.RB));
-
-                this.bind(new Binding(modules.getModule("Mantis").getAction("Deploy"), manipulator.buttons.A));
-                this.bind(new Binding(modules.getModule("Mantis").getAction("Stow"), manipulator.buttons.Y));
             }
             
             /* PneumaticPickup */
