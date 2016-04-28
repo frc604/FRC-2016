@@ -48,28 +48,6 @@ public final class Calibration {
     public static final double DRIVE_ROTATE_PID_MAX = 1.0;
     public static final double DRIVE_ROTATE_PID_TOLERANCE = 20;
     
-    /* MANTIS Constants */
-    public static final double MANTIS_RESET_TIME = 2;
-    public static final double MANTIS_PID_MIN = -0.5;//not real
-    public static final double MANTIS_PID_MAX = 0.5;//not real
-    
-    /* MANTIS Stow Constants */
-    public static final double MANTIS_STOW_TOLERANCE = 5;//not yet calibrated
-    public static final double MANTIS_STOW_PID_P = -0.016;
-    public static final double MANTIS_STOW_PID_I = 0;
-    public static final double MANTIS_STOW_PID_D = -0.016;
-
-    /* MANTIS Deploy Constants */
-    public static final double MANTIS_DEPLOY_TOLERANCE = 5;//not yet calibrated
-    public static final double MANTIS_DEPLOY_PID_P = -0.016;
-    public static final double MANTIS_DEPLOY_PID_I = 0;
-    public static final double MANTIS_DEPLOY_PID_D = -0.016;
-
-    /* MANTIS Angles */
-    public static final double MANTIS_ZERO_ANGLE = 0;
-    public static final double MANTIS_STOW_ANGLE = 7;
-    public static final double MANTIS_DEPLOY_ANGLE = 121;
-    
     /* Teleop Xbox Controller Constants */
     public static final double TELEOP_DEADBAND = 0.3;
     public static final double TELEOP_FACTOR = -1;

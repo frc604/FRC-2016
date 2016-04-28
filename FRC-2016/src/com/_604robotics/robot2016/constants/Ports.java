@@ -6,10 +6,6 @@ public final class Ports {
     /* Clamp */
     public static final int CLAMP = 0; // not real
     
-    /* Mantis */
-    public static final int MANTIS_VICTOR = 0; //not real
-    public static final int MANTIS_ENCODER = 0; // not real
-    
     /* Controller */
     public static final int DRIVER = 0;
     public static final int MANIPULATOR = 1;

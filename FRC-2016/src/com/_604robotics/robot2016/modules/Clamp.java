@@ -14,30 +14,30 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Clamp extends Module {
-	private final Solenoid center = new Solenoid(Ports.CLAMP);
+	private final Solenoid solenoid = new Solenoid(Ports.CLAMP);
 	
 	public Clamp () {	
 		this.set(new StateController() {{
 			final Timer stowTimer = new Timer();
 			final Timer downTimer = new Timer();
 			set(new TriggerMap() {{
-				add("Clamp Stowed", () -> stowTimer.get() > Calibration.CLAMP_MOVE_TIME);
-				add("Clamp Deployed", () -> downTimer.get() > Calibration.CLAMP_MOVE_TIME);
+				add("Clamp Closed", () -> stowTimer.get() > Calibration.CLAMP_MOVE_TIME);
+				add("Clamp Opened", () -> downTimer.get() > Calibration.CLAMP_MOVE_TIME);
 			}});
-			addDefault("Stow", new Action() {
+			addDefault("Close", new Action() {
 				public void begin(ActionData data) {
 					stowTimer.start();
-					center.set(Calibration.CLAMP_STOW);
+					solenoid.set(Calibration.CLAMP_STOW);
 				}
 				public void end(ActionData data) {
 					stowTimer.stop();
 					stowTimer.reset();
 				}
 			});
-			add("Down", new Action(){
+			add("Open", new Action(){
 				public void begin (ActionData data){
 					downTimer.start();
-					center.set(Calibration.CLAMP_DEPLOY);
+					solenoid.set(Calibration.CLAMP_DEPLOY);
 				}
 				public void end(ActionData data) {
 					downTimer.stop();
