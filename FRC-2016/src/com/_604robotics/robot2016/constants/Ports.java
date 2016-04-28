@@ -3,8 +3,8 @@ package com._604robotics.robot2016.constants;
 public final class Ports {
     private Ports () {}
 
-    /* Clamp */
-    public static final int CLAMP = 0; // not real
+    /* Mantis */
+    public static final int MANTIS = 0; // not real
     
     /* Controller */
     public static final int DRIVER = 0;
