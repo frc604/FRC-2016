@@ -24,11 +24,6 @@ public final class Calibration {
     
     /* Pickup Timer Constants */
     public static final double PICKUP_MOVE_TIME = 1;
-    
-    /* Shooter Speed Constants */
-    public static final double SHOOTER_TARGET_SPEED = 50000;
-    public static final double SHOOTER_SPEED_THRESHOLD = 3000;
-    public static final double SHOOTER_MINIMUM_CHARGE_TIME = 0.5;
    
     /*Intake constants*/
     public static final double INTAKE_SHOOT_POWER = 0.7;

@@ -36,17 +36,6 @@ public class DashboardSystem extends Coordinator {
         			modules.getModule("Drive").getAction("Tank Drive").active()));
         }
 
-        /* Shooter */
-        {
-            this.fill(new DataWire(DashboardOutput.asDouble(), "Current Shooter Speed", modules.getModule("Shooter").getData("Current Speed")));
-            this.fill(new DataWire(DashboardOutput.asDouble(), "Current Charge Time", modules.getModule("Shooter").getData("Current Charge Time")));
-            this.fill(new DataWire(DashboardOutput.asBoolean(), "Shooter Charged", modules.getModule("Shooter").getTrigger("Charged")));
-
-            this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Target Speed", modules.getModule("Dashboard").getData("Shooter Target Speed")));
-            this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Threshold", modules.getModule("Dashboard").getData("Shooter Threshold")));
-            this.fill(new DataWire(modules.getModule("Shooter").getAction("Shoot"), "Minimum Charge Time", modules.getModule("Dashboard").getData("Shooter Minimum Charge Time")));
-        }
-
         /* Pickup */
         /*{
             this.fill(new DataWire(DashboardOutput.asDouble(), "Pickup Angle", modules.getModule("Pickup").getData("Pickup Angle")));

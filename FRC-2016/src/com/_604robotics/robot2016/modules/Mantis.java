@@ -8,10 +8,9 @@ import com._604robotics.robotnik.action.controllers.StateController;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Mantis extends Module {
 	private final Solenoid solenoid = new Solenoid(Ports.MANTIS);

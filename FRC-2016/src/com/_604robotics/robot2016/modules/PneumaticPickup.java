@@ -13,10 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PneumaticPickup extends Module {
-	private final DoubleSolenoid right = new DoubleSolenoid(Ports.PNEUMATIC_PICKUP_RIGHT_A,
-	        Ports.PNEUMATIC_PICKUP_RIGHT_B);
-	private final DoubleSolenoid left = new DoubleSolenoid(Ports.PNEUMATIC_PICKUP_LEFT_A, 
-	        Ports.PNEUMATIC_PICKUP_LEFT_B);
+	private final DoubleSolenoid solenoid = new DoubleSolenoid(Ports.PP_EXTEND, Ports.PP_RETRACT);
 	
 	public PneumaticPickup () {	
 		this.set(new StateController() {{
@@ -29,8 +26,7 @@ public class PneumaticPickup extends Module {
 			addDefault("Stow", new Action() {
 				public void begin(ActionData data) {
 					stowTimer.start();
-					right.set(Calibration.PICKUP_STOW);
-					left.set(Calibration.PICKUP_STOW);
+					solenoid.set(Calibration.PICKUP_STOW);
 				}
 				public void end(ActionData data) {
 					stowTimer.stop();
@@ -40,8 +36,7 @@ public class PneumaticPickup extends Module {
 			add("Down", new Action(){
 				public void begin (ActionData data){
 					downTimer.start();
-					right.set(Calibration.PICKUP_DEPLOY);
-					left.set(Calibration.PICKUP_DEPLOY);
+					solenoid.set(Calibration.PICKUP_DEPLOY);
 				}
 				public void end(ActionData data) {
 					downTimer.stop();

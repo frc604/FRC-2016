@@ -91,12 +91,6 @@ public class TeleopMode extends Coordinator {
             /* Intake */
             {
                 this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", manipulator.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Intake").getAction("Run"), "Power", 
-                        modules.getModule("Dashboard").getData("Intake Shoot Power"), 
-                        new TriggerAnd(modules.getModule("Shooter").getTrigger("Charged"), 
-                                manipulator.buttons.RB)));
-
-                
             }
             
             /* PneumaticPickup */

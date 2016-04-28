@@ -75,65 +75,6 @@ public class AutonomousMode extends Coordinator {
                         }));
                     }
                 }));
-                group(new Group(modules.getModule("Dashboard").getTrigger("Systems Check: Auton"), new Coordinator() {
-                	protected void apply(ModuleManager modules) {
-                		step("Test Forward", new Step(new TriggerMeasure(new TriggerAnd(
-                				modules.getModule("Drive").getTrigger("At Move Servo Target")
-                			)), new Coordinator() {
-                				protected void apply (ModuleManager modules) {
-                					this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
-                					this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", 1000));
-                				}
-                		}));
-                		step("Test Backward", new Step(new TriggerMeasure(new TriggerAnd(
-                				modules.getModule("Drive").getTrigger("At Move Trigger Target")
-                			)), new Coordinator() {
-                				protected void apply (ModuleManager modules) {
-                					this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
-                					this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), "Clicks", -1000));
-                				}
-                		}));
-                		
-                	}
-                }));
-                group(new Group(modules.getModule("Dashboard").getTrigger("Systems Check: Pickup"), new Coordinator() {
-                	protected void apply(ModuleManager modules) {
-                		step("Test Deploy", new Step(new TriggerMeasure(new TriggerAnd(
-                				modules.getModule("PneumaticPickup").getTrigger("Is Deployed")
-                			)), new Coordinator() {
-                				protected void apply (ModuleManager modules) {
-                					this.bind(new Binding(modules.getModule("PneumaticPickup").getAction("Down")));
-                				}
-                		}));
-                		step("Test Stow", new Step(new TriggerMeasure(new TriggerAnd(
-                				modules.getModule("PneumaticPickup").getTrigger("Is Stowed")
-                			)), new Coordinator() {
-                				protected void apply (ModuleManager modules) {
-                					this.bind(new Binding(modules.getModule("PneumaticPickup").getAction("Stow")));
-                				}
-                		}));
-                	}
-                }));
-                group(new Group(modules.getModule("Dashboard").getTrigger("Systems Check: Shooter"), new Coordinator() {
-                	protected void apply(ModuleManager modules) {
-                		step("Test Shoot", new Step(new TriggerMeasure(new TriggerAnd(
-                				modules.getModule("Shooter").getTrigger("Shot")
-                			)), new Coordinator() {
-                				protected void apply (ModuleManager modules) {
-                					this.bind(new Binding(modules.getModule("Shooter").getAction("Test Shoot")));
-                					this.fill(new DataWire(modules.getModule("Shooter").getAction("Test Shoot"), "Duration", 2));
-                				}
-                		}));
-                		step("Test Spit", new Step(new TriggerMeasure(new TriggerAnd(
-                				modules.getModule("Shooter").getTrigger("Spat")
-                			)), new Coordinator() {
-                				protected void apply (ModuleManager modules) {
-                					this.bind(new Binding(modules.getModule("Shooter").getAction("Test Spit")));
-                					this.fill(new DataWire(modules.getModule("Shooter").getAction("Test Spit"), "Duration", 2));
-                				}
-                		}));
-                	}
-                }));
 // >>>>>>>> EO Auton Obstacles Options <<<<<<<< //
             }
         }));

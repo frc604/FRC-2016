@@ -18,9 +18,6 @@ public class Dashboard extends Module {
             add("Default", autonObstacle.addDefault("Default"));
             add("Lowbar", autonObstacle.add("Lowbar"));
             add("Defense Mode", autonObstacle.add("Defense Mode"));
-            add("Systems Check: Auton", autonObstacle.add("Systems Check: Auton"));
-            add("Systems Check: Pickup", autonObstacle.add("Systems Check: Pickup"));
-            add("Systems Check: Shooter", autonObstacle.add("Systems Check: Shooter"));
 			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton Mode");
             add("Auton On", autonOn.addDefault("Auton On"));
@@ -32,13 +29,6 @@ public class Dashboard extends Module {
         }});
 
         this.set(new DataMap() {{
-            /* Shooter */
-            {
-                add("Shooter Target Speed", new DashboardData("Shooter Target Speed", Calibration.SHOOTER_TARGET_SPEED));
-                add("Shooter Threshold", new DashboardData("Shooter Threshold", Calibration.SHOOTER_SPEED_THRESHOLD));
-                add("Shooter Minimum Charge Time", new DashboardData("Shooter Minimum Charge Time", Calibration.SHOOTER_MINIMUM_CHARGE_TIME));
-            }
-            
             /* Intake */
             {
 	            add("Intake Shoot Power", new DashboardData("Intake Shoot Power", Calibration.INTAKE_SHOOT_POWER));
