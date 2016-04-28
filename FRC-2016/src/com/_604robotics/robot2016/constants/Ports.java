@@ -4,7 +4,7 @@ public final class Ports {
     private Ports () {}
 
     /* Mantis */
-    public static final int MANTIS = 3; 
+    public static final int CLAMP = 3; 
     
     /* PP */
     public static final int PP_EXTEND = 6;

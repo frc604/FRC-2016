@@ -17,10 +17,10 @@ public final class Calibration {
     public static final Value PICKUP_STOW = Value.kReverse;
     public static final Value PICKUP_DEPLOY = Value.kForward;
 
-    /* Mantis Solenoid Constants */
-    public static final int MANTIS_MOVE_TIME = 1;
-    public static final boolean MANTIS_CLOSE = false;
-    public static final boolean MANTIS_OPEN = true;
+    /* CLAMP Solenoid Constants */
+    public static final int CLAMP_MOVE_TIME = 1;
+    public static final boolean CLAMP_CLOSE = false;
+    public static final boolean CLAMP_OPEN = true;
     
     /* Pickup Timer Constants */
     public static final double PICKUP_MOVE_TIME = 1;
