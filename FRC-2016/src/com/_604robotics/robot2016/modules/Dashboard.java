@@ -43,15 +43,6 @@ public class Dashboard extends Module {
             {
 	            add("Intake Shoot Power", new DashboardData("Intake Shoot Power", Calibration.INTAKE_SHOOT_POWER));
             }
-
-            /* MANTIS */
-            {
-                add("Mantis Stow Angle", new DashboardData("Mantis Stow Angle", Calibration.MANTIS_STOW_ANGLE));
-                add("Mantis Deploy Angle", new DashboardData("Mantis Deploy Angle", Calibration.MANTIS_DEPLOY_ANGLE));
-
-                add("Mantis Stow Tolerance", new DashboardData("Mantis Stow Tolerance", Calibration.MANTIS_STOW_TOLERANCE));
-                add("Mantis Deploy Tolerance", new DashboardData("Mantis Deploy Tolerance", Calibration.MANTIS_DEPLOY_TOLERANCE));
-            }
         }});
     }
 }
