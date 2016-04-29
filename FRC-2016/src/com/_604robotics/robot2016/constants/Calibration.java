@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public final class Calibration {
     private Calibration () {}
     
+    /* Safe Mode Constants */
+    public static final double SAFE_MODE_OFF = 1.0;
+    public static final double SAFE_MODE_ON = 0.9;
+    
     /* Autonomous Mode Distances */
     public static final double AUTON_FORWARD_CLICKS = 2700;
     public static final double AUTON_BACKWARD_CLICKS = -2700; // This value is here because there are parts in the code which will require the robot to do a 180.

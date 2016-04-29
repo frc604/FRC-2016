@@ -42,6 +42,12 @@ public class TeleopMode extends Coordinator {
             	this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modeToggle.on));
             	this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modeToggle.off));
             }
+            /* Safe Mode */
+            {
+            	final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
+                this.bind(new Binding(modules.getModule("SafeToggle").getAction("Safe Mode On"), gearToggle.on));
+                this.bind(new Binding(modules.getModule("SafeToggle").getAction("Safe Mode Off"), gearToggle.off));
+            }
             
             /* Arcade Drive */
             {   
@@ -55,6 +61,7 @@ public class TeleopMode extends Coordinator {
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Throttled", driver.buttons.LB));
+                
             }
             
             /* Shifter */
