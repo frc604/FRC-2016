@@ -7,7 +7,7 @@ public final class Calibration {
     
     /* Safe Mode Constants */
     public static final double SAFE_MODE_OFF = 1.0;
-    public static final double SAFE_MODE_ON = 0.9;
+    public static final double SAFE_MODE_ON = 0.5;
     
     /* Autonomous Mode Distances */
     public static final double AUTON_FORWARD_CLICKS = 2700;

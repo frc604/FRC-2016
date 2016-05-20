@@ -18,6 +18,10 @@ public class Dashboard extends Module {
             add("Default", autonObstacle.addDefault("Default"));
             add("Lowbar", autonObstacle.add("Lowbar"));
             add("Defense Mode", autonObstacle.add("Defense Mode"));
+            
+            final DashboardTriggerChoice SafeToggle = new DashboardTriggerChoice("Safe Toggle");
+            add("Safe Toggle Off", SafeToggle.addDefault("Safe Toggle Off"));
+            add("Safe Toggle On", SafeToggle.add("Safe Toggle On"));
 			
             final DashboardTriggerChoice autonOn = new DashboardTriggerChoice("Auton Mode");
             add("Auton On", autonOn.addDefault("Auton On"));
