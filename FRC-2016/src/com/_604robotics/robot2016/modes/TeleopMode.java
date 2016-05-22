@@ -89,11 +89,7 @@ public class TeleopMode extends Coordinator {
             }
             */
 
-        	/* Mantis */
-        	{
-        		this.bind(new Binding(modules.getModule("Mantis").getAction("Close"), manipulator.buttons.LT));
-                this.bind(new Binding(modules.getModule("Mantis").getAction("Open"), manipulator.buttons.RT));
-        	}
+        	
         	
             /* Intake */
             {
