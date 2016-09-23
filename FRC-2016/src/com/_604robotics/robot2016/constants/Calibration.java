@@ -21,6 +21,10 @@ public final class Calibration {
     public static final Value PICKUP_STOW = Value.kReverse;
     public static final Value PICKUP_DEPLOY = Value.kForward;
 
+    /* Double Clamp Solenoid Constants */
+    public static final Value DOUBLE_CLAMP_CLOSE = Value.kReverse;
+    public static final Value DOUBLE_CLAMP_OPEN = Value.kForward;
+    
     /* CLAMP Solenoid Constants */
     public static final int CLAMP_MOVE_TIME = 1;
     public static final boolean CLAMP_CLOSE = false;

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Clamp extends Module {
-	private final Solenoid solenoid = new Solenoid(Ports.CLAMP);
+	private final Solenoid solenoid = new Solenoid(0);
 	
 	// Closed = Up
 	// Opened = Down

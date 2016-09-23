@@ -4,7 +4,8 @@ public final class Ports {
     private Ports () {}
 
     /* Mantis */
-    public static final int CLAMP = 3; 
+    public static final int CLAMP_FORWARD_MAYBE = 2;
+    public static final int CLAMP_REVERSE_MAYBE = 3;
     
     /* PP */
     public static final int PP_EXTEND = 6;

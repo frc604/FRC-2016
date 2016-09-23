@@ -53,6 +53,10 @@ public class TeleopMode extends Coordinator {
             final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
             this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), gearToggle.on));
             this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), gearToggle.off));
+            
+            final TriggerToggle clampToggle = new TriggerToggle(manipulator.buttons.LT, false);
+            this.bind(new Binding(modules.getModule("DoubleClamp").getAction("Open"), clampToggle.on));
+            this.bind(new Binding(modules.getModule("DoubleClamp").getAction("Close"), clampToggle.off));
             /* Safe Toggle */
             {
             	final TriggerToggle safeToggle=new TriggerToggle(driver.buttons.RB, false);
@@ -107,8 +111,6 @@ public class TeleopMode extends Coordinator {
                         new TriggerNot(modules.getModule("PneumaticPickup").getAction("Stow").active()))));
             }
             */
-
-        	
         	
             /* Intake */
             {
