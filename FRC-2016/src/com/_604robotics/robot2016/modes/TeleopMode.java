@@ -3,7 +3,9 @@ package com._604robotics.robot2016.modes;
 import com._604robotics.robotnik.coordinator.Coordinator;
 import com._604robotics.robotnik.coordinator.connectors.Binding;
 import com._604robotics.robotnik.coordinator.connectors.DataWire;
+import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.module.ModuleManager;
+import com._604robotics.robotnik.prefabs.controller.joystick.JoystickController;
 import com._604robotics.robotnik.prefabs.controller.xbox.XboxController;
 import com._604robotics.robotnik.prefabs.trigger.TriggerAnd;
 import com._604robotics.robotnik.prefabs.trigger.TriggerNot;
@@ -11,9 +13,12 @@ import com._604robotics.robotnik.prefabs.trigger.TriggerToggle;
 import com._604robotics.robot2016.constants.Calibration;
 import com._604robotics.robot2016.constants.Ports;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 public class TeleopMode extends Coordinator {
     private final XboxController driver = new XboxController(Ports.DRIVER);
     private final XboxController manipulator = new XboxController(Ports.MANIPULATOR);
+    private final JoystickController manip = new JoystickController(Ports.DRIVER);
 
     public TeleopMode () {        
         driver.leftStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
@@ -30,6 +35,9 @@ public class TeleopMode extends Coordinator {
 
         manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
         manipulator.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
+        
+        manip.axisX.setFactor(-1);
+        manip.axisY.setDeadband(0.3);
     }
 
     @Override
@@ -38,10 +46,13 @@ public class TeleopMode extends Coordinator {
         {
             /* Drive Modes */
             {
-            	final TriggerToggle modeToggle = new TriggerToggle(driver.buttons.LB, false);
-            	this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modeToggle.on));
-            	this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modeToggle.off));
+            	//final TriggerToggle modeToggle = new TriggerToggle(driver.buttons.LB, false);
+            	//this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modeToggle.on));
+            	//this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modeToggle.off));
             }
+            final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
+            this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), gearToggle.on));
+            this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), gearToggle.off));
             /* Safe Toggle */
             {
             	final TriggerToggle safeToggle=new TriggerToggle(driver.buttons.RB, false);
@@ -51,24 +62,32 @@ public class TeleopMode extends Coordinator {
             
             /* Arcade Drive */
             {   
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Move Power", driver.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Rotate Power", driver.rightStick.X));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Throttled", driver.buttons.LB));
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Stick Drive"), modules.getModule("Dashboard").getTrigger("Arcade Drive")));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "throttle", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "turn", driver.rightStick.X));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "Throttled", driver.buttons.LB));
+            }
+            /* Stick Drive */
+            {
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Stick Drive"), modules.getModule("Dashboard").getTrigger("Stick Drive")));
+            	this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "throttle", manip.axisY));
+            	this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "turn", manip.axisX));
+            	final TriggerToggle stickToggle=new TriggerToggle(manip.buttons.Button3, false);
+                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), stickToggle.on));
+                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), stickToggle.off));
             }
 
             /* Tank Drive */
             {
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Throttled", driver.buttons.LB));
-                
             }
             
             /* Shifter */
             {
-                final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
-                this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), gearToggle.on));
-                this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), gearToggle.off));
+                // localized to the different modes
             }
         }
 

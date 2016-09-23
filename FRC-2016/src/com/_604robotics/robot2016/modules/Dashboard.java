@@ -29,7 +29,12 @@ public class Dashboard extends Module {
             
             final DashboardTriggerChoice debugOn = new DashboardTriggerChoice("Debug On");
             add("Debug Off", debugOn.addDefault("Debug Off"));
-            add("Debug On", debugOn.add("Debug On"));            
+            add("Debug On", debugOn.add("Debug On"));  
+            
+            final DashboardTriggerChoice driveMode = new DashboardTriggerChoice("Drive Mode");
+            add("Arcade Drive", driveMode.addDefault("Arcade Drive"));
+            add("Tank Drive", driveMode.add("Tank Drive"));
+            add("Stick Drive", driveMode.add("StickMode"));
         }});
 
         this.set(new DataMap() {{

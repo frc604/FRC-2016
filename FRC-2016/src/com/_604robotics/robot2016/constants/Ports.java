@@ -28,10 +28,10 @@ public final class Ports {
     public static final int INTAKE_MOTOR = 1;
     // public static final int PICKUP_TALON = 2;
     // public static final int PICKUP_VICTOR = 3;
-    public static final int DRIVE_FRONT_RIGHT_MOTOR = 6;
-    public static final int DRIVE_REAR_RIGHT_MOTOR = 7;
     public static final int DRIVE_FRONT_LEFT_MOTOR = 8;
     public static final int DRIVE_REAR_LEFT_MOTOR = 9;
+    public static final int DRIVE_FRONT_RIGHT_MOTOR = 6;
+    public static final int DRIVE_REAR_RIGHT_MOTOR = 7;
     
     /* Solenoids */
     public static final int SHIFTER_SOLENOID_FORWARD = 4;

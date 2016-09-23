@@ -43,6 +43,6 @@ public class ArcadeDrivePIDOutput {
     }
     
     private synchronized void update () {
-        this.drive.arcadeDrive(this.movePower, this.rotatePower);
+        this.drive.arcadeDrive(this.movePower*-1, this.rotatePower);
     }
 }

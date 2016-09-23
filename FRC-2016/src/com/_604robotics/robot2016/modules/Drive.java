@@ -9,6 +9,7 @@ import com._604robotics.robotnik.action.field.FieldMap;
 import com._604robotics.robotnik.data.DataMap;
 import com._604robotics.robotnik.module.Module;
 import com._604robotics.robotnik.prefabs.devices.ArcadeDrivePIDOutput;
+import com._604robotics.robotnik.prefabs.devices.TankDrivePIDOutput;
 import com._604robotics.robotnik.trigger.Trigger;
 import com._604robotics.robotnik.trigger.TriggerMap;
 
@@ -36,7 +37,7 @@ public class Drive extends Module {
             Ports.DRIVE_REAR_LEFT_MOTOR,
             Ports.DRIVE_FRONT_RIGHT_MOTOR,
             Ports.DRIVE_REAR_RIGHT_MOTOR);
-
+	
     private final Encoder encoderLeft = new Encoder(
             Ports.DRIVE_ENCODER_LEFT_A,
             Ports.DRIVE_ENCODER_LEFT_B,
@@ -47,7 +48,7 @@ public class Drive extends Module {
             false, CounterBase.EncodingType.k4X);
 
     private final ArcadeDrivePIDOutput pidOutput = new ArcadeDrivePIDOutput(drive);
-
+    
     private final PIDController pidMove = new PIDController(
             Calibration.DRIVE_MOVE_PID_P,
             Calibration.DRIVE_MOVE_PID_I,
@@ -127,7 +128,22 @@ public class Drive extends Module {
                 public void run (ActionData data) {
                     // double throttle = data.is("Throttled") ? 0.5 : 1;
                 	double throttle = SafeToggle.THROTTLE;
-                	drive.arcadeDrive(data.get("Move Power") * throttle, data.get("Rotate Power"));
+                	double MovePowerReverse = data.get("Move Power");
+                	drive.arcadeDrive(MovePowerReverse * throttle, data.get("Rotate Power"));
+                }
+
+                public void end (ActionData data) {
+                    drive.stopMotor();
+                }
+            });
+            
+            add("Stick Drive", new Action(new FieldMap () {{
+                define("throttle", 0D);
+                define("turn", 0D);
+            }}) {
+                public void run (ActionData data) {
+                    // double throttle = data.is("Throttled") ? 0.5 : 1;
+                	drive.arcadeDrive(data.get("throttle")*-1, data.get("turn"));
                 }
 
                 public void end (ActionData data) {
