@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class TeleopMode extends Coordinator {
     private final XboxController driver = new XboxController(Ports.DRIVER);
     private final XboxController manipulator = new XboxController(Ports.MANIPULATOR);
-    private final JoystickController manip = new JoystickController(Ports.DRIVER);
+    private final JoystickController manip = new JoystickController(Ports.JOYSTICK);
 
     public TeleopMode () {        
         driver.leftStick.X.setDeadband(Calibration.TELEOP_DEADBAND);
@@ -66,10 +66,9 @@ public class TeleopMode extends Coordinator {
             
             /* Arcade Drive */
             {   
-            	this.bind(new Binding(modules.getModule("Drive").getAction("Stick Drive"), modules.getModule("Dashboard").getTrigger("Arcade Drive")));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "throttle", driver.leftStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "turn", driver.rightStick.X));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "Throttled", driver.buttons.LB));
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modules.getModule("Dashboard").getTrigger("Arcade Drive")));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Move Power", driver.leftStick.Y));
+                this.fill(new DataWire(modules.getModule("Drive").getAction("Arcade Drive"), "Rotate Power", driver.rightStick.X));
             }
             /* Stick Drive */
             {
@@ -86,7 +85,6 @@ public class TeleopMode extends Coordinator {
             	this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modules.getModule("Dashboard").getTrigger("Tank Drive")));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Left Power", driver.leftStick.Y));
                 this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Right Power", driver.rightStick.Y));
-                this.fill(new DataWire(modules.getModule("Drive").getAction("Tank Drive"), "Throttled", driver.buttons.LB));
             }
             
             /* Shifter */

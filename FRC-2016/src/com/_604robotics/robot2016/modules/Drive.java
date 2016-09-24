@@ -107,12 +107,10 @@ public class Drive extends Module {
             add("Tank Drive", new Action(new FieldMap () {{
                 define("Left Power", 0D);
                 define("Right Power", 0D);
-                define("Throttled", false);
             }}) {
                 public void run (ActionData data) {
                     // double throttle = data.is("Throttled") ? 0.5 : 1;
-                	double throttle = SafeToggle.THROTTLE;
-                	drive.tankDrive(data.get("Left Power") * throttle, data.get("Right Power") * throttle);
+                	drive.tankDrive(data.get("Left Power")*-1, data.get("Right Power"));
                 }
 
                 public void end (ActionData data) {
@@ -123,13 +121,10 @@ public class Drive extends Module {
             add("Arcade Drive", new Action(new FieldMap () {{
                 define("Move Power", 0D);
                 define("Rotate Power", 0D);
-                define("Throttled", false);
             }}) {
                 public void run (ActionData data) {
                     // double throttle = data.is("Throttled") ? 0.5 : 1;
-                	double throttle = SafeToggle.THROTTLE;
-                	double MovePowerReverse = data.get("Move Power");
-                	drive.arcadeDrive(MovePowerReverse * throttle, data.get("Rotate Power"));
+                	drive.arcadeDrive(data.get("Move Power")*-1, data.get("Rotate Power"));
                 }
 
                 public void end (ActionData data) {
@@ -151,7 +146,7 @@ public class Drive extends Module {
                 }
             });
             
-            add("Servo Move", new Action(new FieldMap() {{
+            add("Servo Move Forwards", new Action(new FieldMap() {{
                 define("Clicks", 0D);
             }}) {
                 public void begin (ActionData data) {
@@ -163,7 +158,35 @@ public class Drive extends Module {
                 }
 
                 public void run (ActionData data){
-                    if (pidMove.getSetpoint() != data.get("Clicks")) {
+                    if (pidMove.getSetpoint() < data.get("Clicks")) {
+                        pidMove.reset();
+                        encoderLeft.reset();
+                        encoderRight.reset();
+                        
+                        pidMove.setSetpoint(data.get("Clicks"));
+                        pidMove.enable();
+                    }
+
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                }
+            });
+            
+            add("Servo Move Backwards", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                }
+
+                public void run (ActionData data){
+                    if (pidMove.getSetpoint() > data.get("Clicks")) {
                         pidMove.reset();
                         encoderLeft.reset();
                         encoderRight.reset();

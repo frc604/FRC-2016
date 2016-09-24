@@ -4,8 +4,8 @@ public final class Ports {
     private Ports () {}
 
     /* Mantis */
-    public static final int CLAMP_FORWARD_MAYBE = 2;
-    public static final int CLAMP_REVERSE_MAYBE = 3;
+    public static final int CLAMP_FORWARD_MAYBE = 3;
+    public static final int CLAMP_REVERSE_MAYBE = 2;
     
     /* PP */
     public static final int PP_EXTEND = 6;
@@ -14,6 +14,7 @@ public final class Ports {
     /* Controller */
     public static final int DRIVER = 0;
     public static final int MANIPULATOR = 1;
+    public static final int JOYSTICK = 2;
     
     /* Analog Input */
     public static final int HORIZONTAL_GYRO = 0;
