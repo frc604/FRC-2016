@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Module {
@@ -62,7 +63,7 @@ public class Drive extends Module {
             Calibration.DRIVE_ROTATE_PID_D,
             horizGyro,
             pidOutput.rotate);
-	
+    private final Timer timer = new Timer();
 
     public Drive () {
         encoderLeft.setPIDSourceType(PIDSourceType.kDisplacement);
@@ -146,35 +147,9 @@ public class Drive extends Module {
                 }
             });
             
-            add("Servo Move Forwards", new Action(new FieldMap() {{
-                define("Clicks", 0D);
-            }}) {
-                public void begin (ActionData data) {
-                    encoderLeft.reset();
-                    encoderRight.reset();
-                    pidOutput.rotate.pidWrite(0);
-                    pidMove.setSetpoint(data.get("Clicks"));
-                    pidMove.enable();
-                }
-
-                public void run (ActionData data){
-                    if (pidMove.getSetpoint() < data.get("Clicks")) {
-                        pidMove.reset();
-                        encoderLeft.reset();
-                        encoderRight.reset();
-                        
-                        pidMove.setSetpoint(data.get("Clicks"));
-                        pidMove.enable();
-                    }
-
-                }
-
-                public void end (ActionData data) {
-                    pidMove.reset();
-                }
-            });
             
-            add("Servo Move Backwards", new Action(new FieldMap() {{
+            
+            add("Servo Move", new Action(new FieldMap() {{
                 define("Clicks", 0D);
             }}) {
                 public void begin (ActionData data) {
@@ -183,10 +158,17 @@ public class Drive extends Module {
                     pidOutput.rotate.pidWrite(0);
                     pidMove.setSetpoint(data.get("Clicks"));
                     pidMove.enable();
+                    timer.reset();
+                    timer.start();
+                    System.out.println("Hello, Cruel World!");
                 }
 
                 public void run (ActionData data){
-                    if (pidMove.getSetpoint() > data.get("Clicks")) {
+                	System.out.println("Run called");
+                	//System.out.print(pidMove.getSetpoint()+" / ");
+                    //System.out.println(data.get("Clicks"));
+                    System.out.println(timer.get());
+                    if (timer.get() < 3) {
                         pidMove.reset();
                         encoderLeft.reset();
                         encoderRight.reset();
@@ -194,11 +176,20 @@ public class Drive extends Module {
                         pidMove.setSetpoint(data.get("Clicks"));
                         pidMove.enable();
                     }
+                    else
+                    {
+                    	
+                    	System.out.println("Run is iterating. Rip you");
+                    }
+                    System.out.println("An extra line. For reasons.");
 
                 }
 
                 public void end (ActionData data) {
+                	System.out.println("If you can see this, there's an issue.");
                     pidMove.reset();
+                    timer.stop();
+                    timer.reset();
                 }
             });
             

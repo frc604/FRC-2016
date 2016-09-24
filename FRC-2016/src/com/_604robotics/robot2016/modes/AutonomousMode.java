@@ -28,8 +28,8 @@ public class AutonomousMode extends Coordinator {
                                 modules.getModule("Drive").getTrigger("At Move Servo Target")
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
-                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move Forwards")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move Forwards"), 
+                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
                                         "Clicks", Calibration.AUTON_FORWARD_CLICKS));
                             }
                         }));
@@ -56,8 +56,8 @@ public class AutonomousMode extends Coordinator {
                                 modules.getModule("Drive").getTrigger("At Move Servo Target")
                         )), new Coordinator() {
                             protected void apply (ModuleManager modules) {
-                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move Backwards")));
-                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move Backwards"), 
+                                this.bind(new Binding(modules.getModule("Drive").getAction("Servo Move")));
+                                this.fill(new DataWire(modules.getModule("Drive").getAction("Servo Move"), 
                                         "Clicks", Calibration.AUTON_BACKWARD_CLICKS));
                             }
                         }));
