@@ -36,8 +36,8 @@ public class TeleopMode extends Coordinator {
         manipulator.leftStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
         manipulator.rightStick.Y.setDeadband(Calibration.TELEOP_DEADBAND);
         
-        manip.axisX.setFactor(-1);
-        manip.axisY.setDeadband(0.3);
+        //manip.axisX.setFactor(-1);
+        //manip.axisY.setDeadband(0.3);
     }
 
     @Override
@@ -46,9 +46,9 @@ public class TeleopMode extends Coordinator {
         {
             /* Drive Modes */
             {
-            	//final TriggerToggle modeToggle = new TriggerToggle(driver.buttons.LB, false);
-            	//this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modeToggle.on));
-            	//this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modeToggle.off));
+            	final TriggerToggle modeToggle = new TriggerToggle(driver.buttons.LB, false);
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Tank Drive"), modeToggle.on));
+            	this.bind(new Binding(modules.getModule("Drive").getAction("Arcade Drive"), modeToggle.off));
             }
             final TriggerToggle gearToggle=new TriggerToggle(driver.buttons.RB, false);
             this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), gearToggle.on));
@@ -72,12 +72,14 @@ public class TeleopMode extends Coordinator {
             }
             /* Stick Drive */
             {
+            	/*
             	this.bind(new Binding(modules.getModule("Drive").getAction("Stick Drive"), modules.getModule("Dashboard").getTrigger("Stick Drive")));
             	this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "throttle", manip.axisY));
             	this.fill(new DataWire(modules.getModule("Drive").getAction("Stick Drive"), "turn", manip.axisX));
             	final TriggerToggle stickToggle=new TriggerToggle(manip.buttons.Button3, false);
                 this.bind(new Binding(modules.getModule("Shifter").getAction("High Gear"), stickToggle.on));
                 this.bind(new Binding(modules.getModule("Shifter").getAction("Low Gear"), stickToggle.off));
+            	*/
             }
 
             /* Tank Drive */

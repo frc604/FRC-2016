@@ -111,7 +111,7 @@ public class Drive extends Module {
             }}) {
                 public void run (ActionData data) {
                     // double throttle = data.is("Throttled") ? 0.5 : 1;
-                	drive.tankDrive(data.get("Left Power")*-1, data.get("Right Power"));
+                	drive.tankDrive(data.get("Left Power"), data.get("Right Power"));
                 }
 
                 public void end (ActionData data) {
@@ -125,30 +125,84 @@ public class Drive extends Module {
             }}) {
                 public void run (ActionData data) {
                     // double throttle = data.is("Throttled") ? 0.5 : 1;
-                	drive.arcadeDrive(data.get("Move Power")*-1, data.get("Rotate Power"));
+                	drive.arcadeDrive(data.get("Move Power"), data.get("Rotate Power"));
                 }
 
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
             });
-            
+            /*
             add("Stick Drive", new Action(new FieldMap () {{
                 define("throttle", 0D);
                 define("turn", 0D);
             }}) {
                 public void run (ActionData data) {
                     // double throttle = data.is("Throttled") ? 0.5 : 1;
-                	drive.arcadeDrive(data.get("throttle")*-1, data.get("turn"));
+                	drive.arcadeDrive(data.get("throttle"), data.get("turn"));
                 }
 
                 public void end (ActionData data) {
                     drive.stopMotor();
                 }
             });
-            
-            
-            
+            */
+            /*
+            add("Servo Move", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                }
+
+                public void run (ActionData data){
+                    if (pidMove.getSetpoint() != data.get("Clicks")) {
+                        pidMove.reset();
+                        encoderLeft.reset();
+                        encoderRight.reset();
+                        
+                        pidMove.setSetpoint(data.get("Clicks"));
+                        pidMove.enable();
+                    }
+
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                }
+            });
+            */
+            add("Servo Move Encoders", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                }
+
+                public void run (ActionData data){
+                    if (encoderLeft.get() != data.get("Clicks")) {
+                        pidMove.reset();
+                        encoderLeft.reset();
+                        encoderRight.reset();
+                        
+                        pidMove.setSetpoint(data.get("Clicks"));
+                        pidMove.enable();
+                    }
+
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                }
+            });
             add("Servo Move", new Action(new FieldMap() {{
                 define("Clicks", 0D);
             }}) {
@@ -165,33 +219,25 @@ public class Drive extends Module {
 
                 public void run (ActionData data){
                 	System.out.println("Run called");
-                	//System.out.print(pidMove.getSetpoint()+" / ");
-                    //System.out.println(data.get("Clicks"));
                     System.out.println(timer.get());
-                    if (timer.get() < 3) {
-                        pidMove.reset();
-                        encoderLeft.reset();
-                        encoderRight.reset();
-                        
-                        pidMove.setSetpoint(data.get("Clicks"));
-                        pidMove.enable();
+                    if (timer.get() > 2) {                        
+                        pidMove.disable();
                     }
                     else
                     {
-                    	
-                    	System.out.println("Run is iterating. Rip you");
+                    	pidMove.enable();
                     }
-                    System.out.println("An extra line. For reasons.");
-
                 }
 
                 public void end (ActionData data) {
-                	System.out.println("If you can see this, there's an issue.");
                     pidMove.reset();
+                    pidMove.disable();
                     timer.stop();
                     timer.reset();
                 }
             });
+            
+            
             
             add("Servo Rotate", new Action(new FieldMap() {{
                 define("Angle", 0D);
