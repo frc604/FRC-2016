@@ -220,7 +220,7 @@ public class Drive extends Module {
                 public void run (ActionData data){
                 	System.out.println("Run called");
                     System.out.println(timer.get());
-                    if (timer.get() > 2) {                        
+                    if (timer.get() > Calibration.AUTON_TIERIII_TIME) {                        
                         pidMove.disable();
                     }
                     else
@@ -236,9 +236,138 @@ public class Drive extends Module {
                     timer.reset();
                 }
             });
-            
-            
-            
+            add("Servo Tier III", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                    timer.reset();
+                    timer.start();
+                    System.out.println("Hello, Cruel World!");
+                }
+
+                public void run (ActionData data){
+                	System.out.println("Run called");
+                    System.out.println(timer.get());
+                    if (timer.get() < 2 || timer.get() > 4) {                        
+                        pidMove.disable();
+                    }
+                    else
+                    {
+                    	pidMove.enable();
+                    }
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                    pidMove.disable();
+                    timer.stop();
+                    timer.reset();
+                }
+            });
+            add("Servo Tier III", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                    timer.reset();
+                    timer.start();
+                    System.out.println("Hello, Cruel World!");
+                }
+
+                public void run (ActionData data){
+                	System.out.println("Run called");
+                    System.out.println(timer.get());
+                    if (timer.get() < 2 || timer.get() > 2+Calibration.AUTON_TIERIII_TIME) {                        
+                        pidMove.disable();
+                    }
+                    else
+                    {
+                    	pidMove.enable();
+                    }
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                    pidMove.disable();
+                    timer.stop();
+                    timer.reset();
+                }
+            });
+            add("Servo Tier II", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                    timer.reset();
+                    timer.start();
+                    System.out.println("Hello, Cruel World!");
+                }
+
+                public void run (ActionData data){
+                	System.out.println("Run called");
+                    System.out.println(timer.get());
+                    if (timer.get() < 2 || timer.get() > 2+Calibration.AUTON_TIERII_TIME) {                        
+                        pidMove.disable();
+                    }
+                    else
+                    {
+                    	pidMove.enable();
+                    }
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                    pidMove.disable();
+                    timer.stop();
+                    timer.reset();
+                }
+            });
+            add("Servo Tier I", new Action(new FieldMap() {{
+                define("Clicks", 0D);
+            }}) {
+                public void begin (ActionData data) {
+                    encoderLeft.reset();
+                    encoderRight.reset();
+                    pidOutput.rotate.pidWrite(0);
+                    pidMove.setSetpoint(data.get("Clicks"));
+                    pidMove.enable();
+                    timer.reset();
+                    timer.start();
+                    System.out.println("Hello, Cruel World!");
+                }
+
+                public void run (ActionData data){
+                	System.out.println("Run called");
+                    System.out.println(timer.get());
+                    if (timer.get() < 2 || timer.get() > 2+Calibration.AUTON_TIERI_TIME) {                        
+                        pidMove.disable();
+                    }
+                    else
+                    {
+                    	pidMove.enable();
+                    }
+                }
+
+                public void end (ActionData data) {
+                    pidMove.reset();
+                    pidMove.disable();
+                    timer.stop();
+                    timer.reset();
+                }
+            });
             add("Servo Rotate", new Action(new FieldMap() {{
                 define("Angle", 0D);
             }}) {

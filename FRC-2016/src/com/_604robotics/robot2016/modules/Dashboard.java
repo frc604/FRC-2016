@@ -16,6 +16,9 @@ public class Dashboard extends Module {
             
             final DashboardTriggerChoice autonObstacle = new DashboardTriggerChoice("Auton Obstacle");
             add("Default", autonObstacle.addDefault("Default"));
+            add("Tier III Obstacle", autonObstacle.add("Tier III Obstacle"));
+            add("Tier II Obstacle", autonObstacle.add("Tier II Obstacle"));
+            add("Tier I Obstacle", autonObstacle.add("Tier I Obstacle"));
             add("Lowbar", autonObstacle.add("Lowbar"));
             add("Defense Mode", autonObstacle.add("Defense Mode"));
             
